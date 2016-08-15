@@ -1,0 +1,17 @@
+[
+  {
+    "API": "MoneySend",
+    "Version": "1.0",
+    "Description": "Money transfer service"
+  },
+  {
+    "API": "Places",
+    "Version": "1.1",
+    "Description": "An API to access our Places dataset, which is fed by near-real"
+  },
+  {
+    "API": "Western Union Money Transfers",
+    "Version": "2.0",
+    "Description": "This service provides Financial Institutions the capability to send"
+  }
+]
