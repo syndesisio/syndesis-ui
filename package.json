@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Hawtio iPaaS",
   "homepage": "https://www.hawt.io",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "scripts": {
     "clean": "npm cache clean && rimraf node_modules doc typings coverage dist",
     "clean:dist": "rimraf dist",
