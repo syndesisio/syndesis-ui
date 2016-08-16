@@ -12,7 +12,7 @@ git clone https://github.com/hawtio/hawtio-ipaas.git
 cd hawtio-ipaas
 
 # add required global libraries
-npm install typings webpack-dev-server rimraf webpack -g
+npm install webpack-dev-server rimraf webpack -g
 
 # install the repo with npm
 npm install
