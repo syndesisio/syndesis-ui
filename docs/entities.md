@@ -7,11 +7,12 @@ We are in the process of creating a diagram for the Entity Relationships in iPaa
     - has many Integrations
     - has many Recipes
 - Integrations
-    - belongs to User (whether by using recipe or not?)
+    - belongs to an Organisation (whether by using recipe or not?)
     - has many Tags (many-to-many)
 - Organization
-    - has many Recipes
+    - has many Recipes and Integrations
     - has many Users
+    - has many Environments (Dev / Test / Staging / UAT)
 - Recipes
     - belongs to Organization
     - has many Tags (many-to-many)
@@ -29,4 +30,11 @@ We are in the process of creating a diagram for the Entity Relationships in iPaa
     - has many Integrations
     - has many Reports (or should this be under Integrations instead?)
     - has many Settings
-
+- Environment (a place where integrations run)
+    - has many Integration Runtime
+- Integration Runtime (a collection of integration containers in an Environment)
+    - has an Integration
+    - has an Environment in which it runs
+    - has many Containers (process instances)
+    
+ 
