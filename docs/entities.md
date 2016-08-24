@@ -1,21 +1,23 @@
 # Entity Relationships
-We are in the process of creating a diagram for the Entity Relationships in iPaaS. Below is what we currently have, which is pretty incomplete and likely out-of-date. Please feel free to edit this document as necessary.
+We are in the process of creating a diagram for the Entity Relationships in iPaaS. Below is what we currently have, which is pretty incomplete and under continuous develolpment. Please feel free to edit this document as necessary.
 
 ## Models/Entities:
-- Favorites
-    - belongs to User
-    - has many Integrations
-    - has many Recipes
+- Connection
+    - belongs to Organization
+    - has many Tags (many-to-many)
+- Environment (a place where integrations run)
+    - has many Integration Runtime
 - Integrations
     - belongs to an Organisation (whether by using recipe or not?)
     - has many Tags (many-to-many)
+- Integration Runtime (a collection of integration containers in an Environment)
+    - has an Integration
+    - has an Environment in which it runs
+    - has many Containers (process instances)
 - Organization
-    - has many Recipes and Integrations
+    - has many Connections and Integrations
     - has many Users
     - has many Environments (Dev / Test / Staging / UAT)
-- Recipes
-    - belongs to Organization
-    - has many Tags (many-to-many)
 - Reports (if we want them persisted to a hard disk)
     - belongs to User
 - Settings
@@ -23,18 +25,13 @@ We are in the process of creating a diagram for the Entity Relationships in iPaa
     - belongs to User
 - Tags
     - has many Integrations (many-to-many)
-    - has many Recipes (many-to-many)
+    - has many Connections (many-to-many)
 - User
     - belongs to Organization
-    - has many Favorites
     - has many Integrations
     - has many Reports (or should this be under Integrations instead?)
     - has many Settings
-- Environment (a place where integrations run)
-    - has many Integration Runtime
-- Integration Runtime (a collection of integration containers in an Environment)
-    - has an Integration
-    - has an Environment in which it runs
-    - has many Containers (process instances)
+
+
     
  
