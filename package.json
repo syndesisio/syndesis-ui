@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Hawtio iPaaS",
   "homepage": "https://github.com/hawtio/hawtio-ipaas",
+  "authors": [
+    "Stan Lewis <stlewis@redhat.com> (https://github.com/gashcrumb)",
+    "Rachel Yordán <rachel.yordan@redhat.com> (https://github.com/kahboom)"
+  ],
   "license": "Apache-2.0",
   "scripts": {
     "build:dev": "webpack --config config/webpack.dev.js --progress --profile",
