@@ -72,10 +72,6 @@ hawtio-ipaas/
  │   └──typescript.md             * some typescript tips and resources
  │
  ├──src/                          * our source files that will be compiled to javascript
- |   ├──index.html                * where we generate our index page
- |   ├──main.browser.ts           * our entry file for our browser environment
- |   ├──polyfills.ts              * our polyfills file
- |   ├──vendor.ts                 * our vendor or third-party dependencies file
  │   │
  │   ├──app/                      * our Angular 2 application
  │   │   │
@@ -93,12 +89,21 @@ hawtio-ipaas/
  │   │   ├──robots.txt            * for search engines to crawl your website
  │   │   └──service-worker.js     * ignore this. Web App service worker that's not complete yet
  │   │
- │   ├──custom-typings.d.ts       * self-explanatory. custom typings for our own code or overrides.
- │   └--index.html                * our primary layout that contains subviews.
+ │   ├──custom-typings.d.ts       * custom typings for our own code or library overrides
+ │   ├──index.html                * where we generate our index page
+ │   ├──main.browser.ts           * our entry file for our browser environment
+ │   ├──polyfills.browser.ts      * our polyfills file
+ │   ├──vendor.browser.ts         * our vendor or third-party dependencies file
+ │   └--index.html                * our primary layout that contains subviews
  │
+ ├──.bootstraprc                  * bootstrap 4 configuration file
+ ├──.gitignore                    * let git know which files to ignore and not stage for commit
+ ├──karma.conf.js                 * karma, our test runner, config file
  ├──LICENSE                       * iPaaS is available for use under the Apache 2.0 license
  ├──npm-shrinkwrap.json           * npm's way of allowing us to control exact versions of dependencies
  ├──package.json                  * what npm uses to manage it's dependencies
+ ├──protractor.conf.js            * protractor, our e2e testing framework, config file
+ ├──README.md                     * this exact file :)
  ├──tsconfig.json                 * config that webpack uses for typescript
  ├──tslint.json                   * typescript lint config
  ├──typedoc.json                  * typescript documentation generator config
