@@ -55,5 +55,5 @@ npm-debug.log
 .idea/
 *.swp
 
-.vscode
-.github
+/.github
+/.vscode
