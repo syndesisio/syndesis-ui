@@ -1,16 +1,15 @@
 # Technical Overview
 This is a brief technical overview of the front end of the iPaaS project, focusing primarily on the major technologies being used and how they interact. We use many libraries, such as Codelyzer, Protractor, etc. that each serve a purpose (explained in the main [README]('../README.md') file), but this guide will not serve as documentation for them. The purpose is to introduce developers to the technologies that you absolutely need to understand in order to contribute, and to get a better understanding of the components that make up the application.
 
-
 ## TypeScript
-In order to understand how we are using WebPack, it is important to learn just the basics of TypeScript. It is basically just JavaScript with @Types. There are many benefits to using TypeScript that I won't get into here, but for this project you need to know the following:
+In order to understand how we are using Webpack, it is important to learn just the basics of TypeScript. There are many additional benefits to using TypeScript that I won't get into here, but for this project you need to know the following:
 
 ### Basics of TS for this project
+- It is basically JavaScript with optional static typing. Static typing enables the compiler to check that actions performed on variables are permitted, which allows for more efficient development.
 - Type definitions are often provided by libraries to help you autocomplete. You have to download them or your IDE may throw an error about not recognizing a certain method by this library, etc.
 - TypeScript configuration happens in the `tsconfig.json` file.
 - Linting for TS exists, just as it does for JavaScript, and that configuration goes in `tslint.json`.
-- Auto generation of documentation for TS exists, just as it does for JS, as it's configuration options belong in `typedoc.json`.
-- 
+- Auto generation of documentation for TS exists, just as it does for JS, and it's configuration options belong in `typedoc.json`.
 
 If you've used Node.js before, you may find yourself confused about whether you should `require()` modules or `import {} from ''` them. The answer is that it depends on whether or not the library has type definitions available. Many times, you'll find yourself simply doing the following to pull in a SASS file: `require('./style.scss');` from files directly. If you've used Browserify with Node.js before, you're in luck and will later see how we use Webpack to load and bundle our application files as well as third-party files into a single file that can be served on the client -- exactly as Browserify does. The difference is that Webpack is much more capable of handling the transpilation of TypeScript in conjunction with Angular 2.
 
@@ -40,4 +39,6 @@ You'll enter Angular world from the `./src/main.browser.ts` file. You'll notice 
 
 `export * from './app.module';`
 
-Now, the `app.module` file is where things really start to look strange. Angular 2 differs quite a bit from Angular 1, so you may want to check out some of the differences [here]().
+Now, the `app.module` file is where things start to look busier yet familiar. At the very top you can see that we are simply importing external dependencies, then internal dependencies such as platform- and environment-specific configuration, followed by importing our own Angular modules. Finally, we have the main part of our Angular 2 application -- the AppModule module (or "class"). Now, the AppModule contains a bit of Webpack functionality within it. After the constructor, you'll see methods like `hmrOnInit` that allow you to do certain things on initialization of the Angular application. This is part of Webpack's hot module replacement (HMR) feature.
+
+Angular 2 differs quite a bit from Angular 1, so you may want to check out some of the differences [here]().

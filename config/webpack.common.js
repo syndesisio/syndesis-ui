@@ -281,7 +281,16 @@ module.exports = {
       d3: 'd3',
       'Tether': 'tether',
       'window.Tether': 'tether'
-    })
+    }),
+
+
+    // Webpack tries to resolve all require()'s, and 'moment' require()'s a locale that is
+    // already included in require('moment-with-locales'). The simplest solution is to make
+    // Webpack not to look for locales already included in the moment-with-locales.js by
+    // making it load something else instead (in this case, an empty module).
+    //
+    // See: https://github.com/moment/moment/issues/2979#issuecomment-189899510
+    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
 
   ],
 
