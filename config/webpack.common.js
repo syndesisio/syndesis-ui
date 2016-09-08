@@ -2,18 +2,20 @@
  * @author: @AngularClass
  */
 
-const webpack = require('webpack');
 const helpers = require('./helpers');
+const webpack = require('webpack');
 
 /*
  * Webpack Plugins
  */
 // problem with copy-webpack-plugin
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+
 
 /*
  * Webpack Constants
@@ -45,7 +47,7 @@ module.exports = {
    *
    * See: http://webpack.github.io/docs/configuration.html#cache
    */
-   //cache: false,
+  //cache: false,
 
   /*
    * The entry point for the bundle
@@ -56,8 +58,8 @@ module.exports = {
   entry: {
 
     'polyfills': './src/polyfills.browser.ts',
-    'vendor':    './src/vendor.browser.ts',
-    'main':      './src/main.browser.ts'
+    'vendor': './src/vendor.browser.ts',
+    'main': './src/main.browser.ts'
 
   },
 
@@ -167,7 +169,7 @@ module.exports = {
       },
 
       /* File loader for supporting images, for example, in CSS files.
-      */
+       */
       {
         test: /\.(jpg|png|gif)$/,
         loader: 'file'
@@ -228,10 +230,27 @@ module.exports = {
      *
      * See: https://www.npmjs.com/package/copy-webpack-plugin
      */
-    new CopyWebpackPlugin([{
-      from: 'src/assets',
-      to: 'assets'
-    }]),
+    new CopyWebpackPlugin([
+      {
+        from: {glob: './node_modules/patternfly/dist/img/*.*'},
+        to: './img',
+        flatten: true
+      },
+      {
+        from: {glob: './node_modules/patternfly/dist/fonts/*.*'},
+        to: './fonts',
+        flatten: true
+      },
+      {
+        from: {glob: './node_modules/patternfly/dist/css/*.*'},
+        to: './css',
+        flatten: true
+      },
+      {
+        from: 'src/assets',
+        to: 'assets'
+      }
+    ]),
 
     /*
      * Plugin: HtmlWebpackPlugin
