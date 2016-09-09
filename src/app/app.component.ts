@@ -23,8 +23,8 @@ require('../assets/scss/main.scss');
 })
 export class App {
     name = 'Hawtio iPaaS';
-    logoWhiteBg = 'assets/img/brand.svg';
-    logoDarkBg = 'assets/img/brand.svg';
+    logoWhiteBg = 'assets/images/brand.svg';
+    logoDarkBg = 'assets/images/brand.svg';
     title = 'iPaaS';
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
