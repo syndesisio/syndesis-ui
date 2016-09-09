@@ -5,6 +5,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
 
+require('../assets/scss/main.scss');
+
 /*
  * App Component
  * Top Level Component
@@ -17,61 +19,16 @@ import {AppState} from './app.service';
      './app.style.css'
      ],
      */
-    template: `
-    <nav>
-      <span>
-        <a [routerLink]=" ['./'] ">
-          Index
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./home'] ">
-          Home
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./dashboard'] ">
-          Dashboard
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./detail'] ">
-          Detail
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./about'] ">
-          About
-        </a>
-      </span>
-    </nav>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
-    <footer>
-      <span>Hawtio iPaaS</span>
-      <div>
-      <!--
-        <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
-        </a>
-        -->
-      </div>
-    </footer>
-  `
+    templateUrl: './index.html'
 })
 export class App {
-    angularclassLogo = '';
     name = 'Hawtio iPaaS';
-    url = 'https://twitter.com/JBoss';
+    logoWhiteBg = 'assets/img/brand.svg';
+    logoDarkBg = 'assets/img/brand.svg';
+    title = 'iPaaS';
+    url = 'https://www.twitter.com/jboss';
+    loggedIn = true;
+    //loggedIn = false;
     
     constructor(public appState: AppState) {
         

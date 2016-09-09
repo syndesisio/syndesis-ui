@@ -1,9 +1,9 @@
 // CSS common across all views
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic);
+@import url(//fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic);
 //@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css);
-@import '../css/patternfly.min';
-@import '../css/patternfly-additions.min';
+//@import '../css/patternfly.min';
+//@import '../css/patternfly-additions.min';
 
 $footerHeight: 60px;
 
@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  //background: #F5F5F5;
+  background: #F5F5F5;
   color: #333333;
   font-family: "Lato", "Helvetica Neue", "Open Sans", "Helvetica", "Arial", "Verdana", "sans-serif";
   margin-bottom: 25px; // Ideally should be $footerHeight, but was too much
