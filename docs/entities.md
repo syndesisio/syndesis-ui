@@ -32,6 +32,3 @@ We are in the process of creating a diagram for the Entity Relationships in iPaa
     - has many Reports (or should this be under Integrations instead?)
     - has many Settings
 
-
-    
- 

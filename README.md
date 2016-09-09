@@ -6,8 +6,7 @@ Included in this stack are the following technologies:
 >- Language: [TypeScript](http://www.typescriptlang.org) (JavaScript with @Types)
 - Framework: [Angular 2](https://angular.io/)
 - Module Bundler: [Webpack](http://webpack.github.io/)
-- Design Patterns: [PatternFly](https://www.patternfly.org/#_)
-- Material Design: [Angular Material](https://material.angularjs.org/latest/)
+- Design Patterns: [PatternFly](https://www.patternfly.org/)
 - Data Visualization: [C3](http://c3js.org/)
 - Testing: [Jasmine](http://jasmine.github.io/) (BDD Unit Test Framework), [Karma](https://karma-runner.github.io/1.0/index.html) (Unit Test Runner), [Protractor](http://www.protractortest.org/#/) (E2E Framework), [Istanbul](https://github.com/gotwarlost/istanbul) (Code Coverage)
 - Linting: [TsLint](https://github.com/palantir/tslint) (Linting for TypeScript)
@@ -50,42 +49,65 @@ Go to [http://0.0.0.0:1337](http://0.0.0.0:1337) or [http://localhost:1337](http
 We use the component approach in our starter. This is the new standard for developing Angular apps and a great way to ensure maintainable code by encapsulation of our behavior logic. A component is basically a self contained app, usually in a single file or a folder with each concern as a file: style, template, specs, e2e, and component class.
 ```
 hawtio-ipaas/
- ├──config/                    * our configuration
- |   ├──helpers.js             * helper functions for our configuration files
- |   ├──karma.conf.js          * karma config for our unit tests
- |   ├──protractor.conf.js     * protractor config for our end-to-end tests
- |   ├──spec-bundle.js         * ignore this magic that sets up our angular 2 testing environment
- │   ├──webpack.dev.js         * our development webpack config
- │   ├──webpack.prod.js        * our production webpack config
- │   └──webpack.test.js        * our testing webpack config
+ ├──config/                       * our configuration
+ |   ├──github-deploy/            * still figuring this one out, will report back soon :)
+ |   ├──html-elements-plugin/     * ""
+ |   ├──modules/                  * ""
+ |   ├──head-config.common.js     * ""
+ |   ├──helpers.js                * helper functions for our configuration files
+ |   ├──karma.conf.js             * karma config for our unit tests
+ |   ├──protractor.conf.js        * protractor config for our end-to-end tests
+ |   ├──spec-bundle.js            * ignore this magic that sets up our angular 2 testing environment
+ |   ├──webpack.common.js         * our main webpack config, irrespective of environment
+ │   ├──webpack.dev.js            * our 'development environment ONLY' webpack config
+ │   ├──webpack.prod.js           * our 'production environment ONLY' webpack config
+ │   └──webpack.test.js           * our 'testing environment ONLY' webpack config
  │
- ├──src/                       * our source files that will be compiled to javascript
- |   ├──index.html             * where we generate our index page
- │   │
- |   ├──main.browser.ts        * our entry file for our browser environment
- │   │
- |   ├──polyfills.ts           * our polyfills file
- │   │
- |   ├──vendor.ts              * our vendor file
- │   │
- │   ├──app/                   * WebApp: folder
- │   │   ├──app.component.ts   * a simple version of our App component components
- │   │   ├──app.e2e.ts         * a simple end-to-end test for /
- │   │   └──app.spec.ts        * a simple test of components in app.ts
- │   │
- │   └──assets/                * static assets are served here
- │       ├──human.txt          * for humans to know who the developers are
- │       ├──icon/              * our list of icons from www.favicon-generator.org
- │       ├──robots.txt         * for search engines to crawl your website
- │       └──service-worker.js  * ignore this. Web App service worker that's not complete yet
+ ├──docs/                         * our documentation
+ |   ├──commands.md               * additional cli commands available to us
+ |   ├──contributing.md           * contribution guidelines
+ |   ├──entities.md               * entities/models and their relationships for reference
+ │   ├──faq.md                    * frequently asked questions about using ipaas
+ │   ├──overview.md               * a technical overview for understanding the project
+ │   └──typescript.md             * some typescript tips and resources
  │
+ ├──src/                          * our source files that will be compiled to javascript
+ │   │
+ │   ├──app/                      * our Angular 2 application
+ │   │   │
+ │   │   ├──user/                 * an example 'user' component, based on an entity/model. can be nested further.
+ │   │   │   ├──user.component.ts * the primary Angular component file; essentially a controller + directive combined
+ │   │   │   ├──user.e2e.ts       * our e2e test for the user component
+ │   │   │   ├──user.html         * our HTML user template for the user component
+ │   │   │   └──user.spec.ts      * our unit test for the user component
+ │   │   │
+ │   │   ├──app.component.ts      * a simple version of our App component components
+ │   │   ├──app.e2e.ts            * a simple end-to-end test for /
+ │   │   └──app.spec.ts           * a simple test of components in app.ts
+ │   │
+ │   ├──assets/                   * static assets are served here
+ │   │   ├──robots.txt            * for search engines to crawl your website
+ │   │   └──service-worker.js     * ignore this. Web App service worker that's not complete yet
+ │   │
+ │   ├──custom-typings.d.ts       * custom typings for our own code or library overrides
+ │   ├──index.html                * where we generate our index page
+ │   ├──main.browser.ts           * our entry file for our browser environment
+ │   ├──polyfills.browser.ts      * our polyfills file
+ │   ├──vendor.browser.ts         * our vendor or third-party dependencies file
+ │   └--index.html                * our primary layout that contains subviews
  │
- ├──npm-shrinkwrap.json        * npm's way of allowing us to control exact versions of dependencies
- ├──package.json               * what npm uses to manage it's dependencies
- ├──tsconfig.json              * config that webpack uses for typescript
- ├──tslint.json                * typescript lint config
- ├──typedoc.json               * typescript documentation generator
- └──typings.json               * our typings manager
+ ├──.bootstraprc                  * bootstrap 4 configuration file
+ ├──.gitignore                    * let git know which files to ignore and not stage for commit
+ ├──karma.conf.js                 * karma, our test runner, config file
+ ├──LICENSE                       * iPaaS is available for use under the Apache 2.0 license
+ ├──npm-shrinkwrap.json           * npm's way of allowing us to control exact versions of dependencies
+ ├──package.json                  * what npm uses to manage it's dependencies
+ ├──protractor.conf.js            * protractor, our e2e testing framework, config file
+ ├──README.md                     * this exact file :)
+ ├──tsconfig.json                 * config that webpack uses for typescript
+ ├──tslint.json                   * typescript lint config
+ ├──typedoc.json                  * typescript documentation generator config
+ └──webpack.config.js             * pulls in the webpack configuration file from the config directory
 ```
 
 # Getting Started

@@ -1,12 +1,15 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
+
 import {AppState} from '../app.service';
-
 import {Title} from './title';
-import {XLarge} from './x-large';
 
-declare var c3:any;
-declare var $:any;
+declare var c3: any;
+declare var $: any;
 
+// Load SCSS
+require('./dashboard.scss');
+//require('patternfly/dist/css/patternfly.css');
+//require('patternfly/dist/css/patternfly-additions.css');
 
 @Component({
     // The selector is what angular internally uses
@@ -16,32 +19,23 @@ declare var $:any;
     providers: [
         Title
     ],
-    // We need to tell Angular's compiler which directives are in our template.
-    // Doing so will allow Angular to attach our behavior to an element
-    directives: [
-        XLarge
-    ],
-    // We need to tell Angular's compiler which custom pipes are in our template.
-    pipes: [],
-    // Our list of styles in our component. We may add more to compose many styles together
-    styles: [require('./dashboard.scss')],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
-    template: require('./dashboard.html')
+    templateUrl: './dashboard.html'
 })
-export class Dashboard implements OnInit {
+export class Dashboard {
     // Set our default values
     localState = '';
     pageTitle: string = 'Dashboard';
-
+    
     // TypeScript public modifiers
-    constructor(public appState:AppState, public title:Title) {
-
+    constructor(public appState: AppState, public title: Title) {
+        
     }
-
+    
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
         // this.title.getData().subscribe(data => this.data = data);
-
+        
         c3.generate({
             axis: {
                 x: {
@@ -53,7 +47,9 @@ export class Dashboard implements OnInit {
                 },
                 y: {
                     tick: {
-                        format: function(d) { return d + '%'; },
+                        format: function (d) {
+                            return d + '%';
+                        },
                         outer: false
                     }
                 }
@@ -82,32 +78,37 @@ export class Dashboard implements OnInit {
                 height: 220
             }
         });
-
+        
         var donutChartConfig: any = {};
-
         donutChartConfig.bindto = '#chart2';
         donutChartConfig.tooltip = {show: true};
         donutChartConfig.data = {
             /*
-            colors: {
-                Cloud: '#006e9c',
-                Virtual: '#00a8e1',
-                Baremetal: '#969696'
-            },
-            */
+             colors: {
+             Cloud: '#006e9c',
+             Virtual: '#00a8e1',
+             Baremetal: '#969696'
+             },
+             */
             columns: [
-                ['Cloud', 4,828],
-                ['Virtual', 13,258],
-                ['Baremetal', 11,1124]
+                ['Cloud', 4, 828],
+                ['Virtual', 13, 258],
+                ['Baremetal', 11, 1124]
             ],
-            type : 'donut',
-            onclick: function (d, i) { console.log('onclick', d, i); },
-            onmouseover: function (d, i) { console.log('onmouseover', d, i); },
-            onmouseout: function (d, i) { console.log('onmouseout', d, i); }
+            type: 'donut',
+            onclick: function (d, i) {
+                console.log('onclick', d, i);
+            },
+            onmouseover: function (d, i) {
+                console.log('onmouseover', d, i);
+            },
+            onmouseout: function (d, i) {
+                console.log('onmouseout', d, i);
+            }
         };
-
+        
         c3.generate(donutChartConfig);
-
+        
         c3.generate({
             axis: {
                 rotated: true,
@@ -120,7 +121,9 @@ export class Dashboard implements OnInit {
                 },
                 y: {
                     tick: {
-                        format: function(d) { return d + '%'; },
+                        format: function (d) {
+                            return d + '%';
+                        },
                         outer: false
                     }
                 }
@@ -147,10 +150,9 @@ export class Dashboard implements OnInit {
             }
         });
     }
-
+    
     submitState(value) {
         console.log('submitState', value);
         this.appState.set('value', value);
     }
-
 }

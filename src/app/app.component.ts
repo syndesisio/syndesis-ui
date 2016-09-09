@@ -1,24 +1,11 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component} from 'angular2/core';
-import {ViewEncapsulation} from 'angular2/core';
-import {RouteConfig, Router} from 'angular2/router';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
-import {RouterActive} from './router-active';
 
-// Routes
-
-import {APIs} from './apis';
-import {ClientApps} from './clientApps';
-import {Dashboard} from './dashboard';
-import {Home} from './home';
-import {Login} from './user';
-import {Portal} from './apiPortal';
-import {Profile} from './user';
-import {Register} from './user';
-import {Reset} from './user';
+require('../assets/scss/main.scss');
 
 /*
  * App Component
@@ -26,43 +13,38 @@ import {Reset} from './user';
  */
 @Component({
     selector: 'app',
-    pipes: [],
-    providers: [],
-    directives: [RouterActive],
-    styles: [
-        require('../assets/scss/main.scss')
-    ],
     encapsulation: ViewEncapsulation.None,
-    template: require('./index.html')
+    /*
+     styleUrls: [
+     './app.style.css'
+     ],
+     */
+    templateUrl: './index.html'
 })
-@RouteConfig([
-    {path: '/', name: 'Home', component: Home, useAsDefault: true},
-    {path: '/apis', name: 'APIs', component: APIs},
-    {path: '/apps', name: 'Client Apps', component: ClientApps},
-    {path: '/dashboard', name: 'Dashboard', component: Dashboard},
-    {path: '/login', name: 'Login', component: Login},
-    {path: '/portal', name: 'API Portal', component: Portal},
-    {path: '/profile', name: 'Profile', component: Profile},
-    {path: '/register', name: 'Register', component: Register},
-    {path: '/reset', name: 'Reset Password', component: Reset}
-])
 export class App {
-    logoWhiteBg = 'assets/img/dev-portal-logo-01.png';
-    logoDarkBg = 'assets/img/dev-portal-logo-02.png';
-    title = 'Developer Portal';
-    url = 'https://twitter.com/apiman_io';
+    name = 'Hawtio iPaaS';
+    logoWhiteBg = 'assets/images/brand.svg';
+    logoDarkBg = 'assets/images/brand.svg';
+    title = 'iPaaS';
+    url = 'https://www.twitter.com/jboss';
     loggedIn = true;
     //loggedIn = false;
     
-    constructor(public appState:AppState) {
+    constructor(public appState: AppState) {
+        
     }
-
-    get state() {
-        return this.appState.get();
-    }
-
+    
     ngOnInit() {
-        console.log('Initial App State', this.state);
+        console.log('Initial App State', this.appState.state);
     }
-
+    
 }
+
+/*
+ * Please review the https://github.com/AngularClass/angular2-examples/ repo for
+ * more angular app examples that you may copy/paste
+ * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
+ * For help or questions please contact us at @AngularClass on twitter
+ * or our chat on Slack at https://AngularClass.com/slack-join
+ */
+
