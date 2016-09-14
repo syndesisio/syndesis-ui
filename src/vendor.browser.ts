@@ -27,10 +27,10 @@ import 'rxjs/add/operator/mergeMap';
 
 // jQuery
 // execute files in global context with script-loader: https://github.com/webpack/script-loader
-//require('script!../../node_modules/patternfly/node_modules/jquery/dist/jquery.min');
+//require('../node_modules/jquery/dist/jquery.min');
 
 // Bootstrap JS
-//require('../../node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min');
+require('../node_modules/bootstrap/dist/js/bootstrap.min');
 
 // Datatables, jQuery Grid Component
 require('../node_modules/datatables/media/js/jquery.dataTables.min');
