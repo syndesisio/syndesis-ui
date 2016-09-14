@@ -8,8 +8,6 @@ declare var $: any;
 
 // Load SCSS
 //require('./dashboard.scss');
-//require('patternfly/dist/css/patternfly.css');
-//require('patternfly/dist/css/patternfly-additions.css');
 
 @Component({
     // The selector is what angular internally uses
