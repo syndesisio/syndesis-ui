@@ -7,7 +7,7 @@ declare var c3: any;
 declare var $: any;
 
 // Load SCSS
-require('./dashboard.scss');
+//require('./dashboard.scss');
 //require('patternfly/dist/css/patternfly.css');
 //require('patternfly/dist/css/patternfly-additions.css');
 
@@ -19,6 +19,7 @@ require('./dashboard.scss');
     providers: [
         Title
     ],
+    styles: [ require('./dashboard.scss') ],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './dashboard.html'
 })

@@ -168,8 +168,7 @@ module.exports = {
         exclude: [helpers.root('src/layout.html')]
       },
 
-      /* File loader for supporting images, for example, in CSS files.
-       */
+      // File loader for supporting images, for example, in CSS files.
       {
         test: /\.(jpg|png|gif)$/,
         loader: 'file'
@@ -178,8 +177,8 @@ module.exports = {
       // SCSS Loader
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
-        //loaders: ['raw-loader', 'sass-loader']
+        //loaders: ['style', 'css', 'sass']
+        loaders: ['raw-loader', 'sass-loader']
       },
 
       // Fonts

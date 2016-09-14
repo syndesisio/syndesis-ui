@@ -5,7 +5,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
 
-require('../assets/scss/main.scss');
+//require('../assets/scss/main.scss');
 
 /*
  * App Component
@@ -19,6 +19,7 @@ require('../assets/scss/main.scss');
      './app.style.css'
      ],
      */
+    styles: [ require('../assets/scss/main.scss') ],
     templateUrl: './index.html'
 })
 export class App {
