@@ -6,9 +6,6 @@ import {Title} from './title';
 declare var c3: any;
 declare var $: any;
 
-// Load SCSS
-//require('./dashboard.scss');
-
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -82,13 +79,6 @@ export class Dashboard {
         donutChartConfig.bindto = '#chart2';
         donutChartConfig.tooltip = {show: true};
         donutChartConfig.data = {
-            /*
-             colors: {
-             Cloud: '#006e9c',
-             Virtual: '#00a8e1',
-             Baremetal: '#969696'
-             },
-             */
             columns: [
                 ['Cloud', 4, 828],
                 ['Virtual', 13, 258],

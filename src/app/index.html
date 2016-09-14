@@ -10,34 +10,102 @@
     </nav>
 
     <!-- Navbar: Logged In -->
-    <nav class="navbar navbar-fixed-top navbar-default navbar-pf"
+    <nav class="navbar navbar-default navbar-pf"
          role="navigation"
          *ngIf="loggedIn">
-        <!-- Logo -->
-        <a class="navbar-brand"
-           [routerLink]=" ['/'] ">
-            <img src="{{ logoDarkBg }}">
-        </a>
 
-        <!-- Navigation -->
-        <ul class="nav navbar-nav">
-            <li class="nav-item" router-active>
-                <a class="nav-link" [routerLink]=" ['home'] ">Home</a>
-            </li>
-            <li class="nav-item" router-active>
-                <a class="nav-link" [routerLink]=" ['dashboard'] ">Dashboard</a>
-            </li>
-            <li class="nav-item" router-active>
-                <a class="nav-link" [routerLink]=" ['detail'] ">Detail</a>
-            </li>
-            <li class="nav-item" router-active>
-                <a class="nav-link" [routerLink]=" ['about'] ">About</a>
-            </li>
-        </ul>
+        <!-- Logo -->
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"
+               [routerLink]=" ['/'] ">
+                <img src="{{ logoDarkBg }}" alt="iPaaS" />
+            </a>
+        </div>
+
+        <!-- Right-Hand Dropdown Menu -->
+        <div class="collapse navbar-collapse navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-utility">
+                <li>
+                    <a href="#">Status</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                        <span class="pficon pficon-user"></span>
+                        Brian Johnson <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#">Another link</a>
+                        </li>
+                        <li>
+                            <a href="#">Something else here</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">More options</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Link</a>
+                                </li>
+                                <li>
+                                    <a href="#">Another link</a>
+                                </li>
+                                <li>
+                                    <a href="#">Something else here</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li>
+                                    <a href="#">Separated link</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">One more separated link</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Primary Navigation -->
+            <ul class="nav navbar-nav navbar-primary">
+                <li router-active>
+                    <a [routerLink]=" ['home'] ">Home</a>
+                </li>
+                <li router-active>
+                    <a [routerLink]=" ['dashboard'] ">Dashboard</a>
+                </li>
+                <li router-active>
+                    <a [routerLink]=" ['detail'] ">Detail</a>
+                </li>
+                <li router-active>
+                    <a [routerLink]=" ['about'] ">About</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
 
-<main>
+<main class="container-fluid container-cards-pf">
     <router-outlet></router-outlet>
 </main>
 

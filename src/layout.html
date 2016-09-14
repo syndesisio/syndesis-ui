@@ -10,14 +10,15 @@
     <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
     <% if (webpackConfig.htmlElements.headTags) { %>
-    <!-- Configured Head Tags  --><%= webpackConfig.htmlElements.headTags %> <% } %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %> <% } %>
 
     <!-- base url -->
     <base href="<%= webpackConfig.metadata.baseUrl %>">
 
 </head>
 
-<body>
+<body class="cards-pf">
 
 <app>
     Loading...
