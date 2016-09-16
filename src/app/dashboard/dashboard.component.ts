@@ -31,7 +31,8 @@ export class Dashboard {
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
         // this.title.getData().subscribe(data => this.data = data);
-        
+    
+        /*
         c3.generate({
             axis: {
                 x: {
@@ -138,6 +139,7 @@ export class Dashboard {
                 height: 200
             }
         });
+        */
     }
     
     submitState(value) {

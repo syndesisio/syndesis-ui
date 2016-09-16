@@ -1,105 +1,300 @@
-<div class="dashboard container-fluid">
-    <div class="row">
-        <div class="col-sm-8 col-md-9">
-            <div class="page-header page-header-bleed-right">
-                <div class="actions pull-right">
-                    <a href="#"><span class="pficon pficon-refresh"></span> Refresh Results</a>
+<div>
+    <div class="row toolbar-pf">
+        <div class="col-sm-12">
+            <form class="toolbar-pf-actions">
+                <div class="form-group toolbar-pf-filter">
+                    <label class="sr-only" for="filter">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Name <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control" id="filter" placeholder="Filter By Name...">
+                    </div><!-- /input-group -->
                 </div>
-                <span x-large>{{ pageTitle }}</span>
-            </div>
-            <h2 class="h4">Infrastructure Performance</h2>
-            <div id="chart"></div>
-            <hr>
-            <h2 class="h4">Resource Usage</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div id="chart2"></div>
+                <div class="form-group">
+                    <div class="dropdown btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Name <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-link" type="button">
+                        <span class="fa fa-sort-alpha-asc"></span>
+                    </button>
                 </div>
-                <div class="col-sm-6">
-                    <img src="/assets/images/dashboard-3.png"
-                         alt="Placeholder graph"
-                         class="img-responsive" />
+                <div class="form-group">
+                    <button class="btn btn-default" type="button">Action</button>
+                    <button class="btn btn-default" type="button">Action</button>
+                    <div class="dropdown btn-group  dropdown-kebab-pf">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="fa fa-ellipsis-v"></span>
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
-            <hr>
-            <h2 class="h4">Infrastructure Capacity</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div id="chart4"></div>
+                <div class="toolbar-pf-action-right">
+                    <div class="form-group toolbar-pf-find">
+                        <button class="btn btn-link btn-find" type="button">
+                            <span class="fa fa-search"></span>
+                        </button>
+                        <div class="find-pf-dropdown-container">
+                            <input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
+                            <div class="find-pf-buttons">
+                                <span class="find-pf-nums">1 of 3</span>
+                                <button class="btn btn-link" type="button">
+                                    <span class="fa fa-angle-up"></span>
+                                </button>
+                                <button class="btn btn-link" type="button">
+                                    <span class="fa fa-angle-down"></span>
+                                </button>
+                                <button class="btn btn-link btn-find-close" type="button">
+                                    <span class="pficon pficon-close"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group toolbar-pf-view-selector">
+                        <button class="btn btn-link"><i class="fa fa-th"></i></button>
+                        <button class="btn btn-link active"><i class="fa fa-th-large"></i></button>
+                        <button class="btn btn-link"><i class="fa fa-th-list"></i></button>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <table class="table">
-                        <tr>
-                            <th>Status</th>
-                            <th>Location Data</th>
-                            <th>Hosts</th>
-                        </tr>
-                        <tr>
-                            <td><span class="label label-success">New</span></td>
-                            <td><strong>Fusce leo massa</strong><br>Created March 05, 2014 08:34:36 AM</td>
-                            <td><span class="label label-default">11</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label label-success">New</span></td>
-                            <td><strong>Iaculis at dapibus eget</strong><br>Created March 03, 2014 20:32:12 AM</td>
-                            <td><span class="label label-default">9</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label label-default">Disabled</span></td>
-                            <td><strong>Dapibus nec metus</strong><br>Created March 03, 2014 19:11:56 AM</td>
-                            <td><span class="label label-default">25</span></td>
-                        </tr>
-                    </table>
-                    <p><a href="#">See more &raquo;</a></p>
-                </div>
-            </div>
-        </div><!-- /col -->
-        <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
-            <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
-                <div class="actions pull-right">
-                    <a href="#">Clear Messages</a>
-                </div>
-                <h2 class="h5">Latest Notifications</h2>
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Duis eu augue lectus</h3>
-                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Donec dictum odio eu turpis rutrum</h3>
-                    <p class="list-group-item-text">Etiam sit amet ultricies ligula.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">At egestas nibh dictum</h3>
-                    <p class="list-group-item-text">Maecenas vitae tempus mauris.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Phasellus dictum posuere ante sit</h3>
-                    <p class="list-group-item-text">Pellentesque rutrum justo in congue tristique.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Amet commodo</h3>
-                    <p class="list-group-item-text">Pellentesque in leo elit.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Nunc viverra purus libero</h3>
-                    <p class="list-group-item-text">Nulla lacinia lorem quis enim posuere dictum.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Non faucibus augue dapibus at</h3>
-                    <p class="list-group-item-text">Fusce id rutrum ante, eget vestibulum dolor</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Vivamus at semper</h3>
-                    <p class="list-group-item-text">Duis sagittis vitae neque at vehicula.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-heading">Sed sit amet dolor</h3>
-                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                </li>
-            </ul>
-            <p><a href="#">See all messages</a></p>
+            </form>
+            <div class="row toolbar-pf-results">
+                <div class="col-sm-12">
+                    <h5>40 Results</h5>
+                    <p>Active filters:</p>
+                    <ul class="list-inline">
+                        <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="pficon pficon-close"></span></a>
+                    </span>
+                        </li>
+                        <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="pficon pficon-close"></span></a>
+                    </span>
+                        </li>
+                        <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="pficon pficon-close"></span></a>
+                    </span>
+                        </li>
+                    </ul>
+                    <p><a href="#">Clear All Filters</a></p>
+                </div><!-- /col -->
+            </div><!-- /row -->
         </div><!-- /col -->
     </div><!-- /row -->
 </div><!-- /container -->
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // Upon clicking the find button, show the find dropdown content
+            $(".btn-find").click(function() {
+                $(".find-pf-dropdown-container").toggle();
+            });
+            // Upon clicking the find close button, hide the find dropdown content
+            $(".btn-find-close").click(function() {
+                $(".find-pf-dropdown-container").hide();
+            });
+
+        });
+    })(jQuery);
+</script>
+<div class="container-cards-pf">
+    <div class="row row-cards-pf">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-body">
+                    <div class="card-pf-top-element">
+                        <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+                    </div>
+                    <h2 class="card-pf-title text-center">
+                        Cake Service
+                    </h2>
+                    <div class="card-pf-items text-center">
+                        <div class="card-pf-item">
+                            <span class="pficon pficon-screen"></span> <span class="card-pf-item-text">8</span>
+                        </div>
+                        <div class="card-pf-item">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br/> Never
+                        Expires</p>
+                </div>
+                <div class="card-pf-view-checkbox">
+                    <input type="checkbox">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        // matchHeight the contents of each .card-pf and then the .card-pf itself
+        $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+    });
+    $(document).ready(function() {
+        // Card Single Select
+        $('.card-pf-view-single-select').click(function() {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            }
+            else {
+                $('.card-pf-view-single-select').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
