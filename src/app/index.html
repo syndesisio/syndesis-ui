@@ -4,7 +4,7 @@
     <nav class="navbar navbar-fixed-top navbar-light loggedOut"
          *ngIf="!loggedIn">
         <!-- Logo -->
-        <a [routerLink]=" ['home'] ">
+        <a [routerLink]=" ['/'] ">
             <img src="{{ logoWhiteBg }}">
         </a>
     </nav>
@@ -89,7 +89,7 @@
             <!-- Primary Navigation -->
             <ul class="nav navbar-nav navbar-primary">
                 <li router-active>
-                    <a [routerLink]=" ['home'] ">Home</a>
+                    <a [routerLink]=" ['/'] ">Home</a>
                 </li>
                 <li router-active>
                     <a [routerLink]=" ['dashboard'] ">Dashboard</a>

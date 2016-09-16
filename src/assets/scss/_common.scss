@@ -12,7 +12,6 @@ html {
 }
 
 body {
-  background: #F5F5F5;
   color: #333333;
   font-family: "Lato", "Helvetica Neue", "Open Sans", "Helvetica", "Arial", "Verdana", "sans-serif";
   margin-bottom: 25px; // Ideally should be $footerHeight, but was too much
@@ -22,15 +21,7 @@ body {
   -moz-font-feature-settings: "liga", "kern";
 }
 
-h2 {
-  font-size: 52px;
-  line-height: 1.07885;
-  letter-spacing: -0.016em;
-  font-weight: 200;
-}
-
 footer {
-  //background-color: #000000;
   bottom: 0;
   font-size: 12px;
   height: $footerHeight;
