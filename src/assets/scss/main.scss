@@ -1,3 +1,10 @@
-// This SCSS file imports all other SCSS files
+// External Styling
+
+@import url(//cdnjs.cloudflare.com/ajax/libs/patternfly/3.10.0/css/patternfly.min.css);
+@import url(//cdnjs.cloudflare.com/ajax/libs/patternfly/3.10.0/css/patternfly-additions.min.css);
+@import url(//fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic);
+
+
+// iPaaS-Specific
 
 @import 'common';

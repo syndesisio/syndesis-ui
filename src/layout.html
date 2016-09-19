@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" class="layout-pf">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,18 +10,15 @@
     <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
     <% if (webpackConfig.htmlElements.headTags) { %>
-    <!-- Configured Head Tags  --><%= webpackConfig.htmlElements.headTags %> <% } %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %> <% } %>
 
     <!-- base url -->
     <base href="<%= webpackConfig.metadata.baseUrl %>">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.10.0/css/patternfly.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.10.0/css/patternfly-additions.min.css">
-
-
 </head>
 
-<body>
+<body class="cards-pf">
 
 <app>
     Loading...

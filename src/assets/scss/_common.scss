@@ -1,10 +1,5 @@
 // CSS common across all views
 
-@import url(//fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic);
-//@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css);
-//@import '../css/patternfly.min';
-//@import '../css/patternfly-additions.min';
-
 $footerHeight: 60px;
 
 
@@ -17,7 +12,6 @@ html {
 }
 
 body {
-  background: #F5F5F5;
   color: #333333;
   font-family: "Lato", "Helvetica Neue", "Open Sans", "Helvetica", "Arial", "Verdana", "sans-serif";
   margin-bottom: 25px; // Ideally should be $footerHeight, but was too much
@@ -27,66 +21,7 @@ body {
   -moz-font-feature-settings: "liga", "kern";
 }
 
-h2 {
-  font-size: 52px;
-  line-height: 1.07885;
-  letter-spacing: -0.016em;
-  font-weight: 200;
-}
-
-.nav > li > a:focus, .nav > li > a:hover {
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.navbar-nav {
-  margin: 5px -0px !important;
-}
-
-.padded {
-  padding: 20px 20px 0;
-}
-
-header {
-  nav {
-    //background: #FFFFFF;
-
-    // Navbar for logged out users
-    &.loggedOut img {
-      height: 30px;
-      margin: 15px;
-    }
-
-    img {
-      height: 22px;
-      padding: 0;
-    }
-
-    li {
-      font-size: 16px;
-    }
-
-    .navbar-brand {
-      padding: 10px;
-    }
-
-    .navbar-nav .nav-link {
-      padding-top: 9px;
-    }
-  }
-}
-
-main {
-  margin-top: 65px;
-
-  div.padded {
-    padding: 50px 30px 0;
-  }
-
-}
-
 footer {
-  //background-color: #000000;
   bottom: 0;
   font-size: 12px;
   height: $footerHeight;

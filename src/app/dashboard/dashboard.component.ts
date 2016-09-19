@@ -6,11 +6,6 @@ import {Title} from './title';
 declare var c3: any;
 declare var $: any;
 
-// Load SCSS
-require('./dashboard.scss');
-//require('patternfly/dist/css/patternfly.css');
-//require('patternfly/dist/css/patternfly-additions.css');
-
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -19,6 +14,7 @@ require('./dashboard.scss');
     providers: [
         Title
     ],
+    styles: [ require('./dashboard.scss') ],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './dashboard.html'
 })
@@ -35,7 +31,8 @@ export class Dashboard {
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
         // this.title.getData().subscribe(data => this.data = data);
-        
+    
+        /*
         c3.generate({
             axis: {
                 x: {
@@ -83,13 +80,6 @@ export class Dashboard {
         donutChartConfig.bindto = '#chart2';
         donutChartConfig.tooltip = {show: true};
         donutChartConfig.data = {
-            /*
-             colors: {
-             Cloud: '#006e9c',
-             Virtual: '#00a8e1',
-             Baremetal: '#969696'
-             },
-             */
             columns: [
                 ['Cloud', 4, 828],
                 ['Virtual', 13, 258],
@@ -149,6 +139,7 @@ export class Dashboard {
                 height: 200
             }
         });
+        */
     }
     
     submitState(value) {
