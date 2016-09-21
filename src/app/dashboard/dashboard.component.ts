@@ -4,6 +4,7 @@ import {AppState} from '../app.service';
 import {Title} from './title';
 
 declare var c3: any;
+declare var d3: any;
 declare var $: any;
 
 @Component({
