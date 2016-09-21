@@ -9,12 +9,12 @@
         </a>
     </nav>
 
-    <!-- Navbar: Logged In -->
+    <!-- Navbar: Logged In --
     <nav class="navbar navbar-default navbar-pf"
          role="navigation"
          *ngIf="loggedIn">
 
-        <!-- Logo -->
+        <!-- Logo --
         <div class="navbar-header">
             <button type="button"
                     class="navbar-toggle"
@@ -31,7 +31,7 @@
             </a>
         </div>
 
-        <!-- Right-Hand Dropdown Menu -->
+        <!-- Right-Hand Dropdown Menu --
         <div class="collapse navbar-collapse navbar-collapse-1">
             <ul class="nav navbar-nav navbar-utility">
                 <li>
@@ -86,7 +86,7 @@
                 </li>
             </ul>
 
-            <!-- Primary Navigation -->
+            <!-- Primary Navigation --
             <ul class="nav navbar-nav navbar-primary">
                 <li router-active>
                     <a [routerLink]=" ['/'] ">Home</a>
@@ -103,6 +103,99 @@
             </ul>
         </div>
     </nav>
+    -->
+
+
+    <nav class="navbar navbar-pf-vertical">
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+                <img class="navbar-brand-icon"
+                     src="/assets/images/logo-alt.svg"
+                     alt=""/>
+                <img class="navbar-brand-name"
+                     src="/assets/images/brand-alt.svg"
+                     alt="PatternFly Enterprise Application" />
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#"
+                       target="_blank"
+                       class="nav-item-iconic nav-item-iconic-new-window">
+                        <span title="Launch"
+                              class="fa fa-external-link"></span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-iconic">
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-item-iconic"
+                       id="notifications"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="true">
+                        <span title="Notifications"
+                              class="fa pficon-flag"></span>
+                        <span class="badge">2</span>
+                    </a>
+                    <div class="dropdown-menu infotip bottom-right">
+                        <div class="arrow"></div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="i pficon pficon-info"></span> Modified Datasources ExampleDS
+                            </li>
+                            <li class="list-group-item">
+                                <span class="i pficon pficon-info"></span> Error: System Failure
+                            </li>
+                        </ul>
+                        <div class="footer">
+                            <a>Clear Messages</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-item-iconic"
+                       id="dropdownMenu1"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="true">
+                        <span title="Help"
+                              class="fa pficon-help"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu"
+                        aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-item-iconic"
+                       id="dropdownMenu2"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="true">
+                        <span title="Username"
+                              class="fa pficon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu"
+                        aria-labelledby="dropdownMenu2">
+                        <li><a href="#">Preferences</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </nav> <!--/.navbar-->
 </header>
 
 
