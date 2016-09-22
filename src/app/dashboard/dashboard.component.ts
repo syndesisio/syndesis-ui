@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
-import {Title} from './title';
 
 declare var c3: any;
 declare var d3: any;
@@ -12,9 +11,7 @@ declare var $: any;
     // for `document.querySelectorAll(selector)` in our index.html
     selector: 'dashboard',
     // We need to tell Angular's Dependency Injection which providers are in our app.
-    providers: [
-        Title
-    ],
+    providers: [],
     styles: [ require('./dashboard.scss') ],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './dashboard.html'
@@ -22,12 +19,9 @@ declare var $: any;
 export class Dashboard {
     // Set our default values
     localState = '';
-    pageTitle: string = 'Dashboard';
     
     // TypeScript public modifiers
-    constructor(public appState: AppState, public title: Title) {
-        
-    }
+    constructor(public appState: AppState) {}
     
     ngOnInit() {
         console.log('Loaded `Dashboard` component');

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
-import {Title} from './title';
+import {Title} from '../common/title';
 
 declare var c3: any;
 declare var d3: any;
@@ -34,10 +34,6 @@ export class Home {
         console.log('hello `Home` component');
         // this.title.getData().subscribe(data => this.data = data);
         
-        
-        ///////
-        
-        
         ///////
     
         var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
@@ -64,7 +60,8 @@ export class Home {
             }
         };
     
-        var chart1 = c3.generate(donutConfig);
+        // Chart 1
+        c3.generate(donutConfig);
         var donutChartTitle = d3.select("#chart-pf-donut-1").select('text.c3-chart-arcs-title');
         donutChartTitle.text("");
         donutChartTitle.insert('tspan').text("950").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
@@ -78,7 +75,10 @@ export class Home {
             ],
             type: 'area'
         };
-        var chart2 = c3.generate(sparklineConfig);
+        
+        
+        // Sparkline Chart 2
+        c3.generate(sparklineConfig);
         
         
         ////////
@@ -107,7 +107,9 @@ export class Home {
             }
         };
     
-        var chart5 = c3.generate(donutConfig);
+        // Donut Chart 5
+        
+        c3.generate(donutConfig);
         var donutChartTitle = d3.select("#chart-pf-donut-3").select('text.c3-chart-arcs-title');
         donutChartTitle.text("");
         donutChartTitle.insert('tspan').text("1100").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
@@ -121,7 +123,11 @@ export class Home {
             ],
             type: 'area'
         };
-        var chart6 = c3.generate(sparklineConfig);
+        
+        
+        // Sparkline Chart 6
+        
+        c3.generate(sparklineConfig);
         
         
         
@@ -130,10 +136,13 @@ export class Home {
         var c3ChartDefaults = $().c3ChartDefaults();
     
         var donutConfig = c3ChartDefaults.getDefaultDonutConfig('A');
+        
         donutConfig.bindto = '#chart-pf-donut-4';
+        
         donutConfig.color =  {
             pattern: ["#EC7A08","#D1D1D1"]
         };
+        
         donutConfig.data = {
             type: "donut",
             columns: [
@@ -145,6 +154,7 @@ export class Home {
             ],
             order: null
         };
+        
         donutConfig.tooltip = {
             contents: function (d) {
                 return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
@@ -153,12 +163,15 @@ export class Home {
             }
         };
     
-        var chart1 = c3.generate(donutConfig);
+        // Donut Chart 1
+        c3.generate(donutConfig);
         var donutChartTitle = d3.select("#chart-pf-donut-4").select('text.c3-chart-arcs-title');
         donutChartTitle.text("");
         donutChartTitle.insert('tspan').text("1100").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
         donutChartTitle.insert('tspan').text("Gbps Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
     
+    
+        // Sparkline Chart 2
         var sparklineConfig = c3ChartDefaults.getDefaultSparklineConfig();
         sparklineConfig.bindto = '#chart-pf-sparkline-4';
         sparklineConfig.data = {
@@ -167,13 +180,14 @@ export class Home {
             ],
             type: 'area'
         };
-    
-        var chart2 = c3.generate(sparklineConfig);
+        
+        c3.generate(sparklineConfig);
         
         
         ///////
     
     
+        // Donut Chart 3
         var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
         donutConfig.bindto = '#chart-pf-donut-2';
         donutConfig.color =  {
@@ -198,7 +212,9 @@ export class Home {
             }
         };
     
-        var chart3 = c3.generate(donutConfig);
+        c3.generate(donutConfig);
+        
+        
         var donutChartTitle = d3.select("#chart-pf-donut-2").select('text.c3-chart-arcs-title');
         donutChartTitle.text("");
         donutChartTitle.insert('tspan').text("176").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
@@ -212,7 +228,9 @@ export class Home {
             ],
             type: 'area'
         };
-        var chart4 = c3.generate(sparklineConfig);
+        
+        // Sparkline Chart 4
+        c3.generate(sparklineConfig);
     }
     
     submitState(value) {
