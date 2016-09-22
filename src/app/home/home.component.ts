@@ -26,15 +26,38 @@ export class Home {
     // Set our default values
     localState = {value: ''};
     // TypeScript public modifiers
-    constructor(public appState: AppState, public title: Title) {
-        
-    }
+    constructor(public appState: AppState, public title: Title) {}
     
     ngOnInit() {
         console.log('hello `Home` component');
         // this.title.getData().subscribe(data => this.data = data);
         
         ///////
+        
+        var donutTestConfig = {
+            bindTo: '#chart-pf-donut-1',
+            color: {
+                pattern: ['#cc00000', '#D1D1D1']
+            },
+            data: {
+                type: 'donut',
+                columns: [
+                    ['Used', 95],
+                    ['Available', 5]
+                ],
+                groups: [
+                    ['used', 'available']
+                ],
+                order: null
+            },
+            tooltip: {
+                contents: function (d) {
+                    return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                      Math.round(d[0].ratio * 100) + '%' + ' MHz ' + d[0].name +
+                      '</span>';
+                }
+            }
+        };
     
         var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
         donutConfig.bindto = '#chart-pf-donut-1';
