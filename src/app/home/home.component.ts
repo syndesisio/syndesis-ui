@@ -7,8 +7,6 @@ declare var c3: any;
 declare var d3: any;
 declare var $: any;
 
-require('./home.scss');
-
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -33,7 +31,9 @@ export class Home {
         // this.title.getData().subscribe(data => this.data = data);
         
         ///////
+        // NOTE: Leave this here while I work on a charts/donut common component. - Rachel
         
+        /*
         var donutTestConfig = {
             bindTo: '#chart-pf-donut-1',
             color: {
@@ -254,6 +254,7 @@ export class Home {
         
         // Sparkline Chart 4
         c3.generate(sparklineConfig);
+        */
     }
     
     submitState(value) {

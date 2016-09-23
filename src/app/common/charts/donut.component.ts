@@ -1,3 +1,4 @@
+/*
 import {Component, ViewEncapsulation} from '@angular/core';
 
 import {DonutService} from './donut.service';
@@ -35,7 +36,6 @@ export class Donut {
     private _loadDonutCharts() {
         let donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
         
-        /*
         jQuery('.chart').each(function () {
             let chart = jQuery(this);
             chart.easyPieChart({
@@ -52,7 +52,6 @@ export class Donut {
                 lineCap: 'round',
             });
         });
-        */
     }
     
     private _updateDonutCharts() {
@@ -63,3 +62,4 @@ export class Donut {
         });
     }
 }
+*/
