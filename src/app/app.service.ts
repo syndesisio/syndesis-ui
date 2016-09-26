@@ -1,11 +1,39 @@
 import {Injectable} from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AppState {
+    
+    private configJson = 'config.json';
+    config:any = {};
+
     _state = {};
     
-    constructor() {
-        
+    constructor(private http: Http) {
+
+    }
+
+    load(self:AppState):Promise<AppState> {
+      var promise = self.http.get(self.configJson)
+                             .map(res => res.json()).toPromise();
+      promise.then((config) => {
+        console.log("Loaded configuration: ", config);
+        self.config = config
+        return self;
+      });
+      return promise;
+    }
+
+    private extractConfigData(res: Response) {
+      let body = res.json();
+      return body.data || {};
+    }
+
+    private handleError(error:any) {
+      let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+      console.error(errMsg);
+      return Observable.throw(errMsg);
     }
     
     // already return a clone of the current state
@@ -35,4 +63,5 @@ export class AppState {
         // simple object clone
         return JSON.parse(JSON.stringify(object));
     }
+
 }

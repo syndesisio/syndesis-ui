@@ -1,7 +1,7 @@
-import {NgModule, ApplicationRef} from '@angular/core';
+import {NgModule, ApplicationRef, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpModule, JsonpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {removeNgStyles, createNewHosts} from '@angularclass/hmr';
 
@@ -26,7 +26,7 @@ import {XLarge} from './home/x-large';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //exports.c3 = require('c3');
-
+//
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -55,11 +55,18 @@ const APP_PROVIDERS = [
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,
-        APP_PROVIDERS
+        APP_PROVIDERS,
+        { 
+          provide: APP_INITIALIZER,
+          useFactory: (appState:AppState) => () => appState.load(appState),
+          deps: [AppState],
+          multi: true
+        }
     ]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef, public appState: AppState) {
+
     }
     
     hmrOnInit(store) {

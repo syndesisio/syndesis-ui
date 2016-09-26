@@ -26,6 +26,50 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   HMR: HMR
 });
 
+// proxyConfig configuration
+const USE_PROXY = process.env.USE_PROXY;
+var proxyConfig = {};
+
+// Set up variables to pass along to the frontend so it can connect to backend services
+const FABRIC8_FORGE = process.env.FABRIC8_FORGE;
+const KUBERNETES_MASTER = process.env.KUBERNETES_MASTER;
+
+var frontendConfig = {
+  urls: {
+
+  }
+
+};
+// URL for talking to the fabric8 forge service
+if (FABRIC8_FORGE) {
+  frontendConfig['urls']['FABRIC8_FORGE'] = FABRIC8_FORGE;
+}
+// URL to talk to the kubernetes API server
+if (KUBERNETES_MASTER) {
+  frontendConfig['urls']['KUBERNETES_MASTER'] = KUBERNETES_MASTER;
+}
+
+// Set up the backend URLs to either use the proxyConfig or not
+if (USE_PROXY === 'true' && FABRIC8_FORGE) {
+  console.log('Enabling fabric8 forge proxyConfig');
+  proxyConfig['/forge'] = {
+    target: FABRIC8_FORGE + '/api/',
+    secure: false
+  }
+  frontendConfig['urls']['FABRIC8_FORGE'] = '/forge';
+}
+if (USE_PROXY === 'true' && KUBERNETES_MASTER) {
+  console.log('Enabling kubernetes API server proxyConfig');
+  proxyConfig['/k8s'] = {
+    target: KUBERNETES_MASTER,
+    secure: false
+  }
+  frontendConfig['urls']['KUBERNETES_MASTER'] = '/k8s';
+}
+
+console.log("Using frontend configuration: ", frontendConfig);
+console.log("Using proxyConfig configuration: ", proxyConfig);
+
 
 /**
  * Webpack configuration
@@ -158,7 +202,14 @@ module.exports = webpackMerge(commonConfig, {
       aggregateTimeout: 300,
       poll: 1000
     },
-    outputPath: helpers.root('dist')
+    proxy: proxyConfig,
+    outputPath: helpers.root('dist'),
+    setup: function(app) {
+      app.get('/config.json', function(req, res) {
+        res.json(frontendConfig);
+      });
+
+    }
   },
 
   /*

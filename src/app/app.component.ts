@@ -22,14 +22,15 @@ export class App {
     title = 'iPaaS';
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
+
     //loggedIn = false;
     
     constructor(public appState: AppState) {
-        
+
     }
-    
+
     ngOnInit() {
-        console.log('Initial App State', this.appState.state);
+        console.log('Initial App State', this.appState);
     }
     
 }
