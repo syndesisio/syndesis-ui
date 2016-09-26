@@ -8,7 +8,8 @@ import { Forge } from '../forge.service';
     <h1>Hello from Detail</h1>
     <pre *ngIf="urls">{{urls | json}}</pre>
     <div class="spinner spinner-lg" *ngIf="!commands"></div>
-    <ul *ngIf="commands">
+    <p *ngIf="commands && !commands.length">No commands available</p>
+    <ul *ngIf="commands && commands.length">
       <li *ngFor="let command of commands">
         <pre>{{command | json}}</pre>
       </li>

@@ -15,6 +15,10 @@ export class Forge {
   }
 
   getCommands():Observable<any> {
+    if (!this.url) {
+      console.log("No forge URL set..");
+      return Observable.of([]);
+    }
     return this.http.get(this.url + '/commands')
                     .map((res:Response) => {
                       var array = res.json();
