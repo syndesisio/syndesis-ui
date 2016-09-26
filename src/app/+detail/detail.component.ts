@@ -1,23 +1,35 @@
 import {Component} from '@angular/core';
 
-import {AppState} from '../app.service';
+import { Forge } from '../forge.service';
 
 @Component({
     selector: 'detail',
     template: `
     <h1>Hello from Detail</h1>
     <pre *ngIf="urls">{{urls | json}}</pre>
+    <div class="spinner spinner-lg" *ngIf="!commands"></div>
+    <ul *ngIf="commands">
+      <li *ngFor="let command of commands">
+        <pre>{{command | json}}</pre>
+      </li>
+    </ul>
     <router-outlet></router-outlet>
   `
 })
 export class Detail {
     urls:any = undefined;
-    constructor(appState: AppState) {
-      this.urls = appState.config.urls;
+    commands:any[] = undefined;
+    errorMessage:any = undefined;
+
+    constructor(private forge:Forge) {
+
     }
     
     ngOnInit() {
-        console.log('hello `Detail` component');
+      this.forge.getCommands().subscribe(
+        commands => this.commands = commands,
+        error => this.errorMessage = error);
+      console.log('hello `Detail` component');
     }
     
 }

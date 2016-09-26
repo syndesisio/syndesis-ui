@@ -17,6 +17,7 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 // Angular Modules
 import {About} from './about';
 import {AppState} from './app.service';
+import {Forge} from './forge.service';
 import {Dashboard} from './dashboard';
 import {Home} from './home';
 import {NoContent} from './no-content';
@@ -30,7 +31,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
-    AppState
+    AppState,
+    Forge
 ];
 
 /**
