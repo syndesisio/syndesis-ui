@@ -60,9 +60,14 @@ if (USE_PROXY === 'true' && FABRIC8_FORGE) {
 }
 if (USE_PROXY === 'true' && KUBERNETES_MASTER) {
   console.log('Enabling kubernetes API server proxyConfig');
-  proxyConfig['/k8s'] = {
+  var k8sConfig = proxyConfig['/k8s'] = {
     target: KUBERNETES_MASTER,
     secure: false
+  }
+  if (KUBERNETES_MASTER.indexOf('/k8s') > 0) {
+    k8sConfig.pathRewrite = {
+      '^/k8s/': '/'
+    };
   }
   frontendConfig['urls']['KUBERNETES_MASTER'] = '/k8s';
 }

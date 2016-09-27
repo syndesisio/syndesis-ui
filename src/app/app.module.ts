@@ -18,6 +18,7 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 import {About} from './about';
 import {AppState} from './app.service';
 import {Forge} from './forge.service';
+import {Kubernetes} from './kubernetes.service';
 import {Dashboard} from './dashboard';
 import {Home} from './home';
 import {NoContent} from './no-content';
@@ -32,7 +33,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     AppState,
-    Forge
+    Forge,
+    Kubernetes
 ];
 
 /**
