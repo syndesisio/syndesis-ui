@@ -4,6 +4,9 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
+import {Logger} from './log.service';
+
+var log = Logger.get('App');
 
 /*
  * App Component
@@ -22,14 +25,15 @@ export class App {
     title = 'iPaaS';
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
+
     //loggedIn = false;
     
     constructor(public appState: AppState) {
-        
+
     }
-    
+
     ngOnInit() {
-        console.log('Initial App State', this.appState.state);
+        log.debug('Initial App State', this.appState);
     }
     
 }

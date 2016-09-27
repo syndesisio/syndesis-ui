@@ -1,7 +1,7 @@
-import {NgModule, ApplicationRef} from '@angular/core';
+import {NgModule, ApplicationRef, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpModule, JsonpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {removeNgStyles, createNewHosts} from '@angularclass/hmr';
 
@@ -17,6 +17,10 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 // Angular Modules
 import {About} from './about';
 import {AppState} from './app.service';
+import {LogConfig} from './log.service';
+import {Logger} from './log.service';
+import {Forge} from './forge.service';
+import {Kubernetes} from './kubernetes.service';
 import {Dashboard} from './dashboard';
 import {Home} from './home';
 import {NoContent} from './no-content';
@@ -26,12 +30,18 @@ import {XLarge} from './home/x-large';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //exports.c3 = require('c3');
-
+//
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
-    AppState
+    AppState,
+    LogConfig,
+    Forge,
+    Kubernetes
 ];
+
+// Logger instance
+var log = Logger.get("AppModule");
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstrapping process
@@ -55,13 +65,21 @@ const APP_PROVIDERS = [
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,
-        APP_PROVIDERS
+        APP_PROVIDERS,
+        { 
+          provide: APP_INITIALIZER,
+          useFactory: (appState:AppState) => () => appState.load(appState),
+          deps: [AppState],
+          multi: true
+        }
     ]
 })
 export class AppModule {
-    constructor(public appRef: ApplicationRef, public appState: AppState) {
+
+    constructor(public appRef: ApplicationRef, public appState: AppState, public logConfig:LogConfig) {
+      log.debug("App module created");
     }
-    
+
     hmrOnInit(store) {
         if (!store || !store.state) return;
         console.log('HMR store', store);

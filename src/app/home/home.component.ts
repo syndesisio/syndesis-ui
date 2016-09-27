@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
+import {Logger} from '../log.service';
 import {Title} from '../common/title';
 
 declare var c3: any;
 declare var d3: any;
 declare var $: any;
+
+var log = Logger.get('Home');
 
 @Component({
     // The selector is what angular internally uses
@@ -24,10 +27,12 @@ export class Home {
     // Set our default values
     localState = {value: ''};
     // TypeScript public modifiers
-    constructor(public appState: AppState, public title: Title) {}
+    constructor(public appState: AppState, public title: Title) {
+
+    }
     
     ngOnInit() {
-        console.log('hello `Home` component');
+        log.debug('hello `Home` component');
         // this.title.getData().subscribe(data => this.data = data);
         
         ///////
@@ -258,7 +263,7 @@ export class Home {
     }
     
     submitState(value) {
-        console.log('submitState', value);
+        log.debug('submitState', value);
         this.appState.set('value', value);
         this.localState.value = '';
     }
