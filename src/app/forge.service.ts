@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './app.service';
+import { AppHelpers } from './app.helpers';
 
 @Injectable()
 export class Forge {
@@ -15,20 +16,18 @@ export class Forge {
   }
 
   getCommands():Observable<any> {
-    if (!this.url) {
-      console.log("No forge URL set..");
-      return Observable.of([]);
-    }
-    return this.http.get(this.url + '/commands')
-                    .map((res:Response) => {
-                      var array = res.json();
-                      // TODO, filter and sort the command list
-                      return array;
-                    })
-                    .catch((error) => {
-                      console.error("Error fetching commands: ", error)
-                      return error;
-                    });
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.http.get(this.url + '/commands')
+                      .map((res:Response) => {
+                        var array = res.json();
+                        // TODO, filter and sort the command list
+                        return array;
+                      })
+                      .catch((error) => {
+                        console.error("Error fetching commands: ", error)
+                        return error;
+                      });
+    }, []);
   }
 
 }

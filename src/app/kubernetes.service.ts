@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './app.service';
+import { AppHelpers } from './app.helpers';
 
 @Injectable()
 export class Kubernetes {
@@ -14,25 +15,49 @@ export class Kubernetes {
     console.log("Kubernetes service using URL: ", this.url);
   }
 
-  getNamespaces():Observable<any> {
+  watch(kind:string, namespace?:string):Observable<any> {
+    // TODO
     return null;
   }
 
+  del(kind:string, namespace?:string, id?:string):Observable<any> {
+    // TODO
+    return null;
+  }
+
+  put(kind:string, namespace?:string, id?:string):Observable<any> {
+    // TODO
+    return null;
+  }
+
+  get(kind:string, namespace?:string, id?:string):Observable<any> {
+    return AppHelpers.maybeInvoke(this.url, () => {
+      // TODO
+      return this.http.get(this.url + '/api/v1/namespaces')
+                      .map((res:Response) => {
+
+                      })
+                      .catch((error) => {
+                        console.error("Error fetching namespaces: ", error)
+                        return error;
+                      });
+
+    }, []);
+  }
+
   getVersion():Observable<any> {
-    if (!this.url) {
-      console.log("No kubernetes URL set..");
-      return Observable.of([]);
-    }
-    return this.http.get(this.url + '/version')
-                    .map((res:Response) => {
-                      var array = res.json();
-                      // TODO, filter and sort the command list
-                      return array;
-                    })
-                    .catch((error) => {
-                      console.error("Error fetching version: ", error)
-                      return error;
-                    });
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.http.get(this.url + '/version')
+                  .map((res:Response) => {
+                    var array = res.json();
+                    // TODO, filter and sort the command list
+                    return array;
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching version: ", error)
+                    return error;
+                  });
+    });
   }
 
 }
