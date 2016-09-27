@@ -1,7 +1,10 @@
 import {Component} from '@angular/core';
 
+import { Logger } from '../log.service';
 import { Forge } from '../forge.service';
 import { Kubernetes } from '../kubernetes.service';
+
+var log = Logger.get('+detail');
 
 @Component({
     selector: 'detail',
@@ -36,7 +39,7 @@ export class Detail {
       this.k8s.getVersion().subscribe(
         version => this.version = version,
         error => this.errorMessage = error);
-      console.log('hello `Detail` component');
+      log.debug('hello `Detail` component');
     }
 
 

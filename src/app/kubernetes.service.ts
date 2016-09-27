@@ -3,16 +3,20 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './app.service';
+import { Logger } from './log.service';
 import { AppHelpers } from './app.helpers';
+
+var log = Logger.get('Kubernetes');
 
 @Injectable()
 export class Kubernetes {
 
   private url:string = undefined;
+  private log = undefined;
 
   constructor(private http: Http, private appState: AppState) {
     this.url = appState.config.urls['KUBERNETES_MASTER'];
-    console.log("Kubernetes service using URL: ", this.url);
+    log.debug("Kubernetes service using URL: ", this.url);
   }
 
   watch(kind:string, namespace?:string):Observable<any> {
@@ -38,7 +42,7 @@ export class Kubernetes {
 
                       })
                       .catch((error) => {
-                        console.error("Error fetching namespaces: ", error)
+                        log.error("Error fetching namespaces: ", error)
                         return error;
                       });
 
@@ -54,7 +58,7 @@ export class Kubernetes {
                     return array;
                   })
                   .catch((error) => {
-                    console.error("Error fetching version: ", error)
+                    log.error("Error fetching version: ", error)
                     return error;
                   });
     });

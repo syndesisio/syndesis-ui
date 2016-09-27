@@ -4,6 +4,9 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
+import {Logger} from './log.service';
+
+var log = Logger.get('App');
 
 /*
  * App Component
@@ -30,7 +33,7 @@ export class App {
     }
 
     ngOnInit() {
-        console.log('Initial App State', this.appState);
+        log.debug('Initial App State', this.appState);
     }
     
 }

@@ -17,6 +17,8 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 // Angular Modules
 import {About} from './about';
 import {AppState} from './app.service';
+import {LogConfig} from './log.service';
+import {Logger} from './log.service';
 import {Forge} from './forge.service';
 import {Kubernetes} from './kubernetes.service';
 import {Dashboard} from './dashboard';
@@ -33,9 +35,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     AppState,
+    LogConfig,
     Forge,
     Kubernetes
 ];
+
+// Logger instance
+var log = Logger.get("AppModule");
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstrapping process
@@ -69,10 +75,11 @@ const APP_PROVIDERS = [
     ]
 })
 export class AppModule {
-    constructor(public appRef: ApplicationRef, public appState: AppState) {
 
+    constructor(public appRef: ApplicationRef, public appState: AppState, public logConfig:LogConfig) {
+      log.debug("App module created");
     }
-    
+
     hmrOnInit(store) {
         if (!store || !store.state) return;
         console.log('HMR store', store);

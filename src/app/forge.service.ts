@@ -3,7 +3,10 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './app.service';
+import { Logger } from './log.service';
 import { AppHelpers } from './app.helpers';
+
+var log = Logger.get('Forge');
 
 @Injectable()
 export class Forge {
@@ -12,7 +15,7 @@ export class Forge {
 
   constructor(private http: Http, private appState: AppState) {
     this.url = appState.config.urls['FABRIC8_FORGE'];
-    console.log("Forge service using URL: ", this.url);
+    log.debug("Forge service using URL: ", this.url);
   }
 
   getCommands():Observable<any> {
@@ -24,7 +27,7 @@ export class Forge {
                         return array;
                       })
                       .catch((error) => {
-                        console.error("Error fetching commands: ", error)
+                        log.error("Error fetching commands: ", error)
                         return error;
                       });
     }, []);

@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Logger } from './log.service';
+
+// defer initializing this, otherwise 'Logger' is undefined
+var log = undefined;
 
 @Injectable()
 export class AppState {
@@ -10,14 +14,16 @@ export class AppState {
     _state = {};
     
     constructor(private http: Http) {
-
+        log = Logger.get('AppState');
     }
 
+    // Used to load settings from the server, returns a promise so angular waits
+    // during bootstrap.  Log is passed in here to help avoid circular dependencies
     load(self:AppState):Promise<AppState> {
       var promise = self.http.get(self.configJson)
                              .map(res => res.json()).toPromise();
       promise.then((config) => {
-        console.log("Loaded configuration: ", config);
+        log.debug("Using configuration: ", config);
         self.config = config
         return self;
       });
