@@ -25,12 +25,11 @@ import 'rxjs/add/operator/mergeMap';
 
 // PatternFly JS Dependencies Entry
 
-// jQuery
-// execute files in global context with script-loader: https://github.com/webpack/script-loader
-//require('jquery/dist/jquery.min');
+// jQuer
+require('jquery/dist/jquery.min');
 
-// Bootstrap JS
-//require('bootstrap/dist/js/bootstrap.min');
+//Bootstrap JS
+require('bootstrap/dist/js/bootstrap.min');
 
 // Datatables, jQuery Grid Component
 require('datatables/media/js/jquery.dataTables.min');
