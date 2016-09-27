@@ -2,9 +2,15 @@ import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
 
-declare var c3: any;
-declare var d3: any;
-declare var $: any;
+/*
+declare const c3: any;
+declare const d3: any;
+declare const $: any;
+declare const jQuery: any;
+
+require('c3');
+require('d3');
+*/
 
 @Component({
     // The selector is what angular internally uses

@@ -41,10 +41,10 @@ require('datatables.net-colreorder/js/dataTables.colReorder');
 require('patternfly/dist/js/patternfly.min.js');
 
 // Moment
-require('moment/min/moment-with-locales.min.js');
+require('moment/min/moment.min.js');
 
 // Bootstrap Combobox
-require('patternfly-bootstrap-combobox/js/bootstrap-combobox');
+//require('patternfly-bootstrap-combobox/js/bootstrap-combobox');
 
 // Bootstrap Date Picker
 require('bootstrap-datepicker/dist/js/bootstrap-datepicker.min');

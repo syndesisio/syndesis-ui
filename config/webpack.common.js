@@ -3,6 +3,7 @@
  */
 
 const helpers = require('./helpers');
+const path = require('path');
 const webpack = require('webpack');
 
 /*
@@ -309,7 +310,17 @@ module.exports = {
     // making it load something else instead (in this case, an empty module).
     //
     // See: https://github.com/moment/moment/issues/2979#issuecomment-189899510
-    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+    //new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+
+    new webpack.ContextReplacementPlugin(
+      /\.\/locale$/, 'empty-module', false, /js$/
+    ),
+
+    new webpack.ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      root('./src') // location of your src
+    )
 
   ],
 
@@ -328,3 +339,7 @@ module.exports = {
     setImmediate: false
   }
 };
+
+function root(__path) {
+  return path.join(__dirname, __path);
+}
