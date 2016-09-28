@@ -7,14 +7,14 @@ import {Logger} from '../log.service';
  * see https://github.com/gdi2290/es6-promise-loader for more info
  */
 
-Logger.get('About').debug('`About` component loaded asynchronously');
+Logger.get('Admin').debug('`Admin` component loaded asynchronously');
 
 @Component({
-    selector: 'about',
+    selector: 'admin',
     styles: [`
   `],
     template: `
-    <h1>About</h1>
+    <h1>Admin</h1>
     <div>
       For hot module reloading run
       <pre>npm run start:hmr</pre>
@@ -27,7 +27,7 @@ Logger.get('About').debug('`About` component loaded asynchronously');
     <pre>this.localState = {{ localState | json }}</pre>
   `
 })
-export class About {
+export class Admin {
     localState;
     
     constructor(public route: ActivatedRoute) {
@@ -42,7 +42,7 @@ export class About {
               this.localState = data.yourData;
           });
         
-        console.log('hello `About` component');
+        console.log('hello `Admin` component');
         // static data that is bundled
         // var mockData = require('assets/mock-data/mock-data.json');
         // console.log('mockData', mockData);

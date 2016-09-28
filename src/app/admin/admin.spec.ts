@@ -3,9 +3,9 @@ import {Component} from '@angular/core';
 import {inject, TestBed} from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import {About} from './about.component';
+import {Admin} from './admin.component';
 
-describe('About', () => {
+describe('Admin', () => {
     // provide our implementations or mocks to the dependency injector
     beforeEach(() => TestBed.configureTestingModule({
         providers: [
@@ -20,15 +20,15 @@ describe('About', () => {
                     }
                 }
             },
-            About
+            Admin
         ]
     }));
     
-    it('should log ngOnInit', inject([About], (about) => {
+    it('should log ngOnInit', inject([Admin], (admin) => {
         spyOn(console, 'log');
         expect(console.log).not.toHaveBeenCalled();
         
-        about.ngOnInit();
+        admin.ngOnInit();
         expect(console.log).toHaveBeenCalled();
     }));
     

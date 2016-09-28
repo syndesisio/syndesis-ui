@@ -4,6 +4,8 @@ import { Logger } from '../log.service';
 import { Forge } from '../forge.service';
 import { Kubernetes } from '../kubernetes.service';
 
+declare var _: any;
+
 var log = Logger.get('+Forge');
 
 @Component({

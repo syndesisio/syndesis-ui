@@ -15,7 +15,7 @@ import {App} from './app.component';
 import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 
 // Angular Modules
-import {About} from './about';
+import {Admin} from './admin';
 import {AppState} from './app.service';
 import {LogConfig} from './log.service';
 import {Logger} from './log.service';
@@ -49,7 +49,7 @@ var log = Logger.get("AppModule");
 @NgModule({
     bootstrap: [App],
     declarations: [
-        About,
+        Admin,
         App,
         Dashboard,
         Home,
