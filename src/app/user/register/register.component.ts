@@ -1,51 +1,68 @@
-import {Component, OnInit} from 'angular2/core';
-import {AppState} from '../../app.service';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Logger} from '../../log.service';
+/*
+ * We're loading this component asynchronously
+ * We are using some magic with es6-promise-loader that will wrap the module with a Promise
+ * see https://github.com/gdi2290/es6-promise-loader for more info
+ */
 
-import {Title} from '../title';
-import {XLarge} from '../x-large';
-
-declare var c3:any;
-declare var $:any;
-
+Logger.get('Register').debug('`Register` component loaded asynchronously');
 
 @Component({
-    // The selector is what angular internally uses
-    // for `document.querySelectorAll(selector)` in our index.html
     selector: 'register',
-    // We need to tell Angular's Dependency Injection which providers are in our app.
-    providers: [
-        Title
-    ],
-    // We need to tell Angular's compiler which directives are in our template.
-    // Doing so will allow Angular to attach our behavior to an element
-    directives: [
-        XLarge
-    ],
-    // We need to tell Angular's compiler which custom pipes are in our template.
-    pipes: [],
-    // Our list of styles in our component. We may add more to compose many styles together
-    styles: [require('./register.scss')],
-    // Every Angular template is first compiled by the browser before Angular runs it's compiler
-    template: require('./register.html')
+    styles: [`
+  `],
+    template: `
+    <h1>Register</h1>
+    <div>
+      For hot module reloading run
+      <pre>npm run start:hmr</pre>
+    </div>
+    <div>
+      <h3>
+        patrick@AngularClass.com
+      </h3>
+    </div>
+    <pre>this.localState = {{ localState | json }}</pre>
+  `
 })
-export class Register implements OnInit {
-    // Set our default values
-    localState = '';
-    pageTitle: string = 'Register';
-
-    // TypeScript public modifiers
-    constructor(public appState:AppState, public title:Title) {
-
+export class Register {
+    localState;
+    
+    constructor(public route: ActivatedRoute) {
+        
     }
-
+    
     ngOnInit() {
-        console.log('Loaded `Register` component');
-        // this.title.getData().subscribe(data => this.data = data);
+        this.route
+          .data
+          .subscribe((data: any) => {
+              // your resolved data from route
+              this.localState = data.yourData;
+          });
+        
+        console.log('hello `Register` component');
+        // static data that is bundled
+        // var mockData = require('assets/mock-data/mock-data.json');
+        // console.log('mockData', mockData);
+        // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
+        // this.asyncDataWithWebpack();
     }
-
-    submitState(value) {
-        console.log('submitState', value);
-        this.appState.set('value', value);
+    
+    asyncDataWithWebpack() {
+        // you can also async load mock data with 'es6-promise-loader'
+        // you would do this if you don't want the mock-data bundled
+        // remember that 'es6-promise-loader' is a promise
+        // var asyncMockDataPromiseFactory = require('es6-promise!assets/mock-data/mock-data.json');
+        // setTimeout(() => {
+        //
+        //   let asyncDataPromise = asyncMockDataPromiseFactory();
+        //   asyncDataPromise.then(json => {
+        //     console.log('async mockData', json);
+        //   });
+        //
+        // });
     }
-
+    
 }

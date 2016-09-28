@@ -1,20 +1,20 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Logger} from '../../log.service';
+import {Logger} from '../log.service';
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
  * see https://github.com/gdi2290/es6-promise-loader for more info
  */
 
-Logger.get('Login').debug('`Login` component loaded asynchronously');
+Logger.get('User').debug('`User` component loaded asynchronously');
 
 @Component({
-    selector: 'login',
+    selector: 'user',
     styles: [`
   `],
     template: `
-    <h1>Login</h1>
+    <h1>User</h1>
     <div>
       For hot module reloading run
       <pre>npm run start:hmr</pre>
@@ -27,7 +27,7 @@ Logger.get('Login').debug('`Login` component loaded asynchronously');
     <pre>this.localState = {{ localState | json }}</pre>
   `
 })
-export class Login {
+export class User {
     localState;
     
     constructor(public route: ActivatedRoute) {
@@ -42,7 +42,7 @@ export class Login {
               this.localState = data.yourData;
           });
         
-        console.log('hello `Login` component');
+        console.log('hello `User` component');
         // static data that is bundled
         // var mockData = require('assets/mock-data/mock-data.json');
         // console.log('mockData', mockData);

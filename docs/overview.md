@@ -46,3 +46,6 @@ Angular 2 differs quite a bit from Angular 1, so you may want to check out some 
 ### Routes
 Routes are defined in [/src/app/app.routes.ts]('src/app/app.routes.ts').
 
+### Navigation Bar
+The navigation bar is the Vertical Navigation menu from [PatternFly](https://www.patternfly.org/pattern-library/navigation/vertical-navigation/#_). The items on it are defined in the [/src/app/index.html]('src/app/index.html') file, but eventually we would like to move this logic out to a service or component. 
+
