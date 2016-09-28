@@ -42,3 +42,7 @@ You'll enter Angular world from the `./src/main.browser.ts` file. You'll notice 
 Now, the `app.module` file is where things start to look busier yet familiar. At the very top you can see that we are simply importing external dependencies, then internal dependencies such as platform- and environment-specific configuration, followed by importing our own Angular modules. Finally, we have the main part of our Angular 2 application -- the AppModule module (or "class"). Now, the AppModule contains a bit of Webpack functionality within it. After the constructor, you'll see methods like `hmrOnInit` that allow you to do certain things on initialization of the Angular application. This is part of Webpack's hot module replacement (HMR) feature.
 
 Angular 2 differs quite a bit from Angular 1, so you may want to check out some of the differences [here](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html).
+
+### Routes
+Routes are defined in [/src/app/app.routes.ts]('src/app/app.routes.ts').
+
