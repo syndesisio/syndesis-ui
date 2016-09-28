@@ -4,25 +4,36 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
+import {ForgeIndex} from './forgeIndex.component';
 import {ForgeView} from './forge.component';
+import {KubernetesView} from './kubernetes.component';
 
 Logger.get('+Forge').debug('`Forge` bundle loaded asynchronously');
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
-    { path: '', component: ForgeView, pathMatch: 'full' }
+    { path: '', 
+      component: ForgeIndex, 
+      children: [
+        { path: 'forge', component: ForgeView },
+        { path: 'kubernetes', component: KubernetesView }
+      ]
+    },
+    { path: '**', redirectTo: 'forge' }
 ];
 
 @NgModule({
     declarations: [
         // Components / Directives/ Pipes
-        ForgeView
+        ForgeIndex,
+        ForgeView,
+        KubernetesView
     ],
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forChild(routes),
+        RouterModule.forChild(routes)
     ]
 })
-export default class AboutModule {
+export default class ForgeModule {
     static routes = routes;
 }

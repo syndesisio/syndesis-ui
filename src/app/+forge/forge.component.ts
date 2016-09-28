@@ -7,19 +7,16 @@ import { Kubernetes } from '../kubernetes.service';
 var log = Logger.get('+Forge');
 
 @Component({
-    selector: 'detail',
+    selector: 'forge',
     template: `
     <h1>Forge Commands</h1>
-    <pre *ngIf="urls">{{urls | json}}</pre>
     <div class="spinner spinner-lg" *ngIf="!commands"></div>
-    <pre *ngIf="version">Kubernetes version: {{version | json}}</pre>
     <p *ngIf="commands && !commands.length">No commands available</p>
     <ul *ngIf="commands && commands.length">
       <li *ngFor="let command of commands">
         <pre>{{command | json}}</pre>
       </li>
     </ul>
-    <router-outlet></router-outlet>
   `
 })
 export class ForgeView {
@@ -41,7 +38,4 @@ export class ForgeView {
         error => this.errorMessage = error);
       log.debug('hello `Forge` component');
     }
-
-
-    
 }
