@@ -5,7 +5,8 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 import {ForgeIndex} from './forgeIndex.component';
-import {ForgeView} from './forge.component';
+import {ForgeCommands} from './forgeCommands.component';
+import {ForgeCommand} from './forgeCommand.component';
 import {KubernetesView} from './kubernetes.component';
 
 Logger.get('+Forge').debug('`Forge` bundle loaded asynchronously');
@@ -14,7 +15,8 @@ export const routes = [
     { path: '', 
       component: ForgeIndex, 
       children: [
-        { path: 'commands', component: ForgeView },
+        { path: 'commands', component: ForgeCommands },
+        { path: 'commands/:id', component: ForgeCommand },
         { path: 'kubernetes', component: KubernetesView }
       ]
     },
@@ -25,7 +27,8 @@ export const routes = [
     declarations: [
         // Components / Directives/ Pipes
         ForgeIndex,
-        ForgeView,
+        ForgeCommands,
+        ForgeCommand,
         KubernetesView
     ],
     imports: [
