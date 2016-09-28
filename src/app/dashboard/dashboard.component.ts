@@ -2,15 +2,10 @@ import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
 
-/*
 declare const c3: any;
 declare const d3: any;
 declare const $: any;
 declare const jQuery: any;
-
-require('c3');
-require('d3');
-*/
 
 @Component({
     // The selector is what angular internally uses
@@ -31,116 +26,164 @@ export class Dashboard {
     
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
-        // this.title.getData().subscribe(data => this.data = data);
     
-        /*
-        c3.generate({
-            axis: {
-                x: {
-                    tick: {
-                        format: '%m-%d',
-                        outer: false
-                    },
-                    type: 'timeseries'
-                },
-                y: {
-                    tick: {
-                        format: function (d) {
-                            return d + '%';
-                        },
-                        outer: false
-                    }
-                }
-            },
-            bindto: '#chart',
-            //color: '',
-            data: {
-                columns: [
-                    ['x', '2015-04-01', '2015-04-02', '2015-04-03', '2015-04-04', '2015-04-05', '2015-04-06', '2015-04-07'],
-                    ['data1', 16, 44, 33, 88, 50, 76, 21]
-                ],
-                x: 'x'
-            },
-            grid: {
-                y: {
-                    show: true
-                }
-            },
-            legend: {
-                hide: true
-            },
-            point: {
-                r: 4
-            },
-            size: {
-                height: 220
-            }
-        });
+        var donutChartConfig = jQuery().c3ChartDefaults().getDefaultDonutConfig('A');
         
-        var donutChartConfig: any = {};
-        donutChartConfig.bindto = '#chart2';
-        donutChartConfig.tooltip = {show: true};
+        donutChartConfig.bindto = '#chart-pf-donut-1';
+        
         donutChartConfig.data = {
+            type: "donut",
             columns: [
-                ['Cloud', 4, 828],
-                ['Virtual', 13, 258],
-                ['Baremetal', 11, 1124]
+                ["Used", 95],
+                ["Available", 5]
             ],
-            type: 'donut',
-            onclick: function (d, i) {
-                console.log('onclick', d, i);
-            },
-            onmouseover: function (d, i) {
-                console.log('onmouseover', d, i);
-            },
-            onmouseout: function (d, i) {
-                console.log('onmouseout', d, i);
+            groups: [
+                ["used", "available"]
+            ],
+            order: null
+        };
+        
+        donutChartConfig.color = {
+            pattern: ["#cc0000", "#D1D1D1"]
+        };
+        
+        donutChartConfig.tooltip = {
+            contents: function(d) {
+                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                  Math.round(d[0].ratio * 100) + '%' + ' MHz ' + d[0].name +
+                  '</span>';
             }
         };
         
-        c3.generate(donutChartConfig);
+        var chart1 = c3.generate(donutChartConfig);
+    
+        var donutChartTitle = d3.select("#chart-pf-donut-1").select('text.c3-chart-arcs-title');
         
-        c3.generate({
-            axis: {
-                rotated: true,
-                x: {
-                    categories: ['Location 1', 'Location 2', 'Location 3', 'Location 4'],
-                    tick: {
-                        outer: false
-                    },
-                    type: 'category'
-                },
-                y: {
-                    tick: {
-                        format: function (d) {
-                            return d + '%';
-                        },
-                        outer: false
-                    }
-                }
-            },
-            bindto: '#chart4',
-            //color: '',
-            data: {
-                columns: [
-                    ['Virtual Resources', 25, 35, 18, 78],
-                    ['Physical Resources', 60, 40, 48, 8]
-                ],
-                groups: [
-                    ['Virtual Resources', 'Physical Resources']
-                ],
-                type: 'bar'
-            },
-            grid: {
-                y: {
-                    show: true
-                }
-            },
-            size: {
-                height: 200
+        donutChartTitle.text("");
+        
+        donutChartTitle.insert('tspan').text("950").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
+        donutChartTitle.insert('tspan').text("MHz Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
+    
+        var sparklineChartConfig = jQuery().c3ChartDefaults().getDefaultSparklineConfig();
+        
+        sparklineChartConfig.bindto = '#chart-pf-sparkline-1';
+        
+        sparklineChartConfig.data = {
+            columns: [
+                ['%', 10, 50, 28, 20, 31, 27, 60, 36, 52, 55, 62, 68, 69, 88, 74, 88, 95],
+            ],
+            type: 'area'
+        };
+        
+        var chart2 = c3.generate(sparklineChartConfig);
+        
+        ////
+    
+    
+        var donutChartConfig = jQuery().c3ChartDefaults().getDefaultDonutConfig('A');
+        
+        donutChartConfig.bindto = '#chart-pf-donut-2';
+        
+        donutChartConfig.data = {
+            type: "donut",
+            columns: [
+                ["Used", 41],
+                ["Available", 59]
+            ],
+            groups: [
+                ["used", "available"]
+            ],
+            order: null
+        };
+        
+        donutChartConfig.color = {
+            pattern: ["#3f9c35", "#D1D1D1"]
+        };
+        
+        donutChartConfig.tooltip = {
+            contents: function(d) {
+                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                  Math.round(d[0].ratio * 100) + '%' + ' GB ' + d[0].name +
+                  '</span>';
             }
-        });
-        */
+        };
+        
+        var chart3 = c3.generate(donutChartConfig);
+    
+        var donutChartTitle = d3.select("#chart-pf-donut-2").select('text.c3-chart-arcs-title');
+        
+        donutChartTitle.text("");
+        donutChartTitle.insert('tspan').text("176").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
+        donutChartTitle.insert('tspan').text("GB Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
+    
+        var sparklineChartConfig = jQuery().c3ChartDefaults().getDefaultSparklineConfig();
+        
+        sparklineChartConfig.bindto = '#chart-pf-sparkline-2';
+        
+        sparklineChartConfig.data = {
+            columns: [
+                ['%', 35, 36, 20, 30, 31, 22, 44, 36, 40, 41, 55, 52, 48, 48, 50, 40, 41],
+            ],
+            type: 'area'
+        };
+        
+        var chart4 = c3.generate(sparklineChartConfig);
+        
+        
+        ////
+    
+    
+        var donutChartConfig = jQuery().c3ChartDefaults().getDefaultDonutConfig('A');
+        
+        donutChartConfig.bindto = '#chart-pf-donut-3';
+        
+        donutChartConfig.data = {
+            type: "donut",
+            columns: [
+                ["Used", 85],
+                ["Available", 15]
+            ],
+            groups: [
+                ["used", "available"]
+            ],
+            order: null
+        };
+        
+        donutChartConfig.color = {
+            pattern: ["#EC7A08", "#D1D1D1"]
+        };
+        
+        donutChartConfig.tooltip = {
+            contents: function(d) {
+                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                  Math.round(d[0].ratio * 100) + '%' + ' Gbps ' + d[0].name +
+                  '</span>';
+            }
+        };
+        
+        var chart5 = c3.generate(donutChartConfig);
+    
+        var donutChartTitle = d3.select("#chart-pf-donut-3").select('text.c3-chart-arcs-title');
+        
+        donutChartTitle.text("");
+        donutChartTitle.insert('tspan').text("1100").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
+        donutChartTitle.insert('tspan').text("Gbps Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
+    
+        var sparklineChartConfig = jQuery().c3ChartDefaults().getDefaultSparklineConfig();
+        
+        sparklineChartConfig.bindto = '#chart-pf-sparkline-3';
+        
+        sparklineChartConfig.data = {
+            columns: [
+                ['%', 60, 55, 70, 44, 31, 67, 54, 46, 58, 75, 62, 68, 69, 88, 74, 88, 85],
+            ],
+            type: 'area'
+        };
+        
+        var chart6 = c3.generate(sparklineChartConfig);
+        
+        
+        ////
     }
     
     submitState(value) {
