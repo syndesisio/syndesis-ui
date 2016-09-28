@@ -4,12 +4,12 @@ import { Logger } from '../log.service';
 import { Forge } from '../forge.service';
 import { Kubernetes } from '../kubernetes.service';
 
-var log = Logger.get('+detail');
+var log = Logger.get('+Forge');
 
 @Component({
     selector: 'detail',
     template: `
-    <h1>Hello from Detail</h1>
+    <h1>Forge Commands</h1>
     <pre *ngIf="urls">{{urls | json}}</pre>
     <div class="spinner spinner-lg" *ngIf="!commands"></div>
     <pre *ngIf="version">Kubernetes version: {{version | json}}</pre>
@@ -22,7 +22,7 @@ var log = Logger.get('+detail');
     <router-outlet></router-outlet>
   `
 })
-export class Detail {
+export class ForgeView {
     urls:any = undefined;
     commands:any[] = undefined;
     version:any = undefined;
@@ -39,7 +39,7 @@ export class Detail {
       this.k8s.getVersion().subscribe(
         version => this.version = version,
         error => this.errorMessage = error);
-      log.debug('hello `Detail` component');
+      log.debug('hello `Forge` component');
     }
 
 

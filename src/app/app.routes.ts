@@ -13,6 +13,7 @@ export const ROUTES: Routes = [
     {path: 'home', component: Home},
     {path: 'about', component: About},
     {path: 'dashboard', component: Dashboard},
-    {path: 'detail', loadChildren: () => System.import('./+detail')},
+    {path: 'connections', loadChildren: () => System.import('./+connections')},
+    {path: 'forge', loadChildren: () => System.import('./+forge')},
     {path: '**', component: NoContent},
 ];
