@@ -108,7 +108,7 @@
 <div class="nav-pf-vertical nav-pf-vertical-with-sub-menus hide-nav-pf">
     <ul class="list-group">
         <li class="list-group-item" routerLinkActive="active">
-            <a [routerLink]=" ['home'] ">
+            <a [routerLink]=" ['/'] ">
                 <span class="fa fa-dashboard"
                       data-toggle="tooltip"
                       title="Home"></span>
@@ -116,7 +116,7 @@
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
-            <a [routerLink]=" ['dashboard'] " >
+            <a [routerLink]=" ['integrations'] " >
                 <span class="fa fa-shield"
                       data-toggle="tooltip"
                       title="Integrations"></span>
@@ -143,8 +143,16 @@
             <a [routerLink]=" ['admin'] ">
                 <span class="fa fa-gamepad"
                       data-toggle="tooltip"
-                      title="Connections"></span>
+                      title="Admin"></span>
                 <span class="list-group-item-value">Admin</span>
+            </a>
+        </li>
+        <li class="list-group-item" routerLinkActive="active">
+            <a [routerLink]=" ['dashboard'] ">
+                <span class="fa fa-gamepad"
+                      data-toggle="tooltip"
+                      title="Dashboard"></span>
+                <span class="list-group-item-value">Dashboard</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
