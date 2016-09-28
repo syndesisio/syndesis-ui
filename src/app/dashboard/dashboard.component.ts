@@ -26,7 +26,8 @@ export class Dashboard {
     
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
-    
+   
+        /*
         var donutChartConfig = jQuery().c3ChartDefaults().getDefaultDonutConfig('A');
         
         donutChartConfig.bindto = '#chart-pf-donut-1';
@@ -182,7 +183,7 @@ export class Dashboard {
         
         var chart6 = c3.generate(sparklineChartConfig);
         
-        
+        */
         ////
     }
     
