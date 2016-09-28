@@ -11,7 +11,7 @@ var log = Logger.get('+Forge');
     <p>&nbsp;</p>
     <ul class="nav nav-tabs">
       <li routerLinkActive="active">
-        <a [routerLink]="['forge']">Forge</a>
+        <a [routerLink]="['commands']">Forge</a>
       </li>
       <li routerLinkActive="active">
         <a [routerLink]="['kubernetes']">Kubernetes</a>

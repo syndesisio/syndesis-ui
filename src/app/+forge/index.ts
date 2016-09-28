@@ -14,11 +14,11 @@ export const routes = [
     { path: '', 
       component: ForgeIndex, 
       children: [
-        { path: 'forge', component: ForgeView },
+        { path: 'commands', component: ForgeView },
         { path: 'kubernetes', component: KubernetesView }
       ]
     },
-    { path: '**', redirectTo: 'forge' }
+    { path: '**', redirectTo: 'commands' }
 ];
 
 @NgModule({
