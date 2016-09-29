@@ -105,46 +105,52 @@
 
 
 <!-- Sidebar -->
-<div class="nav-pf-vertical nav-pf-vertical-with-sub-menus hide-nav-pf">
+<div class="nav-pf-vertical hide-nav-pf hidden-icons-pf">
     <ul class="list-group">
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['dashboard'] ">
-                <span data-toggle="tooltip"
+                <span class="fa fa-tachometer"
+                      data-toggle="tooltip"
                       title="Dashboard"></span>
                 <span class="list-group-item-value">Dashboard</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['integrations'] " >
-                <span data-toggle="tooltip"
+                <span class="pficon pficon-topology"
+                      data-toggle="tooltip"
                       title="Integrations"></span>
                 <span class="list-group-item-value">Integrations</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['templates'] ">
-                <span data-toggle="tooltip"
+                <span class="pficon pficon-replicator"
+                      data-toggle="tooltip"
                       title="Templates"></span>
                 <span class="list-group-item-value">Templates</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['connections'] ">
-                <span data-toggle="tooltip"
+                <span class="pficon pficon-network"
+                      data-toggle="tooltip"
                       title="Connections"></span>
                 <span class="list-group-item-value">Connections</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['admin'] ">
-                <span data-toggle="tooltip"
+                <span class="fa fa-lock"
+                      data-toggle="tooltip"
                       title="Admin"></span>
                 <span class="list-group-item-value">Admin</span>
             </a>
         </li>
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['forge'] ">
-                <span data-toggle="tooltip"
+                <span class="pficon pficon-cluster"
+                      data-toggle="tooltip"
                       title="Forge"></span>
                 <span class="list-group-item-value">Forge</span>
             </a>
