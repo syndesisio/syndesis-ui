@@ -16,12 +16,11 @@ Logger.get('Admin').debug('`Admin` component loaded asynchronously');
     template: `
     <h1>Admin</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Euismod
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>

@@ -16,12 +16,11 @@ Logger.get('Templates').debug('`Templates` component loaded asynchronously');
     template: `
     <h1>Templates</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Vulputate Fermentum Nullam
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>
