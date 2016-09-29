@@ -1,0 +1,6 @@
+<div class="spinner spinner-lg" *ngIf="!command"></div>
+<div *ngIf="command">
+    <h1>{{command.info.name}}</h1>
+    <pre>{{command | json}}</pre>
+
+</div>

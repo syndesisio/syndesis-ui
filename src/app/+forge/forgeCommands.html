@@ -1,0 +1,26 @@
+<h1>Forge Commands</h1>
+<div class="spinner spinner-lg" *ngIf="!commandMap"></div>
+<div *ngIf="commandMap">
+    <div class="panel-group">
+        <div class="panel panel-default" *ngFor="let name of commandMap.names">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h4>{{name}}</h4>
+                </div>
+            </div>
+            <div class="panel-collapse">
+                <div class="panel-body" style="padding: 0">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let command of commandsFor(name)">
+                            <a [routerLink]="[command.id]">{{command.name}}</a>
+                            <p>{{command.description}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DEBUG info
+<pre *ngIf="commandMap">{{commandMap | json}}</pre>
+-->

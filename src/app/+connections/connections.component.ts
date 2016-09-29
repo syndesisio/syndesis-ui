@@ -6,10 +6,7 @@ var log = Logger.get('+connections');
 
 @Component({
     selector: 'connections',
-    template: `
-    <h1>Hello from Connections</h1>
-    <router-outlet></router-outlet>
-  `
+    templateUrl: './connections.html'
 })
 export class Connections {
 

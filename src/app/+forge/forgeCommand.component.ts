@@ -9,14 +9,7 @@ var log = Logger.get('+Forge');
 
 @Component({
     selector: 'forge-command',
-    template: `
-    <div class="spinner spinner-lg" *ngIf="!command"></div>
-    <div *ngIf="command">
-      <h1>{{command.info.name}}</h1>
-      <pre>{{command | json}}</pre>
-
-    </div>
-  `
+    templateUrl: './forgeCommand.html'
 })
 /*
  * Component that shows the inputs for a given forge command ID

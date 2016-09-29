@@ -8,11 +8,7 @@ var log = Logger.get('KubernetesView');
 
 @Component({
     selector: 'kubernetes',
-    template: `
-    <h1>Kubernetes</h1>
-    <div class="spinner spinner-lg" *ngIf="!version"></div>
-    <pre *ngIf="version">Kubernetes version: {{version | json}}</pre>
-  `
+    templateUrl: './kubernetes.html'
 })
 export class KubernetesView {
     version:any = undefined;

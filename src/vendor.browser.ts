@@ -36,10 +36,6 @@ require('datatables/media/js/jquery.dataTables.min');
 require('drmonty-datatables-colvis/js/dataTables.colVis');
 require('datatables.net-colreorder/js/dataTables.colReorder');
 
-// PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations
-// Note: jquery.dataTables.js must occur in the html source before patternfly*.js
-require('patternfly/dist/js/patternfly.min.js');
-
 // Moment
 require('moment/min/moment.min.js');
 
@@ -67,8 +63,13 @@ require('google-code-prettify/bin/prettify.min');
 // MatchHeight - Used to make sure dashboard cards are the same height
 require('jquery-match-height/jquery.matchHeight-min');
 
+// Charting
 require('c3');
 require('d3');
+
+// PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations
+// Note: jquery.dataTables.js must occur in the html source before patternfly*.js
+require('patternfly/dist/js/patternfly.min.js');
 
 // Angular Application? You May Want to Consider Pulling Angular-PatternFly And Angular-UI Bootstrap instead of
 // bootstrap.js
