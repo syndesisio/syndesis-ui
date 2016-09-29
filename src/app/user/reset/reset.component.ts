@@ -16,12 +16,11 @@ Logger.get('Reset').debug('`Reset` component loaded asynchronously');
     template: `
     <h1>Reset</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sed odio dui.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Malesuada Fringilla
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>

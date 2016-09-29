@@ -11,17 +11,15 @@ Logger.get('Login').debug('`Login` component loaded asynchronously');
 
 @Component({
     selector: 'login',
-    styles: [`
-  `],
+    styles: [],
     template: `
     <h1>Login</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Maecenas faucibus mollis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Ridiculus Ullamcorper Fringilla
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>

@@ -15,22 +15,26 @@ import {App} from './app.component';
 import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 
 // Angular Modules
-import {Admin} from './admin';
 import {AppState} from './app.service';
 import {LogConfig} from './log.service';
 import {Logger} from './log.service';
 import {Forge} from './forge.service';
 import {Kubernetes} from './kubernetes.service';
+
+// Custom Angular Modules
+import {Admin} from './admin';
 import {Dashboard} from './dashboard';
 import {Home} from './home';
+import {Integrations} from './integrations';
 import {NoContent} from './no-content';
+import {Templates} from './templates';
+import {User} from './user';
 import {XLarge} from './home/x-large';
 
 // Third-Party Imports
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-//exports.c3 = require('c3');
-//
+
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -53,7 +57,10 @@ var log = Logger.get("AppModule");
         App,
         Dashboard,
         Home,
+        Integrations,
         NoContent,
+        Templates,
+        User,
         XLarge
     ],
     imports: [ // import Angular's modules
@@ -66,20 +73,20 @@ var log = Logger.get("AppModule");
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,
         APP_PROVIDERS,
-        { 
-          provide: APP_INITIALIZER,
-          useFactory: (appState:AppState) => () => appState.load(appState),
-          deps: [AppState],
-          multi: true
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (appState: AppState) => () => appState.load(appState),
+            deps: [AppState],
+            multi: true
         }
     ]
 })
 export class AppModule {
-
-    constructor(public appRef: ApplicationRef, public appState: AppState, public logConfig:LogConfig) {
-      log.debug("App module created");
+    
+    constructor(public appRef: ApplicationRef, public appState: AppState, public logConfig: LogConfig) {
+        log.debug("App module created");
     }
-
+    
     hmrOnInit(store) {
         if (!store || !store.state) return;
         console.log('HMR store', store);

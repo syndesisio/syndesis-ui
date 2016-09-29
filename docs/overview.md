@@ -43,8 +43,8 @@ Now, the `app.module` file is where things start to look busier yet familiar. At
 
 Angular 2 differs quite a bit from Angular 1, so you may want to check out some of the differences [here](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html).
 
-### Routes
-Routes are defined in [/src/app/app.routes.ts]('src/app/app.routes.ts').
+### Routes & Components
+Routes are defined in [/src/app/app.routes.ts]('src/app/app.routes.ts'). Components will likely also need to be defined, which would be in the [/src/app/app.module.ts]('src/app/app.module.ts') file.
 
 ### Navigation Bar
 The navigation bar is the Vertical Navigation menu from [PatternFly](https://www.patternfly.org/pattern-library/navigation/vertical-navigation/#_). The items on it are defined in the [/src/app/index.html]('src/app/index.html') file, but eventually we would like to move this logic out to a service or component. 

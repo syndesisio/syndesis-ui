@@ -16,12 +16,11 @@ Logger.get('Register').debug('`Register` component loaded asynchronously');
     template: `
     <h1>Register</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Nullam quis risus eget urna mollis ornare vel eu leo. Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Fusce Ridiculus Consectetur
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>

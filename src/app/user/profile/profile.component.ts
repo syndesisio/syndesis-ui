@@ -16,12 +16,11 @@ Logger.get('Profile').debug('`Profile` component loaded asynchronously');
     template: `
     <h1>Profile</h1>
     <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+      Donec ullamcorper nulla non metus auctor fringilla. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
     </div>
     <div>
       <h3>
-        patrick@AngularClass.com
+        Condimentum Ullamcorper Nullam
       </h3>
     </div>
     <pre>this.localState = {{ localState | json }}</pre>
