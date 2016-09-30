@@ -10,9 +10,7 @@ var log = Logger.get('+connections');
 })
 export class Connections {
 
-    constructor() {
-
-    }
+    constructor() {}
     
     ngOnInit() {
       log.debug('hello `Connections` component');

@@ -26,9 +26,7 @@ export class Home {
     // Set our default values
     localState = {value: ''};
     // TypeScript public modifiers
-    constructor(public appState: AppState, public title: Title) {
-
-    }
+    constructor(public appState: AppState, public title: Title) {}
     
     ngOnInit() {
         log.debug('hello `Home` component');

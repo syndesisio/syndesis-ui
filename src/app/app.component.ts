@@ -28,9 +28,7 @@ export class App {
 
     //loggedIn = false;
     
-    constructor(public appState: AppState) {
-
-    }
+    constructor(public appState: AppState) {}
 
     ngOnInit() {
         log.debug('Initial App State', this.appState);

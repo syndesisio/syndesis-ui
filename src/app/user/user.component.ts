@@ -13,18 +13,7 @@ Logger.get('User').debug('`User` component loaded asynchronously');
     selector: 'user',
     styles: [`
   `],
-    template: `
-    <h1>User</h1>
-    <div>
-      Cras mattis consectetur purus sit amet fermentum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo.
-    </div>
-    <div>
-      <h3>
-        Malesuada Risus Tellus
-      </h3>
-    </div>
-    <pre>this.localState = {{ localState | json }}</pre>
-  `
+    templateUrl: './user.html'
 })
 export class User {
     localState;
