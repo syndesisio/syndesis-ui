@@ -29,7 +29,6 @@ import {Integrations} from './integrations';
 import {NoContent} from './no-content';
 import {Templates} from './templates';
 import {User} from './user';
-import {XLarge} from './home/x-large';
 
 // Third-Party Imports
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -60,8 +59,7 @@ var log = Logger.get("AppModule");
         Integrations,
         NoContent,
         Templates,
-        User,
-        XLarge
+        User
     ],
     imports: [ // import Angular's modules
         BrowserModule,
