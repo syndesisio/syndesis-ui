@@ -6,6 +6,7 @@ var log = Logger.get('+connections');
 
 @Component({
     selector: 'connections',
+    styles: [ require('./connections.scss') ],
     templateUrl: './connections.html'
 })
 export class Connections {
