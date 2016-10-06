@@ -10,6 +10,8 @@ import { AppState } from './app.service';
 import { Logger } from './log.service';
 import { AppHelpers } from './app.helpers';
 
+import { KindTypes, WatchTypes, KubernetesAPI } from './kubernetes.helpers.ts';
+
 var log = Logger.get('Kubernetes');
 
 @Injectable()
@@ -41,6 +43,9 @@ export class Kubernetes {
   }
 
   get(kind:string, namespace?:string, id?:string):Observable<any> {
+    if (KubernetesAPI.namespaced(kind) && !namespace) {
+      return null;
+    }
     return AppHelpers.maybeInvoke(this.url, () => {
       // TODO
       return this.http.get(this.url + '/api/v1/namespaces')
