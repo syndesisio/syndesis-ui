@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import * as URI from 'urijs';
+
 import { AppState } from './app.service';
 import { Logger } from './log.service';
 import { AppHelpers } from './app.helpers';
@@ -12,11 +14,13 @@ var log = Logger.get('Kubernetes');
 export class Kubernetes {
 
   private url:string = undefined;
+  private baseUri:uri.URI = undefined;
   private log = undefined;
 
   constructor(private http: Http, private appState: AppState) {
     this.url = appState.config.urls['KUBERNETES_MASTER'];
-    log.debug("Kubernetes service using URL: ", this.url);
+    this.baseUri = new URI(this.url);
+    log.debug("Kubernetes service using URL: ", this.baseUri.toString());
   }
 
   watch(kind:string, namespace?:string):Observable<any> {

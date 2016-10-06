@@ -25,7 +25,7 @@ import 'rxjs/add/operator/mergeMap';
 
 // PatternFly JS Dependencies Entry
 
-// jQuer
+// jQuery
 require('jquery/dist/jquery.min');
 
 //Bootstrap JS
