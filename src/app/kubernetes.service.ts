@@ -82,17 +82,29 @@ export class Kubernetes {
    * Get an object or collection from the server
    */
   get(kind:string, namespace?:string, id?:string):Observable<any> {
+    kind = KubernetesAPI.toKindName(kind);
     if (KubernetesAPI.namespaced(kind) && !namespace) {
       return null;
     }
+    var url = KubernetesAPI.path(this.masterUrl, kind, namespace, id);
     return AppHelpers.maybeInvoke(this.url, () => {
-      // TODO
-      return this.http.get(this.url + '/api/v1/namespaces')
+      log.debug("get ", kind, " using path: ", url);
+      return this.http.get(url)
                       .map((res:Response) => {
-
+                        var json = res.json();
+                        log.debug("get returned object: ", json);
+                        var data = <any> _.get(json, 'items') || json;
+                        if (_.isArray(data)) {
+                          // responses for multiple data return a <resource name>List, we'll set the kind on each item
+                          _.forEach(data, (item:any) => {
+                            item.apiVersion = json.apiVersion;
+                            item.kind = KubernetesAPI.toKindName(kind);
+                          });
+                        }
+                        return data;
                       })
                       .catch((error) => {
-                        log.error("Error fetching namespaces: ", error)
+                        log.error("Error fetching ", kind, " : ", error)
                         return error;
                       });
 
@@ -105,11 +117,7 @@ export class Kubernetes {
   getVersion():Observable<any> {
     return AppHelpers.maybeInvoke(this.url, () => {
       return this.http.get(this.url + '/version')
-                  .map((res:Response) => {
-                    var array = res.json();
-                    // TODO, filter and sort the command list
-                    return array;
-                  })
+                  .map((res:Response) => res.json())
                   .catch((error) => {
                     log.error("Error fetching version: ", error)
                     return error;

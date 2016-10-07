@@ -314,19 +314,19 @@ export module KubernetesAPI {
     return leftUID === rightUID;
   }
 
-  export function kubernetesApiPrefix() {
-    return URI.joinPaths(apiPrefix(), K8S_API_VERSION);
+  export function kubernetesApiPrefix():string {
+    return URI.joinPaths(apiPrefix(), K8S_API_VERSION).toString();
   }
 
-  export function kubernetesApiExtensionPrefix() {
-    return URI.joinPaths(K8S_EXT_PREFIX, K8S_EXTENSIONS, K8S_EXT_VERSION); 
+  export function kubernetesApiExtensionPrefix():string {
+    return URI.joinPaths(K8S_EXT_PREFIX, K8S_EXTENSIONS, K8S_EXT_VERSION).toString(); 
   }
 
-  export function openshiftApiPrefix() {
-    return URI.joinPaths(osApiPrefix(), OS_API_VERSION);
+  export function openshiftApiPrefix():string {
+    return URI.joinPaths(osApiPrefix(), OS_API_VERSION).toString();
   }
 
-  export function apiVersionForKind(kind:string) {
+  export function apiVersionForKind(kind:string):string {
     var api = apiForKind(kind);
     switch(api) {
       case K8S_EXT_PREFIX:
@@ -354,8 +354,36 @@ export module KubernetesAPI {
     }
   }
 
-  export function path(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) {
+  var pathOverrides:any = {};
 
+  export function setPathOverride(kind:string, fn:(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string):void {
+    pathOverrides[toCollectionName(kind)] = fn;
+  }
+
+  export function getPathOverride(kind:string):(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string {
+    return <(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string> _.get(pathOverrides, toCollectionName(kind));
+  }
+
+  export function path(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) {
+    // avoid mutating the passed in URI object
+    apiServerUri = apiServerUri.clone();
+    kind = toCollectionName(kind);
+    var pathOverride = getPathOverride(kind);
+    if (pathOverride) {
+      return pathOverride(apiServerUri, kind, namespace, name);
+    }
+    if (namespaced(kind) && !namespace) {
+      throw "No namespace supplied for path, '" + kind + "' is only in a namespace";
+    }
+    apiServerUri.segment(prefixForKind(kind));
+    if (namespace) {
+      apiServerUri.segment('namespaces').segment(namespace);
+    }
+    apiServerUri.segment(kind);
+    if (name) {
+      apiServerUri.segment(name);
+    }
+    return apiServerUri.toString();
   }
 
   export function pathForObject(apiServerUri:uri.URI, obj:any, useName:boolean = true) {
