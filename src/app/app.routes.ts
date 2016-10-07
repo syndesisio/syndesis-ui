@@ -13,5 +13,5 @@ export const ROUTES: Routes = [
     {path: 'integrations', loadChildren: () => System.import('./+integrations')},
     {path: 'templates', loadChildren: () => System.import('./+templates')},
     {path: 'user', loadChildren: () => System.import('./+user')},
-    {path: '**', loadChildren: () => System.import('./+no-content')},
+    {path: '**', loadChildren: () => System.import('./no-content')},
 ];

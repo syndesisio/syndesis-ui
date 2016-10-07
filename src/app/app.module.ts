@@ -25,7 +25,7 @@ import {Kubernetes} from './kubernetes.service';
 import {Admin} from './+admin';
 import {Connections} from './+connections';
 import {Dashboard} from './+dashboard';
-import {Home} from './home';
+import {Home} from './+home';
 import {Integrations} from './+integrations';
 import {NoContent} from './no-content';
 import {Templates} from './+templates';
