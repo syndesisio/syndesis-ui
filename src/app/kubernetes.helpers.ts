@@ -156,7 +156,7 @@ export module KubernetesAPI {
   }
 
   export function namespaced(kind:string) {
-    switch (kind) {
+    switch (toCollectionName(kind)) {
       case WatchTypes.POLICIES:
       case WatchTypes.OAUTH_CLIENTS:
       case WatchTypes.NAMESPACES:
@@ -195,7 +195,7 @@ export module KubernetesAPI {
   /*
    * Returns the single 'kind' of an object from the collection kind
    */
-  export function toKindName(kind:any) {
+  export function toKindName(kind:any):string {
     if (_.isObject(kind)) {
       return getKind(kind);
     }
@@ -239,7 +239,7 @@ export module KubernetesAPI {
   /*
    * Returns the collection kind of an object from the singular kind
    */
-  export function toCollectionName(kind:any) {
+  export function toCollectionName(kind:any):string {
     if (_.isObject(kind)) {
       kind = getKind(kind);
     }
@@ -285,10 +285,11 @@ export module KubernetesAPI {
    */
   export function wsScheme(url:string) {
     var protocol = new URI(url).protocol() || 'http';
-    if (_.startsWith(protocol, 'https')) {
-      return 'wss';
-    } else {
-      return 'ws';
+    switch(protocol) {
+      case 'https':
+        return 'wss';
+      default:
+        return 'ws';
     }
   }
 
@@ -306,6 +307,7 @@ export module KubernetesAPI {
   export function equals(left, right):boolean {
     var leftUID = getUID(left);
     var rightUID = getUID(right);
+    // fallback to a full object comparison
     if (!leftUID && !rightUID) {
       return JSON.stringify(left) === JSON.stringify(right);
     }
@@ -351,59 +353,75 @@ export module KubernetesAPI {
         return null;
     }
   }
+
+  export function path(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) {
+
+  }
+
+  export function pathForObject(apiServerUri:uri.URI, obj:any, useName:boolean = true) {
+    var kind = getKind(obj);
+    var namespace:string = undefined;
+    if (namespaced(kind)) {
+      namespace = getNamespace(obj);
+    }
+    var name:string = undefined;
+    if (useName) {
+      name = getName(obj);
+    }
+    return path(apiServerUri, kind, namespace, name);
+  }
   
-  export function getUID(entity) {
-    return _.get(entity, ['metadata', 'uid']);
+  export function getUID(entity):string {
+    return <string>_.get(entity, 'metadata.uid');
   }
 
-  export function getNamespace(entity) {
-    var answer = _.get(entity, ["metadata", "namespace"]);
+  export function getNamespace(entity):string {
     // some objects aren't namespaced, so this can return null;
-    return answer;
+    return <string>_.get(entity, 'metadata.namespace');
   }
 
-  export function getApiVersion(entity) {
-    return _.get(entity, ['apiVersion']);
+  export function getApiVersion(entity):string {
+    return <string>_.get(entity, ['apiVersion']);
   }
 
-  export function getLabels(entity) {
+  export function getLabels(entity):any {
     return _.get(entity, 'metadata.labels') || {};
   }
   
-  export function getAnnotations(entity) {
+  export function getAnnotations(entity):any {
     return _.get(entity, 'metadata.annotations') || {};
   }
 
-  export function getAnnotation(entity, name) {
+  export function getAnnotation(entity, name):string {
     var annotations = getAnnotations(entity) || {};
-    return annotations[name];
+    return <string>annotations[name];
   }
 
-  export function getName(entity) {
-    return _.get(entity, ["metadata", "name"]) || _.get(entity, "name") || _.get(entity, "id");
+  export function getName(entity):string {
+    return <string> (_.get(entity, 'metadata.name') || _.get(entity, 'name') || _.get(entity, 'id'));
   }
 
-  export function getKind(entity) {
-    return _.get(entity, ["metadata", "kind"]) || _.get(entity, "kind");
+  export function getKind(entity):string {
+    return <string> (_.get(entity, 'metadata.kind') || _.get(entity, 'kind'));
   }
 
-  export function getSelector(entity) {
-    return _.get(entity, ["spec", "selector"]);
+  export function getSelector(entity):any {
+    return _.get(entity, 'spec.selector');
   }
 
-  export function getHost(pod) {
-    return _.get(pod, ["spec", "host"]) || _.get(pod, ["spec", "nodeName"]) || _.get(pod, ["status", "hostIP"]);
+  export function getHost(pod):string {
+    return <string> (_.get(pod, 'spec.host') || _.get(pod, 'spec.nodeName') || _.get(pod, 'status.hostIP'));
   }
 
-  export function getStatus(pod) {
-    return _.get(pod, ["status", "phase"]);
+  export function getStatus(pod):any {
+    return _.get(pod, 'status.phase');
   }
 
-  export function getPorts(service) {
-    return _.get(service, ["spec", "ports"]);
+  export function getPorts(service):any {
+    return _.get(service, 'spec.ports');
   }
 
-  export function getCreationTimestamp(entity) {
-    return _.get(entity, ["metadata", "creationTimestamp"]);
+  export function getCreationTimestamp(entity):any {
+    return _.get(entity, 'metadata.creationTimestamp');
   };
 }
