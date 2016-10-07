@@ -22,13 +22,14 @@ import {Forge} from './forge.service';
 import {Kubernetes} from './kubernetes.service';
 
 // Custom Angular Modules
-import {Admin} from './admin';
-import {Dashboard} from './dashboard';
+import {Admin} from './+admin';
+import {Connections} from './+connections';
+import {Dashboard} from './+dashboard';
 import {Home} from './home';
-import {Integrations} from './integrations';
+import {Integrations} from './+integrations';
 import {NoContent} from './no-content';
-import {Templates} from './templates';
-import {User} from './user';
+import {Templates} from './+templates';
+import {User} from './+user';
 
 // Third-Party Imports
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -54,6 +55,7 @@ var log = Logger.get("AppModule");
     declarations: [
         Admin,
         App,
+      Connections,
         Dashboard,
         Home,
         Integrations,
