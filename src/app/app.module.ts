@@ -1,7 +1,7 @@
 import {NgModule, ApplicationRef, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpModule, JsonpModule} from '@angular/http';
+import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {removeNgStyles, createNewHosts} from '@angularclass/hmr';
 
@@ -16,22 +16,10 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 
 // Angular Modules
 import {AppState} from './app.service';
-import {LogConfig} from './log.service';
 import {Logger} from './log.service';
 import {Forge} from './forge.service';
 import {Kubernetes} from './kubernetes.service';
 
-// Custom Angular Modules
-/*
-import {Admin} from './+admin';
-import {Connections} from './+connections';
-import {Dashboard} from './+dashboard';
-import {Home} from './+home';
-import {Integrations} from './+integrations';
-import {NoContent} from './no-content';
-import {Templates} from './+templates';
-import {User} from './+user';
-*/
 
 // Third-Party Imports
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -41,7 +29,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     AppState,
-    //LogConfig,
     Forge,
     Kubernetes
 ];
@@ -55,15 +42,7 @@ var log = Logger.get("AppModule");
 @NgModule({
     bootstrap: [App],
     declarations: [
-        //Admin,
-        App,
-        //Connections,
-        //Dashboard,
-        //Home,
-        //Integrations,
-        //NoContent,
-        //Templates,
-        //User
+        App
     ],
     imports: [ // import Angular's modules
         BrowserModule,
