@@ -5,13 +5,14 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { Admin } from './admin.component.ts';
+import {Admin} from './admin.component.ts';
 
 Logger.get('+Admin').debug('`Admin` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '',
+    {
+        path: '',
         component: Admin
     }
 ];

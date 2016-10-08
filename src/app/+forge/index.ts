@@ -12,15 +12,16 @@ import {KubernetesView} from './kubernetes.component';
 Logger.get('+Forge').debug('`Forge` bundle loaded asynchronously');
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
-    { path: '', 
-      component: ForgeIndex, 
-      children: [
-        { path: 'commands', component: ForgeCommands },
-        { path: 'commands/:id', component: ForgeCommand },
-        { path: 'kubernetes', component: KubernetesView }
-      ]
+    {
+        path: '',
+        component: ForgeIndex,
+        children: [
+            {path: 'commands', component: ForgeCommands},
+            {path: 'commands/:id', component: ForgeCommand},
+            {path: 'kubernetes', component: KubernetesView}
+        ]
     },
-    { path: '**', redirectTo: 'commands' }
+    {path: '**', redirectTo: 'commands'}
 ];
 
 @NgModule({

@@ -5,13 +5,14 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { Templates } from './templates.component.ts';
+import {Templates} from './templates.component.ts';
 
 Logger.get('+Templates').debug('`Templates` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '',
+    {
+        path: '',
         component: Templates
     }
 ];

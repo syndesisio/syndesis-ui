@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Logger } from './log.service';
+import {Http, Response} from '@angular/http';
+import {Logger} from './log.service';
 
 // defer initializing this, otherwise 'Logger' is undefined
 var log = undefined;
@@ -9,25 +9,25 @@ var log = undefined;
 export class AppState {
     
     private configJson = 'config.json';
-    config:any = {};
-
+    config: any = {};
+    
     _state = {};
     
     constructor(private http: Http) {
         log = Logger.get('AppState');
     }
-
+    
     // Used to load settings from the server, returns a promise so angular waits
     // during bootstrap.  Log is passed in here to help avoid circular dependencies
-    load(self:AppState):Promise<AppState> {
-      var promise = self.http.get(self.configJson)
-                             .map(res => res.json()).toPromise();
-      promise.then((config) => {
-        log.debug("Using configuration: ", config);
-        self.config = config
-        return self;
-      });
-      return promise;
+    load(self: AppState): Promise<AppState> {
+        var promise = self.http.get(self.configJson)
+          .map(res => res.json()).toPromise();
+        promise.then((config) => {
+            log.debug("Using configuration: ", config);
+            self.config = config
+            return self;
+        });
+        return promise;
     }
     
     // already return a clone of the current state
@@ -56,5 +56,5 @@ export class AppState {
         // simple object clone
         return JSON.parse(JSON.stringify(object));
     }
-
+    
 }

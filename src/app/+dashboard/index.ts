@@ -5,13 +5,14 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { Dashboard } from './dashboard.component.ts';
+import {Dashboard} from './dashboard.component.ts';
 
 Logger.get('+Dashboard').debug('`Dashboard` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '',
+    {
+        path: '',
         component: Dashboard
     }
 ];

@@ -5,14 +5,15 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { Home } from './home.component.ts';
+import {Home} from './home.component.ts';
 
 Logger.get('+Home').debug('`Home` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '', 
-      component: Home
+    {
+        path: '',
+        component: Home
     }
 ];
 

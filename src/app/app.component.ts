@@ -15,7 +15,7 @@ var log = Logger.get('App');
 @Component({
     selector: 'app',
     encapsulation: ViewEncapsulation.None,
-    styles: [ require('../assets/scss/main.scss') ],
+    styles: [require('../assets/scss/main.scss')],
     templateUrl: './index.html'
 })
 export class App {
@@ -25,11 +25,12 @@ export class App {
     title = 'iPaaS';
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
-
+    
     //loggedIn = false;
     
-    constructor(public appState: AppState) {}
-
+    constructor(public appState: AppState) {
+    }
+    
     ngOnInit() {
         log.debug('Initial App State', this.appState);
     }

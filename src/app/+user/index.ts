@@ -5,13 +5,14 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { User } from './user.component.ts';
+import {User} from './user.component.ts';
 
 Logger.get('+User').debug('`User` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '',
+    {
+        path: '',
         component: User
     }
 ];
