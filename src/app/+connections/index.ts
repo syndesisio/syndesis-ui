@@ -5,13 +5,14 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../log.service';
 
-import { Connections } from './connections.component.ts';
+import {Connections} from './connections.component.ts';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    { path: '',
+    {
+        path: '',
         component: Connections
     }
 ];
