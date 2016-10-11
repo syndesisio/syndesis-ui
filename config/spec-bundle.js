@@ -47,7 +47,7 @@ testing.TestBed.initTestEnvironment(
  * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
-var testContext = require.context('../src', true, /\.spec\.ts/);
+var testContext = require.context('../src', true, /\.spec\.ts$/);
 
 /*
  * get all the files, for each file, call the context function
@@ -56,7 +56,14 @@ var testContext = require.context('../src', true, /\.spec\.ts/);
  */
 
 function requireAll(requireContext) {
-  return requireContext.keys().map(requireContext);
+  return requireContext.keys().map(function(key) {
+    try {
+      var answer = requireContext(key);
+    } catch (err) {
+      console.error("Failed to load module: ", key, " error: ", err.message || err);
+    }
+    return answer;
+  });
 }
 
 // requires and returns all modules that match

@@ -64,18 +64,6 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
      */
     preLoaders: [
-
-      /**
-       * Tslint loader support for *.ts files
-       *
-       * See: https://github.com/wbuchwalter/tslint-loader
-       */
-      {
-        test: /\.ts$/,
-        loader: 'tslint-loader',
-        exclude: [helpers.root('node_modules')]
-      },
-
       /**
        * Source map loader support for *.js files
        * Extracts SourceMaps for source files that as added as sourceMappingURL comment.
@@ -144,7 +132,32 @@ module.exports = {
        *
        * See: https://github.com/webpack/raw-loader
        */
-      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] }
+      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
+
+      // File loader for supporting images, for example, in CSS files.
+      {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'file'
+      },
+
+      // SCSS Loader
+      {
+        test: /\.scss$/,
+        //loaders: ['style', 'css', 'sass']
+        loaders: ['raw-loader', 'sass-loader']
+      },
+
+      // Fonts
+      {
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        loader: 'url?limit=10000'
+      },
+
+      // Bootstrap 4
+      {
+        test: /bootstrap\/dist\/js\/umd\//,
+        loader: 'imports?jQuery=jquery'
+      }
 
     ],
 

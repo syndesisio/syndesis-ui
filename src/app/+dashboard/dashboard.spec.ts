@@ -1,3 +1,27 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
+import { BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+
+import { Dashboard } from './dashboard.component';
+import { AppState } from '../app.service';
+
+describe('Dashboard', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ Dashboard ]
+    });
+    fixture = TestBed.createComponent(Dashboard);
+    var comp = fixture.componentInstance;
+  });
+});
+
+
+/*
+
+ TODO this is all old
 import {
   it,
   inject,
@@ -5,17 +29,17 @@ import {
   describe,
   beforeEachProviders,
   TestComponentBuilder
-} from 'angular2/testing';
+} from '@angular/core/testing';
 
-import {Component, provide} from 'angular2/core';
-import {BaseRequestOptions, Http} from 'angular2/http';
-import {MockBackend} from 'angular2/http/testing';
-import {WebpackState} from 'angular2-hmr';
+import { Component, provide } from '@angular/core';
+import { BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { WebpackState } from '@angularclass/hmr';
 
 // Load the implementations that should be tested
-import {Dashboard} from './dashboard.component';
-import {Title} from './title';
-import {AppState} from '../app.service';
+import { Dashboard } from './dashboard.component';
+// import { Title } from './title';
+import { AppState } from '../app.service';
 
 describe('Dashboard', () => {
     // provide our implementations or mocks to the dependency injector
@@ -51,3 +75,5 @@ describe('Dashboard', () => {
         expect(console.log).toHaveBeenCalled();
     }));
 });
+
+*/
