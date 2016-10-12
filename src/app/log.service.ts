@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { AppState } from './app.service';
+import {AppState} from './app.service';
 
 export var Logger:any = require('js-logger');
+
 Logger.useDefaults();
 
 /*
@@ -10,9 +11,8 @@ Logger.useDefaults();
  */
 @Injectable()
 export class LogConfig {
-
-  constructor(private appState: AppState) {
-    // TODO set this via AppState, ideally per-logger
-    Logger.setLevel(Logger.DEBUG);
-  }
+    constructor(private appState: AppState) {
+        // TODO set this via AppState, ideally per-logger
+        Logger.setLevel(Logger.DEBUG);
+    }
 }
