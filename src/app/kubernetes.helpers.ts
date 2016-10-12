@@ -51,7 +51,7 @@ export class KindTypes {
   public static get DAEMONSETS(): string { return "DaemonSet"; }
 }
 
-export class WatchTypes {
+export class CollectionTypes {
   public static get LIST(): string { return "list"; }
   public static get ENDPOINTS(): string { return "endpoints"; }
   public static get EVENTS(): string { return "events"; }
@@ -90,9 +90,9 @@ export class WatchTypes {
 export class ExtensionTypes {
   public static get extensions(): Array<string> {
     return [
-      WatchTypes.DAEMONSETS,
-      WatchTypes.REPLICA_SETS,
-      WatchTypes.DEPLOYMENTS
+      CollectionTypes.DAEMONSETS,
+      CollectionTypes.REPLICA_SETS,
+      CollectionTypes.DEPLOYMENTS
     ];
   }
 }
@@ -101,42 +101,42 @@ export class Kinds {
   // Vanilla Kubernetes types
   public static get k8s(): Array<string> {
     return [
-      WatchTypes.CONFIG_MAPS,
-      WatchTypes.ENDPOINTS,
-      WatchTypes.EVENTS,
-      WatchTypes.INGRESSES,
-      WatchTypes.NODES,
-      WatchTypes.PERSISTENT_VOLUMES,
-      WatchTypes.PERSISTENT_VOLUME_CLAIMS,
-      WatchTypes.PODS,
-      WatchTypes.REPLICATION_CONTROLLERS,
-      WatchTypes.RESOURCE_QUOTAS,
-      WatchTypes.PERSISTENT_VOLUMES,
-      WatchTypes.SECRETS,
-      WatchTypes.SERVICES,
-      WatchTypes.SERVICE_ACCOUNTS,
-      WatchTypes.REPLICA_SETS,
-      WatchTypes.DEPLOYMENTS
+      CollectionTypes.CONFIG_MAPS,
+      CollectionTypes.ENDPOINTS,
+      CollectionTypes.EVENTS,
+      CollectionTypes.INGRESSES,
+      CollectionTypes.NODES,
+      CollectionTypes.PERSISTENT_VOLUMES,
+      CollectionTypes.PERSISTENT_VOLUME_CLAIMS,
+      CollectionTypes.PODS,
+      CollectionTypes.REPLICATION_CONTROLLERS,
+      CollectionTypes.RESOURCE_QUOTAS,
+      CollectionTypes.PERSISTENT_VOLUMES,
+      CollectionTypes.SECRETS,
+      CollectionTypes.SERVICES,
+      CollectionTypes.SERVICE_ACCOUNTS,
+      CollectionTypes.REPLICA_SETS,
+      CollectionTypes.DEPLOYMENTS
     ];
   }
   // Openshift specific types
   public static get os(): Array<string> {
     return [
-      WatchTypes.TEMPLATES,
-      WatchTypes.BUILD_CONFIGS,
-      WatchTypes.ROUTES,
-      WatchTypes.BUILDS,
-      WatchTypes.BUILD_CONFIGS,
-      WatchTypes.DEPLOYMENT_CONFIGS,
-      WatchTypes.IMAGES,
-      WatchTypes.IMAGE_STREAMS,
-      WatchTypes.IMAGE_STREAM_TAGS,
-      WatchTypes.OAUTH_CLIENTS,
-      WatchTypes.POLICIES,
-      WatchTypes.POLICY_BINDINGS,
-      WatchTypes.PROJECTS,
-      WatchTypes.ROLE_BINDINGS,
-      WatchTypes.ROLES
+      CollectionTypes.TEMPLATES,
+      CollectionTypes.BUILD_CONFIGS,
+      CollectionTypes.ROUTES,
+      CollectionTypes.BUILDS,
+      CollectionTypes.BUILD_CONFIGS,
+      CollectionTypes.DEPLOYMENT_CONFIGS,
+      CollectionTypes.IMAGES,
+      CollectionTypes.IMAGE_STREAMS,
+      CollectionTypes.IMAGE_STREAM_TAGS,
+      CollectionTypes.OAUTH_CLIENTS,
+      CollectionTypes.POLICIES,
+      CollectionTypes.POLICY_BINDINGS,
+      CollectionTypes.PROJECTS,
+      CollectionTypes.ROLE_BINDINGS,
+      CollectionTypes.ROLES
     ];
   }
 }
@@ -157,12 +157,12 @@ export module KubernetesAPI {
 
   export function namespaced(kind:string) {
     switch (toCollectionName(kind)) {
-      case WatchTypes.POLICIES:
-      case WatchTypes.OAUTH_CLIENTS:
-      case WatchTypes.NAMESPACES:
-      case WatchTypes.NODES:
-      case WatchTypes.PERSISTENT_VOLUMES:
-      case WatchTypes.PROJECTS:
+      case CollectionTypes.POLICIES:
+      case CollectionTypes.OAUTH_CLIENTS:
+      case CollectionTypes.NAMESPACES:
+      case CollectionTypes.NODES:
+      case CollectionTypes.PERSISTENT_VOLUMES:
+      case CollectionTypes.PROJECTS:
         return false;
 
       default:
@@ -175,7 +175,7 @@ export module KubernetesAPI {
    */
   export function apiForKind(kind:string) {
     kind = toCollectionName(kind);
-    if (kind === WatchTypes.NAMESPACES) {
+    if (kind === CollectionTypes.NAMESPACES) {
       return K8S_PREFIX;
     }
     if (_.some(ExtensionTypes.extensions, (t) => t === kind)) {
@@ -187,7 +187,7 @@ export module KubernetesAPI {
     if (_.some(Kinds.os, (t) => t === kind)) {
       return OS_PREFIX;
     }
-    if (kind === WatchTypes.IMAGES) {
+    if (kind === CollectionTypes.IMAGES) {
       return OS_PREFIX;
     }
     return null;
@@ -201,38 +201,38 @@ export module KubernetesAPI {
       return getKind(kind);
     }
     switch (kind) {
-      case WatchTypes.LIST: return KindTypes.LIST;
-      case WatchTypes.ENDPOINTS:  return KindTypes.ENDPOINTS; 
-      case WatchTypes.EVENTS:  return KindTypes.EVENTS; 
-      case WatchTypes.NAMESPACES:  return KindTypes.NAMESPACES; 
-      case WatchTypes.NODES:  return KindTypes.NODES; 
-      case WatchTypes.PERSISTENT_VOLUMES:  return KindTypes.PERSISTENT_VOLUMES; 
-      case WatchTypes.PERSISTENT_VOLUME_CLAIMS:  return KindTypes.PERSISTENT_VOLUME_CLAIMS; 
-      case WatchTypes.PODS:  return KindTypes.PODS; 
-      case WatchTypes.REPLICATION_CONTROLLERS:  return KindTypes.REPLICATION_CONTROLLERS; 
-      case WatchTypes.REPLICA_SETS:  return KindTypes.REPLICA_SETS; 
-      case WatchTypes.RESOURCE_QUOTAS:  return KindTypes.RESOURCE_QUOTAS; 
-      case WatchTypes.OAUTH_CLIENTS:  return KindTypes.OAUTH_CLIENTS; 
-      case WatchTypes.SECRETS:  return KindTypes.SECRETS; 
-      case WatchTypes.SERVICES:  return KindTypes.SERVICES; 
-      case WatchTypes.SERVICE_ACCOUNTS:  return KindTypes.SERVICE_ACCOUNTS; 
-      case WatchTypes.CONFIG_MAPS:  return KindTypes.CONFIG_MAPS; 
-      case WatchTypes.INGRESSES:  return KindTypes.INGRESSES; 
-      case WatchTypes.TEMPLATES:  return KindTypes.TEMPLATES; 
-      case WatchTypes.ROUTES:  return KindTypes.ROUTES; 
-      case WatchTypes.BUILD_CONFIGS:  return KindTypes.BUILD_CONFIGS; 
-      case WatchTypes.BUILDS:  return KindTypes.BUILDS; 
-      case WatchTypes.DEPLOYMENT_CONFIGS:  return KindTypes.DEPLOYMENT_CONFIGS; 
-      case WatchTypes.DEPLOYMENTS:  return KindTypes.DEPLOYMENTS; 
-      case WatchTypes.IMAGES:  return KindTypes.IMAGES; 
-      case WatchTypes.IMAGE_STREAMS:  return KindTypes.IMAGE_STREAMS; 
-      case WatchTypes.IMAGE_STREAM_TAGS:  return KindTypes.IMAGE_STREAM_TAGS; 
-      case WatchTypes.POLICIES:  return KindTypes.POLICIES; 
-      case WatchTypes.POLICY_BINDINGS:  return KindTypes.POLICY_BINDINGS; 
-      case WatchTypes.PROJECTS:  return KindTypes.PROJECTS; 
-      case WatchTypes.ROLE_BINDINGS:  return KindTypes.ROLE_BINDINGS; 
-      case WatchTypes.ROLES:  return KindTypes.ROLES; 
-      case WatchTypes.DAEMONSETS:  return KindTypes.DAEMONSETS; 
+      case CollectionTypes.LIST: return KindTypes.LIST;
+      case CollectionTypes.ENDPOINTS:  return KindTypes.ENDPOINTS; 
+      case CollectionTypes.EVENTS:  return KindTypes.EVENTS; 
+      case CollectionTypes.NAMESPACES:  return KindTypes.NAMESPACES; 
+      case CollectionTypes.NODES:  return KindTypes.NODES; 
+      case CollectionTypes.PERSISTENT_VOLUMES:  return KindTypes.PERSISTENT_VOLUMES; 
+      case CollectionTypes.PERSISTENT_VOLUME_CLAIMS:  return KindTypes.PERSISTENT_VOLUME_CLAIMS; 
+      case CollectionTypes.PODS:  return KindTypes.PODS; 
+      case CollectionTypes.REPLICATION_CONTROLLERS:  return KindTypes.REPLICATION_CONTROLLERS; 
+      case CollectionTypes.REPLICA_SETS:  return KindTypes.REPLICA_SETS; 
+      case CollectionTypes.RESOURCE_QUOTAS:  return KindTypes.RESOURCE_QUOTAS; 
+      case CollectionTypes.OAUTH_CLIENTS:  return KindTypes.OAUTH_CLIENTS; 
+      case CollectionTypes.SECRETS:  return KindTypes.SECRETS; 
+      case CollectionTypes.SERVICES:  return KindTypes.SERVICES; 
+      case CollectionTypes.SERVICE_ACCOUNTS:  return KindTypes.SERVICE_ACCOUNTS; 
+      case CollectionTypes.CONFIG_MAPS:  return KindTypes.CONFIG_MAPS; 
+      case CollectionTypes.INGRESSES:  return KindTypes.INGRESSES; 
+      case CollectionTypes.TEMPLATES:  return KindTypes.TEMPLATES; 
+      case CollectionTypes.ROUTES:  return KindTypes.ROUTES; 
+      case CollectionTypes.BUILD_CONFIGS:  return KindTypes.BUILD_CONFIGS; 
+      case CollectionTypes.BUILDS:  return KindTypes.BUILDS; 
+      case CollectionTypes.DEPLOYMENT_CONFIGS:  return KindTypes.DEPLOYMENT_CONFIGS; 
+      case CollectionTypes.DEPLOYMENTS:  return KindTypes.DEPLOYMENTS; 
+      case CollectionTypes.IMAGES:  return KindTypes.IMAGES; 
+      case CollectionTypes.IMAGE_STREAMS:  return KindTypes.IMAGE_STREAMS; 
+      case CollectionTypes.IMAGE_STREAM_TAGS:  return KindTypes.IMAGE_STREAM_TAGS; 
+      case CollectionTypes.POLICIES:  return KindTypes.POLICIES; 
+      case CollectionTypes.POLICY_BINDINGS:  return KindTypes.POLICY_BINDINGS; 
+      case CollectionTypes.PROJECTS:  return KindTypes.PROJECTS; 
+      case CollectionTypes.ROLE_BINDINGS:  return KindTypes.ROLE_BINDINGS; 
+      case CollectionTypes.ROLES:  return KindTypes.ROLES; 
+      case CollectionTypes.DAEMONSETS:  return KindTypes.DAEMONSETS; 
       default: return kind;
     }
   }
@@ -245,38 +245,38 @@ export module KubernetesAPI {
       kind = getKind(kind);
     }
     switch (kind) {
-      case KindTypes.LIST: return WatchTypes.LIST;
-      case KindTypes.ENDPOINTS:  return WatchTypes.ENDPOINTS; 
-      case KindTypes.EVENTS:  return WatchTypes.EVENTS; 
-      case KindTypes.NAMESPACES:  return WatchTypes.NAMESPACES; 
-      case KindTypes.NODES:  return WatchTypes.NODES; 
-      case KindTypes.PERSISTENT_VOLUMES:  return WatchTypes.PERSISTENT_VOLUMES; 
-      case KindTypes.PERSISTENT_VOLUME_CLAIMS:  return WatchTypes.PERSISTENT_VOLUME_CLAIMS; 
-      case KindTypes.PODS:  return WatchTypes.PODS; 
-      case KindTypes.REPLICATION_CONTROLLERS:  return WatchTypes.REPLICATION_CONTROLLERS; 
-      case KindTypes.REPLICA_SETS:  return WatchTypes.REPLICA_SETS; 
-      case KindTypes.RESOURCE_QUOTAS:  return WatchTypes.RESOURCE_QUOTAS; 
-      case KindTypes.OAUTH_CLIENTS:  return WatchTypes.OAUTH_CLIENTS; 
-      case KindTypes.SECRETS:  return WatchTypes.SECRETS; 
-      case KindTypes.SERVICES:  return WatchTypes.SERVICES; 
-      case KindTypes.SERVICE_ACCOUNTS:  return WatchTypes.SERVICE_ACCOUNTS; 
-      case KindTypes.CONFIG_MAPS:  return WatchTypes.CONFIG_MAPS; 
-      case KindTypes.INGRESSES:  return WatchTypes.INGRESSES; 
-      case KindTypes.TEMPLATES:  return WatchTypes.TEMPLATES; 
-      case KindTypes.ROUTES:  return WatchTypes.ROUTES; 
-      case KindTypes.BUILD_CONFIGS:  return WatchTypes.BUILD_CONFIGS; 
-      case KindTypes.BUILDS:  return WatchTypes.BUILDS; 
-      case KindTypes.DEPLOYMENT_CONFIGS:  return WatchTypes.DEPLOYMENT_CONFIGS; 
-      case KindTypes.DEPLOYMENTS:  return WatchTypes.DEPLOYMENTS; 
-      case KindTypes.IMAGES:  return WatchTypes.IMAGES; 
-      case KindTypes.IMAGE_STREAMS:  return WatchTypes.IMAGE_STREAMS; 
-      case KindTypes.IMAGE_STREAM_TAGS:  return WatchTypes.IMAGE_STREAM_TAGS; 
-      case KindTypes.POLICIES:  return WatchTypes.POLICIES; 
-      case KindTypes.POLICY_BINDINGS:  return WatchTypes.POLICY_BINDINGS; 
-      case KindTypes.PROJECTS:  return WatchTypes.PROJECTS; 
-      case KindTypes.ROLE_BINDINGS:  return WatchTypes.ROLE_BINDINGS; 
-      case KindTypes.ROLES:  return WatchTypes.ROLES; 
-      case KindTypes.DAEMONSETS:  return WatchTypes.DAEMONSETS; 
+      case KindTypes.LIST: return CollectionTypes.LIST;
+      case KindTypes.ENDPOINTS:  return CollectionTypes.ENDPOINTS; 
+      case KindTypes.EVENTS:  return CollectionTypes.EVENTS; 
+      case KindTypes.NAMESPACES:  return CollectionTypes.NAMESPACES; 
+      case KindTypes.NODES:  return CollectionTypes.NODES; 
+      case KindTypes.PERSISTENT_VOLUMES:  return CollectionTypes.PERSISTENT_VOLUMES; 
+      case KindTypes.PERSISTENT_VOLUME_CLAIMS:  return CollectionTypes.PERSISTENT_VOLUME_CLAIMS; 
+      case KindTypes.PODS:  return CollectionTypes.PODS; 
+      case KindTypes.REPLICATION_CONTROLLERS:  return CollectionTypes.REPLICATION_CONTROLLERS; 
+      case KindTypes.REPLICA_SETS:  return CollectionTypes.REPLICA_SETS; 
+      case KindTypes.RESOURCE_QUOTAS:  return CollectionTypes.RESOURCE_QUOTAS; 
+      case KindTypes.OAUTH_CLIENTS:  return CollectionTypes.OAUTH_CLIENTS; 
+      case KindTypes.SECRETS:  return CollectionTypes.SECRETS; 
+      case KindTypes.SERVICES:  return CollectionTypes.SERVICES; 
+      case KindTypes.SERVICE_ACCOUNTS:  return CollectionTypes.SERVICE_ACCOUNTS; 
+      case KindTypes.CONFIG_MAPS:  return CollectionTypes.CONFIG_MAPS; 
+      case KindTypes.INGRESSES:  return CollectionTypes.INGRESSES; 
+      case KindTypes.TEMPLATES:  return CollectionTypes.TEMPLATES; 
+      case KindTypes.ROUTES:  return CollectionTypes.ROUTES; 
+      case KindTypes.BUILD_CONFIGS:  return CollectionTypes.BUILD_CONFIGS; 
+      case KindTypes.BUILDS:  return CollectionTypes.BUILDS; 
+      case KindTypes.DEPLOYMENT_CONFIGS:  return CollectionTypes.DEPLOYMENT_CONFIGS; 
+      case KindTypes.DEPLOYMENTS:  return CollectionTypes.DEPLOYMENTS; 
+      case KindTypes.IMAGES:  return CollectionTypes.IMAGES; 
+      case KindTypes.IMAGE_STREAMS:  return CollectionTypes.IMAGE_STREAMS; 
+      case KindTypes.IMAGE_STREAM_TAGS:  return CollectionTypes.IMAGE_STREAM_TAGS; 
+      case KindTypes.POLICIES:  return CollectionTypes.POLICIES; 
+      case KindTypes.POLICY_BINDINGS:  return CollectionTypes.POLICY_BINDINGS; 
+      case KindTypes.PROJECTS:  return CollectionTypes.PROJECTS; 
+      case KindTypes.ROLE_BINDINGS:  return CollectionTypes.ROLE_BINDINGS; 
+      case KindTypes.ROLES:  return CollectionTypes.ROLES; 
+      case KindTypes.DAEMONSETS:  return CollectionTypes.DAEMONSETS; 
       default: return kind;
     }
   }

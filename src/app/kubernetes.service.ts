@@ -10,7 +10,7 @@ import { AppState } from './app.service';
 import { Logger } from './log.service';
 import { AppHelpers } from './app.helpers';
 
-import { KindTypes, WatchTypes, KubernetesAPI } from './kubernetes.helpers.ts';
+import { KindTypes, CollectionTypes, KubernetesAPI } from './kubernetes.helpers.ts';
 
 var log = Logger.get('Kubernetes');
 

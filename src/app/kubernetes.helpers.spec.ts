@@ -3,7 +3,7 @@ import * as URI from 'urijs';
 import * as _ from 'lodash';
 
 import { KubernetesAPI,
-         WatchTypes, 
+         CollectionTypes, 
          KindTypes, 
          NamespacedTypes,
          K8S_PREFIX,
@@ -16,11 +16,11 @@ describe('KubernetesHelpers', () => {
   it('should return true for namespaced types and false for not namespaced types', () => {
     var tests = [
       {
-        kind: WatchTypes.PODS,
+        kind: CollectionTypes.PODS,
         namespaced: true
       },
       {
-        kind: WatchTypes.POLICIES,
+        kind: CollectionTypes.POLICIES,
         namespaced: false
       },
       {
@@ -28,7 +28,7 @@ describe('KubernetesHelpers', () => {
         namespaced: false
       },
       {
-        kind: WatchTypes.PERSISTENT_VOLUMES,
+        kind: CollectionTypes.PERSISTENT_VOLUMES,
         namespaced: false
       },
       {
@@ -36,11 +36,11 @@ describe('KubernetesHelpers', () => {
         namespaced: true
       },
       {
-        kind: WatchTypes.SERVICES,
+        kind: CollectionTypes.SERVICES,
         namespaced: true
       },
       {
-        kind: WatchTypes.SERVICE_ACCOUNTS,
+        kind: CollectionTypes.SERVICE_ACCOUNTS,
         namespaced: true
       }
     ];
@@ -52,11 +52,11 @@ describe('KubernetesHelpers', () => {
   it('should return the correct API prefix', () => {
     var tests = [
       {
-        kind: WatchTypes.PODS,
+        kind: CollectionTypes.PODS,
         prefix: K8S_PREFIX
       },
       {
-        kind: WatchTypes.DEPLOYMENTS,
+        kind: CollectionTypes.DEPLOYMENTS,
         prefix: K8S_EXT_PREFIX
       },
       {
