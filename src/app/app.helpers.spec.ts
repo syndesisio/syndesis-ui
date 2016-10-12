@@ -5,32 +5,26 @@ import * as URI from 'urijs';
 import { AppHelpers } from './app.helpers';
 
 describe('AppHelpers', () => {
+
+  var gimmeTrue = () => {
+    var source = Observable.create((observer) => {
+      observer.next(true);
+      observer.complete();
+    });
+    return source;
+  };
   
   it('should invoke the supplied function when url is defined', () => {
     var url = 'http://localhost:8080';
     var invoked:boolean = undefined;
-    var fn = () => {
-      var source = Observable.create((observer) => {
-        observer.next(true);
-        observer.complete();
-      });
-      return source;
-    };
-    AppHelpers.maybeInvoke(url, fn).subscribe((i) => invoked = i);
+    AppHelpers.maybeInvoke(url, gimmeTrue, false).subscribe((i) => invoked = i);
     expect(invoked).toEqual(true);
   });
 
   it('should not invoke the function when url is not defined', () => {
     var url:string = undefined;
     var invoked:boolean = undefined;
-    var fn = () => {
-      var source = Observable.create((observer) => {
-        observer.next(true);
-        observer.complete();
-      });
-      return source;
-    };
-    AppHelpers.maybeInvoke(url, fn, false).subscribe((i) => invoked = i);
+    AppHelpers.maybeInvoke(url, gimmeTrue, false).subscribe((i) => invoked = i);
     expect(invoked).toEqual(false);
   });
 
