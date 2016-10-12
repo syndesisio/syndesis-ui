@@ -43,8 +43,8 @@
  *
  */
 
-// support NodeJS modules without type definitions
-declare module '*';
+// Support NodeJS modules without type definitions
+declare module '*'
 
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
@@ -116,13 +116,13 @@ interface ErrorStackTraceLimit {
 
 
 // Extend typings
-interface NodeRequire extends WebpackRequire {
-}
-interface ErrorConstructor extends ErrorStackTraceLimit {
-}
-interface NodeRequireFunction extends Es6PromiseLoader {
-}
-interface NodeModule extends WebpackModule {
-}
-interface Global extends GlobalEnvironment {
-}
+
+interface NodeRequire extends WebpackRequire {}
+
+interface ErrorConstructor extends ErrorStackTraceLimit {}
+
+interface NodeRequireFunction extends Es6PromiseLoader {}
+
+interface NodeModule extends WebpackModule {}
+
+interface Global extends GlobalEnvironment {}
