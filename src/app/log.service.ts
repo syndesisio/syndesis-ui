@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AppState } from './app.service';
 
-export var Logger = require('js-logger');
+export var Logger:any = require('js-logger');
 Logger.useDefaults();
 
 /*
