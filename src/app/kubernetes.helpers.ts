@@ -187,9 +187,6 @@ export module KubernetesAPI {
     if (_.some(Kinds.os, (t) => t === kind)) {
       return OS_PREFIX;
     }
-    if (kind === CollectionTypes.IMAGES) {
-      return OS_PREFIX;
-    }
     return null;
   }
 
@@ -373,9 +370,6 @@ export module KubernetesAPI {
     if (pathOverride) {
       return pathOverride(apiServerUri, kind, namespace, name);
     }
-    if (namespaced(kind) && !namespace) {
-      throw "No namespace supplied for path, '" + kind + "' is only in a namespace";
-    }
     apiServerUri.segment(prefixForKind(kind));
     if (namespace) {
       apiServerUri.segment('namespaces').segment(namespace);
@@ -387,16 +381,10 @@ export module KubernetesAPI {
     return apiServerUri.toString();
   }
 
-  export function pathForObject(apiServerUri:uri.URI, obj:any, useName:boolean = true) {
+  export function pathForObject(apiServerUri:uri.URI, obj:any, useNamespace:boolean = true, useName:boolean = true) {
     var kind = getKind(obj);
-    var namespace:string = undefined;
-    if (namespaced(kind)) {
-      namespace = getNamespace(obj);
-    }
-    var name:string = undefined;
-    if (useName) {
-      name = getName(obj);
-    }
+    var namespace:string = useNamespace ? getNamespace(obj) : undefined;
+    var name:string = useName ? getName(obj) : undefined;
     return path(apiServerUri, kind, namespace, name);
   }
   

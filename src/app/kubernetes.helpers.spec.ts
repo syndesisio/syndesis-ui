@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { KubernetesAPI,
          CollectionTypes, 
          KindTypes, 
-         NamespacedTypes,
+         Kinds,
          K8S_PREFIX,
          OS_PREFIX,
          K8S_EXT_PREFIX
@@ -52,6 +52,10 @@ describe('KubernetesHelpers', () => {
   it('should return the correct API prefix', () => {
     var tests = [
       {
+        kind: CollectionTypes.IMAGES,
+        prefix: OS_PREFIX
+      },
+      {
         kind: CollectionTypes.PODS,
         prefix: K8S_PREFIX
       },
@@ -71,6 +75,147 @@ describe('KubernetesHelpers', () => {
 
 
   it('should be possible to go from a kind to a collection name', () => {
+    var tests = [];
+    Object.getOwnPropertyNames(CollectionTypes).forEach((name) => {
+      switch (name) {
+        case 'length':
+        case 'name':
+        case 'prototype':
+          break;
+        default:
+          tests.push({
+            kind: KindTypes[name],
+            collection: CollectionTypes[name]
+          });
+      }
+    });
+    tests.forEach((test) => {
+      expect(KubernetesAPI.toKindName(test.collection)).toEqual(test.kind);
+      expect(KubernetesAPI.toCollectionName(test.kind)).toEqual(test.collection);
+      expect(KubernetesAPI.toKindName(test.kind)).toEqual(test.kind);
+      expect(KubernetesAPI.toCollectionName(test.collection)).toEqual(test.collection);
+    });
+  });
+
+  it('should return the proper websocket URI', () => {
+    var tests = [
+      {
+        source: 'http://localhost:8080/foo',
+        target: 'ws://localhost:8080/foo'
+      },
+      {
+        source: 'https://localhost:8080/foo',
+        target: 'wss://localhost:8080/foo'
+      },
+    ];
+    tests.forEach((test) => {
+      expect(KubernetesAPI.wsUrl(test.source).toString()).toEqual(test.target);
+    });
+  });
+
+  it('should return the right path', () => {
+    var tests = [
+      {
+        kind: KindTypes.PODS,
+        namespace: 'default',
+        name: 'foo',
+        expected: '/api/v1/namespaces/default/pods/foo'
+      },
+      {
+        kind: KindTypes.SERVICES,
+        namespace: 'default',
+        expected: '/api/v1/namespaces/default/services'
+      },
+      {
+        kind: KindTypes.REPLICA_SETS,
+        namespace: 'default',
+        expected: '/apis/extensions/v1beta1/namespaces/default/replicasets'
+      },
+      {
+        kind: KindTypes.BUILD_CONFIGS,
+        namespace: 'default',
+        expected: '/oapi/v1/namespaces/default/buildconfigs'
+      },
+      {
+        kind: KindTypes.NODES,
+        expected: '/api/v1/nodes'
+      }
+    ];
+    var uri = new URI('/');
+    tests.forEach((test:any) => {
+      expect(KubernetesAPI.path(uri, test.kind, test.namespace, test.name)).toEqual(test.expected);
+    });
+  });
+
+  it('should return the right path for objects', () => {
+    var tests = [
+      {
+        obj: {
+          kind: KindTypes.PODS,
+          metadata: {
+            name: 'foo',
+            namespace: 'default'
+          }
+        },
+        useNamespace: true,
+        useName: true,
+        expected: '/api/v1/namespaces/default/pods/foo'
+      },
+      {
+        obj: {
+          kind: KindTypes.SERVICES,
+          metadata: {
+            name: 'foo',
+            namespace: 'default'
+          }
+        },
+        useNamespace: true,
+        useName: false,
+        expected: '/api/v1/namespaces/default/services'
+      },
+      {
+        obj: {
+          kind: KindTypes.REPLICA_SETS,
+          metadata: {
+            name: 'foo',
+            namespace: 'default'
+          }
+        },
+        useNamespace: true,
+        useName: true,
+        expected: '/apis/extensions/v1beta1/namespaces/default/replicasets/foo'
+      },
+      {
+        obj: {
+          kind: KindTypes.IMAGES,
+          metadata: {
+            name: 'foo',
+            namespace: 'default'
+          }
+        },
+        useNamespace: true,
+        useName: true,
+        expected: '/oapi/v1/namespaces/default/images/foo'
+      },
+      {
+        obj: {
+          kind: KindTypes.PODS,
+          metadata: {
+            name: 'foo',
+            namespace: 'default'
+          }
+        },
+        useNamespace: false,
+        useName: false,
+        expected: '/api/v1/pods'
+      }
+    ];
+    var uri = new URI('/');
+    tests.forEach((test:any) => {
+      var path = KubernetesAPI.pathForObject(uri, test.obj, test.useNamespace, test.useName);
+      expect(path).toEqual(test.expected);
+
+    });
 
   });
 
