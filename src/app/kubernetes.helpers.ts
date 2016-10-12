@@ -97,9 +97,9 @@ export class ExtensionTypes {
   }
 }
 
-export class NamespacedTypes {
+export class Kinds {
   // Vanilla Kubernetes types
-  public static get k8sTypes(): Array<string> {
+  public static get k8s(): Array<string> {
     return [
       WatchTypes.CONFIG_MAPS,
       WatchTypes.ENDPOINTS,
@@ -120,7 +120,7 @@ export class NamespacedTypes {
     ];
   }
   // Openshift specific types
-  public static get osTypes(): Array<string> {
+  public static get os(): Array<string> {
     return [
       WatchTypes.TEMPLATES,
       WatchTypes.BUILD_CONFIGS,
@@ -128,7 +128,7 @@ export class NamespacedTypes {
       WatchTypes.BUILDS,
       WatchTypes.BUILD_CONFIGS,
       WatchTypes.DEPLOYMENT_CONFIGS,
-      //WatchTypes.IMAGES,
+      WatchTypes.IMAGES,
       WatchTypes.IMAGE_STREAMS,
       WatchTypes.IMAGE_STREAM_TAGS,
       WatchTypes.OAUTH_CLIENTS,
@@ -174,16 +174,17 @@ export module KubernetesAPI {
    * Returns the appropriate API prefix for the supplied kind
    */
   export function apiForKind(kind:string) {
+    kind = toCollectionName(kind);
     if (kind === WatchTypes.NAMESPACES) {
       return K8S_PREFIX;
     }
     if (_.some(ExtensionTypes.extensions, (t) => t === kind)) {
       return K8S_EXT_PREFIX;
     }
-    if (_.some(NamespacedTypes.k8sTypes, (t) => t === kind)) {
+    if (_.some(Kinds.k8s, (t) => t === kind)) {
       return K8S_PREFIX;
     }
-    if (_.some(NamespacedTypes.osTypes, (t) => t === kind)) {
+    if (_.some(Kinds.os, (t) => t === kind)) {
       return OS_PREFIX;
     }
     if (kind === WatchTypes.IMAGES) {
