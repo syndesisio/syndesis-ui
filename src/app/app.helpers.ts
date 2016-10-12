@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import * as URI from 'urijs';
 
 // Simple helper functions for common tasks
