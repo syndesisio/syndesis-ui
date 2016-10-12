@@ -1,45 +1,9 @@
 // CSS common across all views
 
-$footerHeight: 60px;
-
-/*
 html {
-  font-size: 100%;
-  min-height: 95%;
-  position: relative;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  color: #333333;
-  font-family: "Lato", "Helvetica Neue", "Open Sans", "Helvetica", "Arial", "Verdana", "sans-serif";
-  margin-bottom: 25px; // Ideally should be $footerHeight, but was too much
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga", "kern";
-}
-
-footer {
-  bottom: 0;
-  font-size: 12px;
-  height: $footerHeight;
-  left: 0;
-  position: absolute;
-  width: 100%;
-
-  .col-md-12 {
-    padding: 15px;
+  body {
+    footer {}
   }
 }
 
-.font-thin {
-  font-weight: 300 !important;
-}
-
-.font-ultralight {
-  font-weight: 100 !important;
-}
-*/
 

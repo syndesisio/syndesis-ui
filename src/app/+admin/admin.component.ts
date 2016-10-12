@@ -11,20 +11,8 @@ Logger.get('Admin').debug('`Admin` component loaded asynchronously');
 
 @Component({
     selector: 'admin',
-    styles: [`
-  `],
-    template: `
-    <h1>Admin</h1>
-    <div>
-      Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-    </div>
-    <div>
-      <h3>
-        Euismod
-      </h3>
-    </div>
-    <pre>this.localState = {{ localState | json }}</pre>
-  `
+    styles: [require('./admin.scss')],
+    templateUrl: './admin.html'
 })
 export class Admin {
     localState;

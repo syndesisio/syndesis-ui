@@ -11,8 +11,7 @@ Logger.get('User').debug('`User` component loaded asynchronously');
 
 @Component({
     selector: 'user',
-    styles: [`
-  `],
+    styles: [require('./user.scss')],
     templateUrl: './user.html'
 })
 export class User {
