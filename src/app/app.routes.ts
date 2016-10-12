@@ -1,8 +1,5 @@
 import {Routes, RouterModule} from '@angular/router';
 
-import {DataResolver} from './app.resolver';
-
-
 export const ROUTES: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'admin', loadChildren: () => System.import('./+admin')},
