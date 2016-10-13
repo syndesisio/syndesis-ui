@@ -381,6 +381,17 @@ export module KubernetesAPI {
     return apiServerUri.toString();
   }
 
+  export function applyQueryParameters(url:string, options:any) {
+    var opts = _.cloneDeep(options);
+    delete opts.kind;
+    delete opts.namespace;
+    delete opts.name;
+    if (_.keys(opts).length > 0) {
+      return new URI(url).search(opts).toString();
+    }
+    else return url;
+  }
+
   export function pathForObject(apiServerUri:uri.URI, obj:any, useNamespace:boolean = true, useName:boolean = true) {
     var kind = getKind(obj);
     var namespace:string = useNamespace ? getNamespace(obj) : undefined;

@@ -14,6 +14,17 @@ import { KindTypes, CollectionTypes, KubernetesAPI } from './../helpers/kubernet
 
 var log = Logger.get('Kubernetes');
 
+export interface GetOptions {
+  kind: string;
+  namespace?: string;
+  name?: string;
+  labelSelector?: string;
+  fieldSelector?: string;
+  resourceVersion?: string;
+  pretty?: string;
+  timeoutSeconds?: number;
+}
+
 @Injectable()
 export class Kubernetes {
 
@@ -38,6 +49,24 @@ export class Kubernetes {
     this.baseUri = new URI(this.url);
     this.wsUri = KubernetesAPI.wsUrl(this.url);
     log.info("Kubernetes service using URL: ", this.baseUri.toString(), " WebSocket URL: ", this.wsUri.toString());
+    // configure path overrides based on the environment we're running against
+    if (_.get(appState, 'config.k8sProvider') === 'kubernetes') {
+      // set a path override for buildconfigs and make sure that works
+      KubernetesAPI.setPathOverride(KindTypes.BUILD_CONFIGS, (apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):string => {
+        kind = KubernetesAPI.toCollectionName(kind);
+        // TODO the namespace in this path needs to be configurable
+        var answer = apiServerUri.segment('/api/v1/proxy/namespaces/default/services/jenkinshift:80/').segment(KubernetesAPI.prefixForKind(kind));
+        if (namespace) {
+          answer.segment('namespaces').segment(namespace);
+        }
+        answer.segment(kind);
+        if (name) {
+          answer.segment(name);
+        }
+        console.warn("Using override: ", answer.toString());
+        return answer.toString();
+      });
+    }
   }
 
   /*
@@ -81,13 +110,11 @@ export class Kubernetes {
   /*
    * Get an object or collection from the server
    */
-  get(kind:string, namespace?:string, id?:string):Observable<any> {
-    kind = KubernetesAPI.toKindName(kind);
-    if (KubernetesAPI.namespaced(kind) && !namespace) {
-      return null;
-    }
-    var url = KubernetesAPI.path(this.masterUrl, kind, namespace, id);
+  get(options:GetOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.url, () => {
+      var kind = KubernetesAPI.toKindName(options.kind);
+      var url = KubernetesAPI.path(this.masterUrl, kind, options.namespace, options.name);
+      url = KubernetesAPI.applyQueryParameters(url, options);
       log.debug("get ", kind, " using path: ", url);
       return this.http.get(url)
                       .map((res:Response) => {

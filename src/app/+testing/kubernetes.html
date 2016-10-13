@@ -1,7 +1,16 @@
 <h1>Kubernetes</h1>
 <div class="spinner spinner-lg" *ngIf="!version"></div>
 <pre *ngIf="version">Kubernetes version: {{version | json}}</pre>
+<ul>
+  <li *ngFor="let namespace of namespaces">
+    <p>
+    <strong>Name: </strong><span>{{namespace.metadata.name}}</span>
+    </p>
+    <strong>Labels: </strong>
+    <pre>{{namespace.metadata.labels | json}}</pre>
+  </li>
+</ul>
 <pre *ngIf="buildconfigs">{{buildconfigs | json}}</pre>
-<pre *ngIf="namespaces">{{namespaces | json}}</pre>
+
 <pre *ngIf="f8Service">{{f8Service | json}}</pre>
 <pre *ngIf="services">{{services | json}}</pre>

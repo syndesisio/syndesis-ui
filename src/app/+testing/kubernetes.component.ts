@@ -5,24 +5,9 @@ import * as URI from 'urijs';
 
 import { Logger } from '../common/service/log';
 import { KindTypes, KubernetesAPI } from '../common/helpers/kubernetes';
-import { Kubernetes } from '../common/service/kubernetes';
+import { GetOptions, Kubernetes } from '../common/service/kubernetes';
 
 var log = Logger.get('KubernetesView');
-
-// set a path override for buildconfigs and make sure that works
-KubernetesAPI.setPathOverride(KindTypes.BUILD_CONFIGS, (apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):string => {
-  kind = KubernetesAPI.toCollectionName(kind);
-  var answer = apiServerUri.segment('/api/v1/proxy/namespaces/default/services/jenkinshift:80/').segment(KubernetesAPI.prefixForKind(kind));
-  if (namespace) {
-    answer.segment('namespaces').segment(namespace);
-  }
-  answer.segment(kind);
-  if (name) {
-    answer.segment(name);
-  }
-  console.warn("Using override: ", answer.toString());
-  return answer.toString();
-});
 
 @Component({
     selector: 'kubernetes',
@@ -44,19 +29,22 @@ export class KubernetesView {
       this.k8s.getVersion().subscribe(
         version => this.version = version,
         error => this.errorMessage = error);
-      this.k8s.get(KindTypes.NAMESPACES).subscribe(
+      this.k8s.get({ 
+        kind: KindTypes.NAMESPACES, 
+        labelSelector: 'type=team'
+      }).subscribe(
         namespaces => this.namespaces = namespaces,
         error => this.errorMessage = error
       );
-      this.k8s.get(KindTypes.SERVICES, 'default').subscribe(
+      this.k8s.get({ kind: KindTypes.SERVICES, namespace: 'default' }).subscribe(
         services => this.services = services,
         error => this.errorMessage = error
       );
-      this.k8s.get(KindTypes.BUILD_CONFIGS, 'default').subscribe(
+      this.k8s.get({ kind: KindTypes.BUILD_CONFIGS, namespace: 'default' }).subscribe(
         buildconfigs => this.buildconfigs = buildconfigs,
         error => this.errorMessage = error
       );
-      this.k8s.get(KindTypes.SERVICES, 'default', 'fabric8').subscribe(
+      this.k8s.get({ kind: KindTypes.SERVICES, namespace: 'default', name: 'fabric8', fieldSelector: 'metadata' }).subscribe(
         service => this.f8Service = service,
         error => this.errorMessage = error
       );
