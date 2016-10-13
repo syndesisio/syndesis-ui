@@ -6,11 +6,11 @@ import 'rxjs/add/operator/catch';
 
 import * as URI from 'urijs';
 
-import { AppState } from './app.service';
-import { Logger } from './log.service';
-import { AppHelpers } from './app.helpers';
+import { AppState } from './../../app.service';
+import { Logger } from './log';
+import { AppHelpers } from './../helpers/app';
 
-import { KindTypes, CollectionTypes, KubernetesAPI } from './kubernetes.helpers.ts';
+import { KindTypes, CollectionTypes, KubernetesAPI } from './../helpers/kubernetes';
 
 var log = Logger.get('Kubernetes');
 

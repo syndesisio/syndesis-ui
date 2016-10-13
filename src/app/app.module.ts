@@ -16,9 +16,9 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 
 // Angular Modules
 import {AppState} from './app.service';
-import {Logger} from './log.service';
-import {Forge} from './forge.service';
-import {Kubernetes} from './kubernetes.service';
+import {Logger} from './common/service/log';
+import {Forge} from './common/service/forge';
+import {Kubernetes} from './common/service/kubernetes';
 
 
 // Third-Party Imports

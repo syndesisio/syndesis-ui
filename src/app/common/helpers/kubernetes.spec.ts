@@ -9,7 +9,7 @@ import { KubernetesAPI,
          K8S_PREFIX,
          OS_PREFIX,
          K8S_EXT_PREFIX
-       } from './kubernetes.helpers';
+       } from './kubernetes';
 
 describe('KubernetesHelpers', () => {
 

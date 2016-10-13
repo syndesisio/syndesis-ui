@@ -1,13 +1,13 @@
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {Logger} from '../log.service';
-import {ForgeIndex} from './forgeIndex.component';
-import {ForgeCommands} from './forgeCommands.component';
-import {ForgeCommand} from './forgeCommand.component';
-import {KubernetesView} from './kubernetes.component';
+import { Logger } from '../common/service/log';
+import { ForgeIndex } from './forgeIndex.component';
+import { ForgeCommands } from './forgeCommands.component';
+import { ForgeCommand } from './forgeCommand.component';
+import { KubernetesView } from './kubernetes.component';
 
 Logger.get('+Forge').debug('`Forge` bundle loaded asynchronously');
 // async components must be named routes for WebpackAsyncRoute

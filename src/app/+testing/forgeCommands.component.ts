@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Logger } from '../log.service';
-import { Forge } from '../forge.service';
-import { Kubernetes } from '../kubernetes.service';
+import { Logger } from '../common/service/log';
+import { Forge } from '../common/service/forge';
+import { Kubernetes } from '../common/service/kubernetes';
 
 declare var _: any;
 

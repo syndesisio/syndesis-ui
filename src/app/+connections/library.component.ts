@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Logger} from '../log.service';
+import {Logger} from '../common/service/log';
 
 var log = Logger.get('+connections/library');
 

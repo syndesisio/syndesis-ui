@@ -3,9 +3,9 @@ import {Component} from '@angular/core';
 
 import * as URI from 'urijs';
 
-import { Logger } from '../log.service';
-import { KindTypes, KubernetesAPI } from '../kubernetes.helpers';
-import { Kubernetes } from '../kubernetes.service';
+import { Logger } from '../common/service/log';
+import { KindTypes, KubernetesAPI } from '../common/helpers/kubernetes';
+import { Kubernetes } from '../common/service/kubernetes';
 
 var log = Logger.get('KubernetesView');
 

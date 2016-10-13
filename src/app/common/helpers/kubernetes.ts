@@ -2,7 +2,7 @@
 import * as URI from 'urijs';
 import * as _ from 'lodash';
 
-import { Logger } from './log.service';
+import { Logger } from './../service/log';
 
 var log = Logger.get('KubernetesAPI');
 

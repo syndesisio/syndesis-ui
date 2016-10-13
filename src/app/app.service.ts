@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 
-import {Logger} from './log.service';
+import {Logger} from './common/service/log';
 
 // defer initializing this, otherwise 'Logger' is undefined
 var log = undefined;

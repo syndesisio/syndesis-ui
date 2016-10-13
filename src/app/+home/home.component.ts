@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {AppState} from '../app.service';
-import {Logger} from '../log.service';
+import {Logger} from '../common/service/log';
 import {Title} from '../common/title';
 
 declare var c3: any;

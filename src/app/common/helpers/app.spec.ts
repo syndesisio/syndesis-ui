@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import * as URI from 'urijs';
 
-import { AppHelpers } from './app.helpers';
+import { AppHelpers } from './app';
 
 describe('AppHelpers', () => {
 

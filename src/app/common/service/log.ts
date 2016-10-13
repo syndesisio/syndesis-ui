@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {AppState} from './app.service';
+import { AppState } from './../../app.service';
 
 export var Logger:any = require('js-logger');
 
