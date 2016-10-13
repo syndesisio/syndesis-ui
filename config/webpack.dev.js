@@ -33,12 +33,15 @@ var proxyConfig = {};
 // Set up variables to pass along to the frontend so it can connect to backend services
 const FABRIC8_FORGE = process.env.FABRIC8_FORGE;
 const KUBERNETES_MASTER = process.env.KUBERNETES_MASTER;
+const K8S_PROVIDER = process.env.K8S_PROVIDER || 'kubernetes';
+const FRONTEND_MODE = process.env.FRONTEND_MODE || 'dev';
 
 var frontendConfig = {
   urls: {
 
-  }
-
+  },
+  k8sProvider: K8S_PROVIDER,
+  frontendMode: FRONTEND_MODE
 };
 // URL for talking to the fabric8 forge service
 if (FABRIC8_FORGE) {
