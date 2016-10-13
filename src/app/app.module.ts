@@ -49,7 +49,7 @@ var log = Logger.get("AppModule");
         FormsModule,
         HttpModule,
         NgbModule,
-        RouterModule.forRoot(ROUTES, {useHash: true})
+        RouterModule.forRoot(ROUTES, {useHash: false})
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,
