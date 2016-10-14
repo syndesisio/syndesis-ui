@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import * as URI from 'urijs';
 import * as _ from 'lodash';
 
 import { AppState } from './../../app.service';
@@ -12,29 +13,46 @@ import { AppHelpers } from './../helpers/app';
 
 var log = Logger.get('Forge');
 
+export interface CommandOptions {
+  teamId?:string;
+  projectId?:string;
+  commandId?:string;
+  [name:string]:any;
+}
+
 @Injectable()
 export class Forge {
 
-  private url:string = undefined;
+  private urlString:string = undefined;
+  private url:uri.URI = undefined;
 
   constructor(private http: Http, private appState: AppState) {
-    this.url = appState.config.urls['FABRIC8_FORGE'];
-    log.debug("Forge service using URL: ", this.url);
+    var urlString = this.urlString = appState.config.urls['FABRIC8_FORGE']
+    this.url = new URI(urlString);
+    log.debug("Forge service using URL: ", this.url.toString());
   }
 
   /*
    * Get the inputs for a given command ID
    * TODO add project/namespace parameters
    */
-  getCommandInputs(commandId:string):Observable<any> {
-    return AppHelpers.maybeInvoke(this.url, () => {
-      return this.http.get(this.url + '/commandInput/' + commandId)
+  getCommandInputs(options:CommandOptions):Observable<any> {
+    if (!options.commandId) {
+      throw "Command ID required";
+    }
+    return AppHelpers.maybeInvoke(this.urlString, () => {
+      var url = this.url.clone().segment('commandInput').segment(options.commandId);
+      if (options.teamId && options.projectId) {
+        url = url.segment(options.teamId).segment(options.projectId);
+      }
+      log.debug("Using URL: ", url.toString());
+      return this.http.get(url.toString())
                       .map((res:Response) => {
                         log.debug("Got response: ", res.json());
                         return res.json();
                       })
                       .catch((error) => {
-                        log.error("Error fetching command inputs for command " + commandId + ": ", error)
+                        log.error("Error fetching command inputs for command " + options.commandId + ": ", error)
                         return error;
                       });
     }, {});
@@ -45,9 +63,14 @@ export class Forge {
    * Get all the commands available without a project
    * TODO add project/namespace parameters
    */
-  getCommands():Observable<any> {
-    return AppHelpers.maybeInvoke(this.url, () => {
-      return this.http.get(this.url + '/commands')
+  getCommands(options?:CommandOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.urlString, () => {
+      var url = this.url.clone().segment('commands');
+      if (options && options.teamId && options.projectId) {
+        url = url.segment(options.teamId).segment(options.projectId);
+      }
+      log.debug("Using URL: ", url.toString());
+      return this.http.get(url.toString())
                       .map((res:Response) => {
                         var body = <any[]> res.json();
                         var commandMap = {

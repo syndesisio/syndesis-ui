@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { Logger } from '../common/service/log';
-import { Forge } from '../common/service/forge';
+import { Forge, CommandOptions } from '../common/service/forge';
 import { Kubernetes } from '../common/service/kubernetes';
 
-declare var _: any;
+import * as _ from 'lodash';
 
 var log = Logger.get('+Forge');
 
@@ -20,7 +21,13 @@ export class ForgeCommands {
     selected:string = undefined;
     errorMessage:any = undefined;
 
-    constructor(private forge:Forge, private k8s:Kubernetes) {
+    teamId:string = undefined;
+    projectId:string = undefined;
+
+    constructor(private forge:Forge, 
+                private k8s:Kubernetes,
+                private route:ActivatedRoute,
+                private router:Router) {
 
     }
 
@@ -29,7 +36,18 @@ export class ForgeCommands {
     }
     
     ngOnInit() {
-      this.forge.getCommands().subscribe(
+      this.route.params.forEach((params:Params) => {
+        this.teamId = params['teamId'];
+        this.projectId = params['projectId'];
+      });
+      var options:CommandOptions = undefined;
+      if (this.teamId && this.projectId) {
+        options = {
+          teamId: this.teamId,
+          projectId: this.projectId
+        }
+      }
+      this.forge.getCommands(options).subscribe(
         commandMap => this.commandMap = commandMap,
         error => this.errorMessage = error);
       log.debug('hello `Forge` component');

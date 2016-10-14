@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Params } from '@angular/router'
 import 'rxjs/add/observable/of';
 import * as URI from 'urijs';
 
@@ -46,6 +47,22 @@ export module AppHelpers {
     }
     cachedBaseUri = new URI().path(baseDocumentPath()).query('').fragment('');
     return cachedBaseUri.clone();
+  }
+
+  /*
+   * Collapses all route params in the given route into a single map
+   */
+  export function allRouteParams(route:ActivatedRoute) {
+    var params = {};
+    route.pathFromRoot.forEach((path) => {
+      path.params.forEach((p) => {
+        _.forOwn(p, (value, key) => {
+          params[key] = value;
+        });
+      });
+    });
+    return params;
+
   }
 
 }

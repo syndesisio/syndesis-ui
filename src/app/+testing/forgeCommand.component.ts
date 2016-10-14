@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
+import { AppHelpers } from '../common/helpers/app';
 import { Logger } from '../common/service/log';
-import { Forge } from '../common/service/forge';
+import { Forge, CommandOptions } from '../common/service/forge';
 import { Kubernetes } from '../common/service/kubernetes';
 
 var log = Logger.get('+Forge');
@@ -16,9 +17,11 @@ var log = Logger.get('+Forge');
  */
 export class ForgeCommand {
 
-    private id:string = undefined;
+    private commandId:string = undefined;
     private command:any = undefined;
     private error:any = undefined;
+    teamId:string = undefined;
+    projectId:string = undefined;
 
     constructor(private forge:Forge, 
                 private k8s:Kubernetes,
@@ -28,13 +31,22 @@ export class ForgeCommand {
     }
 
     ngOnInit() {
-      this.route.params.forEach((params:Params) => {
-        this.id = params['id'];
-      });
-      if (!this.id) {
+      var params = AppHelpers.allRouteParams(this.route);
+      this.commandId = params['commandId'];
+      this.teamId = params['teamId'];
+      this.projectId = params['projectId'];
+      if (!this.commandId) {
         return;
       }
-      this.forge.getCommandInputs(this.id).subscribe(
+      var options = <CommandOptions> {
+        commandId: this.commandId
+      };
+      if (this.teamId && this.projectId) {
+        options.teamId = this.teamId;
+        options.projectId = this.projectId;
+      }
+      log.debug("Using options: ", options);
+      this.forge.getCommandInputs(options).subscribe(
         command => this.command = command,
         error => this.error = error);
     }

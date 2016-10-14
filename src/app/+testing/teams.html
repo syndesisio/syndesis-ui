@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="!teams && !errorMessage">
+      Please wait...
+    </div>
+    <div *ngIf="errorMessage">
+      <pre>{{errorMessage | json}}</pre>
+    </div>
+    <ul *ngIf="teams">
+      <li *ngFor="let team of teams">
+        <a [routerLink] = "[team.metadata.name]">{{team.metadata.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="!projects && !errorMessage">
+      Please wait...
+    </div>
+    <div *ngIf="errorMessage">
+      <pre>{{errorMessage | json}}</pre>
+    </div>
+    <ul *ngIf="projects">
+      <li *ngFor="let project of projects">
+        <a [routerLink]="[project.metadata.name]">{{project.metadata.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
