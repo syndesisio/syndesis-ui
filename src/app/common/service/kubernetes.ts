@@ -18,11 +18,14 @@ export interface GetOptions {
   kind: string;
   namespace?: string;
   name?: string;
+  // URL parameters
   labelSelector?: string;
   fieldSelector?: string;
   resourceVersion?: string;
   pretty?: string;
   timeoutSeconds?: number;
+  // for anything extra we don't know about
+  [name:string]: any;
 }
 
 @Injectable()
@@ -52,7 +55,7 @@ export class Kubernetes {
     // configure path overrides based on the environment we're running against
     if (_.get(appState, 'config.k8sProvider') === 'kubernetes') {
       // set a path override for buildconfigs and make sure that works
-      KubernetesAPI.setPathOverride(KindTypes.BUILD_CONFIGS, (apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):string => {
+      KubernetesAPI.setPathOverride(KindTypes.BUILD_CONFIGS, (apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):uri.URI => {
         kind = KubernetesAPI.toCollectionName(kind);
         // TODO the namespace in this path needs to be configurable
         var answer = apiServerUri.segment('/api/v1/proxy/namespaces/default/services/jenkinshift:80/').segment(KubernetesAPI.prefixForKind(kind));
@@ -64,7 +67,7 @@ export class Kubernetes {
           answer.segment(name);
         }
         console.warn("Using override: ", answer.toString());
-        return answer.toString();
+        return answer;
       });
     }
   }
@@ -113,10 +116,10 @@ export class Kubernetes {
   get(options:GetOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.url, () => {
       var kind = KubernetesAPI.toKindName(options.kind);
-      var url = KubernetesAPI.path(this.masterUrl, kind, options.namespace, options.name);
+      var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace, options.name);
       url = KubernetesAPI.applyQueryParameters(url, options);
       log.debug("get ", kind, " using path: ", url);
-      return this.http.get(url)
+      return this.http.get(url.toString())
                       .map((res:Response) => {
                         var json = res.json();
                         log.debug("get returned object: ", json);

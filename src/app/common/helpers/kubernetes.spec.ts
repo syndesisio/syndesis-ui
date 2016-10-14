@@ -143,7 +143,7 @@ describe('KubernetesHelpers', () => {
     ];
     var uri = new URI('/');
     tests.forEach((test:any) => {
-      expect(KubernetesAPI.path(uri, test.kind, test.namespace, test.name)).toEqual(test.expected);
+      expect(KubernetesAPI.url(uri, test.kind, test.namespace, test.name).toString()).toEqual(test.expected);
     });
   });
 
@@ -212,8 +212,8 @@ describe('KubernetesHelpers', () => {
     ];
     var uri = new URI('/');
     tests.forEach((test:any) => {
-      var path = KubernetesAPI.pathForObject(uri, test.obj, test.useNamespace, test.useName);
-      expect(path).toEqual(test.expected);
+      var url = KubernetesAPI.urlForObject(uri, test.obj, test.useNamespace, test.useName);
+      expect(url.toString()).toEqual(test.expected);
 
     });
 

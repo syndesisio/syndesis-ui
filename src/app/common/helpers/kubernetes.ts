@@ -354,15 +354,24 @@ export module KubernetesAPI {
 
   var pathOverrides:any = {};
 
-  export function setPathOverride(kind:string, fn:(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string):void {
+  /*
+   * Set a path generation override for a given type
+   */
+  export function setPathOverride(kind:string, fn:(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => uri.URI):void {
     pathOverrides[toCollectionName(kind)] = fn;
   }
 
-  export function getPathOverride(kind:string):(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string {
-    return <(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => string> _.get(pathOverrides, toCollectionName(kind));
+  /*
+   * Fetch a previously set path override for a type, returns undefined if an override isn't set
+   */
+  export function getPathOverride(kind:string):(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => uri.URI {
+    return <(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) => uri.URI> _.get(pathOverrides, toCollectionName(kind));
   }
 
-  export function path(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string) {
+  /*
+   * Generate a full URL incorporating the supplied options
+   */
+  export function url(apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):uri.URI {
     // avoid mutating the passed in URI object
     apiServerUri = apiServerUri.clone();
     kind = toCollectionName(kind);
@@ -378,25 +387,31 @@ export module KubernetesAPI {
     if (name) {
       apiServerUri.segment(name);
     }
-    return apiServerUri.toString();
+    return apiServerUri;
   }
 
-  export function applyQueryParameters(url:string, options:any) {
+  /*
+   * Generate a URL using the passed in kuberentes object
+   */
+  export function urlForObject(apiServerUri:uri.URI, obj:any, useNamespace:boolean = true, useName:boolean = true):uri.URI {
+    var kind = getKind(obj);
+    var namespace:string = useNamespace ? getNamespace(obj) : undefined;
+    var name:string = useName ? getName(obj) : undefined;
+    return url(apiServerUri, kind, namespace, name);
+  }
+
+  /*
+   * Apply the supplied options object as query parameters to the passed in URL
+   */
+  export function applyQueryParameters(uri:uri.URI, options:any) {
     var opts = _.cloneDeep(options);
     delete opts.kind;
     delete opts.namespace;
     delete opts.name;
     if (_.keys(opts).length > 0) {
-      return new URI(url).search(opts).toString();
+      return uri.search(opts);
     }
-    else return url;
-  }
-
-  export function pathForObject(apiServerUri:uri.URI, obj:any, useNamespace:boolean = true, useName:boolean = true) {
-    var kind = getKind(obj);
-    var namespace:string = useNamespace ? getNamespace(obj) : undefined;
-    var name:string = useName ? getName(obj) : undefined;
-    return path(apiServerUri, kind, namespace, name);
+    else return uri;
   }
   
   export function getUID(entity):string {
