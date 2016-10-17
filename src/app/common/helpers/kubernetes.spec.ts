@@ -13,6 +13,14 @@ import { KubernetesAPI,
 
 describe('KubernetesHelpers', () => {
 
+  it('should gimme a name', () => {
+    expect(KubernetesAPI.getName({
+      metadata: {
+        name: 'foo'
+      }
+    })).toEqual('foo');
+  });
+
   it('should return true for namespaced types and false for not namespaced types', () => {
     var tests = [
       {
@@ -214,10 +222,20 @@ describe('KubernetesHelpers', () => {
     tests.forEach((test:any) => {
       var url = KubernetesAPI.urlForObject(uri, test.obj, test.useNamespace, test.useName);
       expect(url.toString()).toEqual(test.expected);
-
     });
-
   });
+
+  it('should add query parameters other than name, kind or namespace', () => {
+    var url = KubernetesAPI.applyQueryParameters(new URI(), {
+      name: 'foo',
+      namespace: 'bar',
+      someParam: 'someVal'
+    });
+    var query = url.search(true);
+    expect(query.name).toBe(undefined);
+    expect(query.namespace).toBe(undefined);
+    expect(query.someParam).toEqual('someVal');
+  }
 
 });
 
