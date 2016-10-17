@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../common/service/log';
 
-import {Connections} from './connections.component.ts';
+import {Connections} from './connections.component';
 
 import {Library} from './library/library.component';
 
@@ -24,7 +24,8 @@ const routes = [
 
 @NgModule({
     declarations: [
-        Connections
+        Connections,
+        Library
     ],
     imports: [
         CommonModule,

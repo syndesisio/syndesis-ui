@@ -19,6 +19,7 @@ export class ForgeCommand {
 
     private commandId:string = undefined;
     private command:any = undefined;
+    private entity:any = {};
     private error:any = undefined;
     teamId:string = undefined;
     projectId:string = undefined;
@@ -28,6 +29,45 @@ export class ForgeCommand {
                 private route:ActivatedRoute,
                 private router:Router) {
 
+    }
+
+    getFields(command:any) {
+      var keys = _.keys(command.properties);
+      var answer = [];
+      _.forEach(keys, (key) => {
+        var field:any = command.properties[key] || {};
+        field.id = key;
+        answer.push(field);
+      });
+      return answer;
+    }
+
+    onSubmit(entity:any) {
+      var args = {
+        namespace: this.teamId,
+        projectName: this.projectId,
+        inputList: [],
+        resource: ""
+      };
+      _.forOwn(entity, (value, key) => {
+        var inputItem = {};
+        inputItem[key] = value;
+        args.inputList.push(inputItem);
+      });
+      this.forge.validateCommandInputs({
+        commandId: this.commandId,
+        data: args
+      }).subscribe((response) => {
+        log.debug("Got back response from validation: ", response);
+        if (response.valid) {
+          // execute command
+        } else {
+          // update form possibly
+        }
+      }, (error) => {
+        log.debug("Got back error validating: ", error); 
+      });
+      log.debug("On submit, got form: ", entity);
     }
 
     ngOnInit() {
@@ -47,7 +87,14 @@ export class ForgeCommand {
       }
       log.debug("Using options: ", options);
       this.forge.getCommandInputs(options).subscribe(
-        command => this.command = command,
+        (command) => {
+          this.command = command
+          _.forOwn(this.command.properties, (value, key) => {
+            if (value.value) {
+              this.entity[key] = value.value;
+            }
+          });
+        },
         error => this.error = error);
     }
 }

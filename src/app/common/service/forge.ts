@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -17,6 +17,7 @@ export interface CommandOptions {
   teamId?:string;
   projectId?:string;
   commandId?:string;
+  data?:any;
   [name:string]:any;
 }
 
@@ -32,19 +33,23 @@ export class Forge {
     log.debug("Forge service using URL: ", this.url.toString());
   }
 
+  private createUrl(action:string, options:CommandOptions) {
+      var url = this.url.clone().segment(action).segment(options.commandId);
+      if (options.teamId && options.projectId) {
+        url = url.segment(options.teamId).segment(options.projectId);
+      }
+      return url;
+  }
+
   /*
    * Get the inputs for a given command ID
-   * TODO add project/namespace parameters
    */
   getCommandInputs(options:CommandOptions):Observable<any> {
     if (!options.commandId) {
       throw "Command ID required";
     }
     return AppHelpers.maybeInvoke(this.urlString, () => {
-      var url = this.url.clone().segment('commandInput').segment(options.commandId);
-      if (options.teamId && options.projectId) {
-        url = url.segment(options.teamId).segment(options.projectId);
-      }
+      var url = this.createUrl('commandInput', options);
       log.debug("Using URL: ", url.toString());
       return this.http.get(url.toString())
                       .map((res:Response) => {
@@ -56,12 +61,31 @@ export class Forge {
                         return error;
                       });
     }, {});
-
   };
 
   /*
+   * Validate the inputs for a command
+   */
+  validateCommandInputs(options:CommandOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.urlString, () => {
+      let data = JSON.stringify(options.data, undefined, 2);
+      let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
+      let url = this.createUrl('command/validate', options);
+      //url.search("secret=default-gogs-git&secretNamespace=user-secrets-source-admin&kubeUserName=admin");
+      return this.http.post(url.toString(), data, requestOptions)
+                      .map((res:Response) => {
+                        return res.json();
+                      })
+                      .catch((error) => {
+                        log.error("Error validating command inputs: ", error)
+                        return error;
+                      });
+
+    });
+  };
+
+    /*
    * Get all the commands available without a project
-   * TODO add project/namespace parameters
    */
   getCommands(options?:CommandOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.urlString, () => {
