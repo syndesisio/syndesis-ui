@@ -41,6 +41,8 @@
     "server": "npm run server:dev",
     "start:hmr": "npm run server:dev:hmr",
     "start": "npm run server:dev",
+    "start:minikube": "source ./scripts/minikube.env && npm start",
+    "start:minishift": "source ./scripts/minishift.env && npm start",
     "test": "karma start",
     "tslint": "tslint",
     "typedoc": "typedoc",
