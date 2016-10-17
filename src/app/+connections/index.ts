@@ -5,7 +5,9 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../common/service/log';
 
-import {Library} from './library.component.ts';
+import {Connections} from './connections.component.ts';
+
+import {Library} from './library/library.component';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
@@ -13,13 +15,16 @@ Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 const routes = [
     {
         path: '',
-        component: Library
+        component: Connections,
+        children: [
+            { path: 'library', component: Library }
+        ]
     }
 ];
 
 @NgModule({
     declarations: [
-        Library
+        Connections
     ],
     imports: [
         CommonModule,
@@ -30,4 +35,6 @@ const routes = [
 export default class ConnectionsModule {
     static routes = routes;
 }
+
+
 
