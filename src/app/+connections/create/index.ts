@@ -1,2 +1,2 @@
-export * from './library.component';
+export * from './create.component';
 

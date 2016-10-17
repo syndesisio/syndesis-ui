@@ -7,6 +7,7 @@ import {Logger} from '../common/service/log';
 
 import {Connections} from './connections.component';
 
+import {Create} from './create/create.component';
 import {Library} from './library/library.component';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
@@ -17,7 +18,8 @@ const routes = [
         path: '',
         component: Connections,
         children: [
-            { path: 'library', component: Library }
+            {path: 'create', component: Create},
+            {path: 'library', component: Library}
         ]
     }
 ];
@@ -25,6 +27,7 @@ const routes = [
 @NgModule({
     declarations: [
         Connections,
+        Create,
         Library
     ],
     imports: [
