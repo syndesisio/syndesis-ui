@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
-import {Logger} from '../common/service/log';
+import {Logger} from '../../common/service/log';
 
 var log = Logger.get('+connections/library');
 
