@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router'
+import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/observable/of';
 import * as URI from 'urijs';
 
@@ -20,6 +21,26 @@ export module AppHelpers {
 
   // local cached value that contains the absolute document URL
   var cachedBaseUri:uri.URI = undefined;
+
+  /*
+   * Simple helper for creating HTTP request options
+   * TODO might be better as a service eventually
+   */
+  export function getStandardRequestOptions(contentType?:string, headers?:any, options?:any) {
+    if (!options) {
+      options = {};
+    }
+    if (!headers) {
+      headers = {};
+    }
+    if (contentType) {
+      headers['Content-Type'] = contentType;
+    }
+    if (!options.headers) {
+      options.headers = new Headers(headers);
+    }
+    return new RequestOptions(options);
+  }
 
   /*
    * Returns the value of the <base> tag

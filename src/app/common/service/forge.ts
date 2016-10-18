@@ -96,7 +96,7 @@ export class Forge {
   executeCommand(options:CommandOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.urlString, () => {
       let data = JSON.stringify(options.data, undefined, 2);
-      let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
+      let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
       let url = this.createUrl('command/execute', options);
       return this.http.post(url.toString(), data, requestOptions)
                       .map((res:Response) => {

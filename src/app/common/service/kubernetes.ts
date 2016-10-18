@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,18 +14,42 @@ import { KindTypes, CollectionTypes, KubernetesAPI } from './../helpers/kubernet
 
 var log = Logger.get('Kubernetes');
 
-export interface GetOptions {
-  kind: string;
-  namespace?: string;
-  name?: string;
+export interface BaseOptions {
   // URL parameters
+  pretty?: string;
   labelSelector?: string;
   fieldSelector?: string;
   resourceVersion?: string;
-  pretty?: string;
   timeoutSeconds?: number;
   // for anything extra we don't know about
   [name:string]: any;
+}
+
+export interface GetOptions extends BaseOptions {
+  kind: string;
+  namespace?: string;
+  name?: string;
+}
+
+export interface PostOptions extends BaseOptions {
+  kind?: string;
+  namespace?: string;
+  name?: string;
+  obj:any;
+}
+
+export interface PutOptions extends PostOptions {
+
+}
+
+export interface DelOptions extends BaseOptions {
+  kind: string;
+  namespace?: string;
+  name?: string;
+}
+
+export interface WatchOptions extends BaseOptions {
+
 }
 
 @Injectable()
@@ -72,6 +96,22 @@ export class Kubernetes {
     }
   }
 
+  private processOptionsObject(options:any) {
+    let data = JSON.stringify(options.obj);
+    let kind = KubernetesAPI.toKindName(options.kind || _.get(options, 'obj.kind'));
+    var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace || <string>_.get(options, 'obj.metadata.namespace'), options.name || <string>_.get(options, 'obj.metadata.name'));
+    let opts:any = _.clone(options);
+    let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
+    delete opts.obj;
+    url = KubernetesAPI.applyQueryParameters(url, opts);
+    return {
+      kind: kind,
+      url: url,
+      data: data,
+      requestOptions: requestOptions
+    };
+  }
+
   /*
    * Expose the API server URL
    */
@@ -86,10 +126,34 @@ export class Kubernetes {
     return this.wsUri.clone();
   }
 
+  private doMethod(method:string, options:any) {
+    let args = this.processOptionsObject(options);
+    log.debug(method, " ", args.kind, " using URL: ", args.url.toString());
+    return this.http[method](args.url.toString(), args.data, args.requestOptions)
+                    .map((res:Response) => {
+                      var json = res.json();
+                      log.debug(method, "returned object: ", json);
+                      var data = <any> _.get(json, 'items') || json;
+                      if (_.isArray(data)) {
+                        // responses for multiple data return a <resource name>List, we'll set the kind on each item
+                        _.forEach(data, (item:any) => {
+                          item.apiVersion = json.apiVersion;
+                          item.kind = KubernetesAPI.toKindName(args.kind);
+                        });
+                      }
+                      return data;
+                    })
+                    .catch((error) => {
+                      log.error("Error fetching ", args.kind, " : ", error)
+                      return error;
+                    });
+
+  }
+
   /*
    * Watch a collection on the server
    */
-  watch(kind:string, namespace?:string):Observable<any> {
+  watch(options:WatchOptions):Observable<any> {
     // TODO
     return null;
   }
@@ -97,17 +161,28 @@ export class Kubernetes {
   /*
    * Delete an object from the server
    */
-  del(kind:string, namespace?:string, id?:string):Observable<any> {
-    // TODO
-    return null;
+  del(options:DelOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.doMethod('delete', options);
+    }, []);
   }
 
   /*
-   * Add/replace an object on the server
+   * Create an object on the server
    */
-  put(kind:string, namespace?:string, id?:string):Observable<any> {
-    // TODO
-    return null;
+  post(options:PostOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.doMethod('post', options);
+    }, []);
+  }
+
+  /*
+   * Replace an object on the server
+   */
+  put(options:PutOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.doMethod('put', options);
+    }, []);
   }
 
   /*
@@ -115,29 +190,7 @@ export class Kubernetes {
    */
   get(options:GetOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.url, () => {
-      var kind = KubernetesAPI.toKindName(options.kind);
-      var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace, options.name);
-      url = KubernetesAPI.applyQueryParameters(url, options);
-      log.debug("get ", kind, " using path: ", url);
-      return this.http.get(url.toString())
-                      .map((res:Response) => {
-                        var json = res.json();
-                        log.debug("get returned object: ", json);
-                        var data = <any> _.get(json, 'items') || json;
-                        if (_.isArray(data)) {
-                          // responses for multiple data return a <resource name>List, we'll set the kind on each item
-                          _.forEach(data, (item:any) => {
-                            item.apiVersion = json.apiVersion;
-                            item.kind = KubernetesAPI.toKindName(kind);
-                          });
-                        }
-                        return data;
-                      })
-                      .catch((error) => {
-                        log.error("Error fetching ", kind, " : ", error)
-                        return error;
-                      });
-
+      return this.doMethod('get', options);
     }, []);
   }
 
