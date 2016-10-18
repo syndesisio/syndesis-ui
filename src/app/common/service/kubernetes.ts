@@ -14,6 +14,9 @@ import { KindTypes, CollectionTypes, KubernetesAPI } from './../helpers/kubernet
 
 var log = Logger.get('Kubernetes');
 
+/*
+ * BaseOptions contain common arguments that can map to URL parameters
+ */
 export interface BaseOptions {
   // URL parameters
   pretty?: string;
@@ -25,12 +28,18 @@ export interface BaseOptions {
   [name:string]: any;
 }
 
+/*
+ * Options specific for fetching objects from the API server
+ */
 export interface GetOptions extends BaseOptions {
   kind: string;
   namespace?: string;
   name?: string;
 }
 
+/*
+ * Options specific for creating an object on the API server
+ */
 export interface PostOptions extends BaseOptions {
   kind?: string;
   namespace?: string;
@@ -38,14 +47,28 @@ export interface PostOptions extends BaseOptions {
   obj:any;
 }
 
+/*
+ * Options specific for replacing an object on the API server
+ */
 export interface PutOptions extends PostOptions {
 
 }
 
+/*
+ * Options specific for partially updating an object on the API server
+ */
+export interface PatchOptions extends PostOptions {
+
+}
+
+/*
+ * Options specific for deleting an object from the API server
+ */
 export interface DelOptions extends BaseOptions {
   kind: string;
   namespace?: string;
   name?: string;
+  obj?:any;
 }
 
 export interface WatchOptions extends BaseOptions {
@@ -97,7 +120,7 @@ export class Kubernetes {
   }
 
   private processOptionsObject(options:any) {
-    let data = JSON.stringify(options.obj);
+    let data = _.isString(options.obj) ? options.obj : JSON.stringify(options.obj);
     let kind = KubernetesAPI.toKindName(options.kind || _.get(options, 'obj.kind'));
     var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace || <string>_.get(options, 'obj.metadata.namespace'), options.name || <string>_.get(options, 'obj.metadata.name'));
     let opts:any = _.clone(options);
@@ -182,6 +205,15 @@ export class Kubernetes {
   put(options:PutOptions):Observable<any> {
     return AppHelpers.maybeInvoke(this.url, () => {
       return this.doMethod('put', options);
+    }, []);
+  }
+
+  /*
+   * Partially update an object on the server
+   */
+  patch(options:PutOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.url, () => {
+      return this.doMethod('patch', options);
     }, []);
   }
 
