@@ -103,8 +103,10 @@ export class Forge {
                         };
                         if (_.isArray(body)) {
                           log.debug("Received body: ", body);
+                          /* TODO
                           // no point showing disabled commands
                           body = _.filter(body, (item:any) => item.enabled);
+                          */
                           _.forEach(body, (item:any) => {
                             var category = <string>_.get(item, 'category') || 'Uncategorized';
                             var commands = <any[]>_.get(commandMap.commands, category);
