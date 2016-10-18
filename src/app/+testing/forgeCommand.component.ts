@@ -43,6 +43,7 @@ export class ForgeCommand {
     }
 
     onSubmit(entity:any) {
+      // this is the input values for the command, 'inputList' is the form values
       var args = {
         namespace: this.teamId,
         projectName: this.projectId,
@@ -54,13 +55,20 @@ export class ForgeCommand {
         inputItem[key] = value;
         args.inputList.push(inputItem);
       });
+      // first validate the user input for the command
       this.forge.validateCommandInputs({
         commandId: this.commandId,
         data: args
       }).subscribe((response) => {
         log.debug("Got back response from validation: ", response);
-        if (response.valid) {
-          // execute command
+        if (response.canExecute) {
+          // execute the command if the values are okay
+          this.forge.executeCommand({
+            commandId: this.commandId,
+            data: args
+          }).subscribe((response) => {
+            log.debug("Got back response from execute: ", response);
+          });
         } else {
           // update form possibly
         }

@@ -64,6 +64,25 @@ export class Forge {
   };
 
   /*
+   * Execute a command with the supplied inputs
+   */
+  executeCommand(options:CommandOptions):Observable<any> {
+    return AppHelpers.maybeInvoke(this.urlString, () => {
+      let data = JSON.stringify(options.data, undefined, 2);
+      let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
+      let url = this.createUrl('command/execute', options);
+      return this.http.post(url.toString(), data, requestOptions)
+                      .map((res:Response) => {
+                        return res.json();
+                      })
+                      .catch((error) => {
+                        log.error("Error validating command inputs: ", error)
+                        return error;
+                      });
+    });
+  }
+
+  /*
    * Validate the inputs for a command
    */
   validateCommandInputs(options:CommandOptions):Observable<any> {
@@ -71,7 +90,6 @@ export class Forge {
       let data = JSON.stringify(options.data, undefined, 2);
       let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
       let url = this.createUrl('command/validate', options);
-      //url.search("secret=default-gogs-git&secretNamespace=user-secrets-source-admin&kubeUserName=admin");
       return this.http.post(url.toString(), data, requestOptions)
                       .map((res:Response) => {
                         return res.json();
