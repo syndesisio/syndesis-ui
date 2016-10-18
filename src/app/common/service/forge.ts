@@ -13,14 +13,41 @@ import { AppHelpers } from './../helpers/app';
 
 var log = Logger.get('Forge');
 
+/*
+ * CommandOptions interface represents the arguments used to
+ * invoke operations on Forge
+ */
 export interface CommandOptions {
+  /*
+   * Team ID is a kubernetes namespace containing build configs
+   */
   teamId?:string;
+
+  /*
+   * Project ID is the build config for a given project
+   */
   projectId?:string;
+
+  /*
+   * Command ID is the Forge command to fetch inputs, validate or execute
+   */
   commandId?:string;
+
+  /*
+   * Data to post to the server when validating or executing a command
+   */
   data?:any;
+
+  /*
+   * Additional possible options
+   */
   [name:string]:any;
 }
 
+/*
+ * An angular service that provides operations for invoking on a
+ * Forge web service
+ */
 @Injectable()
 export class Forge {
 
@@ -53,7 +80,7 @@ export class Forge {
       log.debug("Using URL: ", url.toString());
       return this.http.get(url.toString())
                       .map((res:Response) => {
-                        log.debug("Got response: ", res.json());
+                        log.debug("response for command inputs: ", res.json());
                         return res.json();
                       })
                       .catch((error) => {
@@ -73,6 +100,7 @@ export class Forge {
       let url = this.createUrl('command/execute', options);
       return this.http.post(url.toString(), data, requestOptions)
                       .map((res:Response) => {
+                        log.debug("response for execute command: ", res.json());
                         return res.json();
                       })
                       .catch((error) => {
@@ -92,6 +120,7 @@ export class Forge {
       let url = this.createUrl('command/validate', options);
       return this.http.post(url.toString(), data, requestOptions)
                       .map((res:Response) => {
+                        log.debug("response for validate command inputs: ", res.json());
                         return res.json();
                       })
                       .catch((error) => {
@@ -115,12 +144,12 @@ export class Forge {
       return this.http.get(url.toString())
                       .map((res:Response) => {
                         var body = <any[]> res.json();
+                        log.debug("response for get commands: ", body);
                         var commandMap = {
                           names: [],
                           commands: {}
                         };
                         if (_.isArray(body)) {
-                          log.debug("Received body: ", body);
                           /* TODO
                           // no point showing disabled commands
                           body = _.filter(body, (item:any) => item.enabled);
