@@ -1,0 +1,18 @@
+<h3>Project Repository</h3>
+<div class="spinner spinner-lg" *ngIf="!files && !file && !error"></div>
+<div *ngIf="error">
+  <pre>{{error | json}}</pre>
+</div>
+<div *ngIf="path">
+  <h3>{{path}}</h3>
+</div>
+<div *ngIf="files">
+  <ul>
+    <li *ngFor="let file of files">
+      <a [routerLink]="[file.name]">{{file.name}}</a>
+    </li>
+  </ul>
+</div>
+<div *ngIf="file">
+  <pre>{{file.content}}</pre>
+</div>

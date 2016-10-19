@@ -6,6 +6,7 @@
     <div *ngIf="errorMessage">
       <pre>{{errorMessage | json}}</pre>
     </div>
+    <h2>Teams</h2>
     <ul *ngIf="teams">
       <li *ngFor="let team of teams">
         <a [routerLink] = "[team.metadata.name]">{{team.metadata.name}}</a>

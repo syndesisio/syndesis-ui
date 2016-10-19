@@ -1,0 +1,13 @@
+<h3>Project Repository</h3>
+<div class="spinner spinner-lg" *ngIf="!branches && !error"></div>
+<div *ngIf="error">
+  <pre>{{error | json}}</pre>
+</div>
+<div *ngIf='branches'>
+  <h5>Branches</h5>
+  <ul>
+    <li *ngFor="let branch of branches">
+      <a [routerLink]="[branch]">{{branch}}</a>
+    </li>
+  </ul>
+</div>

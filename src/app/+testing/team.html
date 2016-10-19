@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-md-12">
-    <div *ngIf="!projects && !errorMessage">
-      Please wait...
-    </div>
+    <div class="spinner spinner-lg" *ngIf="!projects && !errorMessage"></div>
     <div *ngIf="errorMessage">
       <pre>{{errorMessage | json}}</pre>
     </div>
+    <h2>Team Projects</h2>
     <ul *ngIf="projects">
       <li *ngFor="let project of projects">
         <a [routerLink]="[project.metadata.name]">{{project.metadata.name}}</a>

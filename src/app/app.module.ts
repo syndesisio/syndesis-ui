@@ -18,6 +18,7 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 import {AppState} from './app.service';
 import {Logger} from './common/service/log';
 import {Forge} from './common/service/forge';
+import {Git} from './common/service/git';
 import {Kubernetes} from './common/service/kubernetes';
 
 
@@ -30,6 +31,7 @@ const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     AppState,
     Forge,
+    Git,
     Kubernetes
 ];
 
