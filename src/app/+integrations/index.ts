@@ -5,7 +5,9 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../common/service/log';
 
-import {Integrations} from './integrations.component.ts';
+import {Integrations} from './integrations.component';
+
+import {Create} from './create/create.component';
 
 Logger.get('+Integrations').debug('`Integrations` bundle loaded asynchronously');
 
@@ -13,7 +15,10 @@ Logger.get('+Integrations').debug('`Integrations` bundle loaded asynchronously')
 const routes = [
     {
         path: '',
-        component: Integrations
+        component: Integrations,
+        children: [
+            {path: 'create', component: Create}
+        ]
     }
 ];
 
@@ -30,4 +35,6 @@ const routes = [
 export default class IntegrationsModule {
     static routes = routes;
 }
+
+
 
