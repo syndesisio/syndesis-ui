@@ -19,7 +19,7 @@ const routes = [
         component: Connections,
         children: [
             {path: 'create', component: Create},
-            {path: 'library', component: Library}
+            {path: '', component: Library}
         ]
     }
 ];
