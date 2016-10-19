@@ -18,9 +18,13 @@ var log = Logger.get('+Forge');
 export class ForgeCommand {
 
     private commandId:string = undefined;
+    private stepId:string = undefined;
+
     private command:any = undefined;
     private entity:any = {};
+
     private error:any = undefined;
+    private formErrors:any[] = undefined;
     teamId:string = undefined;
     projectId:string = undefined;
 
@@ -43,6 +47,7 @@ export class ForgeCommand {
     }
 
     onSubmit(entity:any) {
+      this.formErrors = undefined;
       // this is the input values for the command, 'inputList' is the form values
       var args = {
         namespace: this.teamId,
@@ -50,11 +55,7 @@ export class ForgeCommand {
         inputList: [],
         resource: ""
       };
-      _.forOwn(entity, (value, key) => {
-        var inputItem = {};
-        inputItem[key] = value;
-        args.inputList.push(inputItem);
-      });
+      args.inputList.push(entity);
       // first validate the user input for the command
       this.forge.validateCommandInputs({
         commandId: this.commandId,
@@ -70,7 +71,17 @@ export class ForgeCommand {
             log.debug("Got back response from execute: ", response);
           });
         } else {
-          // update form possibly
+          if (response.messages.length) {
+            this.formErrors = response.messages;
+            return;
+          }
+          /*
+          if (response.wizardResults) {
+            // it's a wizard, maybe we need the next page
+            this.router.navigate([response.wizardResults.stepInputs.length], { relativeTo: this.route });
+            
+          }
+          */
         }
       }, (error) => {
         log.debug("Got back error validating: ", error); 
@@ -79,30 +90,44 @@ export class ForgeCommand {
     }
 
     ngOnInit() {
-      var params = AppHelpers.allRouteParams(this.route);
-      this.commandId = params['commandId'];
-      this.teamId = params['teamId'];
-      this.projectId = params['projectId'];
-      if (!this.commandId) {
-        return;
-      }
-      var options = <CommandOptions> {
-        commandId: this.commandId
-      };
-      if (this.teamId && this.projectId) {
-        options.teamId = this.teamId;
-        options.projectId = this.projectId;
-      }
-      log.debug("Using options: ", options);
-      this.forge.getCommandInputs(options).subscribe(
-        (command) => {
-          this.command = command
-          _.forOwn(this.command.properties, (value, key) => {
-            if (value.value) {
-              this.entity[key] = value.value;
-            }
-          });
-        },
-        error => this.error = error);
+      this.route.url.subscribe((urls) => {
+        this.error = undefined;
+        var params = AppHelpers.allRouteParams(this.route);
+        this.commandId = params['commandId'];
+        this.teamId = params['teamId'];
+        this.projectId = params['projectId'];
+        this.stepId = params['stepId'];
+        if (!this.stepId) {
+          this.router.navigate(['0'], { relativeTo: this.route });
+          return;
+        }
+        if (!this.commandId) {
+          return;
+        }
+        var options = <CommandOptions> {
+          commandId: this.commandId
+        };
+        if (this.teamId && this.projectId) {
+          options.teamId = this.teamId;
+          options.projectId = this.projectId;
+        }
+        log.debug("Using options: ", options);
+        if (this.stepId === '0') {
+          this.forge.getCommandInputs(options).subscribe(
+            (command) => {
+              this.command = command
+              _.forOwn(this.command.properties, (value, key) => {
+                if (value.value) {
+                  this.entity[key] = value.value;
+                }
+              });
+            },
+            error => this.error = error);
+        } else {
+
+        }
+      }, (error) => {
+        this.error = error;
+      });
     }
 }

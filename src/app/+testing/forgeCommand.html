@@ -1,6 +1,13 @@
 <div class="spinner spinner-lg" *ngIf="!command"></div>
 <div *ngIf="command">
   <h1>{{command.info.name}}</h1>
+  <div *ngIf="formErrors">
+    <ul>
+      <li *ngFor="let error of formErrors">
+        {{error.description}}
+      </li>
+    </ul>
+  </div>
   <form *ngIf="command" (ngSubmit)="onSubmit(entity)" #f="ngForm">
     <div *ngFor="let field of getFields(command)">
       <div *ngIf="field.enabled">

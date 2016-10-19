@@ -28,6 +28,7 @@ export const routes = [
               children: [
                 { path: 'commands', component: ForgeCommands },
                 { path: 'commands/:commandId', component: ForgeCommand },
+                { path: 'commands/:commandId/:stepId', component: ForgeCommand },
                 { path: 'repository', component: Repository },
                 { path: 'repository/:branchId',
                   children: [

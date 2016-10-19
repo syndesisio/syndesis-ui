@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { Logger } from '../common/service/log';
+import { AppHelpers } from '../common/helpers/app';
 import { Forge, CommandOptions } from '../common/service/forge';
 import { Kubernetes } from '../common/service/kubernetes';
 
@@ -36,10 +37,9 @@ export class ForgeCommands {
     }
     
     ngOnInit() {
-      this.route.params.forEach((params:Params) => {
-        this.teamId = params['teamId'];
-        this.projectId = params['projectId'];
-      });
+      var params = AppHelpers.allRouteParams(this.route);
+      this.teamId = params['teamId'];
+      this.projectId = params['projectId'];
       var options:CommandOptions = undefined;
       if (this.teamId && this.projectId) {
         options = {
