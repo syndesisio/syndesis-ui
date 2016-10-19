@@ -24,6 +24,7 @@ const routes = [
 
 @NgModule({
     declarations: [
+        Create,
         Integrations
     ],
     imports: [
