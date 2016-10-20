@@ -1,5 +1,8 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
+import {Connection} from '../connection.model';
+import {ConnectionService} from '../connection.service';
+
 import {Logger} from '../../common/service/log';
 
 var log = Logger.get('+connections/create');
@@ -13,11 +16,29 @@ var log = Logger.get('+connections/create');
 })
 export class Create {
     
-    constructor() {}
+    connections: Connection[] = [];
+    errorMessage: string;
+    
+    constructor(private connectionService: ConnectionService) {
+    }
     
     ngOnInit() {
         log.debug('hello `Connections: Create` component');
     }
     
+    /*
+    addConnection(name: string) {
+        if (!name) {
+            return;
+        }
+        
+        this
+          .connectionService
+          .addConnection(name)
+          .subscribe(
+            connection => this.connections.push(connection),
+            error => this.errorMessage = <any>error);
+    }
+    */
     
 }

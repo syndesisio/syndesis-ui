@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+
 import {Connection} from '../connection.model';
 import {ConnectionService} from '../connection.service';
+
 import {Logger} from '../../common/service/log';
+import {Router} from '@angular/router';
 
 var log = Logger.get('+connections/library');
 
@@ -13,12 +16,13 @@ var log = Logger.get('+connections/library');
     templateUrl: './library.html',
     providers: [ ConnectionService ]
 })
-export class Library implements OnInit {
+export class Library {
     
+    connections: Connection[] = [];
     errorMessage: string;
-    connections: Connection[];
     
-    constructor(private connectionService: ConnectionService) {}
+    constructor(private router: Router,
+                private connectionService: ConnectionService) {}
     
     ngOnInit() {
         log.debug('hello `Connections: Library` component');
@@ -33,14 +37,22 @@ export class Library implements OnInit {
             error => this.errorMessage = <any>error);
     }
     
+    /*
     addConnection(name: string) {
         if (!name) {
             return;
         }
+        
         this.connectionService.addConnection(name)
           .subscribe(
             connection => this.connections.push(connection),
             error => this.errorMessage = <any>error);
+    }
+    */
+    
+    gotoDetail(connection: Connection): void {
+        let link = ['/detail', connection.id];
+        this.router.navigate(link);
     }
     
 }

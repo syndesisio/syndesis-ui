@@ -1,6 +1,7 @@
 <div class="connections library">
     <div class="row toolbar-pf">
         <div class="col-sm-12">
+            {{ diagnostic }}
             <form class="toolbar-pf-actions">
                 <div class="form-group toolbar-pf-filter">
                     <label class="sr-only" for="filter">Name</label>
@@ -13,16 +14,14 @@
                                     aria-expanded="false">Name <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Name</a></li>
+                                <li><a href="#">Type</a></li>
                             </ul>
                         </div><!-- /btn-group -->
                         <input type="text"
                                class="form-control"
                                id="filter"
+                               name="name"
                                placeholder="Filter By Name...">
                     </div><!-- /input-group -->
                 </div>
@@ -35,11 +34,8 @@
                                 aria-expanded="false">Name <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Name</a></li>
+                            <li><a href="#">Type</a></li>
                         </ul>
                     </div>
                     <button class="btn btn-link" type="button">
