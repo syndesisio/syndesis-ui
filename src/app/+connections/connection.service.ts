@@ -10,16 +10,9 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ConnectionService {
-    private connectionsUrl = './connections.data.json'; // URL to JSON file
-    //private connectionsUrl = 'app/connections';  // URL to web API
     
-    /*
-    getHeroes(): Promise<Connection[]> {
-        return Promise.resolve(CONNECTIONS);
-    }
-    */
+    private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
     
-    private connectionsUrl = 'app/connections';  // URL to web API
     
     constructor(private http: Http) {}
     
