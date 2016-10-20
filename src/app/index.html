@@ -57,7 +57,9 @@
 
 
 <!-- Sidebar -->
-<div class="nav-pf-vertical hide-nav-pf hidden-icons-pf" [ngbCollapse]="isCollapsed">
+<div class="nav-pf-vertical hide-nav-pf hidden-icons-pf"
+     [ngbCollapse]="isCollapsed"
+     [ngClass]="{'collapsed': isCollapsed}">
     <ul class="list-group">
         <li class="list-group-item" routerLinkActive="active">
             <a [routerLink]=" ['dashboard'] ">
@@ -109,7 +111,8 @@
         </li>
     </ul>
 </div>
-<main class="container-fluid container-pf-nav-pf-vertical">
+<main class="container-fluid container-pf-nav-pf-vertical"
+      [ngClass]="{'collapsed-nav': isCollapsed}">
     <router-outlet></router-outlet>
 </main>
 
