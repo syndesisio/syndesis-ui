@@ -22,11 +22,14 @@ export class ForgeCommand {
 
     private command:any = undefined;
     private entity:any = {};
+    private response:any = undefined;
 
     private error:any = undefined;
     private formErrors:any[] = undefined;
     teamId:string = undefined;
     projectId:string = undefined;
+
+    private ready = false;
 
     constructor(private forge:Forge, 
                 private k8s:Kubernetes,
@@ -47,6 +50,7 @@ export class ForgeCommand {
     }
 
     onSubmit(entity:any) {
+      this.ready = false;
       this.formErrors = undefined;
       // this is the input values for the command, 'inputList' is the form values
       var args = {
@@ -69,11 +73,29 @@ export class ForgeCommand {
             data: args
           }).subscribe((response) => {
             log.debug("Got back response from execute: ", response);
+            this.ready = true;
+            this.response = response;
+          }, (error) => {
+            this.ready = true;
+            this.error = error;
           });
         } else {
+          this.ready = true;
           if (response.messages.length) {
             this.formErrors = response.messages;
             return;
+          } else {
+            this.forge.executeCommand({
+              commandId: this.commandId,
+              data: args
+            }).subscribe((response) => {
+              log.debug("Got back response from execute: ", response);
+              this.ready = true;
+              this.response = response;
+            }, (error) => {
+              this.ready = true;
+              this.error = error;
+            });
           }
           /*
           if (response.wizardResults) {
@@ -84,6 +106,8 @@ export class ForgeCommand {
           */
         }
       }, (error) => {
+        this.ready = true;
+        this.error = error;
         log.debug("Got back error validating: ", error); 
       });
       log.debug("On submit, got form: ", entity);
@@ -91,6 +115,7 @@ export class ForgeCommand {
 
     ngOnInit() {
       this.route.url.subscribe((urls) => {
+        this.ready = false;
         this.error = undefined;
         var params = AppHelpers.allRouteParams(this.route);
         this.commandId = params['commandId'];
@@ -121,12 +146,17 @@ export class ForgeCommand {
                   this.entity[key] = value.value;
                 }
               });
+              this.ready = true;
             },
-            error => this.error = error);
+            (error) => {
+              this.ready = true;
+              this.error = error
+            });
         } else {
 
         }
       }, (error) => {
+        this.ready = true;
         this.error = error;
       });
     }

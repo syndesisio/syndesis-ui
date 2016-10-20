@@ -1,5 +1,5 @@
-<div class="spinner spinner-lg" *ngIf="!command"></div>
-<div *ngIf="command">
+<div class="spinner spinner-lg" *ngIf="!ready"></div>
+<div *ngIf="ready">
   <h1>{{command.info.name}}</h1>
   <div *ngIf="formErrors">
     <ul>
@@ -8,7 +8,11 @@
       </li>
     </ul>
   </div>
-  <form *ngIf="command" (ngSubmit)="onSubmit(entity)" #f="ngForm">
+  <div *ngIf="response">
+    <h6>Command response</h6>
+    <pre>{{response | json}}</pre>
+  </div>
+  <form *ngIf="command && !response" (ngSubmit)="onSubmit(entity)" #f="ngForm">
     <div *ngFor="let field of getFields(command)">
       <div *ngIf="field.enabled">
         <div [ngSwitch]="field.type">
@@ -33,5 +37,8 @@
     <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Submit</button>
   </form>
   <p></p>
-  <pre>{{command | json}}</pre>
+  <div>
+    <h6>Command Input</h6>
+    <pre>{{command | json}}</pre>
+  </div>
 </div>
