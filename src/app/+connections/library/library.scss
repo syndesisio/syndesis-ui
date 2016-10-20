@@ -1,1 +1,6 @@
-div.connections.library {}
+div.connections.library {
+  .card {
+    max-height: 220px;
+    overflow: hidden;
+  }
+}
