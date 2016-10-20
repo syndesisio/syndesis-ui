@@ -1,0 +1,9 @@
+{
+  "data": [
+    { "id": "1", "name": "Facebook" },
+    { "id": "2", "name": "Gmail" },
+    { "id": "3", "name": "Pinterest" },
+    { "id": "4", "name": "Twitter" }
+  ]
+}
+
