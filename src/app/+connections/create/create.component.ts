@@ -5,6 +5,7 @@ import {Logger} from '../../common/service/log';
 var log = Logger.get('+connections/create');
 
 @Component({
+    moduleId: module.id,
     selector: 'connections-create',
     encapsulation: ViewEncapsulation.None,
     styles: [require('./create.scss')],

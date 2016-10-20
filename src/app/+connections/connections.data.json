@@ -4,6 +4,7 @@
       "id": "1",
       "name": "Facebook",
       "icon": "fa-facebook-official",
+      "type": "",
       "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque."
     },
     {
@@ -16,221 +17,258 @@
       "id": "3",
       "name": "Pinterest",
       "icon": "fa-pinterest",
+      "type": "",
       "description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
     },
     {
       "id": "4",
       "name": "Twitter",
       "icon": "fa-twitter",
+      "type": "",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
     },
     {
       "id": "5",
       "name": "GitHub",
       "icon": "fa-github-alt",
+      "type": "",
       "description": "Donec id elit non mi porta gravida at eget metus."
     },
     {
       "id": "6",
       "name": "Dropbox",
       "icon": "fa-dropbox",
+      "type": "",
       "description": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
     },
     {
       "id": "7",
       "name": "Google Drive",
       "icon": "fa-google",
+      "type": "",
       "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus."
     },
     {
       "id": "8",
       "name": "Reddit",
       "icon": "fa-reddit",
+      "type": "",
       "description": "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
     },
     {
       "id": "9",
       "name": "Bitbucket",
       "icon": "fa-bitbucket",
+      "type": "",
       "description": "Pellentesque ornare sem lacinia quam venenatis vestibulum."
     },
     {
       "id": "10",
       "name": "Flickr",
       "icon": "fa-flickr",
+      "type": "",
       "description": "Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
     },
     {
       "id": "11",
       "name": "Pocket",
       "icon": "fa-get-pocket",
+      "type": "",
       "description": "Nullam quis risus eget urna mollis ornare vel eu leo."
     },
     {
       "id": "12",
       "name": "LinkedIn",
       "icon": "fa-linkedin-square",
+      "type": "",
       "description": "Etiam porta sem malesuada magna mollis euismod. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "13",
       "name": "Foursquare",
       "icon": "fa-foursquare",
+      "type": "",
       "description": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "14",
       "name": "Paypal",
       "icon": "fa-paypal",
+      "type": "",
       "description": "Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "15",
       "name": "Slack",
       "icon": "fa-slack",
+      "type": "",
       "description": "Donec ullamcorper nulla non metus auctor fringilla. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     },
     {
       "id": "16",
       "name": "Google Plus",
       "icon": "fa-google-plus-official",
+      "type": "",
       "description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     },
     {
       "id": "17",
       "name": "Trello",
       "icon": "fa-trello",
+      "type": "",
       "description": "Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "18",
       "name": "YouTube",
       "icon": "fa-youtube",
+      "type": "",
       "description": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
     },
     {
       "id": "19",
       "name": "Vimeo",
       "icon": "fa-vimeo",
+      "type": "",
       "description": "Cras justo odio, dapibus ac facilisis in, egestas eget quam."
     },
     {
       "id": "20",
       "name": "OpenID",
       "icon": "fa-openid",
+      "type": "",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     },
     {
       "id": "21",
       "name": "WhatsApp",
       "icon": "fa-whatsapp",
+      "type": "",
       "description": "Sed posuere consectetur est at lobortis."
     },{
       "id": "22",
       "name": "Stack Overflow",
       "icon": "fa-stack-overflow",
+      "type": "",
       "description": "Donec sed odio dui. Vestibulum id ligula porta felis euismod semper."
     },
     {
       "id": "23",
       "name": "StumbleUpon",
       "icon": "fa-stumbleupon",
+      "type": "",
       "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod."
     },
     {
       "id": "24",
       "name": "Safari",
       "icon": "fa-safari",
+      "type": "",
       "description": "Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "25",
       "name": "Yahoo",
       "icon": "fa-yahoo",
+      "type": "",
       "description": "Nulla vitae elit libero, a pharetra augue. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
     },
     {
       "id": "26",
       "name": "Wordpress",
       "icon": "fa-wordpress",
+      "type": "",
       "description": "Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Maecenas faucibus mollis interdum."
     },
     {
       "id": "27",
       "name": "Hacker News",
       "icon": "fa-hacker-news",
+      "type": "",
       "description": "Maecenas faucibus mollis interdum. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla."
     },
     {
       "id": "28",
       "name": "Medium",
       "icon": "fa-medium",
+      "type": "",
       "description": "Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
     },
     {
       "id": "29",
       "name": "Download",
       "icon": "fa-cloud-download",
+      "type": "",
       "description": "Curabitur blandit tempus porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis. Maecenas sed diam eget risus varius blandit sit amet non magna."
     },
     {
       "id": "30",
       "name": "Wikipedia",
       "icon": "fa-wikipedia-w",
+      "type": "",
       "description": "Donec ullamcorper nulla non metus auctor fringilla. Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis ornare vel eu leo."
     },
     {
       "id": "31",
       "name": "jsfiddle",
       "icon": "fa-jsfiddle",
+      "type": "",
       "description": "Nullam id dolor id nibh ultricies vehicula ut id elit."
     },
     {
       "id": "32",
       "name": "",
       "icon": "fa-instagram",
+      "type": "",
       "description": "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
     },
     {
       "id": "33",
       "name": "Drupal",
       "icon": "fa-drupal",
+      "type": "",
       "description": "Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
     },
     {
       "id": "34",
       "name": "Google Wallet",
       "icon": "fa-google-wallet",
+      "type": "",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     },
     {
       "id": "35",
       "name": "Joomla",
       "icon": "fa-joomla",
+      "type": "",
       "description": "Nullam quis risus eget urna mollis ornare vel eu leo."
     },
     {
       "id": "36",
       "name": "MaxCDN",
       "icon": "fa-maxcdn",
+      "type": "",
       "description": "Aenean lacinia bibendum nulla sed consectetur. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
     },
     {
       "id": "37",
       "name": "Yelp",
       "icon": "fa-yelp",
+      "type": "",
       "description": "Curabitur blandit tempus porttitor. Donec ullamcorper nulla non metus auctor fringilla."
     },
     {
       "id": "38",
       "name": "CodePen",
       "icon": "fa-codepen",
+      "type": "",
       "description": "Vestibulum id ligula porta felis euismod semper. Donec ullamcorper nulla non metus auctor fringilla."
     },
     {
       "id": "39",
       "name": "Email",
       "icon": "fa-envelope-o",
+      "type": "",
       "description": "Nullam quis risus eget urna mollis ornare vel eu leo."
     }
   ]
