@@ -16,14 +16,12 @@ var log = Logger.get('+connections/detail');
     templateUrl: './detail.html',
     providers: [ ConnectionService ]
 })
-export class Detail implements OnInit {
+export class Detail {
     
     connection: Connection;
     errorMessage: string;
     
-    constructor(private connectionService: ConnectionService,
-                private route: ActivatedRoute,
-                private location: Location) {}
+    constructor(private connectionService: ConnectionService) {}
     
     ngOnInit(): void {
         log.debug('hello `Connections: Detail` component');

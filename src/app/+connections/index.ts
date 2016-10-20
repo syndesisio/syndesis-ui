@@ -8,6 +8,7 @@ import {Logger} from '../common/service/log';
 import {Connections} from './connections.component';
 
 import {Create} from './create/create.component';
+import {Detail} from './detail/detail.component';
 import {Library} from './library/library.component';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
@@ -18,8 +19,9 @@ const routes = [
         path: '',
         component: Connections,
         children: [
+            {path: '', component: Library},
             {path: 'create', component: Create},
-            {path: '', component: Library}
+            {path: 'detail', component: Detail}
         ]
     }
 ];
@@ -28,6 +30,7 @@ const routes = [
     declarations: [
         Connections,
         Create,
+        Detail,
         Library
     ],
     imports: [

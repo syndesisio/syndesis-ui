@@ -61,7 +61,8 @@
      [ngbCollapse]="isCollapsed"
      [ngClass]="{'collapsed': isCollapsed}">
     <ul class="list-group">
-        <li class="list-group-item" routerLinkActive="active">
+        <li class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['dashboard'] ">
                 <span class="fa fa-tachometer"
                       data-toggle="tooltip"
@@ -69,7 +70,8 @@
                 <span class="list-group-item-value">Dashboard</span>
             </a>
         </li>
-        <li class="list-group-item" routerLinkActive="active">
+        <li class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['integrations'] " >
                 <span class="pficon pficon-topology"
                       data-toggle="tooltip"
@@ -77,7 +79,8 @@
                 <span class="list-group-item-value">Integrations</span>
             </a>
         </li>
-        <li class="list-group-item" routerLinkActive="active">
+        <li class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['templates'] ">
                 <span class="pficon pficon-replicator"
                       data-toggle="tooltip"
@@ -85,7 +88,8 @@
                 <span class="list-group-item-value">Templates</span>
             </a>
         </li>
-        <li class="list-group-item" routerLinkActive="active">
+        <li class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['connections'] ">
                 <span class="pficon pficon-network"
                       data-toggle="tooltip"
@@ -93,7 +97,8 @@
                 <span class="list-group-item-value">Connections</span>
             </a>
         </li>
-        <li class="list-group-item" routerLinkActive="active">
+        <li class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['admin'] ">
                 <span class="fa fa-lock"
                       data-toggle="tooltip"
@@ -101,7 +106,9 @@
                 <span class="list-group-item-value">Admin</span>
             </a>
         </li>
-        <li *ngIf="appState.config.frontendMode == 'dev'" class="list-group-item" routerLinkActive="active">
+        <li *ngIf="appState.config.frontendMode == 'dev'"
+            class="list-group-item"
+            routerLinkActive="active">
             <a [routerLink]=" ['testing'] ">
                 <span class="pficon pficon-cluster"
                       data-toggle="tooltip"
