@@ -3,42 +3,122 @@
     {
       "id": "1",
       "name": "Facebook",
+      "icon": "fa-facebook-official",
       "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque."
     },
     {
       "id": "2",
       "name": "Gmail",
+      "icon": "fa-google",
       "description": "Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum."
     },
     {
       "id": "3",
       "name": "Pinterest",
+      "icon": "fa-pinterest",
       "description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
     },
     {
       "id": "4",
       "name": "Twitter",
+      "icon": "fa-twitter",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
     },
     {
       "id": "5",
       "name": "GitHub",
+      "icon": "fa-github-alt",
       "description": "Donec id elit non mi porta gravida at eget metus."
     },
     {
       "id": "6",
       "name": "Dropbox",
+      "icon": "fa-dropbox",
       "description": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
     },
     {
       "id": "7",
       "name": "Google Drive",
+      "icon": "fa-google",
       "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus."
     },
     {
-      "id": "7",
+      "id": "8",
       "name": "Reddit",
+      "icon": "fa-reddit",
       "description": "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
+    },
+    {
+      "id": "9",
+      "name": "Bitbucket",
+      "icon": "fa-bitbucket",
+      "description": "Pellentesque ornare sem lacinia quam venenatis vestibulum."
+    },
+    {
+      "id": "10",
+      "name": "Flickr",
+      "icon": "fa-flickr",
+      "description": "Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
+    },
+    {
+      "id": "11",
+      "name": "Pocket",
+      "icon": "fa-get-pocket",
+      "description": "Nullam quis risus eget urna mollis ornare vel eu leo."
+    },
+    {
+      "id": "12",
+      "name": "LinkedIn",
+      "icon": "fa-linkedin-square",
+      "description": "Etiam porta sem malesuada magna mollis euismod. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna."
+    },
+    {
+      "id": "13",
+      "name": "Foursquare",
+      "icon": "fa-foursquare",
+      "description": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna."
+    },
+    {
+      "id": "14",
+      "name": "Paypal",
+      "icon": "fa-paypal",
+      "description": "Maecenas sed diam eget risus varius blandit sit amet non magna."
+    },
+    {
+      "id": "15",
+      "name": "Slack",
+      "icon": "fa-slack",
+      "description": "Donec ullamcorper nulla non metus auctor fringilla. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    },
+    {
+      "id": "16",
+      "name": "Google Plus",
+      "icon": "fa-google-plus-official",
+      "description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    },
+    {
+      "id": "17",
+      "name": "Trello",
+      "icon": "fa-trello",
+      "description": "Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna."
+    },
+    {
+      "id": "18",
+      "name": "YouTube",
+      "icon": "fa-youtube",
+      "description": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+    },
+    {
+      "id": "19",
+      "name": "Vimeo",
+      "icon": "fa-vimeo",
+      "description": "Cras justo odio, dapibus ac facilisis in, egestas eget quam."
+    },
+    {
+      "id": "20",
+      "name": "OpenID",
+      "icon": "fa-openid",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     }
   ]
 }
