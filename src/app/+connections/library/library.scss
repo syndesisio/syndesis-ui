@@ -1,6 +1,7 @@
 div.connections.library {
-  .card {
-    max-height: 220px;
+  .card .card-pf {
+    height: 210px;
+    max-height: 240px;
     overflow: hidden;
   }
 }
