@@ -59,33 +59,6 @@
     <div>
         <div class="row row-cards-pf">
 
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                <div class="card-pf card-pf-view card-pf-view-xs">
-                    <div class="card-pf-body">
-                        <div class="card-pf-heading-kebab">
-                            <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
-                                <button type="button"
-                                        class="btn btn-link dropdown-toggle"
-                                        data-toggle="dropdown">
-                                    <span class="fa fa-ellipsis-v"></span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right"
-                                    role="menu">
-                                    <li><a href="#">Edit</a></li>
-                                    <li><a href="#">Duplicate</a></li>
-                                    <li><a href="#">Delete</a></li>
-                                </ul>
-                            </div>
-                            <h2 class="card-pf-title">
-                                <span class="fa fa-github-alt"></span>
-                            </h2>
-                            <div class="card-title">GitHub New Issues</div>
-                        </div>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- Each Connection Card -->
             <div class="col-xs-12 col-sm-3 col-md-2" *ngFor="let connection of connections">
                 <div class="card-pf card-pf-view card-pf-view-xs">
@@ -107,7 +80,7 @@
                             <h2 class="card-pf-title">
                                 <span class="fa fa-github-alt"></span>
                             </h2>
-                            <div class="card-title">{{ name }}</div>
+                            <div class="card-title">{{ connection.name }}</div>
                         </div>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
                     </div>
