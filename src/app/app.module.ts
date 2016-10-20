@@ -36,7 +36,7 @@ const APP_PROVIDERS = [
 ];
 
 // Logger instance
-var log = Logger.get("AppModule");
+var log = Logger.get('AppModule');
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstrapping process
@@ -67,7 +67,7 @@ var log = Logger.get("AppModule");
 export class AppModule {
     
     constructor(public appRef: ApplicationRef, public appState: AppState) {
-        log.debug("App module created");
+        log.debug('App module created');
     }
     
     hmrOnInit(store) {
