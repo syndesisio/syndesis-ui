@@ -12,21 +12,20 @@ var log = Logger.get('+connections/create');
     selector: 'connections-create',
     encapsulation: ViewEncapsulation.None,
     styles: [require('./create.scss')],
-    templateUrl: './create.html'
+    templateUrl: './create.html',
+    providers: [ ConnectionService ]
 })
 export class Create {
     
     connections: Connection[] = [];
     errorMessage: string;
     
-    constructor(private connectionService: ConnectionService) {
-    }
+    constructor(private connectionService: ConnectionService) {}
     
     ngOnInit() {
         log.debug('hello `Connections: Create` component');
     }
     
-    /*
     addConnection(name: string) {
         if (!name) {
             return;
@@ -39,6 +38,5 @@ export class Create {
             connection => this.connections.push(connection),
             error => this.errorMessage = <any>error);
     }
-    */
     
 }

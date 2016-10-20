@@ -37,19 +37,6 @@ export class Library {
             error => this.errorMessage = <any>error);
     }
     
-    /*
-    addConnection(name: string) {
-        if (!name) {
-            return;
-        }
-        
-        this.connectionService.addConnection(name)
-          .subscribe(
-            connection => this.connections.push(connection),
-            error => this.errorMessage = <any>error);
-    }
-    */
-    
     gotoDetail(connection: Connection): void {
         let link = ['/detail', connection.id];
         this.router.navigate(link);
