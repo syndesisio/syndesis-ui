@@ -21,17 +21,6 @@ export class Library {
     connections: Connection[] = [];
     errorMessage: string;
     
-    connectionsOrderBy1Desc: string = '-';
-    connectionsOrderBy1Property: string = 'name';
-    
-    connectionsOrderBy2Desc: string = '';
-    connectionsOrderBy2Property: string = 'type';
-    
-    connectionsOrderByConfig = [
-        (this.connectionsOrderBy1Desc+this.connectionsOrderBy1Property),
-        (this.connectionsOrderBy2Desc+this.connectionsOrderBy2Property)
-    ];
-    
     constructor(private router: Router,
                 private connectionService: ConnectionService) {}
     

@@ -1,1 +1,11 @@
-div.connections.create {}
+div.connections.create {
+  .card .card-pf {
+    height: 210px;
+    max-height: 240px;
+    overflow: hidden;
+
+    .dropdown-toggle {
+      padding: 4px 10px;
+    }
+  }
+}

@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 import {Connection} from '../connection.model';
 import {ConnectionService} from '../connection.service';

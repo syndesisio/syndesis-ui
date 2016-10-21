@@ -24,18 +24,14 @@ export class Create {
     
     ngOnInit() {
         log.debug('hello `Connections: Create` component');
+        
+        this.getConnections();
     }
     
-    addConnection(name: string) {
-        if (!name) {
-            return;
-        }
-        
-        this
-          .connectionService
-          .addConnection(name)
+    getConnections() {
+        this.connectionService.getConnections()
           .subscribe(
-            connection => this.connections.push(connection),
+            connections => this.connections = connections,
             error => this.errorMessage = <any>error);
     }
     

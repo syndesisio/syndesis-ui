@@ -1,7 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-
-import {Connection} from './connection.model';
-import {ConnectionService} from './connection.service';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 import {Logger} from '../common/service/log';
 
