@@ -17,7 +17,7 @@ const routes = [
         path: '',
         component: Integrations,
         children: [
-            {path: 'create', component: Create}
+            {path: '', component: Create}
         ]
     }
 ];
