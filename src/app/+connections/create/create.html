@@ -7,7 +7,7 @@
             <div class="col-sm-12">
                 <h5>
                     <a [routerLink]=" ['/home'] ">Home</a> >&nbsp;
-                    <a href="" [routerLink]=" ['/connections'] ">Connections</a> > Create Connection
+                    <a [routerLink]=" ['/connections'] ">Connections</a> > Create Connection
                 </h5>
             </div><!-- /col -->
         </div><!-- /row -->
@@ -121,7 +121,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right"
                                     role="menu">
-                                    <li><a href="#">Edit</a></li>
+                                    <li><a [routerLink]=" ['create'] ">Edit</a></li>
                                     <li><a href="#">Duplicate</a></li>
                                     <li><a href="#">Delete</a></li>
                                 </ul>
