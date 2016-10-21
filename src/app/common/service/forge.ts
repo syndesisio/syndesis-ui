@@ -100,7 +100,7 @@ export class Forge {
     return AppHelpers.maybeInvoke(this.urlString, () => {
       return this.validateCommandInputs(options)
                   .flatMap((data) => {
-                    if (data.canExecute || !data.messages.length) {
+                    if (data.canExecute || !_.get(data, 'messages.length')) {
                       let data = JSON.stringify(options.data, undefined, 2);
                       let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
                       let url = this.createUrl('command/execute', options).toString();

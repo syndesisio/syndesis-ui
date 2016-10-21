@@ -37,6 +37,9 @@ export const routes = [
                 { path: '**', redirectTo: 'repository'},
               ]
             },
+            { path: 'teamCommands', component: Teams },
+            { path: 'teamCommands/:teamId', component: ForgeCommands },
+            { path: 'teamCommands/:teamId/:commandId', component: ForgeCommand },
             { path: 'commands', component: ForgeCommands },
             { path: 'commands/:commandId', component: ForgeCommand },
             { path: 'kubernetes', component: KubernetesView }

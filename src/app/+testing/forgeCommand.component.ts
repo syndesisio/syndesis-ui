@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { AppHelpers } from '../common/helpers/app';
@@ -35,7 +35,8 @@ export class ForgeCommand {
     constructor(private forge:Forge, 
                 private k8s:Kubernetes,
                 private route:ActivatedRoute,
-                private router:Router) {
+                private router:Router,
+                private cdr:ChangeDetectorRef) {
 
     }
 
@@ -53,28 +54,47 @@ export class ForgeCommand {
     onSubmit(entity:any) {
       this.inputList.push(this.entity);
       this.ready = false;
+      // hide the form
       this.command.properties = undefined;
       this.response = undefined;
       this.formErrors = undefined;
-      this.entity = undefined;
       // this is the input values for the command, 'inputList' is the form values
-      var args = {
-        namespace: this.teamId,
-        projectName: this.projectId,
+      var args = <any> {
         inputList: this.inputList,
         resource: ""
       };
+      if (this.teamId) {
+        args.namespace = this.teamId;
+      }
+      if (this.projectId) {
+        args.projectName = this.projectId;
+      }
       // execute the forge command, either we'll get back validation errors or the command result *or* more forms
       this.forge.executeCommand({
         commandId: this.commandId,
         data: args
       }).subscribe((response) => {
         this.response = response;
+        if (response.status === "SUCCESS" && response.commandCompleted) {
+          // hide the form
+          this.result = {
+            response: response,
+            inputs: this.inputList
+          };
+          this.ready = true;
+          this.cdr.detectChanges();
+          return;
+        }
+
         let stepInputs = <any[]>_.get(response, 'wizardResults.stepInputs');
         if (response.status === "SUCCESS" && response.canMoveToNextStep) {
           // we've a wizard on our hands
           this.command = _.last(stepInputs);
           this.entity = this.setDefaultValues(this.command);
+        } else if (_.get(response, 'wizardResults.stepInputs.length')) {
+          // we've gotten a new form
+          this.command.properties = _.get(_.last(stepInputs), 'properties');
+          this.inputList.pop();
         } else {
           // hide the form
           this.result = {
@@ -83,6 +103,7 @@ export class ForgeCommand {
           };
         }
         this.ready = true;
+        this.cdr.detectChanges();
       }, (error) => {
         this.ready = true;
         this.error = error;
@@ -113,8 +134,10 @@ export class ForgeCommand {
         var options = <CommandOptions> {
           commandId: this.commandId
         };
-        if (this.teamId && this.projectId) {
+        if (this.teamId) {
           options.teamId = this.teamId;
+        }
+        if (this.projectId) {
           options.projectId = this.projectId;
         }
         log.debug("Using options: ", options);
