@@ -65,6 +65,7 @@ export class Forge {
       if (options.teamId && options.projectId) {
         url = url.segment(options.teamId).segment(options.projectId);
       }
+      log.debug("Using URL: ", url.toString());
       return url;
   }
 
@@ -77,7 +78,6 @@ export class Forge {
     }
     return AppHelpers.maybeInvoke(this.urlString, () => {
       var url = this.createUrl('commandInput', options);
-      log.debug("Using URL: ", url.toString());
       return this.http.get(url.toString())
                       .map((res:Response) => {
                         log.debug("response for command inputs: ", res.json());
@@ -94,19 +94,33 @@ export class Forge {
    * Execute a command with the supplied inputs
    */
   executeCommand(options:CommandOptions):Observable<any> {
+    if (!options.commandId) {
+      throw "Command ID required";
+    }
     return AppHelpers.maybeInvoke(this.urlString, () => {
-      let data = JSON.stringify(options.data, undefined, 2);
-      let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
-      let url = this.createUrl('command/execute', options);
-      return this.http.post(url.toString(), data, requestOptions)
-                      .map((res:Response) => {
-                        log.debug("response for execute command: ", res.json());
-                        return res.json();
-                      })
-                      .catch((error) => {
-                        log.error("Error validating command inputs: ", error)
-                        return error;
-                      });
+      return this.validateCommandInputs(options)
+                  .flatMap((data) => {
+                    if (data.canExecute || !data.messages.length) {
+                      let data = JSON.stringify(options.data, undefined, 2);
+                      let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
+                      let url = this.createUrl('command/execute', options).toString();
+                      return this.http.post(url, data, requestOptions)
+                                      .map((res:Response) => {
+                                        log.debug("response for execute command: ", res.json());
+                                        return res.json();
+                                      })
+                                      .catch((error) => {
+                                        log.error("Error executing command :", error)
+                                        return Observable.of(error);
+                                      });
+                    } else {
+                      return Observable.of(data);
+                    }
+                  })
+                  .catch((error) => {
+                    log.error("Error validating command inputs before executing: ", error);
+                    return error;
+                  });
     });
   }
 
@@ -114,11 +128,14 @@ export class Forge {
    * Validate the inputs for a command
    */
   validateCommandInputs(options:CommandOptions):Observable<any> {
+    if (!options.commandId) {
+      throw "Command ID required";
+    }
     return AppHelpers.maybeInvoke(this.urlString, () => {
       let data = JSON.stringify(options.data, undefined, 2);
       let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
-      let url = this.createUrl('command/validate', options);
-      return this.http.post(url.toString(), data, requestOptions)
+      let url = this.createUrl('command/validate', options).toString();
+      return this.http.post(url, data, requestOptions)
                       .map((res:Response) => {
                         log.debug("response for validate command inputs: ", res.json());
                         return res.json();

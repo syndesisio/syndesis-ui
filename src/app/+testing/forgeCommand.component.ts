@@ -18,11 +18,12 @@ var log = Logger.get('+Forge');
 export class ForgeCommand {
 
     private commandId:string = undefined;
-    private stepId:string = undefined;
 
     private command:any = undefined;
     private entity:any = {};
+    private inputList:any[] = [];
     private response:any = undefined;
+    private result:any = undefined;
 
     private error:any = undefined;
     private formErrors:any[] = undefined;
@@ -50,67 +51,52 @@ export class ForgeCommand {
     }
 
     onSubmit(entity:any) {
+      this.inputList.push(this.entity);
       this.ready = false;
+      this.command.properties = undefined;
+      this.response = undefined;
       this.formErrors = undefined;
+      this.entity = undefined;
       // this is the input values for the command, 'inputList' is the form values
       var args = {
         namespace: this.teamId,
         projectName: this.projectId,
-        inputList: [],
+        inputList: this.inputList,
         resource: ""
       };
-      args.inputList.push(entity);
-      // first validate the user input for the command
-      this.forge.validateCommandInputs({
+      // execute the forge command, either we'll get back validation errors or the command result *or* more forms
+      this.forge.executeCommand({
         commandId: this.commandId,
         data: args
       }).subscribe((response) => {
-        log.debug("Got back response from validation: ", response);
-        if (response.canExecute) {
-          // execute the command if the values are okay
-          this.forge.executeCommand({
-            commandId: this.commandId,
-            data: args
-          }).subscribe((response) => {
-            log.debug("Got back response from execute: ", response);
-            this.ready = true;
-            this.response = response;
-          }, (error) => {
-            this.ready = true;
-            this.error = error;
-          });
+        this.response = response;
+        let stepInputs = <any[]>_.get(response, 'wizardResults.stepInputs');
+        if (response.status === "SUCCESS" && response.canMoveToNextStep) {
+          // we've a wizard on our hands
+          this.command = _.last(stepInputs);
+          this.entity = this.setDefaultValues(this.command);
         } else {
-          this.ready = true;
-          if (response.messages.length) {
-            this.formErrors = response.messages;
-            return;
-          } else {
-            this.forge.executeCommand({
-              commandId: this.commandId,
-              data: args
-            }).subscribe((response) => {
-              log.debug("Got back response from execute: ", response);
-              this.ready = true;
-              this.response = response;
-            }, (error) => {
-              this.ready = true;
-              this.error = error;
-            });
-          }
-          /*
-          if (response.wizardResults) {
-            // it's a wizard, maybe we need the next page
-            this.router.navigate([response.wizardResults.stepInputs.length], { relativeTo: this.route });
-            
-          }
-          */
+          // hide the form
+          this.result = {
+            response: response,
+            inputs: this.inputList
+          };
         }
+        this.ready = true;
       }, (error) => {
         this.ready = true;
         this.error = error;
-        log.debug("Got back error validating: ", error); 
       });
-      log.debug("On submit, got form: ", entity);
+    }
+
+    setDefaultValues(command:any, entity:any = {}) {
+      var properties = <any>_.get(command, 'properties');
+      _.forOwn(properties, (value, key) => {
+        if (value.value) {
+          entity[key] = value.value;
+        }
+      });
+      return entity;
     }
 
     ngOnInit() {
@@ -121,11 +107,6 @@ export class ForgeCommand {
         this.commandId = params['commandId'];
         this.teamId = params['teamId'];
         this.projectId = params['projectId'];
-        this.stepId = params['stepId'];
-        if (!this.stepId) {
-          this.router.navigate(['0'], { relativeTo: this.route });
-          return;
-        }
         if (!this.commandId) {
           return;
         }
@@ -137,24 +118,16 @@ export class ForgeCommand {
           options.projectId = this.projectId;
         }
         log.debug("Using options: ", options);
-        if (this.stepId === '0') {
-          this.forge.getCommandInputs(options).subscribe(
-            (command) => {
-              this.command = command
-              _.forOwn(this.command.properties, (value, key) => {
-                if (value.value) {
-                  this.entity[key] = value.value;
-                }
-              });
-              this.ready = true;
-            },
-            (error) => {
-              this.ready = true;
-              this.error = error
-            });
-        } else {
-
-        }
+        this.forge.getCommandInputs(options).subscribe(
+          (command) => {
+            this.command = command
+            this.entity = this.setDefaultValues(command);
+            this.ready = true;
+          },
+          (error) => {
+            this.ready = true;
+            this.error = error
+          });
       }, (error) => {
         this.ready = true;
         this.error = error;
