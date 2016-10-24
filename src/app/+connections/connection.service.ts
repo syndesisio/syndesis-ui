@@ -32,6 +32,14 @@ export class ConnectionService {
           .catch(this.handleError);
     }
     
+    searchConnections(term: string): Observable<Connection[]> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        
+        return this.http.get(this.connectionsUrl)
+          .map((r: Response) => r.json().data as Connection[]);
+    };
+    
     updateConnection(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
         let headers = new Headers({'Content-Type': 'application/json'});

@@ -42,4 +42,6 @@ export class Library {
         this.router.navigate(link);
     }
     
+    searchConnections(term) {}
+    
 }
