@@ -10,6 +10,7 @@
     <ul *ngIf="teams">
       <li *ngFor="let team of teams">
         <a [routerLink] = "[team.metadata.name]">{{team.metadata.name}}</a>
+        &nbsp;|&nbsp;
         <a [routerLink] = "['../teamCommands', team.metadata.name]">Forge Commands</a>
       </li>
     </ul>

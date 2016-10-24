@@ -34,6 +34,11 @@ export interface CommandOptions {
   commandId?:string;
 
   /*
+   * Schema for command for comparing form data
+   */
+  schema?:any;
+
+  /*
    * Data to post to the server when validating or executing a command
    */
   data?:any;
@@ -65,6 +70,12 @@ export class Forge {
       if (options.teamId && options.projectId) {
         url = url.segment(options.teamId).segment(options.projectId);
       }
+      // TODO these need to come from somewhere
+      url = url.search({
+        secret: 'default-gogs-git',
+        secretNamespace: 'user-secrets-source-admin',
+        kubeUserName: 'admin'
+      });
       log.debug("Using URL: ", url.toString());
       return url;
   }
@@ -90,6 +101,11 @@ export class Forge {
     }, {});
   };
 
+  private getNextForm(data:any):any {
+    let stepInputs = <any[]>_.get(data, 'wizardResults.stepInputs');
+    data.newForm = <any>_.last(stepInputs);
+  }
+
   /*
    * Execute a command with the supplied inputs
    */
@@ -100,14 +116,18 @@ export class Forge {
     return AppHelpers.maybeInvoke(this.urlString, () => {
       return this.validateCommandInputs(options)
                   .flatMap((data) => {
-                    if (data.canExecute || !_.get(data, 'messages.length')) {
+                    if (data.canExecute) {
                       let data = JSON.stringify(options.data, undefined, 2);
                       let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
                       let url = this.createUrl('command/execute', options).toString();
                       return this.http.post(url, data, requestOptions)
                                       .map((res:Response) => {
-                                        log.debug("response for execute command: ", res.json());
-                                        return res.json();
+                                        var data = res.json();
+                                        if (data.canMoveToNextStep) {
+                                          data.newForm = this.getNextForm(data);
+                                        }
+                                        log.debug("response for execute command: ", data);
+                                        return data;
                                       })
                                       .catch((error) => {
                                         log.error("Error executing command :", error)
@@ -133,12 +153,22 @@ export class Forge {
     }
     return AppHelpers.maybeInvoke(this.urlString, () => {
       let data = JSON.stringify(options.data, undefined, 2);
+      let schema = _.clone(options.schema) || {};
+      delete options.schema;
       let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
       let url = this.createUrl('command/validate', options).toString();
       return this.http.post(url, data, requestOptions)
                       .map((res:Response) => {
-                        log.debug("response for validate command inputs: ", res.json());
-                        return res.json();
+                        var data = res.json();
+                        log.debug("response for validate command inputs: ", data);
+                        if (!data.canExecute) {
+                          data.canMoveToNextStep = false;
+                          let nextForm = this.getNextForm(data);
+                          if (nextForm && JSON.stringify(nextForm) !== JSON.stringify(schema)) {
+                            data.newForm = nextForm;
+                          }
+                        }
+                        return data;
                       })
                       .catch((error) => {
                         log.error("Error validating command inputs: ", error)

@@ -72,29 +72,18 @@ export class ForgeCommand {
       // execute the forge command, either we'll get back validation errors or the command result *or* more forms
       this.forge.executeCommand({
         commandId: this.commandId,
+        commandSchema: this.command,
         data: args
       }).subscribe((response) => {
         this.response = response;
-        if (response.status === "SUCCESS" && response.commandCompleted) {
-          // hide the form
-          this.result = {
-            response: response,
-            inputs: this.inputList
-          };
-          this.ready = true;
-          this.cdr.detectChanges();
-          return;
-        }
-
-        let stepInputs = <any[]>_.get(response, 'wizardResults.stepInputs');
-        if (response.status === "SUCCESS" && response.canMoveToNextStep) {
+        if (response.newForm) {
           // we've a wizard on our hands
-          this.command = _.last(stepInputs);
+          this.command = response.newForm;
           this.entity = this.setDefaultValues(this.command);
-        } else if (_.get(response, 'wizardResults.stepInputs.length')) {
-          // we've gotten a new form
-          this.command.properties = _.get(_.last(stepInputs), 'properties');
-          this.inputList.pop();
+          if (!response.canMoveToNextStep) {
+            // toss the last input, it's not valid
+            this.inputList.pop();
+          }
         } else {
           // hide the form
           this.result = {
