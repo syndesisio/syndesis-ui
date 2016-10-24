@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 
+import * as _ from 'lodash';
+
 import {Connection} from './connection.model';
 import {Observable} from 'rxjs/Observable';
 
@@ -26,21 +28,19 @@ export class ConnectionService {
           .catch(this.handleError);
     }
     
-    getConnections(): Observable<Connection[]> {
+    get(): Observable<Connection[]> {
         return this.http.get(this.connectionsUrl)
           .map(this.extractData)
           .catch(this.handleError);
     }
     
-    searchConnections(term: string): Observable<Connection[]> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        
+    search(term: string): Observable<Connection[]> {
         return this.http.get(this.connectionsUrl)
-          .map((r: Response) => r.json().data as Connection[]);
+          .map(this.searchProcess, term)
+          .catch(this.handleError);
     };
     
-    updateConnection(name: string): Observable<Connection> {
+    update(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
@@ -54,6 +54,16 @@ export class ConnectionService {
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};
+    }
+    
+    private searchProcess(res: Response, term) {
+        // The response object doesn't hold the data in a form the app can use directly.
+        // You must parse the response data into a JSON object.
+        let body = res.json();
+        
+        return _.filter(body.data, {'name': term}) || { };
+        
+        //return body.data || { };
     }
     
     private handleError(error: any) {

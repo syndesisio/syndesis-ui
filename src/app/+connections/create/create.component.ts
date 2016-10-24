@@ -29,7 +29,7 @@ export class Create {
     }
     
     getConnections() {
-        this.connectionService.getConnections()
+        this.connectionService.get()
           .subscribe(
             connections => this.connections = connections,
             error => this.errorMessage = <any>error);

@@ -1,10 +1,13 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 
 import {Connection} from '../connection.model';
 import {ConnectionService} from '../connection.service';
 
 import {Logger} from '../../common/service/log';
 import {Router} from '@angular/router';
+
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
 var log = Logger.get('+connections/library');
 
@@ -16,7 +19,7 @@ var log = Logger.get('+connections/library');
     templateUrl: './library.html',
     providers: [ ConnectionService ]
 })
-export class Library {
+export class Library implements OnInit {
     
     connections: Connection[] = [];
     errorMessage: string;
@@ -31,7 +34,7 @@ export class Library {
     }
     
     getConnections() {
-        this.connectionService.getConnections()
+        this.connectionService.get()
           .subscribe(
             connections => this.connections = connections,
             error => this.errorMessage = <any>error);
@@ -41,7 +44,5 @@ export class Library {
         let link = ['/detail', connection.id];
         this.router.navigate(link);
     }
-    
-    searchConnections(term) {}
     
 }

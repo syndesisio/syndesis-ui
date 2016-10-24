@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <form class="toolbar-pf-actions">
                 <div class="form-group toolbar-pf-filter">
-                    <label class="sr-only" for="filter">Name</label>
+                    <label class="sr-only">Name</label>
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button"
@@ -17,11 +17,6 @@
                                 <li><a href="#">Type</a></li>
                             </ul>
                         </div><!-- /btn-group -->
-                        <input type="text"
-                               class="form-control"
-                               id="filter"
-                               name="name"
-                               placeholder="Filter By Name...">
                     </div><!-- /input-group -->
                 </div>
                 <div class="form-group">
@@ -54,11 +49,11 @@
 
     <div>
         <div class="row row-cards-pf">
-
             <!-- Each Connection Card -->
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let connection of connections">
-                <div class="card-pf card-pf-view card-pf-view-xs">
+                <div class="card-pf card-pf-view card-pf-view-xs"
+                     (click)="gotoDetail(connection.id)">
                     <div class="card-pf-body">
                         <div class="card-pf-heading-kebab">
                             <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
@@ -83,6 +78,8 @@
                     </div>
                 </div>
             </div>
+
+            <connection-search></connection-search>
 
             <div class="error"
                  *ngIf="errorMessage">{{errorMessage}}</div>

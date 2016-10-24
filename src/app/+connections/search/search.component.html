@@ -1,0 +1,16 @@
+<div id="search-component"
+     class="row"
+     style="margin-bottom: 25px;">
+    <h4>Connection Search</h4>
+    <input #searchBox
+           id="search-box"
+           (keyup)="search(searchBox.value)" />
+    <div>
+        <div *ngFor="let test of connections | async"
+             (click)="gotoDetail(test)"
+             class="search-result" >
+            {{test.name}}
+        </div>
+    </div>
+</div>
+
