@@ -5,10 +5,11 @@
         <!-- Toolbar: Breadcrumbs -->
         <div class="row toolbar-pf breadcrumbs">
             <div class="col-sm-12">
-                <h5>
-                    <a [routerLink]=" ['/home'] ">Home</a> >&nbsp;
-                    <a [routerLink]=" ['/connections'] ">Connections</a> > Create Connection
-                </h5>
+                <ol class="breadcrumb">
+                    <li><a [routerLink]=" ['/home'] ">Home</a></li>
+                    <li><a [routerLink]=" ['/connections'] ">Connections</a></li>
+                    <li class="active"><strong>Create Connection</strong></li>
+                </ol>
             </div><!-- /col -->
         </div><!-- /row -->
 
