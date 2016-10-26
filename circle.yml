@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 6.1.0
+  services:
+
+branches:
+
+dependencies:
+  pre:
+    - npm install
+    - npm update && npm prune
+  override:
+    - npm run build
+
+test:
+  override:
+    - npm run test
