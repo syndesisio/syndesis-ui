@@ -18,6 +18,6 @@ dependencies:
 test:
   override:
     - rm -Rf $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit 
-    - mkdir $CIRCLE_ARTIFCATS/coverage
+    - mkdir $CIRCLE_ARTIFACTS/coverage
     - mkdir $CIRCLE_TEST_REPORTS/junit
     - npm run test
