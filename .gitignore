@@ -13,6 +13,9 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# junit test output
+junit
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 

@@ -1,7 +1,4 @@
-/**
- * @author: @AngularClass
- */
-
+const REPORT_OUTPUT_DIR = process.env.CIRCLE_TEST_REPORTS || '.';
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
 
@@ -36,7 +33,7 @@ module.exports = function(config) {
     webpack: testWebpackConfig,
 
     coverageReporter: {
-      dir : 'coverage/',
+      dir : REPORT_OUTPUT_DIR + '/coverage/',
       subdir: '.',
       reporters: [
         { type: 'json' },
@@ -44,7 +41,7 @@ module.exports = function(config) {
       ]
     },
     junitReporter: {
-      outputDir: 'coverage/'
+      outputDir: REPORT_OUTPUT_DIR + '/junit'
     },
 
     // Webpack please don't spam the console when running in karma!
