@@ -17,6 +17,8 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
+const OUTPUT_DIR = process.env.CIRCLE_ARTIFACTS || '.';
+
 
 /*
  * Webpack Constants
@@ -24,6 +26,7 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 const METADATA = {
   title: 'Hawtio iPaaS',
   baseUrl: '/',
+  dist: OUTPUT_DIR + '/dist/',
   isDevServer: helpers.isWebpackDevServer()
 };
 

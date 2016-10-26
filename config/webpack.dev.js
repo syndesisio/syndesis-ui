@@ -120,7 +120,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-path
      */
-    path: helpers.root('dist'),
+    path: helpers.root(METADATA.dist),
 
     /**
      * Specifies the name of each output file on disk.
@@ -211,7 +211,7 @@ module.exports = webpackMerge(commonConfig, {
       poll: 1000
     },
     proxy: proxyConfig,
-    outputPath: helpers.root('dist'),
+    outputPath: helpers.root(METADATA.dist),
     setup: function(app) {
       app.get('/config.json', function(req, res) {
         res.json(frontendConfig);
