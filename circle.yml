@@ -9,10 +9,11 @@ dependencies:
   pre:
     - npm install
     - npm update && npm prune
+    - rm -Rf $CIRCLE_ARTIFACTS/dist
   override:
     - npm run build
 
 test:
   override:
-    - rm -Rf coverage
+    - rm -Rf $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit
     - npm run test

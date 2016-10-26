@@ -31,6 +31,8 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   HMR: false
 });
 
+console.log("Building to ", METADATA.dist);
+
 module.exports = webpackMerge(commonConfig, {
 
   /**

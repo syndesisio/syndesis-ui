@@ -77,6 +77,7 @@ if (USE_PROXY === 'true' && KUBERNETES_MASTER) {
 
 console.log("Using frontend configuration: ", frontendConfig);
 console.log("Using proxyConfig configuration: ", proxyConfig);
+console.log("Building to ", METADATA.dist);
 
 
 /**
