@@ -34,7 +34,7 @@ export class Library implements OnInit {
     }
     
     getConnections() {
-        this.connectionService.get()
+        this.connectionService.getAll()
           .subscribe(
             connections => this.connections = connections,
             error => this.errorMessage = <any>error);

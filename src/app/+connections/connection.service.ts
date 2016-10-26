@@ -18,7 +18,7 @@ export class ConnectionService {
     
     constructor(private http: Http) {}
     
-    addConnection(name: string): Observable<Connection> {
+    add(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
@@ -26,13 +26,28 @@ export class ConnectionService {
         return this.http.post(this.connectionsUrl, body, options)
           .map(this.extractData)
           .catch(this.handleError);
-    }
+    };
     
-    get(): Observable<Connection[]> {
+    del(name: string): Observable<Connection> {
+        let id = JSON.stringify({name});
+        let headers = new Headers({'Content-Type': 'application/json'});
+        
+        return this.http.delete(this.connectionsUrl)
+          .map(this.extractData)
+          .catch(this.handleError);
+    };
+    
+    get(name: string): Observable<Connection[]> {
         return this.http.get(this.connectionsUrl)
           .map(this.extractData)
           .catch(this.handleError);
-    }
+    };
+    
+    getAll(): Observable<Connection[]> {
+        return this.http.get(this.connectionsUrl)
+          .map(this.extractData)
+          .catch(this.handleError);
+    };
     
     search(term: string): Observable<Connection[]> {
         return this.http.get(this.connectionsUrl)
@@ -60,8 +75,18 @@ export class ConnectionService {
         // The response object doesn't hold the data in a form the app can use directly.
         // You must parse the response data into a JSON object.
         let body = res.json();
+    
+        console.log('Term: ' + JSON.stringify(term));
+    
+        console.log('Unfiltered: ' + JSON.stringify(body.data));
         
-        return _.filter(body.data, {'name': term}) || { };
+        console.log('Filtering...');
+        
+        let filtered = _.filter(body.data, {'name': term} || {  });
+        
+        console.log('Filtered: ' + JSON.stringify(filtered));
+        
+        return filtered;
         
         //return body.data || { };
     }

@@ -6,7 +6,7 @@
            id="search-box"
            (keyup)="search(searchBox.value)" />
     <div>
-        <div *ngFor="let test of connections | async"
+        <div *ngFor="let test of tests | async"
              (click)="gotoDetail(test)"
              class="search-result" >
             {{test.name}}
