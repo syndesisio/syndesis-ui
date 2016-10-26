@@ -1,3 +1,4 @@
+const COVERAGE_OUTPUT_DIR = process.env.CIRCLE_ARTIFACTS || '.';
 const REPORT_OUTPUT_DIR = process.env.CIRCLE_TEST_REPORTS || '.';
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
@@ -33,7 +34,7 @@ module.exports = function(config) {
     webpack: testWebpackConfig,
 
     coverageReporter: {
-      dir : REPORT_OUTPUT_DIR + '/coverage/',
+      dir : COVERAGE_OUTPUT_DIR + '/coverage/',
       subdir: '.',
       reporters: [
         { type: 'json' },
