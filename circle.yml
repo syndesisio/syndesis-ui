@@ -8,10 +8,11 @@ branches:
 dependencies:
   pre:
     - npm install
-    - npm update && npm prune
+    - npm update && npm prune && npm run clean
   override:
     - npm run build
 
 test:
   override:
+    - rm -Rf coverage
     - npm run test

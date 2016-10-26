@@ -37,11 +37,14 @@ module.exports = function(config) {
 
     coverageReporter: {
       dir : 'coverage/',
+      subdir: '.',
       reporters: [
-        { type: 'text-summary' },
         { type: 'json' },
         { type: 'html' }
       ]
+    },
+    junitReporter: {
+      outputDir: 'coverage/'
     },
 
     // Webpack please don't spam the console when running in karma!
@@ -53,7 +56,7 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha', 'coverage', 'junit' ],
 
     // web server port
     port: 9876,
