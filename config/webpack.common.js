@@ -17,7 +17,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
-const OUTPUT_DIR = process.env.CIRCLE_ARTIFACTS || '.';
+const OUTPUT_DIR = '.';
 
 
 /*

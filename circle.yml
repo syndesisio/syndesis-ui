@@ -5,6 +5,9 @@ machine:
 
 branches:
 
+general:
+  build_dir: dist
+
 dependencies:
   pre:
     - npm install
