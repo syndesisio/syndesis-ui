@@ -3,8 +3,9 @@ machine:
     version: 6.9.1
   services:
 
-artifacts:
-  - 'dist'
+general:
+  artifacts:
+    - 'dist'
 
 branches:
 
