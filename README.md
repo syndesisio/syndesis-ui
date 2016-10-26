@@ -1,4 +1,7 @@
 # Hawtio iPaaS
+
+[![CircleCI](https://circleci.com/gh/hawtio/hawtio-ipaas.svg?style=svg)](https://circleci.com/gh/hawtio/hawtio-ipaas)
+
 The front end application for Red Hat iPaaS - a flexible, customizable, cloud-hosted platform that provides core integration capabilities as a service. It leverages Red Hat's existing product architecture using OpenShift Online/Dedicated and Fuse Integration Services. For the back end application, please see [this repo](https://github.com/fabric8io/fabric8-forge).
 
 Included in this stack are the following technologies:
