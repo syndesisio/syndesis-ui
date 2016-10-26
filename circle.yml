@@ -8,7 +8,7 @@ branches:
 dependencies:
   pre:
     - npm install
-    - npm update && npm prune && npm run clean
+    - npm update && npm prune
   override:
     - npm run build
 
