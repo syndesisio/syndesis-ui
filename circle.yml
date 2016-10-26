@@ -3,18 +3,16 @@ machine:
     version: 6.9.1
   services:
 
-branches:
+artifacts:
+  - 'dist'
 
-general:
-  build_dir: dist
+branches:
 
 dependencies:
   pre:
     - npm install
     - npm update
     - npm prune
-    - rm -Rf $CIRCLE_ARTIFACTS/dist
-    - mkdir $CIRCLE_ARTIFACTS/dist
   override:
     - npm run build
 
