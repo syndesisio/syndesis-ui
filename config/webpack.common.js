@@ -123,7 +123,6 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-loaders
      */
     loaders: [
-
       /*
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
        * Replace templateUrl and stylesUrl with require()
@@ -134,6 +133,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loaders: [
+          'babel-loader?presets[]=es2015',
           'awesome-typescript-loader',
           'angular2-template-loader',
           '@angularclass/hmr-loader'
