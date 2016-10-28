@@ -35,7 +35,7 @@ export class Git {
   private url:uri.URI = undefined;
 
   constructor(private http: Http, private appState: AppState) {
-    var urlString = this.urlString = appState.config.urls['FABRIC8_FORGE']
+    var urlString = this.urlString = appState.get('urls.FABRIC8_FORGE');
     this.url = new URI(urlString).segment('repos/project');
     log.debug("using URL: ", this.url.toString());
 

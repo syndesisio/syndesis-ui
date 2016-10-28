@@ -60,7 +60,7 @@ export class Forge {
   private url:uri.URI = undefined;
 
   constructor(private http: Http, private appState: AppState) {
-    var urlString = this.urlString = appState.config.urls['FABRIC8_FORGE']
+    var urlString = this.urlString = <string> appState.get('urls.FABRIC8_FORGE');
     this.url = new URI(urlString);
     log.debug("Forge service using URL: ", this.url.toString());
   }

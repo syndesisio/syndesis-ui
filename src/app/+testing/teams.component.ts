@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 
+import { AppState } from '../app.service';
 import { Logger } from '../common/service/log';
 import { Forge } from '../common/service/forge';
 import { KindTypes, KubernetesAPI } from '../common/helpers/kubernetes';
@@ -20,13 +21,17 @@ export class Teams {
   teams:any[] = undefined;
   errorMessage:any = undefined;
 
-  constructor(private k8s:Kubernetes) {
+  constructor(private k8s:Kubernetes, private appState:AppState) {
 
   }
 
   ngOnInit() {
+		var kind = KindTypes.NAMESPACES;
+		if (this.appState.get('k8sProvider') === 'openshift') {
+			kind = KindTypes.PROJECTS;
+		}
     this.k8s.get({ 
-      kind: KindTypes.NAMESPACES, 
+      kind: kind, 
       labelSelector: 'type=team'
     }).subscribe(
       namespaces => this.teams = namespaces,

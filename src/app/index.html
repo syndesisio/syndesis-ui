@@ -106,7 +106,7 @@
                 <span class="list-group-item-value">Admin</span>
             </a>
         </li>
-        <li *ngIf="appState.config.frontendMode == 'dev'"
+				<li *ngIf="appState.get('frontendMode') == 'dev'"
             class="list-group-item"
             routerLinkActive="active">
             <a [routerLink]=" ['testing'] ">

@@ -35,7 +35,7 @@ npm install
 npm start
 ```
 
-Go to [http://0.0.0.0:1337](http://0.0.0.0:1337) or [http://localhost:1337](http://localhost:1337) in your browser.
+Go to [http://0.0.0.0:9000](http://0.0.0.0:9000) or [http://localhost:9000](http://localhost:9000) in your browser.
 
 # Table of Contents
 * [File Structure](#file-structure)
@@ -128,7 +128,7 @@ What you need to run this app:
 * `npm start` to start the dev server
 
 ## Running
-After you have installed all dependencies you can now run the app. Run `npm start` to start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://0.0.0.0:1337` (or if you prefer IPv6, if you're using `express` server, then it's `http://[::1]:1337/`).
+After you have installed all dependencies you can now run the app. Run `npm start` to start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://0.0.0.0:9000` (or if you prefer IPv6, if you're using `express` server, then it's `http://[::1]:9000/`).
 
 ### Development
 ```bash

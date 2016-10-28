@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import * as URI from 'urijs';
 
 import { AppState } from './../../app.service';
+import { OAuth } from './../../oauth.service';
 import { Logger } from './log';
 import { AppHelpers } from './../helpers/app';
 
@@ -83,8 +84,8 @@ export class Kubernetes {
   private wsUri:uri.URI = undefined;
   private log = undefined;
 
-  constructor(private http: Http, private appState: AppState) {
-    var url = appState.config.urls['KUBERNETES_MASTER'];
+  constructor(private http: Http, private appState: AppState, private oauth:OAuth) {
+    var url = appState.get('urls.KUBERNETES_MASTER');
     if (_.startsWith(url, '/')) {
       // URL is an absolute path with no host:port, build the full URL from /
       var baseHref = AppHelpers.baseDocumentUri();
@@ -100,7 +101,7 @@ export class Kubernetes {
     this.wsUri = KubernetesAPI.wsUrl(this.url);
     log.info("Kubernetes service using URL: ", this.baseUri.toString(), " WebSocket URL: ", this.wsUri.toString());
     // configure path overrides based on the environment we're running against
-    if (_.get(appState, 'config.k8sProvider') === 'kubernetes') {
+    if (appState.get('k8sProvider') === 'kubernetes') {
       // set a path override for buildconfigs and make sure that works
       KubernetesAPI.setPathOverride(KindTypes.BUILD_CONFIGS, (apiServerUri:uri.URI, kind:string, namespace?:string, name?:string):uri.URI => {
         kind = KubernetesAPI.toCollectionName(kind);
@@ -125,6 +126,10 @@ export class Kubernetes {
     var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace || <string>_.get(options, 'obj.metadata.namespace'), options.name || <string>_.get(options, 'obj.metadata.name'));
     let opts:any = _.clone(options);
     let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
+		if (this.oauth.enabled) {
+			requestOptions.withCredentials = true;
+			requestOptions.headers.append('Authorization', this.oauth.authHeader);
+		}
     delete opts.obj;
     url = KubernetesAPI.applyQueryParameters(url, opts);
     return {
@@ -151,7 +156,7 @@ export class Kubernetes {
 
   private doMethod(method:string, options:any) {
     let args = this.processOptionsObject(options);
-    log.debug(method, " ", args.kind, " using URL: ", args.url.toString());
+    log.debug(method, " ", args.kind, " using URL: ", args.url.toString(), " with options: ", args.requestOptions);
     return this.http[method](args.url.toString(), args.data, args.requestOptions)
                     .map((res:Response) => {
                       var json = res.json();

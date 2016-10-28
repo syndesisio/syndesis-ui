@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router'
 import { Headers, RequestOptions } from '@angular/http';
+import { OAuth } from '../../oauth.service';
 import 'rxjs/add/observable/of';
 import * as URI from 'urijs';
 
