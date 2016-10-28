@@ -31,9 +31,8 @@ export class Teams {
 			kind = KindTypes.PROJECTS;
 		}
     this.k8s.get({ 
-      kind: kind, 
-      labelSelector: 'type=team'
-    }).subscribe(
+      kind: kind
+		}).subscribe(
       namespaces => this.teams = namespaces,
       error => this.errorMessage = error
     );

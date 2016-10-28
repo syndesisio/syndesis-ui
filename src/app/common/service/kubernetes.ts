@@ -157,7 +157,8 @@ export class Kubernetes {
   private doMethod(method:string, options:any) {
     let args = this.processOptionsObject(options);
     log.debug(method, " ", args.kind, " using URL: ", args.url.toString(), " with options: ", args.requestOptions);
-    return this.http[method](args.url.toString(), args.data, args.requestOptions)
+		// TODO let's switch to using 'http.request' instead of this
+    return this.http[method](args.url.toString(), args.data ? args.data : args.requestOptions, args.requestOptions)
                     .map((res:Response) => {
                       var json = res.json();
                       log.debug(method, "returned object: ", json);
