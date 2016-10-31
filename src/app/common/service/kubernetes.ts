@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Request, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,6 +16,8 @@ import { KindTypes, CollectionTypes, KubernetesAPI } from './../helpers/kubernet
 var log = Logger.get('Kubernetes');
 
 /*
+ * TODO probably just need 'BaseOptions' and forget the rest of these
+ *
  * BaseOptions contain common arguments that can map to URL parameters
  */
 export interface BaseOptions {
@@ -122,20 +124,19 @@ export class Kubernetes {
 
   private processOptionsObject(options:any) {
     let data = _.isString(options.obj) ? options.obj : JSON.stringify(options.obj);
+		// figure out the right URL based on what we've gotten
     let kind = KubernetesAPI.toKindName(options.kind || _.get(options, 'obj.kind'));
-    var url = KubernetesAPI.url(this.masterUrl, kind, options.namespace || <string>_.get(options, 'obj.metadata.namespace'), options.name || <string>_.get(options, 'obj.metadata.name'));
-    let opts:any = _.clone(options);
-    let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
-		if (this.oauth.enabled) {
-			requestOptions.withCredentials = true;
-			requestOptions.headers.append('Authorization', this.oauth.authHeader);
+		let namespace = options.namespace || <string>_.get(options, 'obj.metadata.namespace');
+		let name = options.name || <string>_.get(options, 'obj.metadata.name');
+    let url = KubernetesAPI.applyQueryParameters(KubernetesAPI.url(this.masterUrl, kind, namespace, name), options);
+		// create our request options object
+    let requestOptions = this.oauth.addCredentials(AppHelpers.getStandardRequestOptions('application/json'));
+		if (data) {
+			requestOptions.body = data;
 		}
-    delete opts.obj;
-    url = KubernetesAPI.applyQueryParameters(url, opts);
+		requestOptions.url = url.toString();
     return {
       kind: kind,
-      url: url,
-      data: data,
       requestOptions: requestOptions
     };
   }
@@ -156,9 +157,9 @@ export class Kubernetes {
 
   private doMethod(method:string, options:any) {
     let args = this.processOptionsObject(options);
-    log.debug(method, " ", args.kind, " using URL: ", args.url.toString(), " with options: ", args.requestOptions);
-		// TODO let's switch to using 'http.request' instead of this
-    return this.http[method](args.url.toString(), args.data ? args.data : args.requestOptions, args.requestOptions)
+		args.requestOptions.method = method;
+    log.debug(method, " ", args.kind, " using options: ", args.requestOptions);
+    return this.http.request(new Request(args.requestOptions))
                     .map((res:Response) => {
                       var json = res.json();
                       log.debug(method, "returned object: ", json);
@@ -184,7 +185,7 @@ export class Kubernetes {
    */
   watch(options:WatchOptions):Observable<any> {
     // TODO
-    return null;
+		throw "Watch not implemented yet";
   }
 
   /*

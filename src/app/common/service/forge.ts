@@ -8,6 +8,7 @@ import * as URI from 'urijs';
 import * as _ from 'lodash';
 
 import { AppState } from './../../app.service';
+import { OAuth } from './../../oauth.service';
 import { Logger } from './log';
 import { AppHelpers } from './../helpers/app';
 
@@ -59,7 +60,7 @@ export class Forge {
   private urlString:string = undefined;
   private url:uri.URI = undefined;
 
-  constructor(private http: Http, private appState: AppState) {
+  constructor(private http: Http, private appState: AppState, private oauth: OAuth) {
     var urlString = this.urlString = <string> appState.get('urls.FABRIC8_FORGE');
     this.url = new URI(urlString);
     log.debug("Forge service using URL: ", this.url.toString());
@@ -89,7 +90,7 @@ export class Forge {
     }
     return AppHelpers.maybeInvoke(this.urlString, () => {
       var url = this.createUrl('commandInput', options);
-      return this.http.get(url.toString())
+      return this.http.get(url.toString(), this.oauth.addCredentials(AppHelpers.getStandardRequestOptions()))
                       .map((res:Response) => {
                         log.debug("response for command inputs: ", res.json());
                         return res.json();
@@ -120,7 +121,7 @@ export class Forge {
                       let data = JSON.stringify(options.data, undefined, 2);
                       let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
                       let url = this.createUrl('command/execute', options).toString();
-                      return this.http.post(url, data, requestOptions)
+                      return this.http.post(url, data, this.oauth.addCredentials(requestOptions))
                                       .map((res:Response) => {
                                         var data = res.json();
                                         if (data.canMoveToNextStep) {
@@ -157,7 +158,7 @@ export class Forge {
       delete options.schema;
       let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
       let url = this.createUrl('command/validate', options).toString();
-      return this.http.post(url, data, requestOptions)
+      return this.http.post(url, data, this.oauth.addCredentials(requestOptions))
                       .map((res:Response) => {
                         var data = res.json();
                         log.debug("response for validate command inputs: ", data);
@@ -188,7 +189,7 @@ export class Forge {
         url = url.segment(options.teamId).segment(options.projectId);
       }
       log.debug("Using URL: ", url.toString());
-      return this.http.get(url.toString())
+      return this.http.get(url.toString(), this.oauth.addCredentials(AppHelpers.getStandardRequestOptions()))
                       .map((res:Response) => {
                         var body = <any[]> res.json();
                         log.debug("response for get commands: ", body);
@@ -197,10 +198,6 @@ export class Forge {
                           commands: {}
                         };
                         if (_.isArray(body)) {
-                          /* TODO
-                          // no point showing disabled commands
-                          body = _.filter(body, (item:any) => item.enabled);
-                          */
                           _.forEach(body, (item:any) => {
                             var category = <string>_.get(item, 'category') || 'Uncategorized';
                             var commands = <any[]>_.get(commandMap.commands, category);

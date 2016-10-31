@@ -224,8 +224,35 @@ export class OAuth {
 		return this.appState.get(TOKEN_STORAGE_KEY);
 	}
 
+	/*
+	 * The authorization header value if enabled
+	 */
 	public get authHeader():string {
+		if (!this.enabled) {
+			return undefined;
+		}
 		return this.tokenType + ' ' + this.token;
+	}
+
+	/*
+	 * Add OAuth credentials to a RequestOptions object
+	 */
+	public addCredentials(requestOptions:RequestOptions):RequestOptions {
+		if (this.enabled) {
+			requestOptions.withCredentials = true;
+			this.appendAuthHeader(requestOptions.headers);
+		}
+		return requestOptions;
+	}
+
+	/*
+	 * Add the Authorization header to a Headers object
+	 */
+	public appendAuthHeader(headers:Headers):Headers {
+		if (this.enabled) {
+			headers.append('Authorization', this.authHeader);
+		}
+		return headers;
 	}
 
 }

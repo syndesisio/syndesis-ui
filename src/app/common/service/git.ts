@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Request, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -8,6 +8,7 @@ import * as URI from 'urijs';
 import * as _ from 'lodash';
 
 import { AppState } from './../../app.service';
+import { OAuth } from './../../oauth.service';
 import { Logger } from './log';
 import { AppHelpers } from './../helpers/app';
 
@@ -34,7 +35,7 @@ export class Git {
   private urlString:string = undefined;
   private url:uri.URI = undefined;
 
-  constructor(private http: Http, private appState: AppState) {
+  constructor(private http: Http, private appState: AppState, private oauth: OAuth) {
     var urlString = this.urlString = appState.get('urls.FABRIC8_FORGE');
     this.url = new URI(urlString).segment('repos/project');
     log.debug("using URL: ", this.url.toString());
@@ -67,10 +68,15 @@ export class Git {
   
   private doMethod(action:string, method:string, options:GitOptions, customizer?: (data:any) => any) {
     let data = options.data ? JSON.stringify(options.data, undefined, 2) : undefined;
-    let requestOptions = AppHelpers.getStandardRequestOptions('application/json');
+    let requestOptions = this.oauth.addCredentials(AppHelpers.getStandardRequestOptions('application/json'));
     let url = this.createUrl(action, options);
     log.debug("url for action: ", action, " using method: ", method, ":", url.toString());
-    return this.http[method](url.toString(), data, requestOptions)
+		requestOptions.url = url.toString();
+		requestOptions.method = method;
+		if (data) {
+			requestOptions.body = data;
+		}
+    return this.http.request(new Request(requestOptions))
                     .map((res:Response) => {
                       var body = res.json();
                       log.debug("response for ", method, " ", action, " :", body);
