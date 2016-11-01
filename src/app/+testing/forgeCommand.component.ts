@@ -77,10 +77,11 @@ export class ForgeCommand {
       }).subscribe((response) => {
         this.response = response;
         if (response.newForm) {
-          // we've a wizard on our hands
+          // maybe we've a wizard on our hands
           this.command = response.newForm;
           this.entity = this.setDefaultValues(this.command);
-          if (!response.canMoveToNextStep) {
+					// or maybe this is a validation error	
+          if (!response.canExecute) {
             // toss the last input, it's not valid
             this.inputList.pop();
           }

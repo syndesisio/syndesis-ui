@@ -11,6 +11,7 @@ import { AppState } from './../../app.service';
 import { OAuth } from './../../oauth.service';
 import { Logger } from './log';
 import { AppHelpers } from './../helpers/app';
+import { ForgeHelpers } from './../helpers/forge';
 
 var log = Logger.get('Forge');
 
@@ -93,7 +94,7 @@ export class Forge {
       return this.http.get(url.toString(), this.oauth.addCredentials(AppHelpers.getStandardRequestOptions()))
                       .map((res:Response) => {
                         log.debug("response for command inputs: ", res.json());
-                        return res.json();
+                        return ForgeHelpers.enrichSchema(res.json());
                       })
                       .catch((error) => {
                         log.error("Error fetching command inputs for command " + options.commandId + ": ", error)
@@ -104,7 +105,7 @@ export class Forge {
 
   private getNextForm(data:any):any {
     let stepInputs = <any[]>_.get(data, 'wizardResults.stepInputs');
-    data.newForm = <any>_.last(stepInputs);
+    return <any>_.last(stepInputs);
   }
 
   /*
@@ -125,7 +126,7 @@ export class Forge {
                                       .map((res:Response) => {
                                         var data = res.json();
                                         if (data.canMoveToNextStep) {
-                                          data.newForm = this.getNextForm(data);
+                                          data.newForm = ForgeHelpers.enrichSchema(this.getNextForm(data));
                                         }
                                         log.debug("response for execute command: ", data);
                                         return data;
@@ -159,17 +160,16 @@ export class Forge {
       let requestOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' })});
       let url = this.createUrl('command/validate', options).toString();
       return this.http.post(url, data, this.oauth.addCredentials(requestOptions))
-                      .map((res:Response) => {
+                      .flatMap((res:Response) => {
                         var data = res.json();
-                        log.debug("response for validate command inputs: ", data);
-                        if (!data.canExecute) {
-                          data.canMoveToNextStep = false;
-                          let nextForm = this.getNextForm(data);
+                        if (!data.valid) {
+                          let nextForm = ForgeHelpers.enrichSchema(this.getNextForm(data));
                           if (nextForm && JSON.stringify(nextForm) !== JSON.stringify(schema)) {
                             data.newForm = nextForm;
                           }
                         }
-                        return data;
+                        log.debug("response for validate command inputs: ", data);
+                        return Observable.of(data);
                       })
                       .catch((error) => {
                         log.error("Error validating command inputs: ", error)
