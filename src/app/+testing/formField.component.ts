@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Logger } from '../common/service/log';
@@ -11,7 +11,7 @@ import { Logger } from '../common/service/log';
 /*
  * A field of a form
  */
-export class FormPropertyField {
+export class FormPropertyField implements OnInit {
 
 	@Input() form:FormGroup;
 	@Input() field:any = {};
@@ -19,6 +19,14 @@ export class FormPropertyField {
 
 	constructor() {
 
+	}
+
+	ngOnInit() {
+		let field = this.field;
+		if (!field.title) {
+			field.title = field.id;
+		}
+		field.title = _.capitalize(field.title);
 	}
 
 }

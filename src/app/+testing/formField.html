@@ -2,7 +2,7 @@
 	<div [ngSwitch]="field.type">
 		<template [ngSwitchCase]="'enum'">
 		<div class="form-group">
-			<div attr.for="{{field.id}}"><b>{{field.title || field.id}}</b></div>
+			<div attr.for="{{field.id}}"><b>{{field.title}}</b></div>
 			<select class="custom-select" name="{{field.id}}" [(ngModel)]="entity[field.id]" id="{{field.id}}">
 				<option *ngFor="let enum of field.enum" [value]="enum.value">{{enum.key}}</option>
 			</select>
@@ -12,14 +12,14 @@
 		<template [ngSwitchCase]="'boolean'">
 		<div class="form-group">
 			<div class="checkbox">
-				<label><input type="checkbox" [(ngModel)]="entity[field.id]" name="{{field.id}}">{{field.title || field.id}}</label>
+				<label><input type="checkbox" [(ngModel)]="entity[field.id]" name="{{field.id}}">{{field.title}}</label>
 				<p class="help-block" *ngIf="field.description">{{field.description}}</p>
 			</div>
 		</div>
 		</template>
 		<template ngSwitchDefault>
 		<div class="form-group">
-			<label attr.for="{{field.id}}">{{field.title || field.id}}</label>
+			<label attr.for="{{field.id}}">{{field.title}}</label>
 			<input type="text" class="form-control" id="{{field.id}}" [(ngModel)]="entity[field.id]" name="{{field.id}}">
 			<p class="help-block" *ngIf="field.description">{{field.description}}</p>
 		</div>
