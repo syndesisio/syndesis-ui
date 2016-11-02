@@ -1,7 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import * as _ from 'lodash';
 
 import { Logger } from '../common/service/log';
+
+let log = Logger.get('FormPropertyField');
 
 @Component({
 	selector: 'form-property-field',
@@ -26,7 +30,6 @@ export class FormPropertyField implements OnInit {
 		if (!field.title) {
 			field.title = field.id;
 		}
-		field.title = _.capitalize(field.title);
 	}
 
 }

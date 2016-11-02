@@ -16,7 +16,7 @@
   </div>
   <form *ngIf="command.properties" (ngSubmit)="onSubmit(entity)" #f="ngForm">
     <div *ngFor="let field of getFields(command)">
-			<form-property-field [form]="ngForm" [field]="field" [entity]="entity"></form-property-field>
+			<form-property-field [form]="f.form" [field]="field" [entity]="entity"></form-property-field>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Submit</button>
   </form>

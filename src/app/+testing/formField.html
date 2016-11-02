@@ -12,7 +12,10 @@
 		<template [ngSwitchCase]="'boolean'">
 		<div class="form-group">
 			<div class="checkbox">
-				<label><input type="checkbox" [(ngModel)]="entity[field.id]" name="{{field.id}}">{{field.title}}</label>
+				<label>
+					<input type="checkbox" [(ngModel)]="entity[field.id]" name="{{field.id}}">
+					{{field.title}}
+				</label>
 				<p class="help-block" *ngIf="field.description">{{field.description}}</p>
 			</div>
 		</div>
@@ -20,7 +23,7 @@
 		<template ngSwitchDefault>
 		<div class="form-group">
 			<label attr.for="{{field.id}}">{{field.title}}</label>
-			<input type="text" class="form-control" id="{{field.id}}" [(ngModel)]="entity[field.id]" name="{{field.id}}">
+			<input type="text" class="form-control" id="{{field.id}}" name="{{field.id}}" [required]="field.required ? 'true' : null" [(ngModel)]="entity[field.id]">
 			<p class="help-block" *ngIf="field.description">{{field.description}}</p>
 		</div>
 		</template>

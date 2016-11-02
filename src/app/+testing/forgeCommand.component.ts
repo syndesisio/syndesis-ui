@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { AppHelpers } from '../common/helpers/app';
@@ -52,7 +53,7 @@ export class ForgeCommand {
     }
 
     onSubmit(entity:any) {
-      this.inputList.push(this.entity);
+      this.inputList.push(entity);
       this.ready = false;
       // hide the form
       this.command.properties = undefined;
