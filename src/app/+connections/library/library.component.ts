@@ -22,6 +22,7 @@ var log = Logger.get('+connections/library');
 export class Library implements OnInit {
     
     connections: Connection[] = [];
+    listFilter: string;
     errorMessage: string;
     
     @Input() connections: Connection[];
@@ -29,7 +30,7 @@ export class Library implements OnInit {
     //@Output() onConnectionSelected: EventEmitter<Connection> = new EventEmitter<Connection>();
     
     constructor(private router: Router,
-                private connectionService: ConnectionService) {}
+                private _connectionService: ConnectionService) {}
     
     ngOnInit() {
         log.debug('hello `Connections: Library` component');
@@ -38,7 +39,7 @@ export class Library implements OnInit {
     }
     
     getConnections() {
-        this.connectionService.getAll()
+        this._connectionService.getAll()
           .subscribe(
             connections => this.connections = connections,
             error => this.errorMessage = <any>error);

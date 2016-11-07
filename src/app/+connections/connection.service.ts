@@ -1,17 +1,20 @@
 // Here were are using observables, not promises
+//import {Observable} from 'rxjs/Observable';
+//import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 
+import {Observable} from 'rxjs/Observable';
+
 import * as _ from 'lodash';
 
 import { Forge } from '../common/service/forge';
 import {Connection} from './connection.model';
-import {Observable} from 'rxjs/Observable';
+import {IConnectionService} from './connection.service.interface';
 
-@Injectable()
-export class ConnectionService {
+export class ConnectionService implements IConnectionService {
     
     //private connectionsUrl = './connections.data.json'; // URL to JSON file
     private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
@@ -19,7 +22,7 @@ export class ConnectionService {
     
     constructor(private http: Http, private forge: Forge) {}
     
-    add(name: string): Observable<Connection> {
+    create(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
@@ -61,11 +64,9 @@ export class ConnectionService {
 				  .catch(this.handleError);
     };
     
-    search(term: string): Observable<Connection[]> {
-        return this.http.get(this.connectionsUrl)
-          .map(this.searchProcess, term)
-          .catch(this.handleError);
-    };
+    getSupportedConnectionTypes(query): string {
+        return query;
+    }
     
     update(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
@@ -94,11 +95,11 @@ export class ConnectionService {
         
         console.log('Filtering...');
         
-        let filtered = _.filter(body.data, {'name': term} || {  });
+        //let filtered = _.filter(body.data, {'name': term} || {  });
         
-        console.log('Filtered: ' + JSON.stringify(filtered));
+        //console.log('Filtered: ' + JSON.stringify(filtered));
         
-        return filtered;
+        //return filtered;
         
         //return body.data || { };
     }
