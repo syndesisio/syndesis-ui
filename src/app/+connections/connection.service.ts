@@ -1,46 +1,83 @@
-// Here were are using observables, not promises
-//import {Observable} from 'rxjs/Observable';
-//import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+// Here were are mostly using observables instead of promises
 
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
 
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 
-import * as _ from 'lodash';
+//import * as _ from 'lodash';
 
 import { Forge } from '../common/service/forge';
 import {Connection} from './connection.model';
 import {IConnectionService} from './connection.service.interface';
 
+
+const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
+
 export class ConnectionService implements IConnectionService {
+    
+    // By default, all class members are public in TypeScript.
+    
+    connections: Observable<Connection[]> = this._recentConnections.asObservable();
+    errorMessage: string;
+    recentConnections: Observable<Connection[]> = this._recentConnections.asObservable();
+    
+    private allConnections: Connection[];
+    private connectionIdCounter: number = Date.now();
     
     //private connectionsUrl = './connections.data.json'; // URL to JSON file
     private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
     //private connectionsUrl = 'app/connections';  // URL to web API
-    errorMessage: string;
     
-    constructor(private http: Http, private forge: Forge) {}
     
-    create(connection: Connection): Observable<Connection> {
-        let body = JSON.stringify({name});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        
-        return this.http.post(this.connectionsUrl, body, options)
-          .map(this.extractData)
-          .catch(this.handleError);
+    private _connections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
+    private _recentConnections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
+    
+    /**
+     * Constructor.
+     * @param http forge
+     */
+    constructor(private http: Http, private forge: Forge) {
+        this.allConnections = this.loadConnectionsFromLocalStorage();
+        console.info("[LocalConnectionsService] Loaded Connections from localStorage: %o", this.allConnections);
+    
+        this._connections.next(this.allConnections);
+        let ra: Connection[] = this.allConnections.slice(0, 4);
+        this._recentConnections.next(ra);
+    }
+    
+    
+    /**
+     * Creates a Connection using data provided by the user.
+     * Returns a Promise. Should perhaps return an Observable instead.
+     * @param connection
+     * @return {Promise<Connection>}
+     */
+    create(connection: Connection): Promise<Connection> {
+        // Generate a new ID for the Connection
+        connection.id = String(this.connectionIdCounter++);
+        // Push the new Connection onto the list
+        this.allConnections.unshift(connection);
+        // Save the result in local storage
+        this.storeConnectionsInLocalStorage(this.allConnections);
+        // Publish some events
+        this._connections.next(this.allConnections);
+        let ra: Connection[] = this.allConnections.slice(0, 4);
+        this._recentConnections.next(ra);
+        return Promise.resolve(connection);
     };
+    
     
     /**
      * Deletes a Connection. This does not delete the Connection persistently. It removes
      * the Connection from the list of Connections in this session, for now.
-     * @param connection
+     * Returns a Promise. Should perhaps return an Observable instead.
+     * @param name Name of the Connection
      * @return {Promise<void>}
      */
-    del(connection: Connection): Promise<void> {
-        let idx: number = this.allConnections.indexOf(connection);
+    del(name: string): Promise<void> {
+        let idx: number = this.allConnections.indexOf(name);
         if (idx != -1) {
             this.allConnections.splice(idx, 1);
             this._connections.next(this.allConnections);
@@ -51,14 +88,42 @@ export class ConnectionService implements IConnectionService {
             this.storeConnectionsInLocalStorage(this.allConnections);
         }
         return Promise.resolve(null);
-    }
-    
-    get(name: string): Observable<Connection[]> {
-        return this.http.get(this.connectionsUrl)
-          .map(this.extractData)
-          .catch(this.handleError);
     };
     
+    
+    /**
+     * Gets a single Connection by its name.
+     * This should actually be by ID instead, and needs to be updated.
+     * Returns a Promise. Should perhaps return an Observable instead.
+     * @param name Name of the Connection
+     * @return Promise<Connection>
+     */
+    get(name: string): Promise<Connection> {
+        let rval: Connection = null;
+        let idx: number = 0;
+        while (idx < this.allConnections.length) {
+            let connection: Connection = this.allConnections[idx];
+            if (connection.name === name) {
+                rval = connection;
+                break;
+            }
+            idx++;
+        }
+        if (rval != null && idx > 0) {
+            this.allConnections.splice(idx, 1);
+            this.allConnections.unshift(rval);
+            this._connections.next(this.allConnections);
+            let ra: Connection[] = this.allConnections.slice(0, 4);
+            this._recentConnections.next(ra);
+        }
+        return Promise.resolve(rval);
+    }
+    
+    
+    /**
+     * Retrieves a list of all Connections. Returns an Observable.
+     * @return {Observable<Connection[]>}
+     */
     getAll(): Observable<Connection[]> {
 			/*
         return this.http.get(this.connectionsUrl)
@@ -76,63 +141,35 @@ export class ConnectionService implements IConnectionService {
 				  .catch(this.handleError);
     };
     
-    getSupportedConnectionTypes(query): string {
-        return query;
-    }
     
-    update(name: string): Observable<Connection> {
-        let body = JSON.stringify({name});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        
-        return this.http.put(this.connectionsUrl, body, options)
-          .map(this.extractData)
-          .catch(this.handleError);
+    /**
+     * Gets an Observable of recently updated Connections.
+     * @return {Observable<Connection[]>}
+     */
+    getRecent(): Observable<Connection[]> {
+        return this.recentConnections;
     }
     
     
-    private extractData(res: Response) {
-        let body = res.json();
-        return body.data || {};
-    }
+    /**
+     * Gets the supported Connections types for this implementation.
+     * Returns a Promise. Should perhaps return an Observable instead.
+     * @return {string[]}
+     */
+    getSupportedConnectionTypes(): string[] {
+        return [
+          'Integration'
+        ];
+    };
     
-    private searchProcess(res: Response, term) {
-        // The response object doesn't hold the data in a form the app can use directly.
-        // You must parse the response data into a JSON object.
-        let body = res.json();
-    
-        console.log('Term: ' + JSON.stringify(term));
-    
-        console.log('Unfiltered: ' + JSON.stringify(body.data));
-        
-        console.log('Filtering...');
-        
-        //let filtered = _.filter(body.data, {'name': term} || {  });
-        
-        //console.log('Filtered: ' + JSON.stringify(filtered));
-        
-        //return filtered;
-        
-        //return body.data || { };
-    }
-    
-    private handleError(error: any) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
-        let errMsg = (error.message) ? error.message :
-          error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        
-        console.error(errMsg); // log to console instead
-        
-        return Observable.throw(errMsg);
-    }
     
     /**
      * Resolves the Connection info by fetching the content of the Connection and extracting
      * the name and description.
+     * Returns a Promise. Should perhaps return an Observable instead.
      * @param connection
      */
-    public resolveConnectionInfo(connection: Connection): Promise<Connection> {
+    resolveConnectionInfo(connection: Connection): Promise<Connection> {
         let headers = new Headers({ 'Accept': 'application/json' });
         let options: any = new RequestOptions({ headers: headers });
         
@@ -146,7 +183,91 @@ export class ConnectionService implements IConnectionService {
             connection.description = pc.info.description;
             return connection;
         });
-    }
+    };
+    
+    
+    /**
+     * Updates a single Connection.
+     * Returns a Promise. Should perhaps return an Observable instead.
+     * @return {Promise<Connection[]>}
+     */
+    update(connection: Connection): Promise<Connection> {
+        // Generate a new ID for the Connection
+        connection.id = String(this.connectionIdCounter++);
+        
+        // Push the new Connection onto the list
+        this.allConnections.unshift(connection);
+        
+        // Save the result in localStorage
+        this.storeConnectionsInLocalStorage(this.allConnections);
+        
+        // Publish some events
+        this._connections.next(this.allConnections);
+        let ra: Connection[] = this.allConnections.slice(0, 4);
+        this._recentConnections.next(ra);
+        
+        return Promise.resolve(connection);
+    };
+    
+    
+    private extractData(res: Response) {
+        let body = res.json();
+        return body.data || {};
+    };
+    
+    
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+          error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        
+        console.error(errMsg); // log to console instead
+        
+        return Observable.throw(errMsg);
+    };
+    
+    
+    /**
+     * Loads the list of CONNECTIONs known to this service from browser local storage.
+     * @return the list of CONNECTIONs loaded from local storage
+     */
+    private loadConnectionsFromLocalStorage(): Connection[] {
+        let storedConnections: string = localStorage.getItem(CONNECTIONS_LOCAL_STORAGE_KEY);
+        if (storedConnections) {
+            return JSON.parse(storedConnections);
+        } else {
+            return [];
+        }
+    };
+    
+    
+    private searchProcess(res: Response, term) {
+        // The response object doesn't hold the data in a form the app can use directly.
+        // You must parse the response data into a JSON object.
+        let body = res.json();
+        
+        console.log('Term: ' + JSON.stringify(term));
+        
+        console.log('Unfiltered: ' + JSON.stringify(body.data));
+        
+        console.log('Filtering...');
+    };
+    
+    
+    /**
+     * Stores the list of Connections in the browser's localStorage.
+     * @param connections The list of Connections to save in localStorage
+     */
+    private storeConnectionsInLocalStorage(connections: Connection[]): void {
+        let serializedConnections = null;
+        if (connections) {
+            serializedConnections = JSON.stringify(connections);
+        } else {
+            serializedConnections = JSON.stringify([]);
+        }
+        localStorage.setItem(CONNECTIONS_LOCAL_STORAGE_KEY, serializedConnections);
+    };
 }
 
 
