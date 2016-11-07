@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 
 import {Logger} from '../common/service/log';
 
-import {Connections} from './connections.component';
+import {Connections} from './connection.component';
 
 import {Create} from './create/create.component';
 import {Detail} from './detail/detail.component';

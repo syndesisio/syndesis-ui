@@ -1,13 +1,13 @@
 import {PipeTransform, Pipe} from '@angular/core';
-import {IConnection} from './connection.service.interface';
+import {IConnectionService} from './connection.service.interface';
 
 @Pipe({
     name: 'connectionFilter'
 })
 export class ConnectionFilterPipe implements PipeTransform {
-    transform(value: IConnection[], filterBy: string): IConnection[] {
+    transform(value: IConnectionService[], filterBy: string): IConnectionService[] {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
-        return filterBy ? value.filter((connection: IConnection) =>
-        //connection.connectionName.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
+        return filterBy ? value.filter((connection: IConnectionService) =>
+        connection.name.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
     }
 }
