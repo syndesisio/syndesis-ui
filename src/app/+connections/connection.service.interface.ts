@@ -1,4 +1,4 @@
-import {OpaqueToken} from '@angular/core';
+//import {OpaqueToken} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {Connection} from './connection.model';
@@ -10,15 +10,15 @@ export interface IConnectionService {
      * storage is used by this service. It will return a Promise that the caller can
      * use to be notified when the Connection has been successfully stored.
      * @param connection
-     * @return Promise<Connection>
+     * @return Observable<Connection>
      */
-    create(connection: Connection): Promise<Connection>;
+    create(connection: Connection): Observable<Connection>;
     
     /**
      * Called to delete a Connection.  This is done asynchronously and thus returns a promise.
-     * @param connection
+     * @param name
      */
-    del(connection: Connection): Promise<void>;
+    del(name: string): Promise<void>;
     
     /**
      * Gets a single Connection by its name.

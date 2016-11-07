@@ -1,8 +1,15 @@
 export class Connection {
-    constructor(public id: number,
-                public name: string,
-                public description: string,
-                public type: string,
-                public icon: string) {
+    id: number;
+    name: string;
+    description: string;
+    type: string;
+    icon: string;
+    
+    constructor() {
+        this.id = 0;
+        this.name = '';
+        this.description = '';
+        this.type = '';
+        this.icon = '';
     }
 }
