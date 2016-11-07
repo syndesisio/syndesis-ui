@@ -6,6 +6,7 @@ import {Headers, RequestOptions} from '@angular/http';
 
 import * as _ from 'lodash';
 
+import { Forge } from '../common/service/forge';
 import {Connection} from './connection.model';
 import {Observable} from 'rxjs/Observable';
 
@@ -16,7 +17,7 @@ export class ConnectionService {
     private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
     //private connectionsUrl = 'app/connections';  // URL to web API
     
-    constructor(private http: Http) {}
+    constructor(private http: Http, private forge: Forge) {}
     
     add(name: string): Observable<Connection> {
         let body = JSON.stringify({name});
@@ -44,9 +45,20 @@ export class ConnectionService {
     };
     
     getAll(): Observable<Connection[]> {
+			/*
         return this.http.get(this.connectionsUrl)
           .map(this.extractData)
           .catch(this.handleError);
+					*/
+				return this.forge.executeCommand({
+					commandId: 'ipaas-search-connectors',
+					data: {
+						inputList: [{ latest: true, filter: '' }]
+					}
+				}).map((body) => {
+					return JSON.parse(body.message);
+				})
+				  .catch(this.handleError);
     };
     
     search(term: string): Observable<Connection[]> {
