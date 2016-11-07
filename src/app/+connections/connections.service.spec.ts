@@ -1,5 +1,7 @@
 import {
+  fakeAsync,
   inject,
+  tick,
   TestBed
 } from '@angular/core/testing';
 
@@ -9,9 +11,15 @@ import {
   Http
 } from '@angular/http';
 
+
+import { Component } from '@angular/core';
+
+import { By } from '@angular/platform-browser/src/dom/debug/by';
+
 import { MockBackend } from '@angular/http/testing';
 
 import { ConnectionService } from './connection.service';
+
 
 describe('ConnectionService', () => {
     beforeEach(() => TestBed.configureTestingModule({

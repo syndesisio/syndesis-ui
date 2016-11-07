@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 
 import {Connection} from '../connection.model';
 import {ConnectionService} from '../connection.service';
@@ -24,6 +24,10 @@ export class Library implements OnInit {
     connections: Connection[] = [];
     errorMessage: string;
     
+    @Input() connections: Connection[];
+    //@Input() selectedConnections: Connection[];
+    //@Output() onConnectionSelected: EventEmitter<Connection> = new EventEmitter<Connection>();
+    
     constructor(private router: Router,
                 private connectionService: ConnectionService) {}
     
@@ -42,6 +46,7 @@ export class Library implements OnInit {
     
     gotoDetail(connection: Connection): void {
         let link = ['/detail', connection.id];
+        //this.onConnectionSelected.emit(connection); // For action when selecting
         this.router.navigate(link);
     }
     
