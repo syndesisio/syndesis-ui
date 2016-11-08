@@ -11,6 +11,10 @@ import {Forge} from '../common/service/forge';
 import {Connection} from './connection.model';
 import {IConnectionService} from './connection.service.interface';
 
+import {Logger} from '../common/service/log';
+
+let log = Logger.get('ConnectionService');
+
 const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
 
 @Injectable()
@@ -130,7 +134,15 @@ export class ConnectionService implements IConnectionService {
                 inputList: [{latest: true, filter: ''}]
             }
         }).map((body) => {
-            return JSON.parse(body.message);
+            // TODO ideally this would be set by the forge command
+            var connections = JSON.parse(body.message);
+            connections.forEach((connection) => {
+                if (!connection.id) {
+                    connection.id = connection.groupId + ":" + connection.artifactId + ":" + connection.version;
+                }
+            });
+            log.info("Got connections: ", connections);
+            return connections;
         })
           .catch(this.handleError);
     };

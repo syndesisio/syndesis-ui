@@ -51,6 +51,7 @@ export class Library implements OnInit {
     }
     
     gotoDetail(connection: Connection): void {
+        console.log("Connection: ", connection);
         let link = ['/detail', connection.id];
         //this.onConnectionSelected.emit(connection); // For action when selecting
         this.router.navigate(link);
