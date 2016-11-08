@@ -12,7 +12,6 @@ import { Forge } from '../common/service/forge';
 import {Connection} from './connection.model';
 import {IConnectionService} from './connection.service.interface';
 
-
 const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
 
 export class ConnectionService implements IConnectionService {
@@ -24,7 +23,6 @@ export class ConnectionService implements IConnectionService {
     recentConnections: Observable<Connection[]> = this._recentConnections.asObservable();
     
     private allConnections: Connection[];
-    private connectionIdCounter: number = Date.now();
     
     //private connectionsUrl = './connections.data.json'; // URL to JSON file
     private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
@@ -55,8 +53,6 @@ export class ConnectionService implements IConnectionService {
      * @return {Promise<Connection>}
      */
     create(connection: Connection): Promise<Connection> {
-        // Generate a new ID for the Connection
-        connection.id = String(this.connectionIdCounter++);
         // Push the new Connection onto the list
         this.allConnections.unshift(connection);
         // Save the result in local storage
@@ -77,6 +73,8 @@ export class ConnectionService implements IConnectionService {
      * @return {Promise<void>}
      */
     del(name: string): Promise<void> {
+        return;
+        /*
         let idx: number = this.allConnections.indexOf(name);
         if (idx != -1) {
             this.allConnections.splice(idx, 1);
@@ -88,6 +86,7 @@ export class ConnectionService implements IConnectionService {
             this.storeConnectionsInLocalStorage(this.allConnections);
         }
         return Promise.resolve(null);
+        */
     };
     
     
@@ -192,9 +191,6 @@ export class ConnectionService implements IConnectionService {
      * @return {Promise<Connection[]>}
      */
     update(connection: Connection): Promise<Connection> {
-        // Generate a new ID for the Connection
-        connection.id = String(this.connectionIdCounter++);
-        
         // Push the new Connection onto the list
         this.allConnections.unshift(connection);
         
@@ -261,11 +257,13 @@ export class ConnectionService implements IConnectionService {
      */
     private storeConnectionsInLocalStorage(connections: Connection[]): void {
         let serializedConnections = null;
+        
         if (connections) {
             serializedConnections = JSON.stringify(connections);
         } else {
             serializedConnections = JSON.stringify([]);
         }
+        
         localStorage.setItem(CONNECTIONS_LOCAL_STORAGE_KEY, serializedConnections);
     };
 }
