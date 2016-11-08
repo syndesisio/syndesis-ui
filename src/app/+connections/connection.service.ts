@@ -1,9 +1,10 @@
-// Here were are mostly using observables instead of promises
+import { Injectable } from '@angular/core';
 
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+// Here were are mostly using observables instead of promises
 import {Observable} from 'rxjs/Observable';
 
 //import * as _ from 'lodash';
@@ -16,7 +17,9 @@ const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
 
 @Injectable()
 export class ConnectionService implements IConnectionService {
-    
+
+    private _connections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
+    private _recentConnections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
     connections: Observable<Connection[]> = this._recentConnections.asObservable();
     errorMessage: string;
     recentConnections: Observable<Connection[]> = this._recentConnections.asObservable();
@@ -27,9 +30,6 @@ export class ConnectionService implements IConnectionService {
     private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
     //private connectionsUrl = 'app/connections';  // URL to web API
     
-    
-    private _connections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
-    private _recentConnections: BehaviorSubject<Connection[]> = new BehaviorSubject([]);
     
     /**
      * Constructor.
