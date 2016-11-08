@@ -51,7 +51,7 @@ export class Library implements OnInit {
     }
     
     gotoDetail(connection: Connection, $event:any): void {
-        if ($event.target.className.indexOf('dropdown-toggle') !== 0) {
+        if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
           return;
         }
         console.log("Connection: ", connection);
