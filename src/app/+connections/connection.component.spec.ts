@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {inject, TestBed} from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import {Connections} from './connections.component';
+import {Connections} from './connection.component';
 
 describe('Connections', () => {
     // provide our implementations or mocks to the dependency injector
