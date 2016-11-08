@@ -134,11 +134,19 @@ export class ConnectionService implements IConnectionService {
                 inputList: [{latest: true, filter: ''}]
             }
         }).map((body) => {
-            // TODO ideally this would be set by the forge command
             var connections = JSON.parse(body.message);
+            if (!connections) {
+                // TODO error handling
+                return [];
+            }
             connections.forEach((connection) => {
+                // TODO ideally this would be set by the forge command
                 if (!connection.id) {
                     connection.id = connection.groupId + ":" + connection.artifactId + ":" + connection.version;
+                }
+                // TODO probably could stand to be set by the backend
+                if (!connection.icon) {
+                    connection.icon = getConnectionIcon(connection);
                 }
             });
             log.info("Got connections: ", connections);
@@ -289,4 +297,17 @@ export class ConnectionService implements IConnectionService {
     };
 }
 
-
+function getConnectionIcon(connection:any) {
+    if (connection.icon) {
+        return connection.icon;
+    }
+    var kind = _.last(connection.baseJavaType.split('.'));
+    switch (kind) {
+        case "LogComponent":
+            return "fa-newspaper-o";
+        case "TimerComponent":
+            return "fa-clock-o";
+        default:
+            return "fa-puzzle-piece";
+    }
+}
