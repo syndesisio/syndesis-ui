@@ -1,5 +1,6 @@
 // Here were are mostly using observables instead of promises
 
+import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -7,12 +8,13 @@ import {Observable} from 'rxjs/Observable';
 
 //import * as _ from 'lodash';
 
-import { Forge } from '../common/service/forge';
+import {Forge} from '../common/service/forge';
 import {Connection} from './connection.model';
 import {IConnectionService} from './connection.service.interface';
 
 const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
 
+@Injectable()
 export class ConnectionService implements IConnectionService {
     
     connections: Observable<Connection[]> = this._recentConnections.asObservable();
@@ -37,7 +39,7 @@ export class ConnectionService implements IConnectionService {
     constructor(private http: Http, private forge: Forge) {
         this.allConnections = this.loadConnectionsFromLocalStorage();
         console.info("[LocalConnectionsService] Loaded Connections from localStorage: %o", this.allConnections);
-    
+        
         this._connections.next(this.allConnections);
         let ra: Connection[] = this.allConnections.slice(0, 4);
         this._recentConnections.next(ra);
@@ -71,18 +73,18 @@ export class ConnectionService implements IConnectionService {
     del(name: string): Promise<void> {
         return;
         /*
-        let idx: number = this.allConnections.indexOf(name);
-        if (idx != -1) {
-            this.allConnections.splice(idx, 1);
-            this._connections.next(this.allConnections);
-            let ra: Connection[] = this.allConnections.slice(0, 4);
-            this._recentConnections.next(ra);
-            
-            // Save the result in local storage
-            this.storeConnectionsInLocalStorage(this.allConnections);
-        }
-        return Promise.resolve(null);
-        */
+         let idx: number = this.allConnections.indexOf(name);
+         if (idx != -1) {
+         this.allConnections.splice(idx, 1);
+         this._connections.next(this.allConnections);
+         let ra: Connection[] = this.allConnections.slice(0, 4);
+         this._recentConnections.next(ra);
+         
+         // Save the result in local storage
+         this.storeConnectionsInLocalStorage(this.allConnections);
+         }
+         return Promise.resolve(null);
+         */
     };
     
     
@@ -111,7 +113,7 @@ export class ConnectionService implements IConnectionService {
             this._recentConnections.next(ra);
         }
         return Promise.resolve(rval);
-    }
+    };
     
     
     /**
@@ -119,20 +121,20 @@ export class ConnectionService implements IConnectionService {
      * @return {Observable<Connection[]>} - Returns an Observable.
      */
     getAll(): Observable<Connection[]> {
-			/*
-        return this.http.get(this.connectionsUrl)
-          .map(this.extractData)
+        /*
+         return this.http.get(this.connectionsUrl)
+         .map(this.extractData)
+         .catch(this.handleError);
+         */
+        return this.forge.executeCommand({
+            commandId: 'ipaas-search-connectors',
+            data: {
+                inputList: [{latest: true, filter: ''}]
+            }
+        }).map((body) => {
+            return JSON.parse(body.message);
+        })
           .catch(this.handleError);
-					*/
-				return this.forge.executeCommand({
-					commandId: 'ipaas-search-connectors',
-					data: {
-						inputList: [{ latest: true, filter: '' }]
-					}
-				}).map((body) => {
-					return JSON.parse(body.message);
-				})
-				  .catch(this.handleError);
     };
     
     
@@ -142,7 +144,7 @@ export class ConnectionService implements IConnectionService {
      */
     getRecent(): Observable<Connection[]> {
         return this.recentConnections;
-    }
+    };
     
     
     /**
@@ -152,7 +154,7 @@ export class ConnectionService implements IConnectionService {
      */
     getSupportedConnectionTypes(): string[] {
         return [
-          'Integration'
+            'Integration'
         ];
     };
     
@@ -165,12 +167,12 @@ export class ConnectionService implements IConnectionService {
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     resolveConnectionInfo(connection: Connection): Promise<Connection> {
-        let headers = new Headers({ 'Accept': 'application/json' });
-        let options: any = new RequestOptions({ headers: headers });
+        let headers = new Headers({'Accept': 'application/json'});
+        let options: any = new RequestOptions({headers: headers});
         
-        return this.http.get(options).toPromise().then( response => {
+        return this.http.get(options).toPromise().then(response => {
             let data: any = response.json();
-            let b64content: string  = data.content;
+            let b64content: string = data.content;
             let content: string = atob(b64content);
             let pc: any = JSON.parse(content);
             
@@ -191,7 +193,7 @@ export class ConnectionService implements IConnectionService {
         // Do stuff here
         
         return Promise.resolve(rval);
-    }
+    };
     
     
     /**
