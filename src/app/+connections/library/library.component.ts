@@ -50,7 +50,10 @@ export class Library implements OnInit {
             error => this.errorMessage = <any>error);
     }
     
-    gotoDetail(connection: Connection): void {
+    gotoDetail(connection: Connection, $event:any): void {
+        if ($event.target.className.indexOf('dropdown-toggle') !== 0) {
+          return;
+        }
         console.log("Connection: ", connection);
         let link = ['/detail', connection.id];
         //this.onConnectionSelected.emit(connection); // For action when selecting
