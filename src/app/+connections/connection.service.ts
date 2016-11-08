@@ -16,8 +16,6 @@ const CONNECTIONS_LOCAL_STORAGE_KEY = 'dj3ukAn*wa7,RnY2';
 
 export class ConnectionService implements IConnectionService {
     
-    // By default, all class members are public in TypeScript.
-    
     connections: Observable<Connection[]> = this._recentConnections.asObservable();
     errorMessage: string;
     recentConnections: Observable<Connection[]> = this._recentConnections.asObservable();
