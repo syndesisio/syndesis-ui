@@ -21,7 +21,7 @@ var log = Logger.get('+connections/library');
 })
 export class Library implements OnInit {
     
-    connections: Connection[] = [];
+    //connections: Connection[] = [];
     listFilter: string;
     errorMessage: string;
     
@@ -29,6 +29,11 @@ export class Library implements OnInit {
     //@Input() selectedConnections: Connection[];
     //@Output() onConnectionSelected: EventEmitter<Connection> = new EventEmitter<Connection>();
     
+    /**
+     * Constructor.
+     * @param router - Router
+     * @param _connectionService - ConnectionService
+     */
     constructor(private router: Router,
                 private _connectionService: ConnectionService) {}
     

@@ -20,6 +20,11 @@ export class Search implements OnInit {
     tests: Observable<Test[]>;
     private searchTerms = new Subject<string>();
     
+    /**
+     * Constructor.
+     * @param connectionService - ConnectionService
+     * @param router - Router
+     */
     constructor(private connectionService: ConnectionService,
                 private router: Router) {
     }

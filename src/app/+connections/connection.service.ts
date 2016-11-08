@@ -1,6 +1,5 @@
 // Here were are mostly using observables instead of promises
 
-import {Headers, RequestOptions} from '@angular/http';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -32,7 +31,8 @@ export class ConnectionService implements IConnectionService {
     
     /**
      * Constructor.
-     * @param http forge
+     * @param http - HTTP
+     * @param forge - Forge
      */
     constructor(private http: Http, private forge: Forge) {
         this.allConnections = this.loadConnectionsFromLocalStorage();
@@ -46,9 +46,8 @@ export class ConnectionService implements IConnectionService {
     
     /**
      * Creates a Connection using data provided by the user.
-     * Returns a Promise. Should perhaps return an Observable instead.
-     * @param connection
-     * @return {Promise<Connection>}
+     * @param connection - Connection
+     * @return {Promise<Connection>} - Returns a Promise. Should perhaps return an Observable instead.
      */
     create(connection: Connection): Promise<Connection> {
         // Push the new Connection onto the list
@@ -66,9 +65,8 @@ export class ConnectionService implements IConnectionService {
     /**
      * Deletes a Connection. This does not delete the Connection persistently. It removes
      * the Connection from the list of Connections in this session, for now.
-     * Returns a Promise. Should perhaps return an Observable instead.
-     * @param name Name of the Connection
-     * @return {Promise<void>}
+     * @param name - Name of the Connection
+     * @return {Promise<void>} - Returns a Promise. Should perhaps return an Observable instead.
      */
     del(name: string): Promise<void> {
         return;
@@ -91,9 +89,8 @@ export class ConnectionService implements IConnectionService {
     /**
      * Gets a single Connection by its name.
      * This should actually be by ID instead, and needs to be updated.
-     * Returns a Promise. Should perhaps return an Observable instead.
-     * @param name Name of the Connection
-     * @return Promise<Connection>
+     * @param name - Name of the Connection
+     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     get(name: string): Promise<Connection> {
         let rval: Connection = null;
@@ -118,8 +115,8 @@ export class ConnectionService implements IConnectionService {
     
     
     /**
-     * Retrieves a list of all Connections. Returns an Observable.
-     * @return {Observable<Connection[]>}
+     * Retrieves a list of all Connections.
+     * @return {Observable<Connection[]>} - Returns an Observable.
      */
     getAll(): Observable<Connection[]> {
 			/*
@@ -141,7 +138,7 @@ export class ConnectionService implements IConnectionService {
     
     /**
      * Gets an Observable of recently updated Connections.
-     * @return {Observable<Connection[]>}
+     * @return {Observable<Connection[]>} - Returns an Observable.
      */
     getRecent(): Observable<Connection[]> {
         return this.recentConnections;
@@ -164,7 +161,8 @@ export class ConnectionService implements IConnectionService {
      * Resolves the Connection info by fetching the content of the Connection and extracting
      * the name and description.
      * Returns a Promise. Should perhaps return an Observable instead.
-     * @param connection
+     * @param connection - Connection
+     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     resolveConnectionInfo(connection: Connection): Promise<Connection> {
         let headers = new Headers({ 'Accept': 'application/json' });
@@ -184,9 +182,22 @@ export class ConnectionService implements IConnectionService {
     
     
     /**
+     * Searches for Connections that contain a string, provided by the user, in the name or description?
+     * @param query - String to be used for the search.
+     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+     */
+    search(query: string): Promise<Connection> {
+        let rval: Connection = null;
+        // Do stuff here
+        
+        return Promise.resolve(rval);
+    }
+    
+    
+    /**
      * Updates a single Connection.
      * Returns a Promise. Should perhaps return an Observable instead.
-     * @return {Promise<Connection[]>}
+     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     update(connection: Connection): Promise<Connection> {
         // Push the new Connection onto the list
@@ -223,8 +234,8 @@ export class ConnectionService implements IConnectionService {
     
     
     /**
-     * Loads the list of CONNECTIONs known to this service from browser local storage.
-     * @return the list of CONNECTIONs loaded from local storage
+     * Loads the list of Connections known to this service from browser localStorage.
+     * @return - The list of Connections loaded from localStorage.
      */
     private loadConnectionsFromLocalStorage(): Connection[] {
         let storedConnections: string = localStorage.getItem(CONNECTIONS_LOCAL_STORAGE_KEY);
@@ -251,7 +262,7 @@ export class ConnectionService implements IConnectionService {
     
     /**
      * Stores the list of Connections in the browser's localStorage.
-     * @param connections The list of Connections to save in localStorage
+     * @param connections - The list of Connections to save in localStorage.
      */
     private storeConnectionsInLocalStorage(connections: Connection[]): void {
         let serializedConnections = null;
