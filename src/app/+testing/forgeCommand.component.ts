@@ -82,7 +82,7 @@ export class ForgeCommand {
           this.command = response.newForm;
           this.entity = this.setDefaultValues(this.command);
 					// or maybe this is a validation error	
-          if (!response.canExecute) {
+          if ('canExecute' in response && !response.canExecute) {
             // toss the last input, it's not valid
             this.inputList.pop();
           }
