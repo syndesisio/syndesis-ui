@@ -32,6 +32,7 @@
     "preclean:start": "npm run clean",
     "pree2e": "npm run webdriver:update -- --standalone",
     "preversion": "npm test",
+    "rimraf": "rimraf",
     "server": "npm run server",
     "server:dev": "webpack-dev-server --config config/webpack.dev.js --profile --watch --content-base src/",
     "server:dev:hmr": "npm run server:dev -- --inline --hot",
@@ -46,7 +47,8 @@
     "watch:test": "npm run test -- --auto-watch --no-single-run",
     "watch": "npm run watch:dev",
     "webdriver:start": "npm run webdriver-manager start",
-    "webdriver:update": "npm run webdriver-manager update"
+    "webdriver:update": "npm run webdriver-manager update",
+    "webpack": "webpack"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -124,7 +126,7 @@
     "protractor": "^3.2.2",
     "raw-loader": "0.5.1",
     "remap-istanbul": "^0.6.3",
-    "rimraf": "^2.5.2",
+    "rimraf": "^2.5.4",
     "sass-loader": "4.0.1",
     "source-map-loader": "^0.1.5",
     "string-replace-loader": "^1.0.3",
