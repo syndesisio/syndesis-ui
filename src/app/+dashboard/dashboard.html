@@ -1,4 +1,20 @@
 <div class="dashboard">
+    <div class="row empty-state" *ngIf="connections.length <= 0">
+        <h1>No Integrations Available</h1>
+        <p>Integration helps you connect two or multiple web services. To create an integration,
+            choose one of the templates below and add some contextual details.</p>
+        <p>Alternatively, you can create an integration from scratch.</p>
+        <div>
+            <a [routerLink]=" ['integrations'] "
+               class="btn btn-default">+ Integration</a>
+        </div>
+        <div>
+            <a [routerLink]=" ['connections'] "
+               class="btn btn-default">+ Connection</a>
+            <a [routerLink]=" ['templates'] "
+               class="btn btn-default">+ Template</a>
+        </div>
+    </div>
     <div class="row row-cards-pf">
         <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
         <div class="col-xs-12 col-sm-6 col-md-3">
