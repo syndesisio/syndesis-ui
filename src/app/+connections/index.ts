@@ -9,7 +9,6 @@ import {Connections} from './connection.component';
 import {Create} from './create/create.component';
 import {Detail} from './detail/detail.component';
 import {Library} from './library/library.component';
-import {Search} from './search/search.component';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
@@ -31,8 +30,7 @@ const routes = [
         Connections,
         Create,
         Detail,
-        Library,
-        Search
+        Library
     ],
     imports: [
         CommonModule,
