@@ -8,4 +8,13 @@ div.connections.library {
       padding: 4px 10px;
     }
   }
+
+  // Actions Bar
+  .toolbar-pf {
+
+    // Toolbar Sort
+    .form-group.sort {
+      border-right: none !important;
+    }
+  }
 }

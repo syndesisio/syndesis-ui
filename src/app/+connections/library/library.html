@@ -2,7 +2,7 @@
     <div class="row toolbar-pf">
         <div class="col-sm-12">
             <form class="toolbar-pf-actions">
-                <div class="form-group toolbar-pf-filter">
+                <div class="form-group toolbar-pf-filter search">
                     <label class="sr-only">Name</label>
                     <div class="input-group">
                         <div class="input-group-btn">
@@ -17,9 +17,14 @@
                                 <li><a href="#">Type</a></li>
                             </ul>
                         </div><!-- /btn-group -->
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Filter By Name..."
+                               autocomplete="off"
+                               id="filterInput">
                     </div><!-- /input-group -->
                 </div>
-                <div class="form-group">
+                <div class="form-group sort">
                     <div class="dropdown btn-group">
                         <button type="button"
                                 class="btn btn-default dropdown-toggle"
@@ -39,7 +44,7 @@
                 <div class="toolbar-pf-action-right">
                     <button type="button"
                             class="btn btn-primary dropdown-toggle"
-                            [routerLink]="['create']">Create a Connection
+                            [routerLink]="['create']">Create
                     </button>
                 </div>
             </form>
