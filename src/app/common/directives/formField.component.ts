@@ -31,7 +31,6 @@ export class FormPropertyField implements OnInit {
 	}
 
 	ngOnInit() {
-    log.info("This: ", this);
 		let field = this.field;
 		if (!field.title) {
 			field.title = field.id;

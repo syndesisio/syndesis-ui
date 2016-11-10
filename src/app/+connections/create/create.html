@@ -13,19 +13,6 @@
             </div><!-- /col -->
         </div><!-- /row -->
 
-        <div class="row">
-          <div *ngIf="command" class="col-sm-12">
-            <h4>{{command.info.name}}</h4>
-            <form *ngIf="command.properties" (ngSubmit)="onSubmit(entity)" #f="ngForm">
-              <div *ngFor="let field of getFields(command)">
-                <pre>{{field | json}}</pre>
-                <form-property-field [form]="f.form" [field]="field" [entity]="entity"></form-property-field>
-              </div>
-              <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Submit</button>
-            </form>
-          </div>
-        </div>
-
         <!-- Toolbar: Progress -->
         <div class="row toolbar-pf progress-wizard">
             <div class="col-sm-12">
@@ -47,7 +34,20 @@
         <!-- Toolbar: Add Connection Details-->
         <div class="row details">
             <div class="col-sm-12">
-                <h4>Add Connection Details</h4>
+                <h4>{{command.info.name}}</h4>
+                <form class="form-horizontal" *ngIf="command.properties" (ngSubmit)="onSubmit(entity)" #f="ngForm">
+                  <div *ngFor="let field of getFields(command)">
+                    <form-property-field [form]="f.form" [field]="field" [entity]="entity"></form-property-field>
+                  </div>
+                  <div class="col-sm-11">
+                    &nbsp;
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Next</button>
+                  </div>
+                  <br>
+                </form>
+                <!--
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-2 control-label"
@@ -76,10 +76,12 @@
                         </div>
                     </div>
                 </form>
+                -->
             </div><!-- /col -->
         </div><!-- /row -->
 
         <!-- Toolbar: Select Connection Type -->
+        <!--
         <div class="row toolbar-pf type">
             <div class="col-xs-12">
                 <form class="toolbar-pf-actions">
@@ -112,9 +114,9 @@
                         </button>
                     </div>
                 </form>
-            </div><!-- /col -->
-        </div><!-- /row -->
-
+            </div>
+        </div>
+        -->
     </div>
 
 <!--
