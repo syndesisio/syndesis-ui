@@ -29,7 +29,7 @@ export class ConnectionService implements IConnectionService {
     private allConnections: Connection[];
     
     //private connectionsUrl = './connections.data.json'; // URL to JSON file
-    private connectionsUrl = 'app/+connections/connections.data.json'; // URL to JSON file
+    private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
     //private connectionsUrl = 'app/connections';  // URL to web API
     
     
@@ -123,11 +123,10 @@ export class ConnectionService implements IConnectionService {
      * @return {Observable<Connection[]>} - Returns an Observable.
      */
     getAll(): Observable<Connection[]> {
-        /*
          return this.http.get(this.connectionsUrl)
          .map(this.extractData)
          .catch(this.handleError);
-         */
+        /*
         return this.forge.executeCommand({
             commandId: 'ipaas-search-connectors',
             data: {
@@ -153,6 +152,7 @@ export class ConnectionService implements IConnectionService {
             return connections;
         })
           .catch(this.handleError);
+          */
     };
     
     
