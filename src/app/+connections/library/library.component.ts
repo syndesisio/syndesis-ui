@@ -54,9 +54,10 @@ export class Library implements OnInit {
         if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
           return;
         }
-        console.log("Connection: ", connection);
+
+        console.log('Connection: ', connection);
+
         let link = ['/detail', connection.id];
-        //this.onConnectionSelected.emit(connection); // For action when selecting
         this.router.navigate(link);
     }
     
