@@ -23,8 +23,8 @@ export class Library implements OnInit {
 
     //connections: Connection[] = [];
 
-    limit = 4;
-    trail = '.';
+    limit = 80;
+    trail = '..';
 
     listFilter: string;
     errorMessage: string;
