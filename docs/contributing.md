@@ -15,3 +15,9 @@ npm run test
 ```
 npm run watch:test
 ```
+
+## Design & Styling
+We are using PatternFly, but have had to make many custom overrides to it which can be found in `/src/assets/scss/_overrides.scss`.
+
+- [PatternFly Color Palette](https://www.patternfly.org/styles/color-palette/#_)
+
