@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DirectivesModule } from '../common/directives';
 
 import { Logger } from '../common/service/log';
-import { FormPropertyField } from './formField.component';
 import { ForgeIndex } from './forgeIndex.component';
 import { ForgeCommands } from './forgeCommands.component';
 import { ForgeCommand } from './forgeCommand.component';
@@ -52,7 +52,6 @@ export const routes = [
 @NgModule({
     declarations: [
         // Components / Directives/ Pipes
-				FormPropertyField,
         ForgeIndex,
         Team,
         Teams,
@@ -67,7 +66,8 @@ export const routes = [
         CommonModule,
         FormsModule,
 				ReactiveFormsModule,
-        RouterModule.forChild(routes)
+        DirectivesModule,
+        RouterModule.forChild(routes),
     ]
 })
 export default class ForgeModule {

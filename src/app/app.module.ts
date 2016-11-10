@@ -22,6 +22,8 @@ import {Forge} from './common/service/forge';
 import {Git} from './common/service/git';
 import {Kubernetes} from './common/service/kubernetes';
 
+// application wide components
+import { DirectivesModule } from './common/directives';
 
 // Third-Party Imports
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -53,6 +55,7 @@ var log = Logger.get('AppModule');
 		FormsModule,
 		HttpModule,
 		NgbModule,
+    DirectivesModule,
 		RouterModule.forRoot(ROUTES, {useHash: false})
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection

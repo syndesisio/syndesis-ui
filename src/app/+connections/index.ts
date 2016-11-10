@@ -1,12 +1,11 @@
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import { DirectivesModule } from '../common/directives';
 
 import {Logger} from '../common/service/log';
-
 import {Connections} from './connection.component';
-
 import {Create} from './create/create.component';
 import {Detail} from './detail/detail.component';
 import {Library} from './library/library.component';
@@ -38,7 +37,9 @@ const routes = [
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forChild(routes)
+        ReactiveFormsModule,
+        DirectivesModule,
+        RouterModule.forChild(routes),
     ]
 })
 export default class ConnectionsModule {

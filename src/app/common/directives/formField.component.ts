@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as _ from 'lodash';
 
-import { Logger } from '../common/service/log';
+import { Logger } from '../service/log';
 
 let log = Logger.get('FormPropertyField');
 
@@ -17,15 +17,21 @@ let log = Logger.get('FormPropertyField');
  */
 export class FormPropertyField implements OnInit {
 
-	@Input() form:FormGroup;
-	@Input() field:any = {};
-	@Input() entity:any = {};
+	@Input() 
+  form:FormGroup;
+	
+  @Input() 
+  field:any = {};
+
+	@Input() 
+  entity:any = {};
 
 	constructor() {
 
 	}
 
 	ngOnInit() {
+    log.info("This: ", this);
 		let field = this.field;
 		if (!field.title) {
 			field.title = field.id;
