@@ -21,9 +21,16 @@ var log = Logger.get('App');
 })
 export class App {
     name = 'Hawtio iPaaS';
-    logoWhiteBg = 'assets/images/brand.svg';
-    logoDarkBg = 'assets/images/brand.svg';
-    title = 'iPaaS';
+
+    // White BG
+    logoWhiteBg = 'assets/images/RED HAT IPAAS_small.svg';
+    iconWhiteBg = 'assets/images/glasses logo.svg';
+
+    // Dark BG
+    logoDarkBg = 'assets/images/RED HAT IPAAS_small.svg';
+    iconDarkBg = 'assets/images/glasses logo.svg';
+
+    title = 'Red Hat iPaaS';
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
     //loggedIn = false;
