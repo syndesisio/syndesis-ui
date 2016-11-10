@@ -50,14 +50,7 @@ export interface IConnectionService {
      * @return string[]
      */
     getSupportedConnectionTypes(): string[];
-    
-    /**
-     * Searches for Connections that contain a string, provided by the user, in the name or description?
-     * @param name - Name of the Connection.
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
-     */
-    get(name: string): Promise<Connection>;
-    
+
     /**
      * Updates an existing Connection with the associated name. It will return a Promise that the
      * caller can use to be notified when the Connection has been successfully stored.

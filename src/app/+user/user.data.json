@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123",
+      "name": "Admin"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "user123",
+      "name": "Jane Doe"
+    }
+  ]
+}
+
