@@ -10,6 +10,8 @@ import {Create} from './create/create.component';
 import {Detail} from './detail/detail.component';
 import {Library} from './library/library.component';
 
+import { TruncatePipe } from '../common/pipes/truncate';
+
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
@@ -30,7 +32,10 @@ const routes = [
         Connections,
         Create,
         Detail,
-        Library
+        Library,
+
+      // Pipes
+        TruncatePipe
     ],
     imports: [
         CommonModule,

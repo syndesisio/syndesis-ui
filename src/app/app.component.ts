@@ -6,6 +6,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {AppState} from './app.service';
 import {Logger} from './common/service/log';
 
+import { TruncatePipe } from './common/pipes/truncate';
+
 var log = Logger.get('App');
 
 /*

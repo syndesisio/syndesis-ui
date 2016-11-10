@@ -74,7 +74,7 @@
                             </h2>
                             <div class="card-title">{{ connection.name }}</div>
                         </div>
-                        <p>{{ connection.description }}</p>
+                        <p>{{ connection.description | truncate:limit:trail }}</p>
                     </div>
                 </div>
             </div>
