@@ -54,12 +54,12 @@
 
 
                     <!-- Step 1A: Details -->
-                    <div class="wizard-pf-contents"><!-- hidden -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 1 ? '' : 'hidden'"><!-- hidden -->
                         <form class="form-horizontal">
                             <!-- replacing id with data-id to pass build errors -->
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label"
-                                       [(ngModel)]="newConnection.name"
                                        for="textInput-markup">Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" data-id="textInput-markup"
@@ -72,7 +72,6 @@
                                     (Optional)</label>
                                 <div class="col-sm-10">
                                         <textarea data-id="descriptionInput-markup"
-                                                  [(ngModel)]="newConnection.description"
                                                   class="form-control"
                                                   rows="2"></textarea>
                                 </div>
@@ -81,7 +80,8 @@
                     </div>
 
                     <!-- Step 1B: Settings -->
-                    <div class="wizard-pf-contents hidden"><!-- hidden -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 1 ? '' : 'hidden'"><!-- hidden -->
                         <form class="form-horizontal">
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label" for="lorem">Lorem ipsum</label>
@@ -99,7 +99,8 @@
                     </div>
 
                     <!-- Step 2A: Details -->
-                    <div class="wizard-pf-contents hidden"><!-- hidden -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
                         <form class="form-horizontal">
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label" for="aliquam">Aliquam</label>
@@ -119,7 +120,8 @@
                     </div>
 
                     <!-- Step 2B: Settings -->
-                    <div class="wizard-pf-contents hidden"><!-- hidden -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
                         <form class="form-horizontal">
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label"
@@ -140,7 +142,8 @@
                     </div>
 
                     <!-- Step 3A: Summary -->
-                    <div class="wizard-pf-contents hidden"><!-- hidden -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
                         <div class="wizard-pf-review-steps">
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -236,7 +239,8 @@
                     </div>
 
                     <!-- Step 3B: Progress -->
-                    <div class="wizard-pf-contents hidden"><!-- hidden -->
+                    <div class="wizard-pf-contents hidden"
+                         [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
                         <div class="wizard-pf-process blank-slate-pf">
                             <div class="spinner spinner-lg blank-slate-pf-icon"></div>
                             <h3 class="blank-slate-pf-main-action">Deployment in progress</h3>

@@ -19,9 +19,9 @@ export class Create implements OnInit {
   limit = 60;
   trail = '..';
 
+  currentStep = 1;
   listFilter: string;
   errorMessage: string;
-  newConnection: any;
 
   @Input() connections: IConnection[];
 
@@ -42,12 +42,20 @@ export class Create implements OnInit {
         error => this.errorMessage = <any>error);
   }
 
-  goToStep1() {}
+  goToStep1() {
+    this.currentStep = 1;
+  }
 
-  goToStep2() {}
+  goToStep2() {
+    this.currentStep = 2;
+  }
 
-  goToStep3() {}
-  
-  submit() {}
+  goToStep3() {
+    this.currentStep = 3;
+  }
+
+  submit() {
+    this.currentStep = 4;
+  }
 
 }

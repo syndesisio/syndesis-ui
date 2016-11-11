@@ -43,9 +43,15 @@ export class Library implements OnInit {
   }
 
   deleteConnection(connection: IConnection, $event: any): void {
+    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
+      return;
+    }
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {
+    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
+      return;
+    }
   }
 
   editConnection(connection: IConnection, $event: any): void {
@@ -55,7 +61,7 @@ export class Library implements OnInit {
 
     console.log('Connection: ', connection);
 
-    let link = [ '/detail', connection.name ];
+    let link = [ 'detail', connection.name.toLowerCase() ];
     this.router.navigate(link);
   }
 
@@ -73,7 +79,7 @@ export class Library implements OnInit {
 
     console.log('Connection: ', connection);
 
-    let link = [ '/detail', connection.name ];
+    let link = [ 'detail', connection.name.toLowerCase() ];
     this.router.navigate(link);
   }
 
