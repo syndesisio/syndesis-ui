@@ -11,7 +11,10 @@ var log = Logger.get('+integrations/create');
     templateUrl: './create.html'
 })
 export class Create {
-    
+
+    /**
+     * Constructor.
+     */
     constructor() {}
     
     ngOnInit() {

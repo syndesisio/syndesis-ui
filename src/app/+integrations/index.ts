@@ -1,13 +1,12 @@
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {Logger} from '../common/service/log';
+import { Logger } from '../common/service/log';
 
-import {Integrations} from './integrations.component';
-
-import {Create} from './create/create.component';
+import { Integrations } from './integrations.component';
+import { Create } from './create/create.component';
 
 Logger.get('+Integrations').debug('`Integrations` bundle loaded asynchronously');
 

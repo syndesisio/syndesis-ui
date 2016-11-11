@@ -1,8 +1,8 @@
-//import {OpaqueToken} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+//import { OpaqueToken } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {IConnection} from './connection.model';
-//import {IUser} from '../+user/user.model'; // Setup for Auth
+import { IConnection } from './connection.model';
+//import { IUser } from '../+user/user.model'; // Setup for Auth
 
 export interface IConnectionService {
     /**
@@ -13,21 +13,21 @@ export interface IConnectionService {
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     create(connection: IConnection): Promise<IConnection>;
-    
+
     /**
      * Called to delete a Connection.  This is done asynchronously and thus returns a promise.
      * @param name - Name of the Connection.
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
     del(name: string): Promise<void>;
-    
+
     /**
      * Gets a single Connection by its name. Returns a Promise.
      * @param name - Name of the Connection.
      * @return Promise<Connection> -  Returns a Promise. Should perhaps return an Observable instead.
      */
     get(name: string): Promise<IConnection>;
-    
+
     /**
      * Gets an observable over all of the Connections. The list of Connections is not guaranteed
      * to be in any particular order. The resulting observer can be used to watch for
@@ -35,7 +35,7 @@ export interface IConnectionService {
      * @return Observable<Connection[]> - Returns an Observable.
      */
     getAll(): Observable<IConnection[]>;
-    
+
     /**
      * Gets an observable over the recently updated Connections. Callers can then subscribe to this
      * observable to be notified when the value changes.
@@ -43,7 +43,7 @@ export interface IConnectionService {
      * @return Observable<Connection[]> - Returns an Observable.
      */
     getRecent(): Observable<IConnection[]>;
-    
+
     /**
      * Gets an array of the Connection types supported by this service.
      *

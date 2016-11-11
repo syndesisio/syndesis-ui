@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Logger} from '../../common/service/log';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Logger } from '../../common/service/log';
+
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -27,11 +28,13 @@ Logger.get('Login').debug('`Login` component loaded asynchronously');
 })
 export class Login {
     localState;
-    
-    constructor(public route: ActivatedRoute) {
-        
-    }
-    
+
+    /**
+     * Constructor.
+     * @param route - ActivatedRoute
+     */
+    constructor(public route: ActivatedRoute) {}
+
     ngOnInit() {
         this.route
           .data
@@ -39,7 +42,7 @@ export class Login {
               // your resolved data from route
               this.localState = data.yourData;
           });
-        
+
         console.log('hello `Login` component');
         // static data that is bundled
         // var mockData = require('assets/mock-data/mock-data.json');
@@ -47,7 +50,7 @@ export class Login {
         // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
         // this.asyncDataWithWebpack();
     }
-    
+
     asyncDataWithWebpack() {
         // you can also async load mock data with 'es6-promise-loader'
         // you would do this if you don't want the mock-data bundled
@@ -62,5 +65,5 @@ export class Login {
         //
         // });
     }
-    
+
 }

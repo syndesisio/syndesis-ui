@@ -1,6 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import {Logger} from '../common/service/log';
+import { Logger } from '../common/service/log';
 
 var log = Logger.get('+integrations');
 
@@ -11,11 +11,15 @@ var log = Logger.get('+integrations');
     template: `<router-outlet></router-outlet>`
 })
 export class Integrations {
-    
-    constructor() {}
-    
+
+    /**
+     * Constructor.
+     */
+    constructor() {
+    }
+
     ngOnInit() {
         log.debug('hello `Integrations` component');
     }
-    
+
 }

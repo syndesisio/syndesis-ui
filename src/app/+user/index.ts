@@ -1,11 +1,11 @@
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {Logger} from '../common/service/log';
+import { Logger } from '../common/service/log';
 
-import {User} from './user.component.ts';
+import { User } from './user.component.ts';
 
 Logger.get('+User').debug('`User` bundle loaded asynchronously');
 

@@ -1,12 +1,10 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import {AppState} from './app.service';
-import {Logger} from './common/service/log';
-
-import { TruncatePipe } from './common/pipes/truncate';
+import { AppState } from './app.service';
+import { Logger } from './common/service/log';
 
 var log = Logger.get('App');
 
@@ -18,7 +16,7 @@ var log = Logger.get('App');
     moduleId: module.id,
     selector: 'app',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('../assets/scss/main.scss')],
+    styles: [ require('../assets/scss/main.scss') ],
     templateUrl: './index.html'
 })
 export class App {
@@ -36,11 +34,14 @@ export class App {
     url = 'https://www.twitter.com/jboss';
     loggedIn = true;
     //loggedIn = false;
-    
+
+    /**
+     * Constructor.
+     */
     constructor(public appState: AppState) {}
-    
+
     ngOnInit() {
         log.debug('Initial App State', this.appState);
     }
-    
+
 }

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -77,31 +76,12 @@ var log = Logger.get('AppModule');
 })
 export class AppModule {
 
+    /**
+     * Constructor.
+     * @param appRef - ApplicationRef
+     * @param appState - AppState
+     */
     constructor(public appRef: ApplicationRef, public appState: AppState) {
         log.debug('App module created');
-    }
-
-    hmrOnInit(store) {
-        if (!store || !store.state) return;
-        console.log('HMR store', store);
-        this.appState._state = store.state;
-        this.appRef.tick();
-        delete store.state;
-    }
-
-    hmrOnDestroy(store) {
-        const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-        // recreate elements
-        const state = this.appState._state;
-        store.state = state;
-        store.disposeOldHosts = createNewHosts(cmpLocation);
-        // remove styles
-        removeNgStyles();
-    }
-
-    hmrAfterDestroy(store) {
-        // display new elements
-        store.disposeOldHosts();
-        delete store.disposeOldHosts;
     }
 }

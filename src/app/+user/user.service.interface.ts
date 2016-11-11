@@ -1,8 +1,4 @@
-//import {OpaqueToken} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
-import {User} from './user.model';
-//import {User} from '../+user/user.model'; // Setup for Auth
+import { IUser } from './user.model';
 
 export interface IUserService {
     /**
@@ -12,21 +8,21 @@ export interface IUserService {
      * @param user - Instance of a User
      * @return Promise<User> - Returns a Promise. Should perhaps return an Observable instead.
      */
-    create(user: User): Promise<User>;
-    
+    create(user: IUser): Promise<IUser>;
+
     /**
      * Called to delete a User.  This is done asynchronously and thus returns a promise.
      * @param name - Name of the User.
      * @return Promise<User> - Returns a Promise. Should perhaps return an Observable instead.
      */
     del(name: string): Promise<void>;
-    
+
     /**
      * Gets a single User by its name. Returns a Promise.
      * @param name - Name of the User.
      * @return Promise<User> -  Returns a Promise. Should perhaps return an Observable instead.
      */
-    get(name: string): Promise<User>;
+    get(name: string): Promise<IUser>;
 
     /**
      * Updates an existing User with the associated name. It will return a Promise that the
@@ -34,5 +30,5 @@ export interface IUserService {
      * @param user - Instance of a User.
      * @return Promise<User> - Returns a Promise. Should perhaps return an Observable instead.
      */
-    update(user: User): Promise<User>;
+    update(user: IUser): Promise<IUser>;
 }

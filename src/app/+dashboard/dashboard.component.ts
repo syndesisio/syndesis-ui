@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {Logger} from '../common/service/log';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {AppState} from '../app.service';
-import {Connection} from '../+connections/connection.model';
-import {ConnectionService} from '../+connections/connection.service';
+import { IConnection } from '../+connections/connection.model';
+import { ConnectionService } from '../+connections/connection.service';
 
 @Component({
     moduleId: module.id,
@@ -20,12 +18,12 @@ import {ConnectionService} from '../+connections/connection.service';
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './dashboard.html'
 })
-export class Dashboard implements OnInit{
+export class Dashboard implements OnInit {
     // Set our default values
     localState = '';
     errorMessage: string;
 
-    @Input() connections: Connection[];
+    @Input() connections: IConnection[];
 
     /**
      * Constructor.
@@ -33,7 +31,7 @@ export class Dashboard implements OnInit{
      * @param _connectionService - ConnectionService
      */
     constructor(private router: Router, private _connectionService: ConnectionService) {}
-    
+
     ngOnInit() {
         console.log('Loaded `Dashboard` component');
 
@@ -47,13 +45,12 @@ export class Dashboard implements OnInit{
             error => this.errorMessage = <any>error);
     }
 
-    gotoDetail(connection: Connection, $event:any): void {
+    gotoDetail(connection: IConnection, $event: any): void {
         if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
             return;
         }
-        console.log("Connection: ", connection);
-        let link = ['/detail', connection.id];
-        //this.onConnectionSelected.emit(connection); // For action when selecting
+        console.log('Connection: ', connection);
+        let link = [ '/detail', connection.id ];
         this.router.navigate(link);
     }
 }

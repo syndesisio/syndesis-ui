@@ -77,9 +77,9 @@ require('patternfly/dist/js/patternfly.min.js');
 
 if ('production' === ENV) {
     // Production
-    
-    
+
+
 } else {
     // Development
-    
+
 }

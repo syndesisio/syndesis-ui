@@ -11,7 +11,10 @@ var log = Logger.get('+connections');
     template: `<router-outlet></router-outlet>`
 })
 export class Connections {
-    
+
+    /**
+     * Constructor.
+     */
     constructor() {}
     
     ngOnInit() {

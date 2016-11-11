@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 import { Logger } from './common/service/log';
 
 // defer initializing this, otherwise 'Logger' is undefined
-var log = undefined;
+let log: any = undefined;
 
 // the location of the config file
 let configJson = 'config.json';
@@ -20,6 +20,10 @@ export class AppState {
 
   _state = {};
 
+  /**
+   * Constructor.
+   * @param http - HTTP
+   */
   constructor(private http: Http) {
     log = Logger.get('AppState');
   }

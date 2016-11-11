@@ -1,11 +1,11 @@
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {Logger} from '../common/service/log';
+import { Logger } from '../common/service/log';
 
-import {Templates} from './templates.component.ts';
+import { Templates } from './templates.component.ts';
 
 Logger.get('+Templates').debug('`Templates` bundle loaded asynchronously');
 
