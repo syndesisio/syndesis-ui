@@ -52,12 +52,14 @@
                     </div>
                     -->
 
+
                     <!-- Step 1A: Details -->
                     <div class="wizard-pf-contents"><!-- hidden -->
                         <form class="form-horizontal">
                             <!-- replacing id with data-id to pass build errors -->
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label"
+                                       [(ngModel)]="newConnection.name"
                                        for="textInput-markup">Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" data-id="textInput-markup"
@@ -65,10 +67,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="descriptionInput-markup">Description
+                                <label class="col-sm-2 control-label"
+                                       for="descriptionInput-markup">Description
                                     (Optional)</label>
                                 <div class="col-sm-10">
-                                        <textarea data-id="descriptionInput-markup" class="form-control"
+                                        <textarea data-id="descriptionInput-markup"
+                                                  [(ngModel)]="newConnection.description"
+                                                  class="form-control"
                                                   rows="2"></textarea>
                                 </div>
                             </div>
@@ -254,29 +259,6 @@
             </div>
         </div>
 
-        <!-- Toolbar: Add Connection Details --
-        <div class="row details">
-            <div class="col-sm-12">
-                <h4>{{command.info.name}}</h4>
-                <form class="form-horizontal" *ngIf="command.properties" (ngSubmit)="onSubmit(entity)"
-                      #f="ngForm">
-                    <div *ngFor="let field of getFields(command)">
-                        <form-property-field [form]="f.form" [field]="field"
-                                             [entity]="entity"></form-property-field>
-                    </div>
-                    <div class="col-sm-11">
-                        &nbsp;
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Next
-                        </button>
-                    </div>
-                    <br>
-                </form>
-            </div>
-        </div>
-        -->
-
 
         <!-- Toolbar: Select Connection Type -->
         <div class="row toolbar-pf type">
@@ -323,26 +305,13 @@
                  *ngFor="let connection of connections | connectionFilter: listFilter">
                 <div class="card-pf card-pf-view card-pf-view-xs">
                     <div class="card-pf-body">
-                        <div class="card-pf-heading-kebab">
-                            <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
-                                <button type="button"
-                                        class="btn btn-link dropdown-toggle"
-                                        data-toggle="dropdown">
-                                    <span class="fa fa-ellipsis-v"></span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right"
-                                    role="menu">
-                                    <li><a [routerLink]=" ['create'] ">Edit</a></li>
-                                    <li><a>Duplicate</a></li>
-                                    <li><a>Delete</a></li>
-                                </ul>
-                            </div>
+                        <div class="card-pf-heading">
                             <h2 class="card-pf-title">
                                 <span class="fa {{ connection.icon }}"></span>
                             </h2>
                             <div class="card-title">{{ connection.name }}</div>
                         </div>
-                        <p>{{ connection.description }}</p>
+                        <p>{{ connection.description | truncate:limit:trail }}</p>
                     </div>
                 </div>
             </div>

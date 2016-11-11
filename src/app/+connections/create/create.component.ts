@@ -16,11 +16,12 @@ var log = Logger.get('+connections/create');
   providers: [ ConnectionService ]
 })
 export class Create implements OnInit {
-  limit = 80;
+  limit = 60;
   trail = '..';
 
   listFilter: string;
   errorMessage: string;
+  newConnection: any;
 
   @Input() connections: IConnection[];
 
@@ -40,5 +41,13 @@ export class Create implements OnInit {
         connections => this.connections = connections,
         error => this.errorMessage = <any>error);
   }
+
+  goToStep1() {}
+
+  goToStep2() {}
+
+  goToStep3() {}
+  
+  submit() {}
 
 }
