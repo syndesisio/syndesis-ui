@@ -1,8 +1,8 @@
 //import {OpaqueToken} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-import {Connection} from './connection.model';
-//import {User} from '../+user/user.model'; // Setup for Auth
+import {IConnection} from './connection.model';
+//import {IUser} from '../+user/user.model'; // Setup for Auth
 
 export interface IConnectionService {
     /**
@@ -12,7 +12,7 @@ export interface IConnectionService {
      * @param connection - Instance of a Connection
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
-    create(connection: Connection): Promise<Connection>;
+    create(connection: IConnection): Promise<IConnection>;
     
     /**
      * Called to delete a Connection.  This is done asynchronously and thus returns a promise.
@@ -26,7 +26,7 @@ export interface IConnectionService {
      * @param name - Name of the Connection.
      * @return Promise<Connection> -  Returns a Promise. Should perhaps return an Observable instead.
      */
-    get(name: string): Promise<Connection>;
+    get(name: string): Promise<IConnection>;
     
     /**
      * Gets an observable over all of the Connections. The list of Connections is not guaranteed
@@ -34,7 +34,7 @@ export interface IConnectionService {
      * changes to the list of Connections.
      * @return Observable<Connection[]> - Returns an Observable.
      */
-    getAll(): Observable<Connection[]>;
+    getAll(): Observable<IConnection[]>;
     
     /**
      * Gets an observable over the recently updated Connections. Callers can then subscribe to this
@@ -42,7 +42,7 @@ export interface IConnectionService {
      *
      * @return Observable<Connection[]> - Returns an Observable.
      */
-    getRecent(): Observable<Connection[]>;
+    getRecent(): Observable<IConnection[]>;
     
     /**
      * Gets an array of the Connection types supported by this service.
@@ -57,5 +57,5 @@ export interface IConnectionService {
      * @param connection - Instance of a Connection.
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
-    update(connection: Connection): Promise<Connection>;
+    update(connection: IConnection): Promise<IConnection>;
 }

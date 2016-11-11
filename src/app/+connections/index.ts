@@ -10,7 +10,9 @@ import {Create} from './create/create.component';
 import {Detail} from './detail/detail.component';
 import {Library} from './library/library.component';
 
+// Pipes
 import { TruncatePipe } from '../common/pipes/truncate';
+import { ConnectionFilterPipe } from './connection.pipe';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
@@ -35,6 +37,7 @@ const routes = [
         Library,
 
       // Pipes
+        ConnectionFilterPipe,
         TruncatePipe
     ],
     imports: [

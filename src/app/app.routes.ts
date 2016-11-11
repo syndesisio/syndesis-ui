@@ -1,7 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
 
 export const ROUTES: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     {path: 'admin', loadChildren: () => System.import('./+admin')},
     {path: 'connections', loadChildren: () => System.import('./+connections')},
     {path: 'dashboard', loadChildren: () => System.import('./+dashboard')},

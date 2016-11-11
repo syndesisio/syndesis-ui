@@ -1,13 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { Connection } from '../connection.model';
+import { IConnection } from '../connection.model';
 import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 import { Router } from '@angular/router';
-
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 
 var log = Logger.get('+connections/library');
 
@@ -21,17 +18,14 @@ var log = Logger.get('+connections/library');
 })
 export class Library implements OnInit {
 
-    //connections: Connection[] = [];
-
     limit = 80;
     trail = '..';
 
     listFilter: string;
     errorMessage: string;
 
-    @Input() connections: Connection[];
-    //@Input() selectedConnections: Connection[];
-    //@Output() onConnectionSelected: EventEmitter<Connection> = new EventEmitter<Connection>();
+    @Input() connections: IConnection[];
+
 
     /**
      * Constructor.
@@ -55,7 +49,7 @@ export class Library implements OnInit {
             error => this.errorMessage = <any>error);
     }
 
-    gotoDetail(connection: Connection, $event: any): void {
+    gotoDetail(connection: IConnection, $event: any): void {
         if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
             return;
         }

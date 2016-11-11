@@ -1,4 +1,4 @@
-export class Connection {
+export class IConnection {
     id: number;
     name: string;
     description: string;

@@ -21,6 +21,7 @@
                                class="form-control"
                                placeholder="Filter By Name..."
                                autocomplete="off"
+                               [(ngModel)]="listFilter"
                                id="filterInput">
                     </div><!-- /input-group -->
                 </div>
@@ -52,11 +53,11 @@
     </div><!-- /row -->
 
 
-    <div>
+    <div class="container-cards-pf">
         <div class="row row-cards-pf">
             <!-- Each Connection Card -->
             <div class="col-xs-12 col-sm-3 col-md-2 card"
-                 *ngFor="let connection of connections">
+                 *ngFor="let connection of connections | connectionFilter: listFilter">
                 <div class="card-pf card-pf-view card-pf-view-xs"
                      (click)="gotoDetail(connection, $event)">
                     <div class="card-pf-body">

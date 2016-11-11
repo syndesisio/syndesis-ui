@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'
 
-import { Connection } from '../connection.model';
+import { IConnection } from '../connection.model';
 import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
@@ -23,7 +23,7 @@ export class Create {
     errorMessage: string;
     projectId:string = undefined;
     
-    constructor( private connectionService: ConnectionService,
+    constructor( private _connectionService: ConnectionService,
                 private router:Router,
                 private forge:Forge ) {
                 
