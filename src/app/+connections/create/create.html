@@ -289,6 +289,7 @@
                             <input type="text"
                                    class="form-control"
                                    id="filter"
+                                   [(ngModel)]="listFilter"
                                    name="name"
                                    placeholder="Filter By Name...">
                         </div>
@@ -319,7 +320,7 @@
     <div>
         <div class="row row-cards-pf">
             <div class="col-xs-12 col-sm-3 col-md-2 card"
-                 *ngFor="let connection of connections">
+                 *ngFor="let connection of connections | connectionFilter: listFilter">
                 <div class="card-pf card-pf-view card-pf-view-xs">
                     <div class="card-pf-body">
                         <div class="card-pf-heading-kebab">

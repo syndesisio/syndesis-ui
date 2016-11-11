@@ -5,6 +5,9 @@
     <div class="row toolbar-pf">
         <div class="col-sm-12">
             <div class="toolbar-pf-actions">
+
+                <!-- Toolbar: Search -->
+
                 <div class="form-group toolbar-pf-filter search">
                     <label class="sr-only">Name</label>
                     <div class="input-group">
@@ -19,15 +22,18 @@
                                 <li><a href="#">Name</a></li>
                                 <li><a href="#">Type</a></li>
                             </ul>
-                        </div><!-- /btn-group -->
+                        </div>
                         <input type="text"
                                class="form-control"
                                placeholder="Filter By Name..."
                                autocomplete="off"
                                [(ngModel)]="listFilter"
                                id="filterInput">
-                    </div><!-- /input-group -->
+                    </div>
                 </div>
+
+                <!-- Toolbar: Sort -->
+
                 <div class="form-group sort">
                     <div class="dropdown btn-group">
                         <button type="button"

@@ -9,22 +9,10 @@ div.connections.create {
     }
   }
 
-  /*
-  .toolbar {
-    h3, h4, h5 {font-weight: 600;}
-
-    .breadcrumbs {}
-
-    .details {
-      background-color: #FFFFFF;
-      border-bottom: 1px solid #d1d1d1;
-    }
-
-    .progress-wizard {
-      text-align: center;
-    }
-
-    .type {}
+  .wizard-pf-body {
+    padding: 0;
+    background: #fff;
+    margin: auto -20px;
+    border-bottom: solid 1px #d1d1d1;
   }
-  */
 }
