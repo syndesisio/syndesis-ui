@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {AppState} from '../app.service';
-import {Logger} from '../common/service/log';
-import {Title} from '../common/title';
+import { AppState } from '../app.service';
+import { Logger } from '../common/service/log';
 
 declare var c3: any;
 declare var d3: any;
@@ -15,10 +14,8 @@ var log = Logger.get('Home');
     // for `document.querySelectorAll(selector)` in our index.html
     // where, in this case, selector is the string 'home'
     selector: 'home',
-    providers: [
-        Title
-    ],
-    styles: [require('./home.scss')],
+    providers: [],
+    styles: [ require('./home.scss') ],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './home.html'
 })
@@ -26,13 +23,13 @@ export class Home {
     // Set our default values
     localState = {value: ''};
     // TypeScript public modifiers
-    constructor(public appState: AppState, public title: Title) {
+    constructor(public appState: AppState) {
     }
-    
+
     ngOnInit() {
         log.debug('hello `Home` component');
     }
-    
+
     submitState(value) {
         log.debug('submitState', value);
         this.appState.set('value', value);

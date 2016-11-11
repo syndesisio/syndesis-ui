@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IConnection } from './connection.model';
 
 @Pipe({
-    name: 'ConnectionFilterPipe'
+    name: 'connectionFilter'
 })
 
 export class ConnectionFilterPipe implements PipeTransform {
