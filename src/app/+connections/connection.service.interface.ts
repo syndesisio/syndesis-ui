@@ -22,11 +22,11 @@ export interface IConnectionService {
     del(name: string): Promise<void>;
 
     /**
-     * Gets a single Connection by its name. Returns a Promise.
+     * Gets a single Connection by its name.
      * @param name - Name of the Connection.
-     * @return Promise<Connection> -  Returns a Promise. Should perhaps return an Observable instead.
+     * @return Observable<IConnection> - Returns an Observable.
      */
-    get(name: string): Promise<IConnection>;
+    get(name: string): Observable<IConnection>;
 
     /**
      * Gets an observable over all of the Connections. The list of Connections is not guaranteed

@@ -1,14 +1,14 @@
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { DirectivesModule } from '../common/directives';
 
-import {Logger} from '../common/service/log';
-import {Connections} from './connection.component';
-import {Create} from './create/create.component';
-import {Detail} from './detail/detail.component';
-import {Library} from './library/library.component';
+import { Logger } from '../common/service/log';
+import { Connections } from './connection.component';
+import { Create } from './create/create.component';
+import { Detail } from './detail/detail.component';
+import { Library } from './library/library.component';
 
 // Pipes
 import { TruncatePipe } from '../common/pipes/truncate';
@@ -24,7 +24,7 @@ const routes = [
         children: [
             {path: '', component: Library},
             {path: 'create', component: Create},
-            {path: 'detail', component: Detail}
+            {path: 'detail/:name', component: Detail}
         ]
     }
 ];
@@ -36,7 +36,7 @@ const routes = [
         Detail,
         Library,
 
-      // Pipes
+        // Pipes
         ConnectionFilterPipe,
         TruncatePipe
     ],

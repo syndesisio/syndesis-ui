@@ -1,4 +1,7 @@
 <div class="connections library">
+
+    <!-- Toolbar -->
+
     <div class="row toolbar-pf">
         <div class="col-sm-12">
             <div class="toolbar-pf-actions">
@@ -55,12 +58,17 @@
 
     <div class="container-cards-pf">
         <div class="row row-cards-pf">
-            <!-- Each Connection Card -->
+
+            <!-- Connection Card -->
+
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let connection of connections | connectionFilter: listFilter">
                 <div class="card-pf card-pf-view card-pf-view-xs"
                      (click)="gotoDetail(connection, $event)">
                     <div class="card-pf-body">
+
+                        <!-- Card Dropdown -->
+
                         <div class="card-pf-heading-kebab">
                             <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
                                 <button type="button"
@@ -70,16 +78,28 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right"
                                     role="menu">
-                                    <li><a href="#">Edit</a></li>
-                                    <li><a href="#">Duplicate</a></li>
-                                    <li><a href="#">Delete</a></li>
+                                    <li>
+                                        <a (click)="editConnection(connection, $event)">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a (click)="duplicateConnection(connection, $event)">Duplicate</a>
+                                    </li>
+                                    <li>
+                                        <a (click)="deleteConnection(connection, $event)">Delete</a>
+                                    </li>
                                 </ul>
                             </div>
+
+                            <!-- Card Title & Icon -->
+
                             <h2 class="card-pf-title">
                                 <span class="fa {{ connection.icon }}"></span>
                             </h2>
                             <div class="card-title">{{ connection.name }}</div>
                         </div>
+
+                        <!-- Card Description -->
+
                         <p>{{ connection.description | truncate:limit:trail }}</p>
                     </div>
                 </div>
