@@ -114,16 +114,6 @@
                 <span class="list-group-item-value">Admin</span>
             </a>
         </li>
-				<li *ngIf="appState.get('frontendMode') == 'dev'"
-            class="list-group-item"
-            routerLinkActive="active">
-            <a [routerLink]=" ['testing'] ">
-                <span class="pficon pficon-cluster"
-                      data-toggle="tooltip"
-                      title="Test"></span>
-                <span class="list-group-item-value">Test</span>
-            </a>
-        </li>
     </ul>
 </div>
 <main class="container-fluid container-pf-nav-pf-vertical"
