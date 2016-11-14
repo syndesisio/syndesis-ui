@@ -15,11 +15,7 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 
 // Angular Modules
 import { AppState } from './app.service';
-import { OAuth } from './oauth.service';
 import { Logger } from './common/service/log';
-import { Forge } from './common/service/forge';
-import { Git } from './common/service/git';
-import { Kubernetes } from './common/service/kubernetes';
 
 // application wide components
 import { DirectivesModule } from './common/directives';
@@ -31,11 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
-    AppState,
-    OAuth,
-    Forge,
-    Git,
-    Kubernetes
+    AppState
 ];
 
 // Logger instance
@@ -62,14 +54,12 @@ var log = Logger.get('AppModule');
         APP_PROVIDERS,
         {
             provide: APP_INITIALIZER,
-            useFactory: (appState: AppState, oauth: OAuth) => {
-                return () => {
-                    return appState.load().then(() => {
-                        return oauth.load();
-                    });
-                };
+            useFactory: (appState: AppState) => {
+              return () => {
+                return appState.load();
+              }
             },
-            deps: [ AppState, OAuth ],
+            deps: [ AppState ],
             multi: true
         }
     ]
