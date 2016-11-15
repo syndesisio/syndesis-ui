@@ -69,14 +69,14 @@
 
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let connection of connections | connectionFilter: listFilter">
-                <div class="card-pf card-pf-view card-pf-view-xs">
+                 <div class="card-pf card-pf-view card-pf-view-xs">
                     <div class="card-pf-body">
 
                         <!-- Card Dropdown -->
 
                         <div class="card-pf-heading-kebab">
                             <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
-                                <button type="button"
+                              <button type="button"
                                         class="btn btn-link dropdown-toggle"
                                         data-toggle="dropdown">
                                     <span class="fa fa-ellipsis-v"></span>
@@ -84,7 +84,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right"
                                     role="menu">
                                     <li>
-                                        <a (click)="editConnection(connection, $event)">Edit</a>
+                                    <a [routerLink]="['edit', connection.name.toLowerCase()]">Edit</a>
                                     </li>
                                     <li>
                                         <a (click)="duplicateConnection(connection, $event)">Duplicate</a>
@@ -97,11 +97,10 @@
 
                             <!-- Card Title & Icon -->
 
-                            <h2 class="card-pf-title"
-                                (click)="gotoDetail(connection, $event)">
+                            <h2 class="card-pf-title">
                                 <span class="fa {{ connection.icon }}"></span>
                             </h2>
-                            <div class="card-title">{{ connection.name }}</div>
+                            <div (click)="gotoDetail(connection, $event)" class="card-title">{{ connection.name }}</div>
                         </div>
 
                         <!-- Card Description -->
