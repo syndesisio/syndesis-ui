@@ -1,8 +1,8 @@
 {
-  "name": "hawtio-ipaas",
+  "name": "redhat-ipaas-client",
   "version": "1.0.0",
-  "description": "Hawtio iPaaS",
-  "homepage": "https://github.com/hawtio/hawtio-ipaas",
+  "description": "Red Hat iPaaS Client",
+  "homepage": "https://github.com/redhat-ipaas/ipaas-client",
   "authors": [
     "Stan Lewis <stlewis@redhat.com> (https://github.com/gashcrumb)",
     "Rachel Yordán <rachel.yordan@redhat.com> (https://github.com/kahboom)"
@@ -147,10 +147,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hawtio/hawtio-ipaas.git"
+    "url": "https://github.com/redhat-ipaas/ipaas-client.git"
   },
   "bugs": {
-    "url": "https://github.com/hawtio/hawtio-ipaas/issues"
+    "url": "https://github.com/redhat-ipaas/ipaas-client/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
