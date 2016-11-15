@@ -1,0 +1,235 @@
+<div class="connections edit">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+
+        <!-- Toolbar: Breadcrumbs -->
+        <div class="row toolbar-pf breadcrumbs">
+            <div class="col-sm-12">
+                <ol class="breadcrumb">
+                    <li><a [routerLink]=" ['/home'] ">Home</a></li>
+                    <li><a [routerLink]=" ['/connections'] ">Connections</a></li>
+                    <li class="active"><strong>Edit Connection</strong></li>
+                </ol>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="wizard-pf">
+
+        <div class="wizard-pf">
+            <div class="wizard-pf-body clearfix">
+
+                <!-- Wizard Progress Bar-->
+                <div class="wizard-pf-steps"><!-- hidden -->
+                    <ul class="wizard-pf-steps-indicator">
+                        <li class="wizard-pf-step active" data-tabgroup="1">
+                            <a><span class="wizard-pf-step-number">1</span><span
+                                    class="wizard-pf-step-title">First Step</span></a>
+                        </li>
+                        <li class="wizard-pf-step" data-tabgroup="2">
+                            <a><span class="wizard-pf-step-number">2</span><span
+                                    class="wizard-pf-step-title">Second Step</span></a>
+                        </li>
+                        <li class="wizard-pf-step" data-tabgroup="3">
+                            <a><span class="wizard-pf-step-number">3</span><span
+                                    class="wizard-pf-step-title">Review</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Wizard Content -->
+
+                <div class="wizard-pf-main">
+                    <!-- Loading--
+                    <div class="wizard-pf-loading blank-slate-pf">
+                        <div class="spinner spinner-lg blank-slate-pf-icon"></div>
+                        <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
+                        <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
+                            suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
+                    </div>
+                    -->
+
+
+                    <!-- Step 1 -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 1 ? '' : 'hidden'"><!-- hidden -->
+                        <form class="form-horizontal">
+                            <!-- replacing id with data-id to pass build errors -->
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label"
+                                       for="textInput-markup">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           data-id="textInput-markup"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"
+                                       for="descriptionInput-markup">Description
+                                    (Optional)</label>
+                                <div class="col-sm-10">
+                                        <textarea data-id="descriptionInput-markup"
+                                                  class="form-control"
+                                                  rows="2"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="wizard-pf-contents"
+                         [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
+                        <form class="form-horizontal">
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label"
+                                       for="consectetur">Consectetur</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           id="consectetur"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"
+                                       for="adipiscing">Adipiscing</label>
+                                <div class="col-sm-10">
+                                        <textarea id="adipiscing"
+                                                  class="form-control"
+                                                  rows="2"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="wizard-pf-contents hidden"
+                         [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
+                        <div class="wizard-pf-process blank-slate-pf">
+                            <div class="spinner spinner-lg blank-slate-pf-icon"></div>
+                            <h3 class="blank-slate-pf-main-action">Deployment in progress</h3>
+                            <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
+                                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
+                        </div>
+                        <div class="wizard-pf-complete blank-slate-pf hidden">
+                            <div class="wizard-pf-success-icon"><span
+                                    class="glyphicon glyphicon-ok-circle"></span></div>
+                            <h3 class="blank-slate-pf-main-action">Deployment was successful</h3>
+                            <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
+                                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
+                            <button type="button" class="btn btn-lg btn-primary">
+                                View Deployment
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Toolbar: Select Connection Type -->
+        <div class="row toolbar-pf type">
+            <div class="col-xs-12">
+                <form class="toolbar-pf-actions">
+                    <div class="form-group toolbar-pf-filter">
+                        <div>
+                            <label class="sr-only"
+                                   for="filter">Select Connection Type&nbsp;</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="filter"
+                                   [(ngModel)]="listFilter"
+                                   name="name"
+                                   placeholder="Filter By Name...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dropdown btn-group">
+                            <button type="button"
+                                    class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Name <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a>Name</a></li>
+                                <li><a>Type</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-link" type="button">
+                            <span class="fa fa-sort-alpha-asc"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- List of Connections -->
+    <div>
+        <div class="row row-cards-pf">
+            <div class="col-xs-12 col-sm-3 col-md-2 card"
+                 *ngFor="let connection of connections | connectionFilter: listFilter">
+                <div class="card-pf card-pf-view card-pf-view-xs">
+                    <div class="card-pf-body">
+                        <div class="card-pf-heading">
+                            <h2 class="card-pf-title">
+                                <span class="fa {{ connection.icon }}"></span>
+                            </h2>
+                            <div class="card-title">{{ connection.name }}</div>
+                        </div>
+                        <p>{{ connection.description | truncate:limit:trail }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error"
+                 *ngIf="errorMessage">{{errorMessage}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function($) {
+            $(document).ready(function() {
+                // Upon clicking the find button, show the find dropdown content
+                $(".btn-find").click(function() {
+                    $(".find-pf-dropdown-container").toggle();
+                });
+                // Upon clicking the find close button, hide the find dropdown content
+                $(".btn-find-close").click(function() {
+                    $(".find-pf-dropdown-container").hide();
+                });
+
+            });
+        })(jQuery);
+    </script>
+
+
+
+
+    <!-- Wizard Footer -->
+    <div class="wizard-pf-footer">
+        <button type="button"
+                class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss">Cancel
+        </button>
+        <button type="button"
+                class="btn btn-default wizard-pf-back disabled">
+            <span class="i fa fa-angle-left"></span> Back
+        </button>
+        <button type="button"
+                class="btn btn-primary wizard-pf-next disabled">
+            Next <span class="i fa fa-angle-right"></span>
+        </button>
+        <button type="button"
+                class="btn btn-primary wizard-pf-finish hidden"><!-- hidden -->
+            Deploy <span class="i fa fa-angle-right"></span>
+        </button>
+    </div>
+
+
+</div>

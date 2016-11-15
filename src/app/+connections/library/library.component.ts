@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
+import * as _ from 'lodash';
+
 import { IConnection } from '../connection.model';
 import { ConnectionService } from '../connection.service';
 
@@ -43,25 +45,16 @@ export class Library implements OnInit {
   }
 
   deleteConnection(connection: IConnection, $event: any): void {
-    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
-      return;
-    }
+
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {
-    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
-      return;
-    }
+
   }
 
   editConnection(connection: IConnection, $event: any): void {
-    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
-      return;
-    }
-
     console.log('Connection: ', connection);
-
-    let link = [ 'detail', connection.name.toLowerCase() ];
+    let link = [ 'edit', connection.name.toLowerCase() ];
     this.router.navigate(link);
   }
 
@@ -73,13 +66,14 @@ export class Library implements OnInit {
   }
 
   gotoDetail(connection: IConnection, $event: any): void {
-    if ($event.target.className.indexOf('dropdown-toggle') !== -1) {
+    console.log("$event: ", $event);
+    let className = _.get($event, 'target.className');
+    console.log("Class name: ", className);
+    if ($event && $event.target && $event.target.className.indexOf('dropdown-toggle') !== -1) {
       return;
     }
-
     console.log('Connection: ', connection);
-
-    let link = [ 'detail', connection.name.toLowerCase() ];
+    let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
     this.router.navigate(link);
   }
 

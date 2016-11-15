@@ -1,0 +1,42 @@
+div.connections.edit {
+  .card .card-pf {
+    height: 210px;
+    max-height: 240px;
+    overflow: hidden;
+
+    .dropdown-toggle {
+      padding: 4px 10px;
+    }
+
+    .card-pf-heading {
+      border-bottom: none;
+    }
+  }
+
+  .wizard-pf-steps {
+    border-bottom: solid 1px #d1d1d1;
+    text-align: center;
+    height: 120px;
+
+    .wizard-pf-steps-indicator {
+      max-width: 50%;
+      margin: 0 auto;
+    }
+  }
+
+  .wizard-pf-body {
+    padding: 0;
+    background: #fff;
+    margin: auto -20px;
+    border-bottom: solid 1px #d1d1d1;
+  }
+
+  .wizard-pf-footer {
+    border-top: 1px solid #d1d1d1;
+    border-right: 1px solid #d1d1d1;
+    border-left: 1px solid #d1d1d1;
+    margin-top: 0;
+    background: #fff;
+    padding: 20px;
+  }
+}

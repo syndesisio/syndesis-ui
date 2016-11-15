@@ -7,6 +7,7 @@ import { DirectivesModule } from '../common/directives';
 import { Logger } from '../common/service/log';
 import { Connections } from './connection.component';
 import { Create } from './create/create.component';
+import { Edit } from './edit/edit.component';
 import { Detail } from './detail/detail.component';
 import { Library } from './library/library.component';
 
@@ -24,6 +25,7 @@ const routes = [
         children: [
             {path: '', component: Library},
             {path: 'create', component: Create},
+            {path: 'edit/:name', component: Edit},
             {path: 'detail/:name', component: Detail}
         ]
     }
@@ -33,6 +35,7 @@ const routes = [
     declarations: [
         Connections,
         Create,
+        Edit,
         Detail,
         Library,
 
