@@ -20,6 +20,8 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 const OUTPUT_DIR = '.';
 
+// use to pass config along to the client
+const frontendConfig = {};
 
 /*
  * Webpack Constants
@@ -31,97 +33,12 @@ const METADATA = {
   isDevServer: helpers.isWebpackDevServer()
 };
 
-//
-// Block of environment variables use to configure the console
-// 
-
-// proxyConfig configuration
-const USE_PROXY = process.env.USE_PROXY;
-
-// Set up variables to pass along to the frontend so it can connect to backend services
-const FABRIC8_FORGE = process.env.FABRIC8_FORGE;
-const KUBERNETES_MASTER = process.env.KUBERNETES_MASTER;
-const K8S_PROVIDER = process.env.K8S_PROVIDER || 'kubernetes';
-const FRONTEND_MODE = process.env.FRONTEND_MODE || 'dev';
-
-// OAuth related environment variables
-const OAUTH_AUTHORIZE_URI = process.env.OAUTH_AUTHORIZE_URI;
-const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
-const OAUTH_LOGOUT_URI = process.env.OAUTH_LOGOUT_URI;
-
-// settings for configuring the proxy, defaults to no config
-var proxyConfig = {};
-
-// settings for the frontend
-var frontendConfig = {
-  urls: {
-    FABRIC8_FORGE: undefined,
-    KUBERNETES_MASTER: undefined
-  },
-  oauth: {
-    authorize_uri: undefined,
-    client_id: undefined,
-    logout_uri: undefined
-  },
-  k8sProvider: K8S_PROVIDER,
-  frontendMode: FRONTEND_MODE
-};
-// URL for talking to the fabric8 forge service
-if (FABRIC8_FORGE) {
-  _.set(frontendConfig, 'urls.FABRIC8_FORGE', FABRIC8_FORGE);
-}
-// URL to talk to the kubernetes API server
-if (KUBERNETES_MASTER) {
-  _.set(frontendConfig, 'urls.KUBERNETES_MASTER', KUBERNETES_MASTER);
-}
-
-// Set up the backend URLs to either use the proxyConfig or not
-if (USE_PROXY === 'true' && FABRIC8_FORGE) {
-  console.log('Enabling fabric8 forge proxyConfig');
-  proxyConfig['/forge'] = {
-    target: FABRIC8_FORGE + '/api/',
-    secure: false
-  }
-  _.set(frontendConfig, 'urls.FABRIC8_FORGE', '/forge');
-}
-if (USE_PROXY === 'true' && KUBERNETES_MASTER) {
-  console.log('Enabling kubernetes API server proxyConfig');
-  var k8sConfig = proxyConfig['/k8s'] = {
-    target: KUBERNETES_MASTER,
-    secure: false
-  }
-  if (KUBERNETES_MASTER.indexOf('/k8s') > 0) {
-    k8sConfig.pathRewrite = {
-      '^/k8s/': '/'
-    };
-  }
-  _.set(frontendConfig, 'urls.KUBERNETES_MASTER', '/k8s');
-}
-
-if (OAUTH_AUTHORIZE_URI) {
-  _.set(frontendConfig, 'oauth.authorizeUri', OAUTH_AUTHORIZE_URI);
-}
-
-if (OAUTH_CLIENT_ID) {
-  _.set(frontendConfig, 'oauth.clientId', OAUTH_CLIENT_ID);
-}
-
-if (OAUTH_LOGOUT_URI) {
-  _.set(frontendConfig, 'oauth.logoutUri', OAUTH_LOGOUT_URI);
-}
-
-
-console.log("\n\nUsing frontend configuration:\n", JSON.stringify(frontendConfig, undefined, 2));
-console.log("\n\nUsing proxyConfig configuration:\n", JSON.stringify(proxyConfig, undefined, 2));
-console.log("Building to ", METADATA.dist);
-
 /*
  * Webpack configuration
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = {
-  proxyConfig: proxyConfig,
   frontendConfig: frontendConfig,
 
   /*

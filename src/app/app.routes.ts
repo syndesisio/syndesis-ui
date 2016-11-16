@@ -5,7 +5,6 @@ export const ROUTES: Routes = [
     {path: 'admin', loadChildren: () => System.import('./+admin')},
     {path: 'connections', loadChildren: () => System.import('./+connections')},
     {path: 'dashboard', loadChildren: () => System.import('./+dashboard')},
-    {path: 'testing', loadChildren: () => System.import('./+testing')},
     {path: 'home', loadChildren: () => System.import('./+home')},
     {path: 'integrations', loadChildren: () => System.import('./+integrations')},
     {path: 'templates', loadChildren: () => System.import('./+templates')},
