@@ -23,11 +23,11 @@ export class App {
     name = 'Red Hat iPaaS';
 
     // White BG
-    logoWhiteBg = 'assets/images/rh_ipaas__small.svg';
+    logoWhiteBg = 'assets/images/rh_ipaas_small.svg';
     iconWhiteBg = 'assets/images/glasses_logo.svg';
 
     // Dark BG
-    logoDarkBg = 'assets/images/rh_ipaas__small.svg';
+    logoDarkBg = 'assets/images/rh_ipaas_small.svg';
     iconDarkBg = 'assets/images/glasses_logo.svg';
 
     title = 'Red Hat iPaaS';
