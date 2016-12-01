@@ -30,7 +30,7 @@ export class ConnectionService implements IConnectionService {
    */
   constructor(private http: Http) {
     //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-    this.baseUrl = 'http://localhost:9090';
+    this.baseUrl = 'http://localhost:9090/v1';
   }
 
 
