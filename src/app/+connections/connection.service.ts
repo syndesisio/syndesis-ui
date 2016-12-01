@@ -47,10 +47,10 @@ export class ConnectionService implements IConnectionService {
   /**
    * Deletes a Connection. This does not delete the Connection persistently. It removes
    * the Connection from the list of Connections in this session, for now.
-   * @param name - Name of the Connection
+   * @param id - ID of the Connection
    * @return {Promise<void>} - Returns a Promise. Should perhaps return an Observable instead.
    */
-  del(name: string): Promise<void> {
+  del(id: number): Promise<void> {
     return;
   };
 
@@ -58,12 +58,12 @@ export class ConnectionService implements IConnectionService {
   /**
    * Gets a single Connection by its name.
    * This should actually be by ID instead, and needs to be updated.
-   * @param name - Name of the Connection
+   * @param id - ID of the Connection
    * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
    */
-  get(name: string): Observable<IConnection> {
+  get(id: number): Observable<IConnection> {
     return this.getAll()
-      .map((connections: IConnection[]) => connections.find(p => p.name === name));
+      .map((connections: IConnection[]) => connections.find(c => c.id === id));
   };
 
 

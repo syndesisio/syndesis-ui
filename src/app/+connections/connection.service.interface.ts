@@ -16,17 +16,17 @@ export interface IConnectionService {
 
     /**
      * Called to delete a Connection.  This is done asynchronously and thus returns a promise.
-     * @param name - Name of the Connection.
+     * @param id - ID of the Connection.
      * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
      */
-    del(name: string): Promise<void>;
+    del(id: number): Promise<void>;
 
     /**
      * Gets a single Connection by its name.
-     * @param name - Name of the Connection.
+     * @param id - ID of the Connection.
      * @return Observable<IConnection> - Returns an Observable.
      */
-    get(name: string): Observable<IConnection>;
+    get(id: number): Observable<IConnection>;
 
     /**
      * Gets an observable over all of the Connections. The list of Connections is not guaranteed
