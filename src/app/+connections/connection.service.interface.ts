@@ -47,9 +47,9 @@ export interface IConnectionService {
     /**
      * Gets an array of the Connection types supported by this service.
      *
-     * @return string[]
+     * @return Observable<Connection[]> - Returns an Observable.
      */
-    getSupportedConnectionTypes(): string[];
+    getSupportedConnectionTypes(): Observable<IConnection[]>;
 
     /**
      * Updates an existing Connection with the associated name. It will return a Promise that the

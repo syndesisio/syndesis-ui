@@ -16,109 +16,116 @@ let log = Logger.get('ConnectionService');
 @Injectable()
 export class ConnectionService implements IConnectionService {
 
-    errorMessage: string;
-    private allConnections: IConnection[];
-    private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
+  errorMessage: string;
+  private allConnections: IConnection[];
+
+  baseUrl: string;
+  //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
+  //private connectionsUrl = 'http://localhost:9090';
 
 
-    /**
-     * Constructor.
-     * @param http - HTTP
-     */
-    constructor(private http: Http) {}
+  /**
+   * Constructor.
+   * @param http - HTTP
+   */
+  constructor(private http: Http) {
+    //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
+    this.baseUrl = 'http://localhost:9090';
+  }
 
 
-    /**
-     * Creates a Connection using data provided by the user.
-     * @param connection - Connection
-     * @return {Promise<Connection>} - Returns a Promise. Should perhaps return an Observable instead.
-     */
-    create(connection: IConnection): Promise<IConnection> {
-        return;
-    };
+  /**
+   * Creates a Connection using data provided by the user.
+   * @param connection - Connection
+   * @return {Promise<Connection>} - Returns a Promise. Should perhaps return an Observable instead.
+   */
+  create(connection: IConnection): Promise<IConnection> {
+    return;
+  };
 
 
-    /**
-     * Deletes a Connection. This does not delete the Connection persistently. It removes
-     * the Connection from the list of Connections in this session, for now.
-     * @param name - Name of the Connection
-     * @return {Promise<void>} - Returns a Promise. Should perhaps return an Observable instead.
-     */
-    del(name: string): Promise<void> {
-        return;
-    };
+  /**
+   * Deletes a Connection. This does not delete the Connection persistently. It removes
+   * the Connection from the list of Connections in this session, for now.
+   * @param name - Name of the Connection
+   * @return {Promise<void>} - Returns a Promise. Should perhaps return an Observable instead.
+   */
+  del(name: string): Promise<void> {
+    return;
+  };
 
 
-    /**
-     * Gets a single Connection by its name.
-     * This should actually be by ID instead, and needs to be updated.
-     * @param name - Name of the Connection
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
-     */
-    get(name: string): Observable<IConnection> {
-        return this.getAll()
-          .map((connections: IConnection[]) => connections.find(p => p.name === name));
-    };
+  /**
+   * Gets a single Connection by its name.
+   * This should actually be by ID instead, and needs to be updated.
+   * @param name - Name of the Connection
+   * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+   */
+  get(name: string): Observable<IConnection> {
+    return this.getAll()
+      .map((connections: IConnection[]) => connections.find(p => p.name === name));
+  };
 
 
-    /**
-     * Retrieves a list of all Connections.
-     * @return {Observable<Connection[]>} - Returns an Observable.
-     */
-    getAll(): Observable<IConnection[]> {
-        return this.http.get(this.connectionsUrl)
-          .map(this.extractData)
-          .catch(this.handleError);
-    };
+  /**
+   * Retrieves a list of all Connections. On the backend these are actually called Components.
+   * Connections are actual instances of Components created by Users.
+   * @return {Observable<Connection[]>} - Returns an Observable.
+   */
+  getAll(): Observable<IConnection[]> {
+    return this.http.get(this.baseUrl + '/components')
+      .map(this.extractData)
+      .catch(this.handleError);
+  };
 
 
-    /**
-     * Gets an Observable of recently updated Connections.
-     * @return {Observable<Connection[]>} - Returns an Observable.
-     */
-    getRecent(): Observable<IConnection[]> {
-        return;
-    };
+  /**
+   * Gets an Observable of recently updated Connections.
+   * @return {Observable<Connection[]>} - Returns an Observable.
+   */
+  getRecent(): Observable<IConnection[]> {
+    return;
+  };
 
 
-    /**
-     * Gets the supported Connections types for this implementation.
-     * Returns a Promise. Should perhaps return an Observable instead.
-     * @return {string[]}
-     */
-    getSupportedConnectionTypes(): string[] {
-        return [
-            'Integration'
-        ];
-    };
+  /**
+   * Gets the supported Component Groups, known as Connection Types to the User for this
+   * implementation.
+   * @return {string[]}
+   */
+  getSupportedConnectionTypes(): Observable<IConnection[]> {
+    return this.http.get(this.baseUrl + '/component-groups')
+      .map(this.extractData)
+      .catch(this.handleError);
+  };
 
 
-    /**
-     * Updates a single Connection.
-     * Returns a Promise. Should perhaps return an Observable instead.
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
-     */
-    update(connection: IConnection): Promise<IConnection> {
-        return;
-    };
+  /**
+   * Updates a single Connection.
+   * Returns a Promise. Should perhaps return an Observable instead.
+   * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+   */
+  update(connection: IConnection): Promise<IConnection> {
+    return;
+  };
 
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body.data || {};
-    };
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || {};
+  };
 
 
-    private handleError(error: any) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
-        let errMsg = (error.message) ? error.message :
-          error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  private handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
-        console.error(errMsg); // log to console instead
+    console.error(errMsg); // log to console instead
 
-        return Observable.throw(errMsg);
-    };
+    return Observable.throw(errMsg);
+  };
 
 }
 
