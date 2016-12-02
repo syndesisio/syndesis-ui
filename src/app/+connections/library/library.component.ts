@@ -8,7 +8,7 @@ import { ConnectionService } from '../connection.service';
 import { Logger } from '../../common/service/log';
 import { Router } from '@angular/router';
 
-var log = Logger.get('+connections/library');
+let log = Logger.get('+connections/library');
 
 @Component({
   moduleId: module.id,

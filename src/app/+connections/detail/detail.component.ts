@@ -7,7 +7,7 @@ import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 
-var log = Logger.get('+connections/detail');
+let log = Logger.get('+connections/detail');
 
 @Component({
   moduleId: module.id,
@@ -61,12 +61,6 @@ export class Detail implements OnInit {
   }
 
   save(): void {
-    this._connectionService
-      .update(this.connection)
-      .then(connection => {
-        this.connection = connection; // saved connection, w/ id if new
-        this.goBack(connection);
-      })
-      .catch(error => this.error = error); // TODO: Display error message
+    this._connectionService.update(this.connection);
   }
 }

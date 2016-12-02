@@ -6,7 +6,7 @@ import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 
-var log = Logger.get('+connections/create');
+let log = Logger.get('+connections/create');
 
 @Component({
   moduleId: module.id,
@@ -23,7 +23,7 @@ export class Create implements OnInit {
   listFilter: string;
   errorMessage: string;
 
-  @Input() connections: IConnection[];
+  connection: IConnection;
 
   constructor(private _connectionService: ConnectionService,
               private router: Router) {
@@ -38,7 +38,7 @@ export class Create implements OnInit {
   getConnections() {
     this._connectionService.getAll();
 
-    console.log('Connections: ' + JSON.stringify(this.connections));
+    console.log('Connections: ' + JSON.stringify(this.connection));
   }
 
   goToStep1() {
@@ -55,6 +55,8 @@ export class Create implements OnInit {
 
   submit() {
     this.currentStep = 4;
+
+    this._connectionService.create(this.connection);
   }
 
 }
