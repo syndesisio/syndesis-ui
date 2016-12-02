@@ -3,6 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'truncate'})
 export class Truncate implements PipeTransform {
   transform(value: string, limit: number, trail: string): string {
+    if(limit > value.length) {
+      return value;
+    }
+
     limit = limit ? limit : 10;
     trail = trail && (trail.length) > 1 ? trail : '';
 
