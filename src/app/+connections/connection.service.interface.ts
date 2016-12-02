@@ -10,9 +10,9 @@ export interface IConnectionService {
      * storage is used by this service. It will return a Promise that the caller can
      * use to be notified when the Connection has been successfully stored.
      * @param connection - Instance of a Connection
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+     * @return Observable<Connection> - Returns an Observable.
      */
-    create(connection: IConnection): Promise<IConnection>;
+    create(connection: IConnection): Observable<IConnection>;
 
     /**
      * Called to delete a Connection.  This is done asynchronously and thus returns a promise.

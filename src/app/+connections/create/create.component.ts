@@ -36,10 +36,9 @@ export class Create implements OnInit {
 
 
   getConnections() {
-    this._connectionService.getAll()
-      .subscribe(
-        connections => this.connections = connections,
-        error => this.errorMessage = <any>error);
+    this._connectionService.getAll();
+
+    console.log('Connections: ' + JSON.stringify(this.connections));
   }
 
   goToStep1() {

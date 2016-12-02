@@ -45,35 +45,42 @@ export class Library implements OnInit {
   }
 
   deleteConnection(connection: IConnection, $event: any): void {
-
+    this._connectionService.del(connection.id);
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {
-
+    this._connectionService.create(connection);
   }
 
   editConnection(connection: IConnection, $event: any): void {
     console.log('Connection: ', connection);
-    let link = [ 'edit', connection.name.toLowerCase() ];
+
+    let link = [ 'connections', 'edit', connection.name.toLowerCase() ];
+
     this.router.navigate(link);
   }
 
   getConnections() {
-    this._connectionService.getAll()
-      .subscribe(
-        connections => this.connections = connections,
-        error => this.errorMessage = <any>error);
+    this._connectionService.getAll();
+
+    console.log('Connections: ' + JSON.stringify(this.connections));
   }
 
   gotoDetail(connection: IConnection, $event: any): void {
-    console.log("$event: ", $event);
+    console.log('$event: ', $event);
+
     let className = _.get($event, 'target.className');
-    console.log("Class name: ", className);
+
+    console.log('Class name: ', className);
+
     if ($event && $event.target && $event.target.className.indexOf('dropdown-toggle') !== -1) {
       return;
     }
+
     console.log('Connection: ', connection);
+
     let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
+
     this.router.navigate(link);
   }
 

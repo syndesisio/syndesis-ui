@@ -10,6 +10,7 @@ import { IConnection } from './connection.model';
 import { IConnectionService } from './connection.service.interface';
 
 import { Logger } from '../common/service/log';
+import { errorHandler } from "@angular/platform-browser/src/browser";
 
 let log = Logger.get('ConnectionService');
 
@@ -37,10 +38,14 @@ export class ConnectionService implements IConnectionService {
   /**
    * Creates a Connection using data provided by the user.
    * @param connection - Connection
-   * @return {Promise<Connection>} - Returns a Promise. Should perhaps return an Observable instead.
+   * @return {Observable<Connection>} - Returns an Observable.
    */
-  create(connection: IConnection): Promise<IConnection> {
-    return;
+  create(connection: IConnection): Observable<IConnection> {
+    let body = JSON.stringify(connection);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
   };
 
 
