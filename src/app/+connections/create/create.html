@@ -184,8 +184,7 @@
 
     <!-- List of Components -->
     <div>
-        <div class="row row-cards-pf components"
-             [style.visibility]="components.length >0 ? '' : 'noComponents'">
+        <div class="row row-cards-pf components">
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let component of components | componentFilter: listFilter">
                 <div class="card-pf card-pf-view card-pf-view-xs">
