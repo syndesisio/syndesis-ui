@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { DirectivesModule } from '../common/directives';
 
 import { Logger } from '../common/service/log';
+
+// Components
 import { Connections } from './connection.component';
 import { Create } from './create/create.component';
 import { Edit } from './edit/edit.component';
@@ -34,6 +36,7 @@ const routes = [
 
 @NgModule({
   declarations: [
+    // Components
     Connections,
     Create,
     Edit,

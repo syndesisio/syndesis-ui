@@ -17,7 +17,7 @@ let log = Logger.get('+connections/create');
   selector: 'connections-create',
   styles: [ require('./create.scss') ],
   templateUrl: './create.html',
-  providers: [ ConnectionService ]
+  providers: [ ComponentService, ConnectionService ]
 })
 export class Create implements OnInit, OnDestroy {
   limit = 60;
