@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { IConnection } from '../connection.model';
 import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 
-var log = Logger.get('+connections/detail');
+let log = Logger.get('+connections/detail');
 
 @Component({
   moduleId: module.id,
@@ -16,52 +17,51 @@ var log = Logger.get('+connections/detail');
   templateUrl: 'detail.html',
   providers: [ ConnectionService ]
 })
-export class Detail implements OnInit {
+export class Detail implements OnInit, OnDestroy {
 
   @Input() connection: IConnection;
   @Output() close = new EventEmitter();
+
   error: any;
   navigated = false; // true if navigated here
+
+  private sub: Subscription;
 
   /**
    * Constructor.
    * @param _connectionService - ConnectionService
-   * @param route - ActivatedRoute
+   * @param _route - ActivatedRoute
+   * @param _router - Router
    */
   constructor(private _connectionService: ConnectionService,
-              private route: ActivatedRoute) {}
+              private _route: ActivatedRoute,
+              private _router: Router) {}
 
   ngOnInit(): void {
     log.debug('hello `Connections: Detail` component');
 
-    this.route.params.forEach((params: Params) => {
-      if (params[ 'name' ] !== undefined) {
-        let name = +params[ 'name' ];
-        this.navigated = true;
-        this._connectionService.get(name.toString())
-          .subscribe(
-            connections => this.connection = connections,
-            error => this.error = <any>error);
-      } else {
-        this.navigated = false;
-        this.connection = new IConnection();
-      }
-    });
+    this.sub = this._route.params.subscribe(
+      params => {
+        let id = +params['id'];
+        this.getConnection(id);
+      });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  getConnection(id: number) {
+    this._connectionService.get(id).subscribe(
+      connection => this.connection = connection,
+      error => this.error = <any>error);
+  }
+
+  goBack(): void {
+    this._router.navigate(['/connections']);
   }
 
   save(): void {
-    this._connectionService
-      .update(this.connection)
-      .then(connection => {
-        this.connection = connection; // saved connection, w/ id if new
-        this.goBack(connection);
-      })
-      .catch(error => this.error = error); // TODO: Display error message
+    this._connectionService.update(this.connection);
   }
-
-  goBack(savedConnection: IConnection = null): void {
-    this.close.emit(savedConnection);
-    if (this.navigated) { window.history.back(); }
-  }
-
 }

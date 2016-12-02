@@ -15,12 +15,6 @@
       "dom",
       "es6"
     ],
-    "filesGlob": [
-      "src/custom-typings.d.ts",
-      "./src/**/*.ts",
-      "./test/**/*.ts",
-      "!./node_modules/**/*.ts"
-    ],
     "types": [
       "hammerjs",
       "jasmine",

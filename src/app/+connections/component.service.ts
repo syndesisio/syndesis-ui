@@ -6,22 +6,22 @@ import { Observable } from 'rxjs/Observable';
 
 //import * as _ from 'lodash';
 
-import { IConnection } from './connection.model';
-import { IConnectionService } from './connection.service.interface';
+import { IComponent } from './component.model';
+//import { IComponentService } from './component.service.interface';
 
 import { Logger } from '../common/service/log';
 
-let log = Logger.get('ConnectionService');
+let log = Logger.get('ComponentService');
 
 @Injectable()
-export class ConnectionService implements IConnectionService {
+export class ComponentService {
 
   errorMessage: string;
-  private allConnections: IConnection[];
+  private allComponents: IComponent[];
 
   //baseUrl: string;
-  //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-  //private connectionsUrl = 'http://localhost:9090';
+  //private componentsUrl = 'app/+components/component.data.json'; // URL to JSON file
+  //private componentsUrl = 'http://localhost:9090';
   private baseUrl = 'http://localhost:9090/v1';
 
 
@@ -33,12 +33,12 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Creates a Connection using data provided by the user.
-   * @param connection - Connection
-   * @return {Observable<Connection>} - Returns an Observable.
+   * Creates a Component using data provided by the user.
+   * @param component - Component
+   * @return {Observable<Component>} - Returns an Observable.
    */
-  create(connection: IConnection): Observable<IConnection> {
-    let body = JSON.stringify(connection);
+  create(component: IComponent): Observable<IComponent> {
+    let body = JSON.stringify(component);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -47,59 +47,59 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Deletes a Connection.
-   * @param id - ID of the Connection
+   * Deletes a Component.
+   * @param id - ID of the Component
    * @return {Observable<void>} - Returns an Observable.
    */
   del(id: number): Observable<void> {
-    return this._http.delete(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]> response.json())
+    return this._http.delete(this.baseUrl + '/components/' + id)
+      .map((response: Response) => <IComponent[]> response.json())
       .do(data => console.log('Response: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   };
 
 
   /**
-   * Gets a single Connection by its name.
+   * Gets a single Component by its name.
    * This should actually be by ID instead, and needs to be updated.
-   * @param id - ID of the Connection
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * @param id - ID of the Component
+   * @return {Observable<Component[]>} - Returns an Observable.
    */
-  get(id: number): Observable<IConnection> {
-    return this.getAll().map((connections: IConnection[]) => connections.find(c => c.id === id));
+  get(id: number): Observable<IComponent> {
+    return this.getAll().map((components: IComponent[]) => components.find(c => c.id === id));
   };
 
 
   /**
-   * Retrieves a list of all Connections.
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * Retrieves a list of all Components.
+   * @return {Observable<Component[]>} - Returns an Observable.
    */
-  getAll(): Observable<IConnection[]> {
-    return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]> response.json())
+  getAll(): Observable<IComponent[]> {
+    return this._http.get(this.baseUrl + '/components')
+      .map((response: Response) => <IComponent[]> response.json())
       .do(data => console.log('All: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   }
 
 
   /**
-   * Gets an Observable of recently updated Connections.
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * Gets an Observable of recently updated Components.
+   * @return {Observable<Component[]>} - Returns an Observable.
    */
-  getRecent(): Observable<IConnection[]> {
-    return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]> response.json())
+  getRecent(): Observable<IComponent[]> {
+    return this._http.get(this.baseUrl + '/components')
+      .map((response: Response) => <IComponent[]> response.json())
       .do(data => console.log('All: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   };
 
 
   /**
-   * Updates a single Connection.
-   * @return {Observable<Connection>} - Returns an Observable.
+   * Updates a single Component.
+   * @return {Observable<Component>} - Returns an Observable.
    */
-  update(connection: IConnection): Observable<IConnection> {
-    let body = JSON.stringify(connection);
+  update(component: IComponent): Observable<IComponent> {
+    let body = JSON.stringify(component);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 

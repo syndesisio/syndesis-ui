@@ -6,27 +6,25 @@ import { IConnection } from './connection.model';
 
 export interface IConnectionService {
     /**
-     * Creates a new Connection with the given information. This will store the Connection in whatever
-     * storage is used by this service. It will return a Promise that the caller can
-     * use to be notified when the Connection has been successfully stored.
+     * Creates a new Connection with the given information.
      * @param connection - Instance of a Connection
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+     * @return Observable<Connection> - Returns an Observable.
      */
-    create(connection: IConnection): Promise<IConnection>;
+    create(connection: IConnection): Observable<IConnection>;
 
     /**
-     * Called to delete a Connection.  This is done asynchronously and thus returns a promise.
-     * @param name - Name of the Connection.
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+     * Called to delete a Connection.
+     * @param id - ID of the Connection.
+     * @return Observable<void> - Returns an Observable.
      */
-    del(name: string): Promise<void>;
+    del(id: number): Observable<void>;
 
     /**
      * Gets a single Connection by its name.
-     * @param name - Name of the Connection.
+     * @param id - ID of the Connection.
      * @return Observable<IConnection> - Returns an Observable.
      */
-    get(name: string): Observable<IConnection>;
+    get(id: number): Observable<IConnection>;
 
     /**
      * Gets an observable over all of the Connections. The list of Connections is not guaranteed
@@ -40,22 +38,15 @@ export interface IConnectionService {
      * Gets an observable over the recently updated Connections. Callers can then subscribe to this
      * observable to be notified when the value changes.
      *
-     * @return Observable<Connection[]> - Returns an Observable.
+     * @return Observable<IConnection[]> - Returns an Observable.
      */
     getRecent(): Observable<IConnection[]>;
-
-    /**
-     * Gets an array of the Connection types supported by this service.
-     *
-     * @return string[]
-     */
-    getSupportedConnectionTypes(): string[];
 
     /**
      * Updates an existing Connection with the associated name. It will return a Promise that the
      * caller can use to be notified when the Connection has been successfully stored.
      * @param connection - Instance of a Connection.
-     * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+     * @return Observable<IConnection> - Returns an Observable.
      */
-    update(connection: IConnection): Promise<IConnection>;
+    update(connection: IConnection): Observable<IConnection>;
 }

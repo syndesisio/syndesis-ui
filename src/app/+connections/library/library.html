@@ -68,7 +68,7 @@
             <!-- Connection Card -->
 
             <div class="col-xs-12 col-sm-3 col-md-2 card"
-                 *ngFor="let connection of connections | connectionFilter: listFilter">
+                 *ngFor="let connection of connections | connectionFilter: listFilter | orderBy : ['name', 'type']">
                  <div class="card-pf card-pf-view card-pf-view-xs">
                     <div class="card-pf-body">
 
@@ -84,7 +84,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right"
                                     role="menu">
                                     <li>
-                                    <a [routerLink]="['edit', connection.name.toLowerCase()]">Edit</a>
+                                    <a [routerLink]="['detail', connection.name.toLowerCase()]">Edit</a>
                                     </li>
                                     <li>
                                         <a (click)="duplicateConnection(connection, $event)">Duplicate</a>
@@ -100,7 +100,7 @@
                             <h2 class="card-pf-title">
                                 <span class="fa {{ connection.icon }}"></span>
                             </h2>
-                            <div (click)="gotoDetail(connection, $event)" class="card-title">{{ connection.name }}</div>
+                            <div (click)="gotoDetail(connection, $event)" class="card-title">{{ connection.name | truncate:'12':'' }}</div>
                         </div>
 
                         <!-- Card Description -->

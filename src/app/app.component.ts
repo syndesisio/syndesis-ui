@@ -20,15 +20,15 @@ var log = Logger.get('App');
     templateUrl: './index.html'
 })
 export class App {
-    name = 'Hawtio iPaaS';
+    name = 'Red Hat iPaaS';
 
     // White BG
-    logoWhiteBg = 'assets/images/RED HAT IPAAS_small.svg';
-    iconWhiteBg = 'assets/images/glasses logo.svg';
+    logoWhiteBg = 'assets/images/rh_ipaas_small.svg';
+    iconWhiteBg = 'assets/images/glasses_logo.svg';
 
     // Dark BG
-    logoDarkBg = 'assets/images/RED HAT IPAAS_small.svg';
-    iconDarkBg = 'assets/images/glasses logo.svg';
+    logoDarkBg = 'assets/images/rh_ipaas_small.svg';
+    iconDarkBg = 'assets/images/glasses_logo.svg';
 
     title = 'Red Hat iPaaS';
     url = 'https://www.twitter.com/jboss';

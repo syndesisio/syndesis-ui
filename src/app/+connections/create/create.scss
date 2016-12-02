@@ -13,6 +13,19 @@ div.connections.create {
     }
   }
 
+  .row-cards-pf.components:first-child {
+    padding-top: 20px;
+  }
+
+  .row-cards-pf.components {
+    //padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .row-card-pf.noComponents {
+    padding: 200px auto !important;
+  }
+
   .wizard-pf-steps {
     border-bottom: solid 1px #d1d1d1;
     text-align: center;
@@ -25,17 +38,28 @@ div.connections.create {
   }
 
   .wizard-pf-body {
-    padding: 0;
     background: #fff;
-    margin: auto -20px;
     border-bottom: solid 1px #d1d1d1;
+    height: 100%;
+    margin: auto -20px;
+    max-height: 340px;
+    padding: 0;
+
+    .form-horizontal .control-label {
+      text-align: left;
+    }
+  }
+
+  // Bottom Toolbar for Components
+  .toolbar-pf.type {
+    margin-bottom: 10px;
   }
 
   .wizard-pf-footer {
     border-top: 1px solid #d1d1d1;
     border-right: 1px solid #d1d1d1;
     border-left: 1px solid #d1d1d1;
-    margin-top: 0;
+    margin-top: 10px;
     background: #fff;
     padding: 20px;
   }

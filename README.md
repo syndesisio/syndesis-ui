@@ -1,8 +1,10 @@
-# Hawtio iPaaS
+# Red Hat iPaaS Client
 
 [![CircleCI](https://circleci.com/gh/redhat-ipaas/ipaas-client.svg?style=svg)](https://circleci.com/gh/redhat-ipaas/ipaas-client)
 
-The front end application for Red Hat iPaaS - a flexible, customizable, cloud-hosted platform that provides core integration capabilities as a service. It leverages Red Hat's existing product architecture using OpenShift Online/Dedicated and Fuse Integration Services. For the back end application, please see [this repo](https://github.com/fabric8io/fabric8-forge).
+The front end application for Red Hat iPaaS - a flexible, customizable, cloud-hosted platform that provides core integration capabilities as a service. It leverages Red Hat's existing product architecture using OpenShift Online/Dedicated and Fuse Integration Services.
+
+For the middle tier API that this client communicates with, please see [this](https://github.com/redhat-ipaas/ipaas-api) repo. 
 
 Included in this stack are the following technologies:
 
@@ -23,10 +25,10 @@ Included in this stack are the following technologies:
 
 ```
 # clone our repo
-git clone https://github.com/hawtio/hawtio-ipaas.git
+git clone https://github.com/redhat-ipaas/ipaas-client.git
 
 # change directory to iPaaS
-cd hawtio-ipaas
+cd ipaas-client
 
 # install the repo with npm
 npm install
@@ -52,7 +54,7 @@ Go to [http://0.0.0.0:9000](http://0.0.0.0:9000) or [http://localhost:9000](http
 ## File Structure
 We use the component approach in our starter. This is the new standard for developing Angular apps and a great way to ensure maintainable code by encapsulation of our behavior logic. A component is basically a self contained app, usually in a single file or a folder with each concern as a file: style, template, specs, e2e, and component class.
 ```
-hawtio-ipaas/
+ipaas-client/
  ├──config/                       * our configuration
  |   ├──github-deploy/            * still figuring this one out, will report back soon :)
  |   ├──html-elements-plugin/     * ""

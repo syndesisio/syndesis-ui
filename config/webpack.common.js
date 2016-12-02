@@ -27,9 +27,10 @@ const frontendConfig = {};
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Hawtio iPaaS',
+  title: 'Red Hat iPaaS',
   baseUrl: '/',
   dist: OUTPUT_DIR + '/dist/',
+  faviconUrl: 'assets/favicon.ico',
   isDevServer: helpers.isWebpackDevServer()
 };
 
@@ -178,7 +179,7 @@ module.exports = {
 
       // File loader for supporting images, for example, in CSS files.
       {
-        test: /\.(jpg|png|gif)$/,
+        test: /\.(jpg|png|gif|.ico)$/,
         loader: 'file'
       },
 

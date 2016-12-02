@@ -1,24 +1,25 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import {Logger} from '../common/service/log';
+import { Logger } from '../common/service/log';
 
-var log = Logger.get('+connections');
+let log = Logger.get('+connections');
 
 @Component({
-    selector: 'connections',
-    encapsulation: ViewEncapsulation.None,
-    styles: [],
-    template: `<router-outlet></router-outlet>`
+  selector: 'connections',
+  encapsulation: ViewEncapsulation.None,
+  styles: [],
+  template: `<router-outlet></router-outlet>`
 })
 export class Connections {
 
-    /**
-     * Constructor.
-     */
-    constructor() {}
-    
-    ngOnInit() {
-        log.debug('hello `Connections` component');
-    }
-    
+  /**
+   * Constructor.
+   */
+  constructor() {
+  }
+
+  ngOnInit() {
+    log.debug('hello `Connections` component');
+  }
+
 }
