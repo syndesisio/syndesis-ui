@@ -92,6 +92,17 @@ export class Create implements OnInit, OnDestroy {
     this.currentStep = 3;
   }
 
+
+  // Actions
+
+  goBack(): void {
+    this._router.navigate(['/connections']);
+  }
+
+  cancelCreate(): void {}
+
+  nextStep(): void {}
+
   submit() {
     this.currentStep = 4;
 

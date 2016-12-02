@@ -69,6 +69,10 @@ export class Library implements OnInit {
     this.router.navigate(link);
   }
 
+  goBack(): void {
+    this._router.navigate(['/dashboard']);
+  }
+
   getConnections() {
     this._connectionService.getAll();
   }

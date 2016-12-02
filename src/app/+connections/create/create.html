@@ -233,14 +233,17 @@
     <!-- Wizard Footer -->
     <div class="wizard-pf-footer">
         <button type="button"
+                (click)="cancelCreate(currentStep, $event)"
                 class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss">Cancel
         </button>
         <button type="button"
-                class="btn btn-default wizard-pf-back disabled">
+                class="btn btn-default wizard-pf-back"
+                (click)="goBack($event)">
             <span class="i fa fa-angle-left"></span> Back
         </button>
         <button type="button"
-                class="btn btn-primary wizard-pf-next disabled">
+                class="btn btn-primary wizard-pf-next"
+                (click)="nextStep(currentStep, $event)">
             Next <span class="i fa fa-angle-right"></span>
         </button>
         <button type="button"
