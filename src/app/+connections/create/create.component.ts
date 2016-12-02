@@ -95,15 +95,27 @@ export class Create implements OnInit, OnDestroy {
 
   // Actions
 
-  goBack(): void {
+  goBack(currentStep: number, $event: any): void {
+    console.log('currentStep: ' + currentStep);
+
+    currentStep = this.currentStep--;
+
+    console.log('this.currentStep: ' + this.currentStep);
+  }
+
+  cancelCreate(): void {
     this._router.navigate(['/connections']);
   }
 
-  cancelCreate(): void {}
+  nextStep(currentStep: number, $event: any): void {
+    console.log('currentStep: ' + currentStep);
 
-  nextStep(): void {}
+    currentStep = this.currentStep++;
 
-  submit() {
+    console.log('this.currentStep: ' + this.currentStep);
+  }
+
+  submit(connection: IConnection, $event: any) {
     this.currentStep = 4;
 
     this._connectionService.create(this.connection);

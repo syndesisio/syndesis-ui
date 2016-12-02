@@ -238,7 +238,7 @@
         </button>
         <button type="button"
                 class="btn btn-default wizard-pf-back"
-                (click)="goBack($event)">
+                (click)="goBack(currentStep, $event)">
             <span class="i fa fa-angle-left"></span> Back
         </button>
         <button type="button"
@@ -247,6 +247,7 @@
             Next <span class="i fa fa-angle-right"></span>
         </button>
         <button type="button"
+                (click)="nextStep(connection, $event)"
                 class="btn btn-primary wizard-pf-finish hidden"><!-- hidden -->Deploy
             <span class="i fa fa-angle-right"></span>
         </button>
