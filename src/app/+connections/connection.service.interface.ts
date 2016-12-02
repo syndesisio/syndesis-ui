@@ -45,13 +45,6 @@ export interface IConnectionService {
     getRecent(): Observable<IConnection[]>;
 
     /**
-     * Gets an array of the Connection types supported by this service.
-     *
-     * @return Observable<Connection[]> - Returns an Observable.
-     */
-    getSupportedConnectionTypes(): Observable<IConnection[]>;
-
-    /**
      * Updates an existing Connection with the associated name. It will return a Promise that the
      * caller can use to be notified when the Connection has been successfully stored.
      * @param connection - Instance of a Connection.

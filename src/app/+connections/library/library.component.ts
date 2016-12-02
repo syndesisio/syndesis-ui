@@ -26,7 +26,8 @@ export class Library implements OnInit {
   listFilter: string;
   errorMessage: string;
 
-  @Input() connections: IConnection[];
+  //@Input() connections: IConnection[];
+  connections: IConnection[];
 
 
   /**
@@ -38,10 +39,13 @@ export class Library implements OnInit {
               private _connectionService: ConnectionService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     log.debug('hello `Connections: Library` component');
 
-    this.getConnections();
+    //this.getConnections();
+    this._connectionService.getAll()
+      .subscribe(connections => this.connections = connections,
+        error => this.errorMessage = <any>error);
   }
 
   deleteConnection(connection: IConnection, $event: any): void {
@@ -62,8 +66,6 @@ export class Library implements OnInit {
 
   getConnections() {
     this._connectionService.getAll();
-
-    console.log('Connections: ' + JSON.stringify(this.connections));
   }
 
   gotoDetail(connection: IConnection, $event: any): void {

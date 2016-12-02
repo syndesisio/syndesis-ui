@@ -20,19 +20,17 @@ export class ConnectionService implements IConnectionService {
   errorMessage: string;
   private allConnections: IConnection[];
 
-  baseUrl: string;
+  //baseUrl: string;
   //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
   //private connectionsUrl = 'http://localhost:9090';
+  private baseUrl = 'http://localhost:9090/v1';
 
 
   /**
    * Constructor.
-   * @param http - HTTP
+   * @param _http - HTTP
    */
-  constructor(private http: Http) {
-    //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-    this.baseUrl = 'http://localhost:9090/v1';
-  }
+  constructor(private _http: Http) {}
 
 
   /**
@@ -45,7 +43,7 @@ export class ConnectionService implements IConnectionService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.post(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
   };
 
 
@@ -67,21 +65,28 @@ export class ConnectionService implements IConnectionService {
    * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
    */
   get(id: number): Observable<IConnection> {
-    return this.getAll()
-      .map((connections: IConnection[]) => connections.find(c => c.id === id));
+    return this.getAll().map((connections: IConnection[]) => connections.find(c => c.id === id));
   };
 
 
   /**
-   * Retrieves a list of all Connections. On the backend these are actually called Components.
-   * Connections are actual instances of Components created by Users.
+   * Retrieves a list of all Connections.
    * @return {Observable<Connection[]>} - Returns an Observable.
    */
   getAll(): Observable<IConnection[]> {
-    return this.http.get(this.baseUrl + '/components')
+    return this._http.get(this.baseUrl + '/connections')
+      .map((response: Response) => <IConnection[]> response.json())
+      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      .catch(this.handleError);
+  }
+
+  /*
+  getAll(): Observable<IConnection[]> {
+    return this.http.get(this.baseUrl + '/connections')
       .map(this.extractData)
       .catch(this.handleError);
   };
+  */
 
 
   /**
@@ -90,18 +95,6 @@ export class ConnectionService implements IConnectionService {
    */
   getRecent(): Observable<IConnection[]> {
     return;
-  };
-
-
-  /**
-   * Gets the supported Component Groups, known as Connection Types to the User for this
-   * implementation.
-   * @return {string[]}
-   */
-  getSupportedConnectionTypes(): Observable<IConnection[]> {
-    return this.http.get(this.baseUrl + '/component-groups')
-      .map(this.extractData)
-      .catch(this.handleError);
   };
 
 
@@ -116,6 +109,8 @@ export class ConnectionService implements IConnectionService {
 
 
   private extractData(res: Response) {
+    console.log('Response: ' + JSON.stringify(res));
+
     let body = res.json();
     return body.data || {};
   };
