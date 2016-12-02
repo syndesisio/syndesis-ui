@@ -37,7 +37,7 @@ export class Library implements OnInit {
    * @param router - Router
    * @param _connectionService - ConnectionService
    */
-  constructor(private router: Router,
+  constructor(private _router: Router,
               private _connectionService: ConnectionService) {
   }
 
@@ -66,7 +66,7 @@ export class Library implements OnInit {
 
     let link = [ 'connections', 'edit', connection.name.toLowerCase() ];
 
-    this.router.navigate(link);
+    this._router.navigate(link);
   }
 
   goBack(): void {
@@ -93,7 +93,7 @@ export class Library implements OnInit {
     //let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
     let link = [ 'connections', 'detail', connection.id ];
 
-    this.router.navigate(link);
+    this._router.navigate(link);
   }
 
   sort(): void {
