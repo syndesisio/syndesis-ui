@@ -10,7 +10,6 @@ import { IConnection } from './connection.model';
 import { IConnectionService } from './connection.service.interface';
 
 import { Logger } from '../common/service/log';
-import { errorHandler } from "@angular/platform-browser/src/browser";
 
 let log = Logger.get('ConnectionService');
 
@@ -48,13 +47,15 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Deletes a Connection. This does not delete the Connection persistently. It removes
-   * the Connection from the list of Connections in this session, for now.
+   * Deletes a Connection.
    * @param id - ID of the Connection
-   * @return {Promise<void>} - Returns a Promise. Should perhaps return an Observable instead.
+   * @return {Observable<void>} - Returns an Observable.
    */
-  del(id: number): Promise<void> {
-    return;
+  del(id: number): Observable<void> {
+    return this._http.delete(this.baseUrl + '/connections/' + id)
+      .map((response: Response) => <IConnection[]> response.json())
+      .do(data => console.log('Response: ' +  JSON.stringify(data)))
+      .catch(this.handleError);
   };
 
 
@@ -62,7 +63,7 @@ export class ConnectionService implements IConnectionService {
    * Gets a single Connection by its name.
    * This should actually be by ID instead, and needs to be updated.
    * @param id - ID of the Connection
-   * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+   * @return {Observable<Connection[]>} - Returns an Observable.
    */
   get(id: number): Observable<IConnection> {
     return this.getAll().map((connections: IConnection[]) => connections.find(c => c.id === id));
@@ -80,31 +81,29 @@ export class ConnectionService implements IConnectionService {
       .catch(this.handleError);
   }
 
-  /*
-  getAll(): Observable<IConnection[]> {
-    return this.http.get(this.baseUrl + '/connections')
-      .map(this.extractData)
-      .catch(this.handleError);
-  };
-  */
-
 
   /**
    * Gets an Observable of recently updated Connections.
    * @return {Observable<Connection[]>} - Returns an Observable.
    */
   getRecent(): Observable<IConnection[]> {
-    return;
+    return this._http.get(this.baseUrl + '/connections')
+      .map((response: Response) => <IConnection[]> response.json())
+      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      .catch(this.handleError);
   };
 
 
   /**
    * Updates a single Connection.
-   * Returns a Promise. Should perhaps return an Observable instead.
-   * @return Promise<Connection> - Returns a Promise. Should perhaps return an Observable instead.
+   * @return {Observable<Connection>} - Returns an Observable.
    */
-  update(connection: IConnection): Promise<IConnection> {
-    return;
+  update(connection: IConnection): Observable<IConnection> {
+    let body = JSON.stringify(connection);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http.put(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
   };
 
 
