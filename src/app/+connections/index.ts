@@ -12,8 +12,9 @@ import { Detail } from './detail/detail.component';
 import { Library } from './library/library.component';
 
 // Pipes
-import { TruncatePipe } from '../common/pipes/truncate';
-import { ConnectionFilterPipe } from './connection.pipe';
+import { Truncate } from '../common/pipes/truncate';
+import { ConnectionFilter } from './connection.pipe';
+import { OrderBy } from '../common/pipes/orderBy';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
@@ -25,8 +26,8 @@ const routes = [
         children: [
             {path: '', component: Library},
             {path: 'create', component: Create},
-            {path: 'edit/:name', component: Edit},
-            {path: 'detail/:name', component: Detail}
+            {path: 'edit/:id', component: Edit},
+            {path: 'detail/:id', component: Detail}
         ]
     }
 ];
@@ -40,8 +41,9 @@ const routes = [
         Library,
 
         // Pipes
-        ConnectionFilterPipe,
-        TruncatePipe
+        ConnectionFilter,
+        OrderBy,
+        Truncate
     ],
     imports: [
         CommonModule,

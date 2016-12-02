@@ -23,6 +23,8 @@ export class Library implements OnInit {
   limit = 80;
   trail = '..';
 
+  orderByArray: ['name', 'type'];
+
   listFilter: string;
   errorMessage: string;
 
@@ -53,6 +55,9 @@ export class Library implements OnInit {
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {
+    // Remove ID from Connection instance
+    connection.id = null;
+
     this._connectionService.create(connection);
   }
 
@@ -84,6 +89,10 @@ export class Library implements OnInit {
     let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
 
     this.router.navigate(link);
+  }
+
+  sort(): void {
+    //this.connections = !this.showImage;
   }
 
 }
