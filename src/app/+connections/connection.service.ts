@@ -89,7 +89,7 @@ export class ConnectionService implements IConnectionService {
   getRecent(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]> response.json())
-      .do(data => console.log('All: ' +  data))
+      .do(data => console.log('All: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   };
 
