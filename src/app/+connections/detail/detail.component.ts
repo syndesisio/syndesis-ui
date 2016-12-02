@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IConnection } from '../connection.model';
@@ -17,7 +17,7 @@ let log = Logger.get('+connections/detail');
   templateUrl: 'detail.html',
   providers: [ ConnectionService ]
 })
-export class Detail implements OnInit {
+export class Detail implements OnInit, OnDestroy {
 
   @Input() connection: IConnection;
   @Output() close = new EventEmitter();
@@ -31,9 +31,11 @@ export class Detail implements OnInit {
    * Constructor.
    * @param _connectionService - ConnectionService
    * @param _route - ActivatedRoute
+   * @param _router - Router
    */
   constructor(private _connectionService: ConnectionService,
-              private _route: ActivatedRoute) {}
+              private _route: ActivatedRoute,
+              private _router: Router) {}
 
   ngOnInit(): void {
     log.debug('hello `Connections: Detail` component');
@@ -55,9 +57,8 @@ export class Detail implements OnInit {
       error => this.error = <any>error);
   }
 
-  goBack(savedConnection: IConnection = null): void {
-    this.close.emit(savedConnection);
-    if (this.navigated) { window.history.back(); }
+  goBack(): void {
+    this._router.navigate(['/connections']);
   }
 
   save(): void {

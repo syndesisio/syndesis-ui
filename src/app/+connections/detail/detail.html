@@ -2,9 +2,9 @@
     <div *ngIf="connection">
         <h2>{{connection.name}} details!</h2>
         <div>
-            <label>id: </label>{{connection.id}}</div>
+            <label>ID: </label>{{connection.id}}</div>
         <div>
-            <label>name: </label>
+            <label>Name: </label>
             <input [(ngModel)]="connection.name" placeholder="name" />
         </div>
         <button (click)="goBack()">Back</button>

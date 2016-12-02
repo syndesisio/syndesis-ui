@@ -25,10 +25,12 @@ div.connections.create {
   }
 
   .wizard-pf-body {
-    padding: 0;
     background: #fff;
-    margin: auto -20px;
     border-bottom: solid 1px #d1d1d1;
+    height: 100%;
+    margin: auto -20px;
+    max-height: 340px;
+    padding: 0;
   }
 
   .wizard-pf-footer {

@@ -23,6 +23,7 @@ export class Create implements OnInit {
   listFilter: string;
   errorMessage: string;
 
+  connections: IConnection[];
   connection: IConnection;
 
   constructor(private _connectionService: ConnectionService,
@@ -32,6 +33,10 @@ export class Create implements OnInit {
 
   ngOnInit() {
     log.debug('hello `Connections: Create` component');
+
+    this._connectionService.getAll()
+      .subscribe(connections => this.connections = connections,
+        error => this.errorMessage = <any>error);
   }
 
 
