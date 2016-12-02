@@ -23,7 +23,7 @@ export class Library implements OnInit {
   limit = 80;
   trail = '..';
 
-  orderByArray: ['name', 'type'];
+  //orderByArray: ['name', 'type'];
 
   listFilter: string;
   errorMessage: string;
@@ -86,7 +86,8 @@ export class Library implements OnInit {
 
     console.log('Connection: ', connection);
 
-    let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
+    //let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
+    let link = [ 'connections', 'detail', connection.id ];
 
     this.router.navigate(link);
   }
