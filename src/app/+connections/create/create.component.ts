@@ -43,8 +43,8 @@ export class Create implements OnInit, OnDestroy {
    * @param _connectionService - ConnectionService
    * @param _router - Router
    */
-  constructor(private _connectionService: ConnectionService,
-              private _componentService: ComponentService,
+  constructor(private _componentService: ComponentService,
+              private _connectionService: ConnectionService,
               private _router: Router) {}
 
   ngOnInit() {

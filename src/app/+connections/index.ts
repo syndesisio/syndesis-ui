@@ -15,6 +15,7 @@ import { Library } from './library/library.component';
 
 // Pipes
 import { Truncate } from '../common/pipes/truncate';
+import { ComponentFilter } from './component.pipe';
 import { ConnectionFilter } from './connection.pipe';
 import { OrderBy } from '../common/pipes/orderBy';
 
@@ -44,6 +45,7 @@ const routes = [
     Library,
 
     // Pipes
+    ComponentFilter,
     ConnectionFilter,
     OrderBy,
     Truncate
