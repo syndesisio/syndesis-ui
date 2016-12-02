@@ -20,41 +20,41 @@ Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    {
-        path: '',
-        component: Connections,
-        children: [
-            {path: '', component: Library},
-            {path: 'create', component: Create},
-            {path: 'edit/:id', component: Edit},
-            {path: 'detail/:id', component: Detail}
-        ]
-    }
+  {
+    path: '',
+    component: Connections,
+    children: [
+      {path: '', component: Library},
+      {path: 'create', component: Create},
+      {path: 'edit/:id', component: Edit},
+      {path: 'detail/:id', component: Detail}
+    ]
+  }
 ];
 
 @NgModule({
-    declarations: [
-        Connections,
-        Create,
-        Edit,
-        Detail,
-        Library,
+  declarations: [
+    Connections,
+    Create,
+    Edit,
+    Detail,
+    Library,
 
-        // Pipes
-        ConnectionFilter,
-        OrderBy,
-        Truncate
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        DirectivesModule,
-        RouterModule.forChild(routes),
-    ]
+    // Pipes
+    ConnectionFilter,
+    OrderBy,
+    Truncate
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DirectivesModule,
+    RouterModule.forChild(routes),
+  ]
 })
 export default class ConnectionsModule {
-    static routes = routes;
+  static routes = routes;
 }
 
 
