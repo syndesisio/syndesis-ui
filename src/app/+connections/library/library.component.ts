@@ -34,7 +34,7 @@ export class Library implements OnInit {
 
   /**
    * Constructor.
-   * @param router - Router
+   * @param _router - Router
    * @param _connectionService - ConnectionService
    */
   constructor(private _router: Router,
