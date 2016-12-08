@@ -24,15 +24,15 @@
             <!-- Wizard Progress Bar-->
             <div class="wizard-pf-steps"><!-- hidden -->
                 <ul class="wizard-pf-steps-indicator">
-                    <li class="wizard-pf-step active"
+                  <li class="wizard-pf-step" [class.active]="currentStep === 1"
                         data-tabgroup="1">
                         <a><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">First Step</span></a>
                     </li>
-                    <li class="wizard-pf-step"
+                    <li class="wizard-pf-step" [class.active]="currentStep === 2"
                         data-tabgroup="2">
                         <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">Second Step</span></a>
                     </li>
-                    <li class="wizard-pf-step"
+                    <li class="wizard-pf-step" [class.active]="currentStep === 3"
                         data-tabgroup="3">
                         <a><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">Review</span></a>
                     </li>
@@ -54,8 +54,7 @@
 
                 <!-- Step 1 -->
                 <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 1 ? '' : 'hidden'"><!-- hidden -->
+                  <div class="wizard-pf-contents col-xs-6" *ngIf="currentStep === 1">
                         <form class="form-horizontal">
                             <!-- replacing id with data-id to pass build errors -->
                             <div class="form-group required">
@@ -95,8 +94,7 @@
 
                 <!-- Step 2 -->
                 <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
+                  <div class="wizard-pf-contents col-xs-6" *ngIf="currentStep === 2">
                         <form class="form-horizontal">
                             <div class="form-group required">
                                 <label class="col-sm-2 control-label"
@@ -122,8 +120,7 @@
 
                 <!-- Step 3 -->
                 <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
+                    <div class="wizard-pf-contents col-xs-6" *ngIf="currentStep === 3">
                         <div class="wizard-pf-process blank-slate-pf">
                             <div class="spinner spinner-lg blank-slate-pf-icon"></div>
                             <h3 class="blank-slate-pf-main-action">Deployment in progress</h3>
@@ -150,7 +147,7 @@
 
 
         <!-- Toolbar: Select Connection Type -->
-        <div class="row toolbar-pf type">
+        <div class="row toolbar-pf type" *ngIf="currentStep === 1">
             <div class="col-xs-12">
                 <form class="toolbar-pf-actions">
                     <div class="form-group toolbar-pf-filter">

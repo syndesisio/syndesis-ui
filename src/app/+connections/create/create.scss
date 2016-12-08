@@ -57,10 +57,14 @@ div.connections.create {
 
   .wizard-pf-footer {
     border-top: 1px solid #d1d1d1;
-    border-right: 1px solid #d1d1d1;
-    border-left: 1px solid #d1d1d1;
+    //border-right: 1px solid #d1d1d1;
+    //border-left: 1px solid #d1d1d1;
     margin-top: 10px;
     background: #fff;
     padding: 20px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 200px;
   }
 }
