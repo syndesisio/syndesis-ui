@@ -35,7 +35,9 @@ export class Create implements OnInit, OnDestroy {
 
   //@Input() components: IComponent[];
   components: IComponent[];
-  component: IComponent;
+  selectedComponent: IComponent;
+  availableFields = [];
+  enabledFields = [];
 
   /**
    * Constructor.
@@ -67,7 +69,7 @@ export class Create implements OnInit, OnDestroy {
   getComponents() {
     this._componentService.getAll();
 
-    console.log('Components: ' + JSON.stringify(this.component));
+    console.log('Components: ' + JSON.stringify(this.components));
   }
 
   // Connections
@@ -77,9 +79,16 @@ export class Create implements OnInit, OnDestroy {
     console.log('Connections: ' + JSON.stringify(this.connection));
   }
 
+  getFields() {
+    if (!this.selectedComponent) {
+      return [];
+    }
+    //return JSON.parse(this.selectedComponent.properties);
+    return [];
+  }
+
 
   // Steps
-
   goToStep1() {
     this.currentStep = 1;
   }
@@ -94,6 +103,19 @@ export class Create implements OnInit, OnDestroy {
 
 
   // Actions
+  addField(field) {
+    this.enabledFields.push(field);
+  }
+
+  selectComponent(component) {
+    this.selectedComponent = component;
+    this.availableFields.length = 0;
+    this.enabledFields.length = 0;
+    const properties = JSON.parse(component.properties);
+    _.forOwn(properties, (property, key) => {
+      this.availableFields.push(property);
+    });
+  }
 
   goBack(currentStep: number, $event: any): void {
     console.log('currentStep: ' + currentStep);
