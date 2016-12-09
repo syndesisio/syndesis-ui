@@ -65,6 +65,7 @@
                                     <input type="text"
                                            name="nameInput"
                                            data-id="nameInput"
+                                           [(ngModel)]="name"
                                            class="form-control">
                                 </div>
                             </div>
@@ -75,6 +76,7 @@
                                 <textarea data-id="descriptionInput"
                                           name="descriptionInput"
                                           class="form-control"
+                                          [(ngModel)]="description"
                                           rows="2"></textarea>
                                 </div>
                             </div>
@@ -85,6 +87,7 @@
                                     <input type="text"
                                            name="tagsInput"
                                            data-id="tagsInput"
+                                           [(ngModel)]="tags"
                                            class="form-control">
                                 </div>
                             </div>
@@ -94,24 +97,26 @@
 
                 <!-- Step 2 -->
                 <div class="row">
-                  <div class="wizard-pf-contents col-xs-6" *ngIf="currentStep === 2">
+                  <div class="wizard-pf-contents" *ngIf="currentStep === 2">
                       <div class="row">
-                        <div class="col-md-6">
-                          <ul>
-                            <li *ngFor="let field of availableFields" (click)="addField(field)">
+                        <div class="col-md-4">
+                          <h4>Select {{selectedComponent.name}} Fields</h4>
+                          <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let field of availableFields" (click)="addField(field)">
                               {{field.title}}
+                              <a href="" *ngIf="fieldAvailable(field)" class="pull-right"><i class="fa fa-plus"></i></a>
                             </li>
                           </ul>
                         </div>
-                        <div class="col-md-6">
-                          <ul>
-                            <li *ngFor="let field of enabledFields">
-                              {{field.title}}
-                            </li>
-                          </ul>
+                        <div class="col-md-8">
+                          <h4>Set up connection form defaults</h4>
+                          <form #f="ngForm">
+                            <div *ngFor="let field of enabledFields">
+                              <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
+                            </div>
+                          </form>
                         </div>
                       </div>
-
                     </div>
                 </div>
 
@@ -183,9 +188,8 @@
     </div>
 
     <!-- List of Components -->
-    <div>
-        <div class="row row-cards-pf components"
-             *ngIf="currentStep === 1">
+    <div *ngIf="currentStep === 1">
+        <div class="row row-cards-pf components">
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let component of components | componentFilter: listFilter">
                  <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select" [class.active]="component === selectedComponent" (click)="selectComponent(component)">

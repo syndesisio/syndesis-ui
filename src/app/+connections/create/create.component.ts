@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'
 
+import { AppState } from '../../app.service.ts';
+
 // Components
 import { IComponent } from '../component.model';
 import { ComponentService } from '../component.service';
@@ -11,6 +13,8 @@ import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 let log = Logger.get('+connections/create');
+
+const STATE_KEY = 'connection-create-state';
 
 @Component({
   moduleId: module.id,
@@ -26,6 +30,11 @@ export class Create implements OnInit, OnDestroy {
   currentStep = 1;
   listFilter: string;
   errorMessage: string;
+
+  name: string;
+  description: string;
+  tags: string;
+  defaults = {};
 
   //orderByArray: ['name', 'type'];
 
@@ -47,16 +56,23 @@ export class Create implements OnInit, OnDestroy {
    */
   constructor(private _componentService: ComponentService,
               private _connectionService: ConnectionService,
-              private _router: Router) {}
+              private _router: Router,
+              private state:AppState) {}
 
   ngOnInit() {
     log.debug('hello `Connections: Create` component');
 
-    /*
-    this._connectionService.getAll()
-      .subscribe(connections => this.connections = connections,
-        error => this.errorMessage = <any>error);
-        */
+    const settings = this.state.get(STATE_KEY);
+    if (settings) {
+      this.name = settings.name;
+      this.description = settings.description;
+      this.tags = settings.tags;
+      this.defaults = settings.defaults;
+      this.selectedComponent = settings.selectedComponent;
+      this.availableFields = settings.availableFields || [];
+      this.enabledFields = settings.enabledFields || [];
+      this.currentStep = settings.currentStep || 1;
+    }
 
     this._componentService.getAll()
       .subscribe(components => this.components = components,
@@ -79,32 +95,64 @@ export class Create implements OnInit, OnDestroy {
     console.log('Connections: ' + JSON.stringify(this.connection));
   }
 
-  getFields() {
-    if (!this.selectedComponent) {
-      return [];
-    }
-    //return JSON.parse(this.selectedComponent.properties);
-    return [];
+  // View helpers
+  fieldAvailable(field) {
+    return !_.some(this.enabledFields, (e) => e.name === field.name);
+  }
+
+  getForm() {
+    let answer = {
+      properties: {
+
+      }
+    };
+    _.forEach(this.enabledFields, (field) => {
+      answer.properties[field.id] = field;
+    });
+    return answer;
+  }
+
+ 
+  // State management
+  persistState() {
+    this.state.set(STATE_KEY, {
+      name: this.name,
+      description: this.description,
+      tags: this.tags,
+      defaults: this.defaults,
+      selectedComponent: this.selectedComponent,
+      availableFields: this.availableFields,
+      enabledFields: this.enabledFields,
+      currentStep: this.currentStep
+    }, true);
+  }
+
+  clearState() {
+    this.state.clear(STATE_KEY, true);
   }
 
 
   // Steps
   goToStep1() {
     this.currentStep = 1;
+    this.persistState();
   }
 
   goToStep2() {
     this.currentStep = 2;
+    this.persistState();
   }
 
   goToStep3() {
     this.currentStep = 3;
+    this.persistState();
   }
 
 
   // Actions
   addField(field) {
     this.enabledFields.push(field);
+    this.persistState();
   }
 
   selectComponent(component) {
@@ -113,8 +161,10 @@ export class Create implements OnInit, OnDestroy {
     this.enabledFields.length = 0;
     const properties = JSON.parse(component.properties);
     _.forOwn(properties, (property, key) => {
+      property.id = key;
       this.availableFields.push(property);
     });
+    this.persistState();
   }
 
   goBack(currentStep: number, $event: any): void {
@@ -123,9 +173,11 @@ export class Create implements OnInit, OnDestroy {
     currentStep = this.currentStep--;
 
     console.log('this.currentStep: ' + this.currentStep);
+    this.persistState();
   }
 
   cancelCreate(): void {
+    this.clearState();
     this._router.navigate(['/connections']);
   }
 
@@ -135,12 +187,14 @@ export class Create implements OnInit, OnDestroy {
     currentStep = this.currentStep++;
 
     console.log('this.currentStep: ' + this.currentStep);
+    this.persistState();
   }
 
   submit(connection: IConnection, $event: any) {
     this.currentStep = 4;
 
     this._connectionService.create(this.connection);
+    this.clearState();
   }
 
 }
