@@ -47,6 +47,7 @@ export class Create implements OnInit, OnDestroy {
   selectedComponent: IComponent;
   availableFields = [];
   enabledFields = [];
+  showForm = false;
 
   /**
    * Constructor.
@@ -68,6 +69,7 @@ export class Create implements OnInit, OnDestroy {
       this.description = settings.description;
       this.tags = settings.tags;
       this.defaults = settings.defaults;
+      this.showForm = settings.showForm;
       this.selectedComponent = settings.selectedComponent;
       this.availableFields = settings.availableFields || [];
       this.enabledFields = settings.enabledFields || [];
@@ -84,15 +86,13 @@ export class Create implements OnInit, OnDestroy {
   // Components
   getComponents() {
     this._componentService.getAll();
-
-    console.log('Components: ' + JSON.stringify(this.components));
+    //console.log('Components: ' + JSON.stringify(this.components));
   }
 
   // Connections
   getConnections() {
     this._connectionService.getAll();
-
-    console.log('Connections: ' + JSON.stringify(this.connection));
+    //console.log('Connections: ' + JSON.stringify(this.connection));
   }
 
   // View helpers
@@ -120,6 +120,7 @@ export class Create implements OnInit, OnDestroy {
       description: this.description,
       tags: this.tags,
       defaults: this.defaults,
+      showForm: this.showForm,
       selectedComponent: this.selectedComponent,
       availableFields: this.availableFields,
       enabledFields: this.enabledFields,
@@ -129,6 +130,13 @@ export class Create implements OnInit, OnDestroy {
 
   clearState() {
     this.state.clear(STATE_KEY, true);
+  }
+  
+  enableForm() {
+    if (!this.enabledFields) {
+      return false;
+    }
+    return this.showForm;
   }
 
 
@@ -148,17 +156,47 @@ export class Create implements OnInit, OnDestroy {
     this.persistState();
   }
 
+  toggleForm() {
+    this.showForm = false;
+    setTimeout(() => {
+      this.showForm = true;
+      this.persistState();
+    }, 10);
+  }
+
 
   // Actions
+  removeField(field) {
+    _.remove(this.enabledFields, (f) => f.id == field.id);
+    this.toggleForm();
+  }
+
   addField(field) {
     this.enabledFields.push(field);
-    this.persistState();
+    this.toggleForm();
+  }
+
+  move(from, to) {
+    this.enabledFields.splice(to, 0, this.enabledFields.splice(from, 1)[0]);
+  }
+
+  moveUp(field) {
+    let index = _.indexOf(this.enabledFields, field);
+    this.move(index, index - 1);
+    this.toggleForm();
+  }
+
+  moveDown(field) {
+    let index = _.indexOf(this.enabledFields, field);
+    this.move(index, index + 1);
+    this.toggleForm();
   }
 
   selectComponent(component) {
     this.selectedComponent = component;
     this.availableFields.length = 0;
     this.enabledFields.length = 0;
+    this.defaults = {};
     const properties = JSON.parse(component.properties);
     _.forOwn(properties, (property, key) => {
       property.id = key;
@@ -192,7 +230,6 @@ export class Create implements OnInit, OnDestroy {
 
   submit(connection: IConnection, $event: any) {
     this.currentStep = 4;
-
     this._connectionService.create(this.connection);
     this.clearState();
   }

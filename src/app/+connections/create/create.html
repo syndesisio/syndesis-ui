@@ -104,17 +104,26 @@
                           <ul class="list-group">
                             <li class="list-group-item" *ngFor="let field of availableFields" (click)="addField(field)">
                               {{field.title}}
-                              <a href="" *ngIf="fieldAvailable(field)" class="pull-right"><i class="fa fa-plus"></i></a>
+                              <span *ngIf="fieldAvailable(field)" class="action-element pull-right"><i class="fa fa-plus-circle"></i></span>
                             </li>
                           </ul>
                         </div>
                         <div class="col-md-8">
                           <h4>Set up connection form defaults</h4>
-                          <form #f="ngForm">
-                            <div *ngFor="let field of enabledFields">
-                              <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
-                            </div>
-                          </form>
+                          <div *ngIf="enableForm()">
+                            <form #f="ngForm">
+                              <div class="row" *ngFor="let field of enabledFields; let i = index" [attr.data-index]="i">
+                                <div class="col-md-10">
+                                  <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
+                                </div>
+                                <div class="col-md-2" style="whitespace: nowrap">
+                                  <i *ngIf="i !== 0" class="action-element fa fa-arrow-up" (click)="moveUp(field)"></i>
+                                  <i *ngIf="i !== enabledFields.length - 1" class="action-element fa fa-arrow-down" (click)="moveDown(field)"></i>
+                                  <i class="action-element fa fa-trash" (click)="removeField(field)"></i>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
