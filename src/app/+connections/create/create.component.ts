@@ -100,16 +100,8 @@ export class Create implements OnInit, OnDestroy {
     return !_.some(this.enabledFields, (e) => e.name === field.name);
   }
 
-  getForm() {
-    let answer = {
-      properties: {
-
-      }
-    };
-    _.forEach(this.enabledFields, (field) => {
-      answer.properties[field.id] = field;
-    });
-    return answer;
+  getTags() {
+    return _.map(this.tags.split(','), (tag) => tag.trim());
   }
 
  
@@ -228,10 +220,20 @@ export class Create implements OnInit, OnDestroy {
     this.persistState();
   }
 
-  submit(connection: IConnection, $event: any) {
-    this.currentStep = 4;
-    this._connectionService.create(this.connection);
-    this.clearState();
+  createConnection() {
+    let connection:any = {
+      name: this.name,
+      description: this.description,
+      icon: this.selectedComponent.icon,
+      configuredProperties: JSON.stringify(this.enabledFields)
+    }
+    // TODO need a 'deploying' page state while this executes
+    this._connectionService.create(connection).subscribe((resp) => {
+      this.clearState();
+      this._router.navigate(['/connections']);
+    }, (error) => {
+      console.log("Failed to create connection: ", error);
+    });
   }
 
 }
