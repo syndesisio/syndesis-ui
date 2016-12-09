@@ -161,7 +161,7 @@ export class Create implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showForm = true;
       this.persistState();
-    }, 10);
+    }, 5);
   }
 
 

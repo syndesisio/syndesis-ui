@@ -104,12 +104,25 @@
                           <ul class="list-group">
                             <li class="list-group-item" *ngFor="let field of availableFields" (click)="addField(field)">
                               {{field.title}}
-                              <span *ngIf="fieldAvailable(field)" class="action-element pull-right"><i class="fa fa-plus-circle"></i></span>
+                              <span *ngIf="fieldAvailable(field)" class="action-element pull-right"><i class="fa fa-plus-circle fa-lg"></i></span>
                             </li>
                           </ul>
                         </div>
                         <div class="col-md-8">
-                          <h4>Set up connection form defaults</h4>
+                          <div class="row">
+                            <div class="col-md-10">
+                              <h4>Set up connection form defaults <span class="badge badge-default">{{enabledFields.length}}</span></h4>
+                            </div>
+                            <div class="col-md-2">
+                              <button class="btn btn-primary" [disabled]="!enabledFields.length">Validate</button>
+                            </div>
+                          </div>
+                          <div *ngIf="!enabledFields.length" class="blank-slate-pf">
+                            <div class="blank-slate-pf-icon">
+                              <span class="fa fa-reply"></span>
+                            </div>
+                            <p>Add fields from the left that users will fill out when using this connection</p>
+                          </div>
                           <div *ngIf="enableForm()">
                             <form #f="ngForm">
                               <div class="row" *ngFor="let field of enabledFields; let i = index" [attr.data-index]="i">
@@ -117,9 +130,9 @@
                                   <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
                                 </div>
                                 <div class="col-md-2" style="whitespace: nowrap">
-                                  <i *ngIf="i !== 0" class="action-element fa fa-arrow-up" (click)="moveUp(field)"></i>
-                                  <i *ngIf="i !== enabledFields.length - 1" class="action-element fa fa-arrow-down" (click)="moveDown(field)"></i>
-                                  <i class="action-element fa fa-trash" (click)="removeField(field)"></i>
+                                  <i *ngIf="i !== 0" class="action-element fa fa-arrow-up fa-lg" (click)="moveUp(field)"></i>
+                                  <i *ngIf="i !== enabledFields.length - 1" class="action-element fa fa-arrow-down fa-lg" (click)="moveDown(field)"></i>
+                                  <i class="action-element fa fa-trash fa-lg" (click)="removeField(field)"></i>
                                 </div>
                               </div>
                             </form>
