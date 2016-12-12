@@ -29,6 +29,7 @@ export class Create implements OnInit, OnDestroy {
 
   currentStep = 1;
   listFilter: string;
+  fieldListFilter: string;
   errorMessage: string;
 
   name: string;
