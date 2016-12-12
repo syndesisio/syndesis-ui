@@ -42,7 +42,7 @@ export class ConnectionService implements IConnectionService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.post(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.post(this.baseUrl + '/connections/', body, options).map(this.extractData).catch(this.handleError);
   };
 
 

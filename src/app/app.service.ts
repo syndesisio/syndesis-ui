@@ -72,6 +72,13 @@ export class AppState {
     return answer;
   }
 
+  clear(prop: string, persist?:boolean):any {
+    _.set(this._state, prop, undefined);
+    if (persist) {
+      localStorage.removeItem(prop);
+    }
+  }
+
   set(prop: string, value: any, persist?:boolean):any {
     let val = value;
     // internally mutate our state

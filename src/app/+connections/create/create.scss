@@ -1,4 +1,7 @@
 div.connections.create {
+  .action-element {
+    cursor: pointer;
+  }
   .card .card-pf {
     height: 210px;
     max-height: 240px;
@@ -40,11 +43,8 @@ div.connections.create {
   .wizard-pf-body {
     background: #fff;
     border-bottom: solid 1px #d1d1d1;
-    height: 100%;
     margin: auto -20px;
-    max-height: 340px;
     padding: 0;
-
     .form-horizontal .control-label {
       text-align: left;
     }
@@ -57,10 +57,14 @@ div.connections.create {
 
   .wizard-pf-footer {
     border-top: 1px solid #d1d1d1;
-    border-right: 1px solid #d1d1d1;
-    border-left: 1px solid #d1d1d1;
+    //border-right: 1px solid #d1d1d1;
+    //border-left: 1px solid #d1d1d1;
     margin-top: 10px;
     background: #fff;
     padding: 20px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 200px;
   }
 }

@@ -24,15 +24,15 @@
             <!-- Wizard Progress Bar-->
             <div class="wizard-pf-steps"><!-- hidden -->
                 <ul class="wizard-pf-steps-indicator">
-                    <li class="wizard-pf-step active"
+                  <li class="wizard-pf-step" [class.active]="currentStep === 1"
                         data-tabgroup="1">
-                        <a><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">First Step</span></a>
+                        <a><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">Define Connection Basics</span></a>
                     </li>
-                    <li class="wizard-pf-step"
+                    <li class="wizard-pf-step" [class.active]="currentStep === 2"
                         data-tabgroup="2">
-                        <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">Second Step</span></a>
+                        <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">Select and Configure Fields</span></a>
                     </li>
-                    <li class="wizard-pf-step"
+                    <li class="wizard-pf-step" [class.active]="currentStep === 3"
                         data-tabgroup="3">
                         <a><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">Review</span></a>
                     </li>
@@ -54,8 +54,7 @@
 
                 <!-- Step 1 -->
                 <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 1 ? '' : 'hidden'"><!-- hidden -->
+                  <div class="wizard-pf-contents col-xs-6" *ngIf="currentStep === 1">
                         <form class="form-horizontal">
                             <!-- replacing id with data-id to pass build errors -->
                             <div class="form-group required">
@@ -66,6 +65,7 @@
                                     <input type="text"
                                            name="nameInput"
                                            data-id="nameInput"
+                                           [(ngModel)]="name"
                                            class="form-control">
                                 </div>
                             </div>
@@ -76,73 +76,113 @@
                                 <textarea data-id="descriptionInput"
                                           name="descriptionInput"
                                           class="form-control"
+                                          [(ngModel)]="description"
                                           rows="2"></textarea>
                                 </div>
                             </div>
                             <div class="form-group required">
                                 <label class="col-sm-4 control-label"
-                                       for="tagsInput">Tags</label>
+                                  for="tagsInput">Tag(s)</label>
                                 <div class="col-sm-8">
                                     <input type="text"
                                            name="tagsInput"
                                            data-id="tagsInput"
+                                           [(ngModel)]="tags"
                                            class="form-control">
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
 
                 <!-- Step 2 -->
-                <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
-                        <form class="form-horizontal">
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label"
-                                       for="consectetur">Consectetur</label>
-                                <div class="col-sm-10">
-                                    <input type="text"
-                                           id="consectetur"
-                                           class="form-control">
-                                </div>
+                  <div class="wizard-pf-contents" *ngIf="currentStep === 2">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-md-7">
+                              <h4>Select {{selectedComponent.name}} Fields</h4>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"
-                                       for="adipiscing">Adipiscing</label>
-                                <div class="col-sm-10">
-                                        <textarea id="adipiscing"
-                                                  class="form-control"
-                                                  rows="2"></textarea>
-                                </div>
+                            <div class="col-md-5">
+                              <input type="text" class="form-control" id="filter" placeholder="Find by name..." [(ngModel)]="fieldListFilter">
                             </div>
-                        </form>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let field of availableFields | fieldFilter : fieldListFilter" (click)="addField(field)">
+                                {{field.title}}
+                                <span *ngIf="fieldAvailable(field)" class="action-element pull-right"><i class="fa fa-plus-circle fa-lg"></i></span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="row">
+                            <div class="col-md-10">
+                              <h4>Set up connection form defaults <span class="badge badge-default">{{enabledFields.length}}</span></h4>
+                            </div>
+                            <div class="col-md-2">
+                              <button class="btn btn-primary" [disabled]="!enabledFields.length">Validate</button>
+                            </div>
+                          </div>
+                          <div *ngIf="!enabledFields.length" class="blank-slate-pf">
+                            <div class="blank-slate-pf-icon">
+                              <span class="fa fa-reply"></span>
+                            </div>
+                            <p>Add fields from the left that users will fill out when using this connection</p>
+                          </div>
+                          <div *ngIf="enableForm()">
+                            <form #f="ngForm">
+                              <div class="row" *ngFor="let field of enabledFields; let i = index" [attr.data-index]="i">
+                                <div class="col-md-10">
+                                  <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
+                                </div>
+                                <div class="col-md-2" style="whitespace: nowrap">
+                                  <i [style.visible]="i !== 0" class="action-element fa fa-arrow-up fa-lg" (click)="moveUp(field)"></i>
+                                  <i *ngIf="i !== enabledFields.length - 1" class="action-element fa fa-arrow-down fa-lg" (click)="moveDown(field)"></i>
+                                  <i class="action-element fa fa-trash fa-lg" (click)="removeField(field)"></i>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                </div>
 
                 <!-- Step 3 -->
-                <div class="row">
-                    <div class="wizard-pf-contents col-xs-6"
-                         [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
-                        <div class="wizard-pf-process blank-slate-pf">
-                            <div class="spinner spinner-lg blank-slate-pf-icon"></div>
-                            <h3 class="blank-slate-pf-main-action">Deployment in progress</h3>
-                            <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
-                                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
-                        </div>
-                        <div class="wizard-pf-complete blank-slate-pf hidden">
-                            <div class="wizard-pf-success-icon">
-                                <span class="glyphicon glyphicon-ok-circle"></span>
+                    <div class="row row-cards-pf" *ngIf="currentStep === 3">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="card">
+                            <div class="card-pf card-pf-view card-pf-view-xs">
+                              <div class="card-pf-body">
+                                <div class="card-pf-heading">
+                                  <h2 class="card-pf-title">
+                                    <span class="fa {{selectedComponent.icon}}"></span>
+                                  </h2>
+                                  <div class="card-title">{{name}}</div>
+                                </div>
+                                <p>{{description}}</p>
+                                <p>
+                                  <span *ngFor="let tag of getTags()">
+                                    <span class="label label-primary">{{tag}}</span>
+                                  </span>
+                                </p>
+                              </div>
                             </div>
-                            <h3 class="blank-slate-pf-main-action">Deployment was successful</h3>
-                            <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
-                                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
-                            <button type="button"
-                                    class="btn btn-lg btn-primary">
-                                View Deployment
-                            </button>
+                          </div>
 
                         </div>
+                        <div class="col-md-9">
+                          <h3>Connection Fields</h3>
+                          <form #f="ngForm">
+                            <div class="row" *ngFor="let field of enabledFields">
+                                <form-property-field [form]="f.form" [field]="field" [entity]="defaults"></form-property-field>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -150,7 +190,7 @@
 
 
         <!-- Toolbar: Select Connection Type -->
-        <div class="row toolbar-pf type">
+        <div class="row toolbar-pf type" *ngIf="currentStep === 1">
             <div class="col-xs-12">
                 <form class="toolbar-pf-actions">
                     <div class="form-group toolbar-pf-filter">
@@ -189,12 +229,11 @@
     </div>
 
     <!-- List of Components -->
-    <div>
-        <div class="row row-cards-pf components"
-             *ngIf="currentStep === 1">
+    <div *ngIf="currentStep === 1">
+        <div class="row row-cards-pf components">
             <div class="col-xs-12 col-sm-3 col-md-2 card"
                  *ngFor="let component of components | componentFilter: listFilter">
-                <div class="card-pf card-pf-view card-pf-view-xs">
+                 <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select" [class.active]="component === selectedComponent" (click)="selectComponent(component)">
                     <div class="card-pf-body">
                         <div class="card-pf-heading">
                             <h2 class="card-pf-title">
@@ -249,14 +288,16 @@
             <span class="i fa fa-angle-left"></span> Back
         </button>
         <button type="button"
+                *ngIf="currentStep !== 3"
                 class="btn btn-primary wizard-pf-next"
                 (click)="nextStep(currentStep, $event)">
             Next <span class="i fa fa-angle-right"></span>
         </button>
         <button type="button"
-                (click)="nextStep(connection, $event)"
-                class="btn btn-primary wizard-pf-finish hidden"><!-- hidden -->Deploy
-            <span class="i fa fa-angle-right"></span>
+                *ngIf="currentStep === 3"
+                (click)="createConnection()"
+                class="btn btn-primary wizard-pf-finish">
+           Create
         </button>
     </div>
 
