@@ -123,7 +123,16 @@
                               <h4>Set up connection form defaults <span class="badge badge-default">{{enabledFields.length}}</span></h4>
                             </div>
                             <div class="col-md-2">
-                              <button class="btn btn-primary" [disabled]="!enabledFields.length">Validate</button>
+                              <button class="btn btn-primary" [disabled]="!enabledFields.length" (click)="validateInputs()">Validate</button>
+                            </div>
+                          </div>
+                          <div *ngIf="showValidationMessage">
+                            <div class="alert alert-success">
+                              <button type="button" class="close" (click)="showValidationMessage = false">
+                                <span class="pficon pficon-close"></span>
+                              </button>
+                              <span class="pficon pficon-ok"></span>
+                              <strong>Success!</strong> The provided inputs validate successfully.
                             </div>
                           </div>
                           <div *ngIf="!enabledFields.length" class="blank-slate-pf">
