@@ -49,6 +49,7 @@ export class Create implements OnInit, OnDestroy {
   availableFields = [];
   enabledFields = [];
   showForm = false;
+  showValidationMessage = false;
 
   /**
    * Constructor.
@@ -159,6 +160,11 @@ export class Create implements OnInit, OnDestroy {
 
 
   // Actions
+  validateInputs() {
+    setTimeout(() => {
+      this.showValidationMessage = true;
+    }, 1000);
+  }
   removeField(field) {
     _.remove(this.enabledFields, (f) => f.id == field.id);
     this.toggleForm();
