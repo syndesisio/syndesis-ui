@@ -6,7 +6,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AppState } from './app.service';
 import { Logger } from './common/service/log';
 
-var log = Logger.get('App');
+let log = Logger.get('App');
 
 /*
  * App Component

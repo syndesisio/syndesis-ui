@@ -17,61 +17,60 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState } from './app.service';
 import { Logger } from './common/service/log';
 
-// application wide components
+// Application-Wide Components
 import { DirectivesModule } from './common/directives';
 
 // Third-Party Imports
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 // Application wide providers
 const APP_PROVIDERS = [
-    ...APP_RESOLVER_PROVIDERS,
-    AppState
+  ...APP_RESOLVER_PROVIDERS,
+  AppState
 ];
 
 // Logger instance
-var log = Logger.get('AppModule');
+let log = Logger.get('AppModule');
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstrapping process
  */
 @NgModule({
-    bootstrap: [ App ],
-    declarations: [
-        App
-    ],
-    imports: [ // import Angular's modules
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        NgbModule,
-        DirectivesModule,
-        RouterModule.forRoot(ROUTES, {useHash: false})
-    ],
-    providers: [ // expose our Services and Providers into Angular's dependency injection
-        ENV_PROVIDERS,
-        APP_PROVIDERS,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (appState: AppState) => {
-              return () => {
-                return appState.load();
-              }
-            },
-            deps: [ AppState ],
-            multi: true
+  bootstrap: [ App ],
+  declarations: [
+    App
+  ],
+  imports: [ // import Angular's modules
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    NgbModule,
+    DirectivesModule,
+    RouterModule.forRoot(ROUTES, {useHash: false})
+  ],
+  providers: [ // expose our Services and Providers into Angular's dependency injection
+    ENV_PROVIDERS,
+    APP_PROVIDERS,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (appState: AppState) => {
+        return () => {
+          return appState.load();
         }
-    ]
+      },
+      deps: [ AppState ],
+      multi: true
+    }
+  ]
 })
 export class AppModule {
 
-    /**
-     * Constructor.
-     * @param appRef - ApplicationRef
-     * @param appState - AppState
-     */
-    constructor(public appRef: ApplicationRef, public appState: AppState) {
-        log.debug('App module created');
-    }
+  /**
+   * Constructor.
+   * @param appRef - ApplicationRef
+   * @param appState - AppState
+   */
+  constructor(public appRef: ApplicationRef, public appState: AppState) {
+    log.debug('App module created');
+  }
 }

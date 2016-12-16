@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 // Here were are mostly using observables instead of promises
@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 //import * as _ from 'lodash';
 
+import { Globals } from '../app.config';
 import { IConnection } from './connection.model';
 import { IConnectionService } from './connection.service.interface';
-
 import { Logger } from '../common/service/log';
 
 let log = Logger.get('ConnectionService');
@@ -18,18 +18,26 @@ export class ConnectionService implements IConnectionService {
 
   errorMessage: string;
   private allConnections: IConnection[];
-
   //baseUrl: string;
   //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
   //private connectionsUrl = 'http://localhost:9090';
-  private baseUrl = 'http://localhost:9090/v1';
+  //private baseUrl: string;
+  private baseUrl = Globals.apiEndpoint;
+  //private baseUrl = 'http://localhost:8080/v1';
 
 
   /**
    * Constructor.
    * @param _http - HTTP
    */
-  constructor(private _http: Http) {}
+  constructor(private _http: Http) {
+    //baseUrl: string;
+    //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
+    //private connectionsUrl = 'http://localhost:9090';
+    //this.baseUrl = Globals.apiEndpoint;
+
+    console.log('Globals.apiEndpoint: ' + Globals.apiEndpoint);
+  }
 
 
   /**
