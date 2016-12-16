@@ -109,7 +109,6 @@
     "file-loader": "^0.9.0",
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.21.0",
-    "http-proxy-middleware": "^0.17.3",
     "imports-loader": "^0.6.5",
     "istanbul-instrumenter-loader": "^0.2.0",
     "json-loader": "^0.5.4",
