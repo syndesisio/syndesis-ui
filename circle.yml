@@ -8,22 +8,14 @@ machine:
 
 general:
   artifacts:
-  - dist
-
-dependencies:
-  pre:
-    - npm install
-    - npm update
-    - npm prune
-  override:
-    - npm run build
+  - 'dist'
 
 test:
   override:
   - rm -Rf $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit
-  - mkdir $CIRCLE_ARTIFACTS/coverage
-  - mkdir $CIRCLE_TEST_REPORTS/junit
+  - mkdir $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit
   - npm run test
+  - npm run report-coverage
 
 deployment:
   latest:
