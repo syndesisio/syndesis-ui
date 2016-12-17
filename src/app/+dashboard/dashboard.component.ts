@@ -12,7 +12,6 @@ import { Logger } from '../common/service/log';
 let log = Logger.get('+connections');
 
 @Component({
-  moduleId: module.id,
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
   selector: 'dashboard',

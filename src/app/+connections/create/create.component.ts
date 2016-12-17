@@ -17,7 +17,6 @@ let log = Logger.get('+connections/create');
 const STATE_KEY = 'connection-create-state';
 
 @Component({
-  moduleId: module.id,
   selector: 'connections-create',
   styles: [ require('./create.scss') ],
   templateUrl: './create.html',
@@ -106,7 +105,7 @@ export class Create implements OnInit, OnDestroy {
     return _.map(this.tags.split(','), (tag) => tag.trim());
   }
 
- 
+
   // State management
   persistState() {
     this.state.set(STATE_KEY, {
@@ -125,7 +124,7 @@ export class Create implements OnInit, OnDestroy {
   clearState() {
     this.state.clear(STATE_KEY, true);
   }
-  
+
   enableForm() {
     if (!this.enabledFields) {
       return false;
