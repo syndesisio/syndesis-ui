@@ -3,6 +3,7 @@ import {
   TestBed
 } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BaseRequestOptions,
   ConnectionBackend,
@@ -13,6 +14,7 @@ import { MockBackend } from '@angular/http/testing';
 // Load the implementations that should be tested
 import { Dashboard } from './dashboard.component';
 import { AppState } from '../app.service';
+import { ConnectionService } from '../+connections/connection.service'
 
 describe('Dashboard', () => {
   // provide our implementations or mocks to the dependency injector
@@ -27,8 +29,13 @@ describe('Dashboard', () => {
         },
         deps: [ MockBackend, BaseRequestOptions ]
       },
+      {
+        provide: Router,
+        useClass: class { navigate = jasmine.createSpy("navigate"); }
+      },
       AppState,
-      Dashboard
+      ConnectionService,
+      Dashboard,
     ]
   }));
 
