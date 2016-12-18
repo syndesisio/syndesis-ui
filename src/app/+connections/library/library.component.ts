@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 let log = Logger.get('+connections/library');
 
 @Component({
-  moduleId: module.id,
   selector: 'connections-library',
   encapsulation: ViewEncapsulation.None,
   styles: [ require('./library.scss') ],

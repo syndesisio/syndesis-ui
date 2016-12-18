@@ -9,7 +9,6 @@ import { Logger } from '../../common/service/log';
 var log = Logger.get('+connections/edit');
 
 @Component({
-  moduleId: module.id,
   selector: 'connections-edit',
   styles: [ require('./edit.scss') ],
   templateUrl: './edit.html',

@@ -13,7 +13,6 @@ let log = Logger.get('App');
  * Top Level Component
  */
 @Component({
-    moduleId: module.id,
     selector: 'app',
     encapsulation: ViewEncapsulation.None,
     styles: [ require('../assets/scss/main.scss') ],

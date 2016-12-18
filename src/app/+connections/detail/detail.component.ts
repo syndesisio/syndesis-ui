@@ -10,7 +10,6 @@ import { Logger } from '../../common/service/log';
 let log = Logger.get('+connections/detail');
 
 @Component({
-  moduleId: module.id,
   selector: 'connections-detail',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [ 'detail.scss' ],
