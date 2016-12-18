@@ -32,7 +32,7 @@ deployment:
     commands:
     - npm run build:prod
     - docker build -t rhipaas/ipaas-client:latest . | cat -
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD -e $DOCKER_EMAIL
     - docker push rhipaas/ipaas-client:latest | cat -
   release:
     owner: redhat-ipaas
@@ -40,5 +40,5 @@ deployment:
     commands:
     - npm run build:prod
     - docker build -t rhipaas/ipaas-client:latest . | cat -
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD -e $DOCKER_EMAIL
     - docker push rhipaas/ipaas-client:latest | cat -
