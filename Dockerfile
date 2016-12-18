@@ -1,6 +1,5 @@
-FROM node:6-onbuild
-MAINTAINER fabric8 <fabric8@googlegroups.com>
+FROM jimmidyson/caddy:v0.9.3
+MAINTAINER Red Hat iPaaS <ipaas-dev@redhat.com>
 
-ENV HOST 0.0.0.0
-
-EXPOSE 9000
+COPY Caddyfile /etc/Caddyfile
+COPY dist /srv
