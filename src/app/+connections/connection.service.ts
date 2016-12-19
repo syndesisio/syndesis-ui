@@ -17,27 +17,15 @@ let log = Logger.get('ConnectionService');
 export class ConnectionService implements IConnectionService {
 
   errorMessage: string;
-  private allConnections: IConnection[];
-  //baseUrl: string;
-  //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-  //private connectionsUrl = 'http://localhost:9090';
   private baseUrl: string;
-  //private baseUrl = 'http://localhost:8080/v1';
-
 
   /**
    * Constructor.
    * @param _http - HTTP
+   * @param _appState -- AppState
    */
   constructor(private _http: Http, private _appState: AppState) {
-    //baseUrl: string;
-    //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-    //private connectionsUrl = 'http://localhost:9090';
-    //this.baseUrl = Globals.apiEndpoint;
-
     this.baseUrl = _appState.state.apiEndpoint;
-
-    console.log('baseUrl: ' + this.baseUrl);
   }
 
 
@@ -70,12 +58,14 @@ export class ConnectionService implements IConnectionService {
 
   /**
    * Gets a single Connection by its name.
-   * This should actually be by ID instead, and needs to be updated.
    * @param id - ID of the Connection
    * @return {Observable<Connection[]>} - Returns an Observable.
    */
   get(id: number): Observable<IConnection> {
-    return this.getAll().map((connections: IConnection[]) => connections.find(c => c.id === id));
+    return this._http.get(this.baseUrl + '/connections/' + id)
+      .map((response: Response) => <IConnection[]> response.json())
+      .do(data => console.log('Response: ' +  JSON.stringify(data)))
+      .catch(this.handleError);
   };
 
 
@@ -117,7 +107,7 @@ export class ConnectionService implements IConnectionService {
 
 
   private extractData(res: Response) {
-    console.log('Response: ' + JSON.stringify(res));
+    log.debug('Response: ' + JSON.stringify(res));
 
     let body = res.json();
     return body.data || {};

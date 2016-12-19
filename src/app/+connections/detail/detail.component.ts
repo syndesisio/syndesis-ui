@@ -44,6 +44,8 @@ export class Detail implements OnInit, OnDestroy {
         let id = +params['id'];
         this.getConnection(id);
       });
+
+    log.debug('Connection: ' + JSON.stringify(this.connection));
   }
 
   ngOnDestroy() {
