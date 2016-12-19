@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'
 
-import { AppState } from '../../app.service.ts';
+import { AppState } from '../../app.service';
 
 // Components
 import { IComponent } from '../component.model';
@@ -55,16 +55,18 @@ export class Create implements OnInit, OnDestroy {
    * @param _componentService - ComponentService
    * @param _connectionService - ConnectionService
    * @param _router - Router
+   * @param _state - AppState
    */
   constructor(private _componentService: ComponentService,
               private _connectionService: ConnectionService,
               private _router: Router,
-              private state:AppState) {}
+              private _state: AppState) {
+  }
 
   ngOnInit() {
     log.debug('hello `Connections: Create` component');
 
-    const settings = this.state.get(STATE_KEY);
+    const settings = this._state.get(STATE_KEY);
     if (settings) {
       this.name = settings.name;
       this.description = settings.description;
@@ -82,7 +84,8 @@ export class Create implements OnInit, OnDestroy {
         error => this.errorMessage = <any>error);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+  }
 
   // Components
   getComponents() {
@@ -108,7 +111,7 @@ export class Create implements OnInit, OnDestroy {
 
   // State management
   persistState() {
-    this.state.set(STATE_KEY, {
+    this._state.set(STATE_KEY, {
       name: this.name,
       description: this.description,
       tags: this.tags,
@@ -122,7 +125,7 @@ export class Create implements OnInit, OnDestroy {
   }
 
   clearState() {
-    this.state.clear(STATE_KEY, true);
+    this._state.clear(STATE_KEY, true);
   }
 
   enableForm() {
@@ -164,6 +167,7 @@ export class Create implements OnInit, OnDestroy {
       this.showValidationMessage = true;
     }, 1000);
   }
+
   removeField(field) {
     _.remove(this.enabledFields, (f) => f.id == field.id);
     this.toggleForm();
@@ -175,7 +179,7 @@ export class Create implements OnInit, OnDestroy {
   }
 
   move(from, to) {
-    this.enabledFields.splice(to, 0, this.enabledFields.splice(from, 1)[0]);
+    this.enabledFields.splice(to, 0, this.enabledFields.splice(from, 1)[ 0 ]);
   }
 
   moveUp(field) {
@@ -214,7 +218,7 @@ export class Create implements OnInit, OnDestroy {
 
   cancelCreate(): void {
     this.clearState();
-    this._router.navigate(['/connections']);
+    this._router.navigate([ '/connections' ]);
   }
 
   nextStep(currentStep: number, $event: any): void {
@@ -227,7 +231,7 @@ export class Create implements OnInit, OnDestroy {
   }
 
   createConnection() {
-    let connection:any = {
+    let connection: any = {
       name: this.name,
       description: this.description,
       icon: this.selectedComponent.icon,
@@ -236,7 +240,7 @@ export class Create implements OnInit, OnDestroy {
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
       this.clearState();
-      this._router.navigate(['/connections']);
+      this._router.navigate([ '/connections' ]);
     }, (error) => {
       console.log("Failed to create connection: ", error);
     });
