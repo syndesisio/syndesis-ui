@@ -66,7 +66,10 @@ export class ComponentService {
    * @return {Observable<Component[]>} - Returns an Observable.
    */
   get(id: number): Observable<IComponent> {
-    return this.getAll().map((components: IComponent[]) => components.find(c => c.id === id));
+    return this._http.get(this.baseUrl + '/components/' + id)
+      .map((response: Response) => <IComponent[]> response.json())
+      .do(data => console.log('Response: ' +  JSON.stringify(data)))
+      .catch(this.handleError);
   };
 
 

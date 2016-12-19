@@ -23,6 +23,7 @@ export class Detail implements OnInit, OnDestroy {
 
   error: any;
   navigated = false; // true if navigated here
+  isCollapsed = true;
 
   private sub: Subscription;
 
