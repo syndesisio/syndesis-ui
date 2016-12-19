@@ -4,8 +4,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 // Here were are mostly using observables instead of promises
 import { Observable } from 'rxjs/Observable';
 
-//import * as _ from 'lodash';
-
+import { Globals } from '../app.config';
 import { IComponent } from './component.model';
 //import { IComponentService } from './component.service.interface';
 
@@ -18,11 +17,7 @@ export class ComponentService {
 
   errorMessage: string;
   private allComponents: IComponent[];
-
-  //baseUrl: string;
-  //private componentsUrl = 'app/+components/component.data.json'; // URL to JSON file
-  //private componentsUrl = 'http://localhost:9090';
-  private baseUrl = 'http://localhost:9090/v1';
+  private baseUrl = Globals.apiEndpoint;
 
 
   /**
