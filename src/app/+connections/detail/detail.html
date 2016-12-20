@@ -15,12 +15,27 @@
     </div>
 
     <!-- Content -->
-    <div class="row row-cards-pf">
-        <div class="col-xs-12">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status">
+    <div class="row row-cards-pf center">
+        <div class="col-xs-4">
+            <div class="card-pf">
                 <h2 class="card-pf-title">
-                    <span class="fa fa-shield"></span><span
-                        class="card-pf-aggregate-status-count">0</span> Ipsum
+                    {{connection.name}}
+                </h2>
+                <div class="card-pf-body">
+                    <div>
+                        <label>ID: </label>{{connection.id}}</div>
+                    <div>
+                        <label>Name: </label>
+                        <input [(ngModel)]="connection.name" placeholder="name" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-8">
+            <div class="card-pf">
+                <h2 class="card-pf-title">
+                    Connection Fields
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
@@ -34,22 +49,6 @@
                             </a>
                         </span>
                     </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-12">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                <h2 class="card-pf-title">
-                    Connection Fields: {{connection.name}}
-                </h2>
-                <div class="card-pf-body">
-                    <div>
-                        <label>ID: </label>{{connection.id}}</div>
-                    <div>
-                        <label>Name: </label>
-                        <input [(ngModel)]="connection.name" placeholder="name" />
-                    </div>
                 </div>
             </div>
         </div>
