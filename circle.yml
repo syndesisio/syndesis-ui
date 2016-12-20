@@ -5,24 +5,38 @@ machine:
     version: 6.9.1
   services:
   - docker
+  environment:
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 general:
   artifacts:
-  - 'dist'
+  - dist
+
+dependencies:
+  pre:
+  - |
+    if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+      curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+    fi
+  override:
+  - yarn install
+  cache_directories:
+  - ~/.yarn
+  - ~/.cache/yarn
 
 test:
   override:
   - rm -Rf $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit
   - mkdir $CIRCLE_ARTIFACTS/coverage $CIRCLE_TEST_REPORTS/junit
-  - npm run test
-  - npm run report-coverage
+  - yarn test
 
 deployment:
   latest:
     owner: redhat-ipaas
     branch: master
     commands:
-    - npm run build:prod
+    - yarn build:prod
     - docker build -t rhipaas/ipaas-client:latest . | cat -
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD -e $DOCKER_EMAIL
     - docker push rhipaas/ipaas-client:latest | cat -
@@ -34,7 +48,7 @@ deployment:
     owner: redhat-ipaas
     tag: /v[0-9]+(\.[0-9]+){2}/
     commands:
-    - npm run build:prod
+    - yarn build:prod
     - docker build -t rhipaas/ipaas-client:latest . | cat -
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD -e $DOCKER_EMAIL
     - docker push rhipaas/ipaas-client:latest | cat -

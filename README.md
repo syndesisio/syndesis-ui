@@ -4,7 +4,7 @@
 
 The front end application for Red Hat iPaaS - a flexible, customizable, cloud-hosted platform that provides core integration capabilities as a service. It leverages Red Hat's existing product architecture using OpenShift Online/Dedicated and Fuse Integration Services.
 
-For the middle tier API that this client communicates with, please see [this](https://github.com/redhat-ipaas/ipaas-api) repo. 
+For the middle tier API that this client communicates with, please see [this](https://github.com/redhat-ipaas/ipaas-api-java) repo.
 
 Included in this stack are the following technologies:
 
@@ -19,7 +19,7 @@ Included in this stack are the following technologies:
 - Code Analysis: [Codelyzer](https://github.com/mgechev/codelyzer) (TsLint rules for static code analysis of Angular 2 TypeScript projects)
 
 ### Quick Start
-**Make sure you have node version >= 6.x.x and NPM version >= 3.x.x**
+**Make sure you have node version >= 6.x.x and Yarn version >= 0.18.1**
 
 > Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/src/app/app.component.ts)
 
@@ -30,11 +30,11 @@ git clone https://github.com/redhat-ipaas/ipaas-client.git
 # change directory to iPaaS
 cd ipaas-client
 
-# install the repo with npm
-npm install
+# install the dependencies
+yarn
 
 # start the server
-npm start
+yarn start
 ```
 
 Go to [http://0.0.0.0:9000](http://0.0.0.0:9000) or [http://localhost:9000](http://localhost:9000) in your browser.
@@ -120,27 +120,28 @@ ipaas-client/
 ## Dependencies
 What you need to run this app:
 
-- `node` and `npm` (`brew install node` for OS X users)
-- Ensure you're running the latest versions Node `v6.x.x`+ and NPM `3.x.x`+
+- `node` (`brew install node` for OS X users)
+- `yarn` (see https://yarnpkg.com/en/docs/install)
+- Ensure you're running the latest versions Node `v6.x.x`+ and Yarn
 
 ## Installing
 * `fork` the ipaas repo
 * `clone` your fork
-* `npm install` to install all dependencies
-* `npm start` to start the dev server
+* `yarn` to install all dependencies
+* `yarn start` to start the dev server
 
 ## Running
-After you have installed all dependencies you can now run the app. Run `npm start` to start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://0.0.0.0:9000` (or if you prefer IPv6, if you're using `express` server, then it's `http://[::1]:9000/`).
+After you have installed all dependencies you can now run the app. Run `yarn start` to start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://0.0.0.0:9000` (or if you prefer IPv6, if you're using `express` server, then it's `http://[::1]:9000/`).
 
 ### Development
 ```bash
-$ npm start
+$ yarn start
 ```
 
 ### Production
 ```
-$ npm run build:prod
-$ npm run server:prod
+$ yarn build:prod
+$ yarn server:prod
 ```
 
 For a list of common commands, see [here](/docs/commands.md).
@@ -149,12 +150,12 @@ For a list of common commands, see [here](/docs/commands.md).
 
 ### Run Tests
 ```
-npm run test
+yarn test
 ```
 
 ### Watch and Run Tests
 ```
-npm run watch:test
+yarn watch:test
 ```
 
 For a list of common commands, see [here](/docs/commands.md).
