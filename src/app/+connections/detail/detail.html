@@ -1,11 +1,22 @@
-<div class="connections detail">
-    <ol class="breadcrumb">
-        <li><a href="#">Back to Top Level</a></li>
-        <li><a href="#">Second Level</a></li>
-        <li><a href="#">Third Level</a></li>
-        <li class="active"><strong>Fourth Level:</strong> Detail about fourth level</li>
-    </ol>
-    <div *ngIf="connection">
+<div class="connections detail" *ngIf="connection">
+    <!-- Toolbar -->
+    <div class="toolbar">
+
+        <!-- Toolbar: Breadcrumbs -->
+        <div class="row toolbar-pf breadcrumbs">
+            <div class="col-sm-12">
+                <ol class="breadcrumb">
+                    <li><a [routerLink]=" ['/home'] ">Home</a></li>
+                    <li><a [routerLink]=" ['/connections'] ">Connections</a></li>
+                    <li class="active"><strong>Connection Details: {{connection.name}}</strong></li>
+                </ol>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
         <h2>{{connection.name}} details!</h2>
         <div>
             <label>ID: </label>{{connection.id}}</div>
