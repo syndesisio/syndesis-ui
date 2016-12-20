@@ -48,7 +48,8 @@
     "watch": "npm run watch:dev",
     "webdriver:start": "npm run webdriver-manager start",
     "webdriver:update": "npm run webdriver-manager update",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "report-coverage": "codecov -f ${CIRCLE_ARTIFACTS:-.}/coverage/coverage-final.json"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
