@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import * as _ from 'lodash';
 
 import { Logger } from './common/service/log';
+import { Globals } from './app.config';
 
 // defer initializing this, otherwise 'Logger' is undefined
 let log: any = undefined;
@@ -18,7 +19,7 @@ let configJson = 'config.json';
 @Injectable()
 export class AppState {
 
-  _state = {};
+  _state = Globals;
 
   /**
    * Constructor.
@@ -34,7 +35,7 @@ export class AppState {
     var promise = this.http.get(configJson).map(res => res.json()).toPromise();
     promise.then((config) => {
       log.debug('Using configuration: ', config);
-      this._state = _.merge({}, this._state, config);
+      this._state = _.merge(this._state, config);
       return this;
     });
     return promise;
@@ -50,13 +51,13 @@ export class AppState {
     throw new Error('do not mutate the `.state` directly');
   }
 
-  get(prop:string, resetFromStorage?:boolean):any {
+  get(prop: string, resetFromStorage?: boolean): any {
     // use our state getter for the clone
     const state = this.state;
     if (resetFromStorage) {
       this.set(prop, undefined);
     }
-    var answer:any = _.get(state, prop);
+    var answer: any = _.get(state, prop);
     if (!answer) {
       // check local storage
       answer = localStorage.getItem(prop);
@@ -72,14 +73,14 @@ export class AppState {
     return answer;
   }
 
-  clear(prop: string, persist?:boolean):any {
+  clear(prop: string, persist?: boolean): any {
     _.set(this._state, prop, undefined);
     if (persist) {
       localStorage.removeItem(prop);
     }
   }
 
-  set(prop: string, value: any, persist?:boolean):any {
+  set(prop: string, value: any, persist?: boolean): any {
     let val = value;
     // internally mutate our state
     _.set(this._state, prop, value);
