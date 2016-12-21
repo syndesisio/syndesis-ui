@@ -28,7 +28,9 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   HMR: HMR
 });
 
-const frontendConfig = _.merge(commonConfig.frontendConfig, { apiEndpoint: 'http://localhost:8080/v1' });
+const API_ENDPOINT = process.env.IPAAS_API_ENDPOINT || 'http://localhost:8080/v1';
+
+const frontendConfig = _.merge(commonConfig.frontendConfig, { apiEndpoint: API_ENDPOINT });
 const proxyConfig = commonConfig.proxyConfig;
 
 /**
