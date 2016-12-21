@@ -36,13 +36,9 @@ export class Create implements OnInit, OnDestroy {
   tags: string;
   defaults = {};
 
-  //orderByArray: ['name', 'type'];
-
-  //@Input() connections: IConnection[];
   connections: IConnection[];
   connection: IConnection;
 
-  //@Input() components: IComponent[];
   components: IComponent[];
   selectedComponent: IComponent;
   availableFields = [];
@@ -67,6 +63,7 @@ export class Create implements OnInit, OnDestroy {
     log.debug('hello `Connections: Create` component');
 
     const settings = this._state.get(STATE_KEY);
+
     if (settings) {
       this.name = settings.name;
       this.description = settings.description;
@@ -132,6 +129,7 @@ export class Create implements OnInit, OnDestroy {
     if (!this.enabledFields) {
       return false;
     }
+
     return this.showForm;
   }
 
@@ -170,6 +168,7 @@ export class Create implements OnInit, OnDestroy {
 
   removeField(field) {
     _.remove(this.enabledFields, (f) => f.id == field.id);
+
     this.toggleForm();
   }
 
@@ -184,12 +183,14 @@ export class Create implements OnInit, OnDestroy {
 
   moveUp(field) {
     let index = _.indexOf(this.enabledFields, field);
+
     this.move(index, index - 1);
     this.toggleForm();
   }
 
   moveDown(field) {
     let index = _.indexOf(this.enabledFields, field);
+
     this.move(index, index + 1);
     this.toggleForm();
   }
@@ -199,20 +200,23 @@ export class Create implements OnInit, OnDestroy {
     this.availableFields.length = 0;
     this.enabledFields.length = 0;
     this.defaults = {};
+
     const properties = JSON.parse(component.properties);
+
     _.forOwn(properties, (property, key) => {
       property.id = key;
       this.availableFields.push(property);
     });
+
     this.persistState();
   }
 
   goBack(currentStep: number, $event: any): void {
-    console.log('currentStep: ' + currentStep);
+    //log.debug('currentStep: ' + currentStep);
 
     currentStep = this.currentStep--;
 
-    console.log('this.currentStep: ' + this.currentStep);
+    //log.debug('this.currentStep: ' + this.currentStep);
     this.persistState();
   }
 
@@ -222,11 +226,11 @@ export class Create implements OnInit, OnDestroy {
   }
 
   nextStep(currentStep: number, $event: any): void {
-    console.log('currentStep: ' + currentStep);
+    //log.debug('currentStep: ' + currentStep);
 
     currentStep = this.currentStep++;
 
-    console.log('this.currentStep: ' + this.currentStep);
+    //log.debug('this.currentStep: ' + this.currentStep);
     this.persistState();
   }
 
@@ -236,13 +240,17 @@ export class Create implements OnInit, OnDestroy {
       description: this.description,
       icon: this.selectedComponent.icon,
       configuredProperties: JSON.stringify(this.enabledFields)
-    }
+    };
+    
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
       this.clearState();
+
+      // Add Toast notification here
+
       this._router.navigate([ '/connections' ]);
     }, (error) => {
-      console.log("Failed to create connection: ", error);
+      console.log('Failed to create connection: ', error);
     });
   }
 

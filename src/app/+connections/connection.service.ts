@@ -1,10 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-// Here were are mostly using observables instead of promises
 import { Observable } from 'rxjs/Observable';
-
-//import * as _ from 'lodash';
 
 import { AppState } from '../app.service';
 import { IConnection } from './connection.model';
@@ -51,7 +48,7 @@ export class ConnectionService implements IConnectionService {
   del(id: number): Observable<void> {
     return this._http.delete(this.baseUrl + '/connections/' + id)
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('Response: ' + JSON.stringify(data)))
+      .do(data => log.debug('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
@@ -64,7 +61,7 @@ export class ConnectionService implements IConnectionService {
   get(id: number): Observable<IConnection> {
     return this._http.get(this.baseUrl + '/connections/' + id)
       .map((response: Response) => <IConnection[]> response.json())
-      .do(data => console.log('Response: ' +  JSON.stringify(data)))
+      .do(data => log.debug('Response: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   };
 
@@ -76,7 +73,7 @@ export class ConnectionService implements IConnectionService {
   getAll(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(data => log.debug('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   }
 
@@ -88,7 +85,7 @@ export class ConnectionService implements IConnectionService {
   getRecent(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(data => log.debug('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
