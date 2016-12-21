@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 //import * as _ from 'lodash';
 
-import { Globals } from '../app.config';
+import { AppState } from '../app.service';
 import { IConnection } from './connection.model';
 import { IConnectionService } from './connection.service.interface';
 import { Logger } from '../common/service/log';
@@ -21,8 +21,7 @@ export class ConnectionService implements IConnectionService {
   //baseUrl: string;
   //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
   //private connectionsUrl = 'http://localhost:9090';
-  //private baseUrl: string;
-  private baseUrl = Globals.apiEndpoint;
+  private baseUrl: string;
   //private baseUrl = 'http://localhost:8080/v1';
 
 
@@ -30,13 +29,15 @@ export class ConnectionService implements IConnectionService {
    * Constructor.
    * @param _http - HTTP
    */
-  constructor(private _http: Http) {
+  constructor(private _http: Http, private _appState: AppState) {
     //baseUrl: string;
     //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
     //private connectionsUrl = 'http://localhost:9090';
     //this.baseUrl = Globals.apiEndpoint;
 
-    console.log('Globals.apiEndpoint: ' + Globals.apiEndpoint);
+    this.baseUrl = _appState.state.apiEndpoint;
+
+    console.log('baseUrl: ' + this.baseUrl);
   }
 
 
@@ -61,8 +62,8 @@ export class ConnectionService implements IConnectionService {
    */
   del(id: number): Observable<void> {
     return this._http.delete(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]> response.json())
-      .do(data => console.log('Response: ' +  JSON.stringify(data)))
+      .map((response: Response) => <IConnection[]>response.json())
+      .do(data => console.log('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
@@ -84,8 +85,8 @@ export class ConnectionService implements IConnectionService {
    */
   getAll(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]> response.json())
-      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      .map((response: Response) => <IConnection[]>response.json())
+      .do(data => console.log('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   }
 
@@ -96,8 +97,8 @@ export class ConnectionService implements IConnectionService {
    */
   getRecent(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]> response.json())
-      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      .map((response: Response) => <IConnection[]>response.json())
+      .do(data => console.log('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 

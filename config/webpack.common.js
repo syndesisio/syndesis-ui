@@ -21,7 +21,9 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 const OUTPUT_DIR = '.';
 
 // use to pass config along to the client
-const frontendConfig = {};
+const frontendConfig = {
+  title: 'Red Hat iPaaS'
+};
 
 /*
  * Webpack Constants
@@ -241,17 +243,17 @@ module.exports = {
      */
     new CopyWebpackPlugin([
       {
-        from: {glob: './node_modules/patternfly/dist/img/*.*'},
+        from: { glob: './node_modules/patternfly/dist/img/*.*' },
         to: './img',
         flatten: true
       },
       {
-        from: {glob: './node_modules/patternfly/dist/fonts/*.*'},
+        from: { glob: './node_modules/patternfly/dist/fonts/*.*' },
         to: './fonts',
         flatten: true
       },
       {
-        from: {glob: './node_modules/patternfly/dist/css/*.*'},
+        from: { glob: './node_modules/patternfly/dist/css/*.*' },
         to: './css',
         flatten: true
       },

@@ -6,6 +6,8 @@ const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
+const _ = require('lodash');
+
 /**
  * Webpack Plugins
  */
@@ -26,7 +28,7 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   HMR: HMR
 });
 
-const frontendConfig = commonConfig.frontendConfig;
+const frontendConfig = _.merge(commonConfig.frontendConfig, { apiEndpoint: 'http://localhost:8080/v1' });
 const proxyConfig = commonConfig.proxyConfig;
 
 /**
@@ -127,7 +129,7 @@ module.exports = webpackMerge(commonConfig, {
        *
        * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
        */
-      new NamedModulesPlugin()
+    new NamedModulesPlugin()
 
   ],
 
@@ -162,8 +164,8 @@ module.exports = webpackMerge(commonConfig, {
     },
     proxy: proxyConfig,
     outputPath: helpers.root(METADATA.dist),
-    setup: function(app) {
-      app.get('/config.json', function(req, res) {
+    setup: function (app) {
+      app.get('/config.json', function (req, res) {
         res.json(frontendConfig);
       });
 
