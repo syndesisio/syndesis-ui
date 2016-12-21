@@ -35,7 +35,7 @@ export class AppState {
     var promise = this.http.get(configJson).map(res => res.json()).toPromise();
     promise.then((config) => {
       log.debug('Using configuration: ', config);
-      this._state = _.merge(this._state, config);
+      this._state = _.merge({}, this._state, config);
       return this;
     });
     return promise;
