@@ -45,8 +45,13 @@ div.connections.create {
     border-bottom: solid 1px #d1d1d1;
     margin: auto -20px;
     padding: 0;
+
     .form-horizontal .control-label {
       text-align: left;
+    }
+
+    .wizard-pf-main {
+      padding-bottom: 100px;
     }
   }
 
