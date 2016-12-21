@@ -56,12 +56,18 @@ export class ConnectionService implements IConnectionService {
   /**
    * Gets a single Connection by its name.
    * @param id - ID of the Connection
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * @return {Observable<Connection>} - Returns an Observable.
    */
   get(id: number): Observable<IConnection> {
     return this._http.get(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]> response.json())
-      .do(data => log.debug('Response: ' +  JSON.stringify(data)))
+      .map((response: Response) => <IConnection> response.json())
+      .do(function(data) {
+        log.debug('Response: ' + JSON.stringify(data));
+
+        if (data.configuredProperties) {
+          log.debug('configuredProperties: ' + JSON.stringify(JSON.parse(data.configuredProperties)));
+        }
+      })
       .catch(this.handleError);
   };
 
