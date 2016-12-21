@@ -27,17 +27,20 @@
           <li class="wizard-pf-step"
               [class.active]="currentStep === 1"
               data-tabgroup="1">
-            <a><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">Define Connection Basics</span></a>
+            <a> <span class="wizard-pf-step-number">1</span> <span class="wizard-pf-step-title">Define Connection Basics</span>
+            </a>
           </li>
           <li class="wizard-pf-step"
               [class.active]="currentStep === 2"
               data-tabgroup="2">
-            <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">Select and Configure Fields</span></a>
+            <a> <span class="wizard-pf-step-number">2</span> <span class="wizard-pf-step-title">Select and Configure Fields</span>
+            </a>
           </li>
           <li class="wizard-pf-step"
               [class.active]="currentStep === 3"
               data-tabgroup="3">
-            <a><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">Review</span></a>
+            <a> <span class="wizard-pf-step-number">3</span>
+              <span class="wizard-pf-step-title">Review</span> </a>
           </li>
         </ul>
       </div>
@@ -202,9 +205,9 @@
                       </div>
                       <p>{{description}}</p>
                       <p>
-                                  <span *ngFor="let tag of getTags()">
-                                    <span class="label label-primary">{{tag}}</span>
-                                  </span>
+                        <span *ngFor="let tag of getTags()">
+                          <span class="label label-primary">{{tag}}</span>
+                        </span>
                       </p>
                     </div>
                   </div>
