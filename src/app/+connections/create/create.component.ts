@@ -62,6 +62,9 @@ export class Create implements OnInit, OnDestroy {
   ngOnInit() {
     log.debug('hello `Connections: Create` component');
 
+    /*
+    this.clearState();
+
     const settings = this._state.get(STATE_KEY);
 
     if (settings) {
@@ -75,6 +78,7 @@ export class Create implements OnInit, OnDestroy {
       this.enabledFields = settings.enabledFields || [];
       this.currentStep = settings.currentStep || 1;
     }
+    */
 
     this._componentService.getAll()
       .subscribe(components => this.components = components,
@@ -102,6 +106,9 @@ export class Create implements OnInit, OnDestroy {
   }
 
   getTags() {
+    if(this.tags) {
+      return;
+    }
     return _.map(this.tags.split(','), (tag) => tag.trim());
   }
 
@@ -137,24 +144,24 @@ export class Create implements OnInit, OnDestroy {
   // Steps
   goToStep1() {
     this.currentStep = 1;
-    this.persistState();
+    //this.persistState();
   }
 
   goToStep2() {
     this.currentStep = 2;
-    this.persistState();
+    //this.persistState();
   }
 
   goToStep3() {
     this.currentStep = 3;
-    this.persistState();
+    //this.persistState();
   }
 
   toggleForm() {
     this.showForm = false;
     setTimeout(() => {
       this.showForm = true;
-      this.persistState();
+      //this.persistState();
     }, 5);
   }
 
@@ -208,7 +215,7 @@ export class Create implements OnInit, OnDestroy {
       this.availableFields.push(property);
     });
 
-    this.persistState();
+    //this.persistState();
   }
 
   goBack(currentStep: number, $event: any): void {
@@ -217,11 +224,11 @@ export class Create implements OnInit, OnDestroy {
     currentStep = this.currentStep--;
 
     //log.debug('this.currentStep: ' + this.currentStep);
-    this.persistState();
+    //this.persistState();
   }
 
   cancelCreate(): void {
-    this.clearState();
+    //this.clearState();
     this._router.navigate([ '/connections' ]);
   }
 
@@ -231,7 +238,7 @@ export class Create implements OnInit, OnDestroy {
     currentStep = this.currentStep++;
 
     //log.debug('this.currentStep: ' + this.currentStep);
-    this.persistState();
+    //this.persistState();
   }
 
   createConnection() {
@@ -244,7 +251,7 @@ export class Create implements OnInit, OnDestroy {
     
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
-      this.clearState();
+      //this.clearState();
 
       // Add Toast notification here
 
