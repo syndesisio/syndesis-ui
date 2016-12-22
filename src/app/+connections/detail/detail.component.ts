@@ -61,6 +61,23 @@ export class Detail implements OnInit, OnDestroy {
     this._router.navigate(['/connections']);
   }
 
+
+  gotoEdit(connection: IConnection, $event: any): void {
+    //log.debug('$event: ', $event);
+
+    let className = _.get($event, 'target.className');
+
+    if ($event && $event.target && $event.target.className.indexOf('dropdown-toggle') !== -1) {
+      return;
+    }
+
+    log.debug('Connection: ', connection);
+
+    let link = [ 'connections', 'edit', connection.id ];
+
+    this._router.navigate(link);
+  }
+
   save(): void {
     this._connectionService.update(this.connection);
   }
