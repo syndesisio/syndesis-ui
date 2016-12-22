@@ -107,9 +107,10 @@ export class Create implements OnInit, OnDestroy {
 
   getTags() {
     if(this.tags) {
+      return _.map(this.tags.split(','), (tag) => tag.trim());
+    } else {
       return;
     }
-    return _.map(this.tags.split(','), (tag) => tag.trim());
   }
 
 
