@@ -1,10 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-// Here were are mostly using observables instead of promises
 import { Observable } from 'rxjs/Observable';
-
-//import * as _ from 'lodash';
 
 import { AppState } from '../app.service';
 import { IConnection } from './connection.model';
@@ -17,27 +14,15 @@ let log = Logger.get('ConnectionService');
 export class ConnectionService implements IConnectionService {
 
   errorMessage: string;
-  private allConnections: IConnection[];
-  //baseUrl: string;
-  //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-  //private connectionsUrl = 'http://localhost:9090';
   private baseUrl: string;
-  //private baseUrl = 'http://localhost:8080/v1';
-
 
   /**
    * Constructor.
    * @param _http - HTTP
+   * @param _appState -- AppState
    */
   constructor(private _http: Http, private _appState: AppState) {
-    //baseUrl: string;
-    //private connectionsUrl = 'app/+connections/connection.data.json'; // URL to JSON file
-    //private connectionsUrl = 'http://localhost:9090';
-    //this.baseUrl = Globals.apiEndpoint;
-
     this.baseUrl = _appState.state.apiEndpoint;
-
-    console.log('baseUrl: ' + this.baseUrl);
   }
 
 
@@ -63,19 +48,27 @@ export class ConnectionService implements IConnectionService {
   del(id: number): Observable<void> {
     return this._http.delete(this.baseUrl + '/connections/' + id)
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('Response: ' + JSON.stringify(data)))
+      .do(data => log.debug('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
 
   /**
    * Gets a single Connection by its name.
-   * This should actually be by ID instead, and needs to be updated.
    * @param id - ID of the Connection
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * @return {Observable<Connection>} - Returns an Observable.
    */
   get(id: number): Observable<IConnection> {
-    return this.getAll().map((connections: IConnection[]) => connections.find(c => c.id === id));
+    return this._http.get(this.baseUrl + '/connections/' + id)
+      .map((response: Response) => <IConnection> response.json())
+      .do(function(data) {
+        log.debug('Response: ' + JSON.stringify(data));
+
+        if (data.configuredProperties) {
+          log.debug('configuredProperties: ' + JSON.stringify(JSON.parse(data.configuredProperties)));
+        }
+      })
+      .catch(this.handleError);
   };
 
 
@@ -86,7 +79,7 @@ export class ConnectionService implements IConnectionService {
   getAll(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(data => log.debug('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   }
 
@@ -98,7 +91,7 @@ export class ConnectionService implements IConnectionService {
   getRecent(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(data => log.debug('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
@@ -117,7 +110,7 @@ export class ConnectionService implements IConnectionService {
 
 
   private extractData(res: Response) {
-    console.log('Response: ' + JSON.stringify(res));
+    log.debug('Response: ' + JSON.stringify(res));
 
     let body = res.json();
     return body.data || {};

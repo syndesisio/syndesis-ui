@@ -43,7 +43,6 @@ export class Library implements OnInit {
   ngOnInit(): void {
     log.debug('hello `Connections: Library` component');
 
-    //this.getConnections();
     this._connectionService.getAll()
       .subscribe(connections => this.connections = connections,
         error => this.errorMessage = <any>error);
@@ -61,7 +60,7 @@ export class Library implements OnInit {
   }
 
   editConnection(connection: IConnection, $event: any): void {
-    console.log('Connection: ', connection);
+    //log.debug('Connection: ', connection);
 
     let link = [ 'connections', 'edit', connection.name.toLowerCase() ];
 
@@ -72,22 +71,18 @@ export class Library implements OnInit {
     this._router.navigate(['/dashboard']);
   }
 
-  getConnections() {
-    this._connectionService.getAll();
-  }
-
   gotoDetail(connection: IConnection, $event: any): void {
-    console.log('$event: ', $event);
+    //log.debug('$event: ', $event);
 
     let className = _.get($event, 'target.className');
 
-    console.log('Class name: ', className);
+    //log.debug('Class name: ', className);
 
     if ($event && $event.target && $event.target.className.indexOf('dropdown-toggle') !== -1) {
       return;
     }
 
-    console.log('Connection: ', connection);
+    log.debug('Connection: ', connection);
 
     //let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
     let link = [ 'connections', 'detail', connection.id ];

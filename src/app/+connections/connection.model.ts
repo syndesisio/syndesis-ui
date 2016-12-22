@@ -1,23 +1,27 @@
 export class IConnection {
-    id: number;
-    name: string;
-    description: string;
-    type: string;
-    icon: string;
-    createdOn: Date;
-    createdBy: string;
-    modifiedOn: Date;
-    modifiedBy: string;
-    
-    constructor() {
-        this.id = 0;
-        this.name = '';
-        this.description = '';
-        this.type = '';
-        this.icon = '';
-        this.createdOn = new Date();
-        this.createdBy = "";
-        this.modifiedOn = new Date();
-        this.modifiedBy = "";
-    }
+  id: number;
+  configuredProperties: any;
+  createdBy: string;
+  createdOn: Date;
+  description: string;
+  icon: string;
+  modifiedBy: string;
+  modifiedOn: Date;
+  name: string;
+  position: string;
+  type: string;
+
+  constructor() {
+    this.id = 0;
+    this.createdBy = '';
+    this.createdOn = new Date();
+    this.configuredProperties = {};
+    this.description = '';
+    this.icon = '';
+    this.modifiedBy = '';
+    this.modifiedOn = new Date();
+    this.name = '';
+    this.position = '';
+    this.type = '';
+  }
 }

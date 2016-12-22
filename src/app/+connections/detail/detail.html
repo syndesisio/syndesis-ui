@@ -1,13 +1,58 @@
-<div class="connections detail">
-    <div *ngIf="connection">
-        <h2>{{connection.name}} details!</h2>
-        <div>
-            <label>ID: </label>{{connection.id}}</div>
-        <div>
-            <label>Name: </label>
-            <input [(ngModel)]="connection.name" placeholder="name" />
+<div class="connections detail" *ngIf="connection">
+    <!-- Toolbar -->
+    <div class="toolbar">
+
+        <!-- Toolbar: Breadcrumbs -->
+        <div class="row toolbar-pf breadcrumbs">
+            <div class="col-sm-12 toolbar-pf-actions">
+                <ol class="breadcrumb">
+                    <li><a [routerLink]=" ['/home'] ">Home</a></li>
+                    <li><a [routerLink]=" ['/connections'] ">Connections</a></li>
+                    <li class="active"><strong>Connection Details</strong></li>
+                </ol>
+                <a href="#"
+                   class="btn btn-primary toolbar-pf-action-right">Edit</a>
+            </div>
         </div>
-        <button (click)="goBack()">Back</button>
-        <button (click)="save()">Save</button>
+    </div>
+
+    <!-- Content -->
+    <div class="row row-cards-pf center">
+        <div class="col-xs-4">
+            <div class="card-pf">
+                <div class="card-pf-body">
+                    <div class="icon"><span class="fa {{connection.icon}}"></span></div>
+                    <div class="name">
+                        <h2 class="card-pf-title">
+                            {{connection.name}}
+                        </h2>
+                    </div>
+                    <div class="description">
+                        {{connection.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-8">
+            <div class="card-pf">
+                <h2 class="card-pf-title">
+                    Connection Fields
+                </h2>
+                <div class="card-pf-body">
+                    <p class="card-pf-aggregate-status-notifications">
+                        <span class="card-pf-aggregate-status-notification">
+                            <a href="#"
+                               class="add"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Add Ipsum">
+                                <span class="pficon pficon-add-circle-o"></span>
+                            </a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

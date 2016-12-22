@@ -20,8 +20,8 @@ describe('App', () => {
         ]
     }));
 
-    it('should have a url', inject([ App ], (app) => {
-        expect(app.url).toEqual('https://www.twitter.com/jboss');
+    it('should have a Twitter url', inject([ App ], (app) => {
+        expect(app.twitterUrl).toEqual('https://www.twitter.com/jboss');
     }));
 
 });
