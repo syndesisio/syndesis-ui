@@ -37,6 +37,7 @@ export class App {
     this.iconDarkBg = _appState.state.iconDarkBg;
     this.logoDarkBg = _appState.state.logoDarkBg;
     this.title = _appState.state.title;
+    this.twitterUrl = _appState.state.twitterUrl;
   }
 
   ngOnInit() {
