@@ -1,44 +1,63 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { IConnection } from '../connection.model';
 import { ConnectionService } from '../connection.service';
 
 import { Logger } from '../../common/service/log';
 
-var log = Logger.get('+connections/edit');
+let log = Logger.get('+connections/edit');
 
 @Component({
   selector: 'connections-edit',
-  styles: [ require('./edit.scss') ],
-  templateUrl: './edit.html',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: [ 'edit.scss' ],
+  templateUrl: 'edit.html',
   providers: [ ConnectionService ]
 })
 export class Edit implements OnInit {
+  currentStep = 1;
   limit = 60;
+  listFilter: string;
+  error: any;
   trail = '..';
 
-  currentStep = 1;
-  listFilter: string;
-  errorMessage: string;
+  private sub: Subscription;
 
-  @Input() connections: IConnection[];
+  @Input() connection: IConnection;
+  @Output() close = new EventEmitter();
 
+  /**
+   * Constructor.
+   * @param _connectionService - ConnectionService
+   * @param _route - ActivatedRoute
+   * @param _router - Router
+   */
   constructor(private _connectionService: ConnectionService,
-              private router: Router) {
-    this.getConnections();
-  }
+              private _route: ActivatedRoute,
+              private _router: Router) {}
 
   ngOnInit() {
     log.debug('hello `Connections: Edit` component');
+
+    this.sub = this._route.params.subscribe(
+      params => {
+        let id = +params['id'];
+        this.getConnection(id);
+      });
+
+    log.debug('Connection: ' + JSON.stringify(this.connection));
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
-  getConnections() {
-    this._connectionService.getAll()
-      .subscribe(
-        connections => this.connections = connections,
-        error => this.errorMessage = <any>error);
+  getConnection(id: number) {
+    this._connectionService.get(id).subscribe(
+      connection => this.connection = connection,
+      error => this.error = <any>error);
   }
 
   goToStep1() {

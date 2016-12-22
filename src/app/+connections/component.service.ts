@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
-// Here were are mostly using observables instead of promises
 import { Observable } from 'rxjs/Observable';
 
-import { Globals } from '../app.config';
+import { AppState } from '../app.service';
 import { IComponent } from './component.model';
 //import { IComponentService } from './component.service.interface';
 
@@ -15,16 +13,17 @@ let log = Logger.get('ComponentService');
 @Injectable()
 export class ComponentService {
 
-  errorMessage: string;
-  private allComponents: IComponent[];
-  private baseUrl = Globals.apiEndpoint;
-
+  private baseUrl: string;
+  private error: string;
 
   /**
    * Constructor.
    * @param _http - HTTP
+   * @param _appState -- AppState
    */
-  constructor(private _http: Http) {}
+  constructor(private _http: Http, private _appState: AppState) {
+    this.baseUrl = _appState.state.apiEndpoint;
+  }
 
 
   /**
@@ -58,11 +57,11 @@ export class ComponentService {
    * Gets a single Component by its name.
    * This should actually be by ID instead, and needs to be updated.
    * @param id - ID of the Component
-   * @return {Observable<Component[]>} - Returns an Observable.
+   * @return {Observable<Component>} - Returns an Observable.
    */
   get(id: number): Observable<IComponent> {
     return this._http.get(this.baseUrl + '/components/' + id)
-      .map((response: Response) => <IComponent[]> response.json())
+      .map((response: Response) => <IComponent> response.json())
       .do(data => console.log('Response: ' +  JSON.stringify(data)))
       .catch(this.handleError);
   };

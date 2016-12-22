@@ -22,8 +22,6 @@ export class Detail implements OnInit, OnDestroy {
   @Output() close = new EventEmitter();
 
   error: any;
-  navigated = false; // true if navigated here
-  isCollapsed = true;
 
   private sub: Subscription;
 
