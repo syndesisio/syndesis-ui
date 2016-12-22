@@ -253,12 +253,13 @@ export class Create implements OnInit, OnDestroy {
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
       //this.clearState();
+      log.debug('Response: ' + JSON.stringify(resp));
 
       // Add Toast notification here
 
       this._router.navigate([ '/connections' ]);
     }, (error) => {
-      console.log('Failed to create connection: ', error);
+      log.debug('Failed to create connection: ', error);
     });
   }
 
