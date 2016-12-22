@@ -57,29 +57,30 @@
                        name='nameInput'
                        data-id='nameInput'
                        [(ngModel)]='connection.name'
+                       [disabled]='true'
                        class='form-control'>
               </div>
             </div>
             <div class='form-group'>
-              <label class='col-sm-4 control-label'
-                     for='descriptionInput'>Description&nbsp;
+              <label class='col-sm-4 control-label'>Description&nbsp;
                 <span style='color: red'>*</span>
               </label>
               <div class='col-sm-8'>
                 <textarea data-id='descriptionInput'
                           name='descriptionInput'
                           class='form-control'
+                          [disabled]='true'
                           [(ngModel)]='connection.description'
                           rows='2'></textarea>
               </div>
             </div>
             <div class='form-group required'>
-              <label class='col-sm-4 control-label'
-                     for='tagsInput'>Tag(s)</label>
+              <label class='col-sm-4 control-label'>Tag(s)</label>
               <div class='col-sm-8'>
                 <input type='text'
                        name='tagsInput'
                        data-id='tagsInput'
+                       [disabled]='true'
                        [(ngModel)]='tags'
                        class='form-control'>
               </div>
