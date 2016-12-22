@@ -79,7 +79,10 @@ export class ConnectionService implements IConnectionService {
   getAll(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => log.debug('All: ' + JSON.stringify(data)))
+      //.do(data => log.debug('All: ' + JSON.stringify(data)))
+      .do(function(data) {
+        //log.debug('All: ' + JSON.stringify(data));
+      })
       .catch(this.handleError);
   }
 

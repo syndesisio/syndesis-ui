@@ -74,7 +74,10 @@ export class ComponentService {
   getAll(): Observable<IComponent[]> {
     return this._http.get(this.baseUrl + '/components')
       .map((response: Response) => <IComponent[]> response.json())
-      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      //.do(data => console.log('All: ' +  JSON.stringify(data)))
+      .do(function(data) {
+        //log.debug('All: ' + JSON.stringify(data));
+      })
       .catch(this.handleError);
   }
 

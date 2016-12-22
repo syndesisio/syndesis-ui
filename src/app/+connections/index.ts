@@ -30,6 +30,7 @@ const routes = [
     children: [
       {path: '', component: Library},
       {path: 'create', component: Create},
+      {path: 'create/:id', component: Create},
       {path: 'edit/:id', component: Edit},
       {path: 'detail/:id', component: Detail}
     ]

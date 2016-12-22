@@ -82,6 +82,7 @@
                   <input type='text'
                          name='nameInput'
                          data-id='nameInput'
+                         placeholder='{{ name }}'
                          [(ngModel)]='name'
                          class='form-control'>
                 </div>
@@ -168,8 +169,7 @@
                       <span class='pficon pficon-close'></span>
                     </button>
                     <span class='pficon pficon-ok'></span>
-                    <strong>Success!</strong> The provided inputs
-                    validate successfully.
+                    <strong>Success!</strong> The provided inputs validate successfully.
                   </div>
                 </div>
                 <div *ngIf='!enabledFields.length'
@@ -370,6 +370,5 @@
       Create
     </button>
   </div>
-
 
 </div>

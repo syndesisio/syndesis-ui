@@ -16,13 +16,13 @@ let log = Logger.get('+connections/edit');
   templateUrl: 'edit.html',
   providers: [ ConnectionService ]
 })
-export class Edit implements OnInit {
+export class Edit implements OnInit, OnDestroy {
   currentStep = 1;
   limit = 60;
   listFilter: string;
-  error: any;
   trail = '..';
 
+  private error: any;
   private sub: Subscription;
 
   @Input() connection: IConnection;
@@ -38,7 +38,7 @@ export class Edit implements OnInit {
               private _route: ActivatedRoute,
               private _router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     log.debug('hello `Connections: Edit` component');
 
     this.sub = this._route.params.subscribe(
@@ -72,8 +72,7 @@ export class Edit implements OnInit {
     this.currentStep = 3;
   }
 
-  submit() {
-    this.currentStep = 4;
+  save(): void {
+    this._connectionService.update(this.connection);
   }
-
 }

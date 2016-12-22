@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router'
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../app.service';
+import { Subscription } from 'rxjs/Subscription';
 
 // Components
 import { IComponent } from '../component.model';
@@ -23,13 +23,15 @@ const STATE_KEY = 'connection-create-state';
   providers: [ ComponentService, ConnectionService ]
 })
 export class Create implements OnInit, OnDestroy {
+
+  //@Input() connection: IConnection;
+
   limit = 60;
   trail = '..';
 
   currentStep = 1;
   listFilter: string;
   fieldListFilter: string;
-  errorMessage: string;
 
   name: string;
   description: string;
@@ -46,20 +48,26 @@ export class Create implements OnInit, OnDestroy {
   showForm = false;
   showValidationMessage = false;
 
+  private error: string;
+  private sub: Subscription;
+
   /**
    * Constructor.
    * @param _componentService - ComponentService
    * @param _connectionService - ConnectionService
+   * @param _route - ActivatedRoute,
    * @param _router - Router
    * @param _state - AppState
    */
   constructor(private _componentService: ComponentService,
               private _connectionService: ConnectionService,
+              private _route: ActivatedRoute,
               private _router: Router,
               private _state: AppState) {
+    this.error = '';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     log.debug('hello `Connections: Create` component');
 
     /*
@@ -80,25 +88,48 @@ export class Create implements OnInit, OnDestroy {
     }
     */
 
+    // Check if there are existing params. If so, do a lookup.
+    if(this._route.params !== null) {
+      // Get all components
+      /*
+      this._componentService.getAll()
+        .subscribe(components => this.components = components,
+          error => this.error = <any>error);
+
+      this.sub = this._route.params.subscribe(
+        params => {
+          let id = +params['id'];
+          //this.getConnection(id);
+
+          this._connectionService.get(id).subscribe(
+            //connection => this.connection = connection,
+            function(connection) {
+              log.debug('Connection: ' + JSON.stringify(connection));
+              log.debug('connection.name: ' + connection.name);
+
+              // Map to Angular models as if new Connection
+              this.connection = connection;
+              this.name = connection.name;
+              this.description = connection.description;
+            },
+            error => this.error = <any>error);
+        });
+        */
+    } else {
+      // Get all components
+      this._componentService.getAll()
+        .subscribe(components => this.components = components,
+          error => this.error = <any>error);
+    }
+
+    // Get all components
     this._componentService.getAll()
       .subscribe(components => this.components = components,
-        error => this.errorMessage = <any>error);
+        error => this.error = <any>error);
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
-  // Components
-  getComponents() {
-    this._componentService.getAll();
-    //console.log('Components: ' + JSON.stringify(this.components));
-  }
-
-  // Connections
-  getConnections() {
-    this._connectionService.getAll();
-    //console.log('Connections: ' + JSON.stringify(this.connection));
-  }
 
   // View helpers
   fieldAvailable(field) {
@@ -249,7 +280,7 @@ export class Create implements OnInit, OnDestroy {
       icon: this.selectedComponent.icon,
       configuredProperties: JSON.stringify(this.enabledFields)
     };
-    
+
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
       //this.clearState();
