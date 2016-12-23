@@ -29,6 +29,13 @@ const APP_PROVIDERS = [
   AppState
 ];
 
+// Pipes
+/*
+import { FieldFilter } from './common/pipes/field.pipe';
+import { Truncate } from './common/pipes/truncate';
+import { OrderBy } from './common/pipes/orderBy';
+*/
+
 // Logger instance
 let log = Logger.get('AppModule');
 
@@ -38,7 +45,14 @@ let log = Logger.get('AppModule');
 @NgModule({
   bootstrap: [ App ],
   declarations: [
-    App
+    App,
+
+    /*
+    // Pipes
+    FieldFilter,
+    OrderBy,
+    Truncate
+    */
   ],
   imports: [ // import Angular's modules
     BrowserModule,

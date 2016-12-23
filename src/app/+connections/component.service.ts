@@ -103,7 +103,7 @@ export class ComponentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.put(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.put(this.baseUrl + '/components/' + component.id, body, options).map(this.extractData).catch(this.handleError);
   };
 
 

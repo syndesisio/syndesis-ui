@@ -4,14 +4,14 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../app.service';
-import { IConnection } from './connection.model';
-import { IConnectionService } from './connection.service.interface';
+import { ITemplate } from './template.model';
+import { ITemplateService } from './template.service.interface';
 import { Logger } from '../common/service/log';
 
-let log = Logger.get('ConnectionService');
+let log = Logger.get('TemplateService');
 
 @Injectable()
-export class ConnectionService implements IConnectionService {
+export class TemplateService implements ITemplateService {
 
   errorMessage: string;
   private baseUrl: string;
@@ -27,41 +27,41 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Creates a Connection using data provided by the user.
-   * @param connection - Connection
-   * @return {Observable<Connection>} - Returns an Observable.
+   * Creates a Template using data provided by the user.
+   * @param template - Template
+   * @return {Observable<Template>} - Returns an Observable.
    */
-  create(connection: IConnection): Observable<IConnection> {
-    let body = JSON.stringify(connection);
+  create(template: ITemplate): Observable<ITemplate> {
+    let body = JSON.stringify(template);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.post(this.baseUrl + '/connections/', body, options).map(this.extractData).catch(this.handleError);
+    return this._http.post(this.baseUrl + '/integrationtemplates/', body, options).map(this.extractData).catch(this.handleError);
   };
 
 
   /**
-   * Deletes a Connection.
-   * @param id - ID of the Connection
+   * Deletes a Template.
+   * @param id - ID of the Template
    * @return {Observable<void>} - Returns an Observable.
    */
   del(id: number): Observable<void> {
-    return this._http.delete(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]>response.json())
+    return this._http.delete(this.baseUrl + '/integrationtemplates/' + id)
+      .map((response: Response) => <ITemplate[]>response.json())
       .do(data => log.debug('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
 
   /**
-   * Gets a single Connection by its name.
-   * @param id - ID of the Connection
-   * @return {Observable<Connection>} - Returns an Observable.
+   * Gets a single Template by its name.
+   * @param id - ID of the Template
+   * @return {Observable<Template>} - Returns an Observable.
    */
-  get(id: number): Observable<IConnection> {
-    return this._http.get(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection> response.json())
-      .do(function (data) {
+  get(id: number): Observable<ITemplate> {
+    return this._http.get(this.baseUrl + '/integrationtemplates/' + id)
+      .map((response: Response) => <ITemplate> response.json())
+      .do(function(data) {
         log.debug('Response: ' + JSON.stringify(data));
 
         if (data.configuredProperties) {
@@ -73,14 +73,14 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Retrieves a list of all Connections.
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * Retrieves a list of all Templates.
+   * @return {Observable<Template[]>} - Returns an Observable.
    */
-  getAll(): Observable<IConnection[]> {
-    return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]>response.json())
+  getAll(): Observable<ITemplate[]> {
+    return this._http.get(this.baseUrl + '/integrationtemplates')
+      .map((response: Response) => <ITemplate[]>response.json())
       //.do(data => log.debug('All: ' + JSON.stringify(data)))
-      .do(function (data) {
+      .do(function(data) {
         //log.debug('All: ' + JSON.stringify(data));
       })
       .catch(this.handleError);
@@ -88,27 +88,27 @@ export class ConnectionService implements IConnectionService {
 
 
   /**
-   * Gets an Observable of recently updated Connections.
-   * @return {Observable<Connection[]>} - Returns an Observable.
+   * Gets an Observable of recently updated Templates.
+   * @return {Observable<Template[]>} - Returns an Observable.
    */
-  getRecent(): Observable<IConnection[]> {
-    return this._http.get(this.baseUrl + '/connections')
-      .map((response: Response) => <IConnection[]>response.json())
+  getRecent(): Observable<ITemplate[]> {
+    return this._http.get(this.baseUrl + '/integrationtemplates')
+      .map((response: Response) => <ITemplate[]>response.json())
       .do(data => log.debug('All: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
 
 
   /**
-   * Updates a single Connection.
-   * @return {Observable<Connection>} - Returns an Observable.
+   * Updates a single Template.
+   * @return {Observable<Template>} - Returns an Observable.
    */
-  update(connection: IConnection): Observable<IConnection> {
-    let body = JSON.stringify(connection);
+  update(template: ITemplate): Observable<ITemplate> {
+    let body = JSON.stringify(template);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.put(this.baseUrl + '/connections/' + connection.id, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.put(this.baseUrl + '/integrationtemplates/' + template.id, body, options).map(this.extractData).catch(this.handleError);
   };
 
 

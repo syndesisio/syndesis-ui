@@ -2,15 +2,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Logger } from '../common/service/log';
 
-let log = Logger.get('+connections');
+let log = Logger.get('+integrations');
 
 @Component({
-  selector: 'connections',
+  selector: 'integrations',
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `<router-outlet></router-outlet>`
 })
-export class Connections implements OnInit {
+export class Integrations implements OnInit {
 
   /**
    * Constructor.
@@ -19,7 +19,7 @@ export class Connections implements OnInit {
   }
 
   ngOnInit() {
-    log.debug('hello `Connections` component');
+    log.debug('hello `Integrations` component');
   }
 
 }

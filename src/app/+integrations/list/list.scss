@@ -1,0 +1,21 @@
+div.integrations.list {
+  .card .card-pf {
+    cursor: pointer;
+    height: 210px;
+    max-height: 240px;
+    // overflow: hidden;
+
+    .dropdown-toggle {
+      padding: 4px 10px;
+    }
+  }
+
+  // Actions Bar
+  .toolbar-pf {
+
+    // Toolbar Sort
+    .form-group.sort {
+      border-right: none !important;
+    }
+  }
+}

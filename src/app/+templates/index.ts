@@ -1,33 +1,63 @@
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DirectivesModule } from '../common/directives';
 
 import { Logger } from '../common/service/log';
 
-import { Templates } from './templates.component.ts';
+// Components
+import { Templates } from './template.component';
+import { Create } from './create/create.component';
+//import { Edit } from './edit/edit.component';
+//import { Detail } from './detail/detail.component';
+import { List } from './list/list.component';
+
+// Pipes
+import { FieldFilter } from '../common/pipes/field.pipe';
+import { Truncate } from '../common/pipes/truncate';
+import { TemplateFilter } from './template.pipe';
+import { OrderBy } from '../common/pipes/orderBy';
 
 Logger.get('+Templates').debug('`Templates` bundle loaded asynchronously');
 
-// async components must be named routes for WebpackAsyncRoute
+// Async components must be named routes for WebpackAsyncRoute
 const routes = [
-    {
-        path: '',
-        component: Templates
-    }
+  {
+    path: '',
+    component: Templates,
+    children: [
+      {path: '', component: List},
+      {path: 'create', component: Create},
+      {path: 'create/:id', component: Create}
+    ]
+  }
 ];
 
 @NgModule({
-    declarations: [
-        Templates
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [
+    // Components
+    Templates,
+    Create,
+    List,
+
+    // Pipes
+    FieldFilter,
+    OrderBy,
+    TemplateFilter,
+    Truncate
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    //ReactiveFormsModule,
+    //DirectivesModule,
+    RouterModule.forChild(routes),
+  ]
 })
 export default class TemplatesModule {
-    static routes = routes;
+  static routes = routes;
 }
+
+
 
