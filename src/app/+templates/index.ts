@@ -42,10 +42,10 @@ const routes = [
     List,
 
     // Pipes
-    FieldFilter,
-    OrderBy,
+    //FieldFilter,
+    //OrderBy,
     TemplateFilter,
-    Truncate
+    //Truncate
   ],
   imports: [
     CommonModule,

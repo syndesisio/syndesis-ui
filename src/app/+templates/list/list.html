@@ -68,7 +68,7 @@
       <!-- Template Card -->
       
       <div class="col-xs-12 col-sm-3 col-md-2 card"
-           *ngFor="let template of templates | templateFilter: listFilter | orderBy : ['name', 'type']">
+           *ngFor="let template of templates | templateFilter: listFilter">
         <div class="card-pf card-pf-view card-pf-view-xs">
           <div class="card-pf-body">
             
@@ -103,7 +103,7 @@
               <h2 class="card-pf-title">
                 <span class="fa {{ template.icon }}"></span>
               </h2>
-              <div class="card-title">{{ template.name | truncate:'12':'' }}
+              <div class="card-title">{{ template.name }}
               </div>
             </div>
             

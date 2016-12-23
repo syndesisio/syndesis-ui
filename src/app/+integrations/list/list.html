@@ -72,82 +72,101 @@
     </div><!-- /col -->
   </div><!-- /row -->
   
-  
-  <div class='container-cards-pf'>
-    <div class='row row-cards-pf'>
+  <div class='list-group list-view-pf list-view-pf-view'>
+    
+    <!-- -->
+    <div class='list-group-item integration'
+         *ngFor='let integration of integrations | integrationFilter: listFilter'>
+      <div class='list-view-pf-checkbox'>
+        <input type='checkbox'>
+      </div>
+      <div class='list-view-pf-actions'>
+        <button class='btn btn-default'>Action</button>
+        <div class='dropdown pull-right dropdown-kebab-pf'>
+          <button class='btn btn-link dropdown-toggle'
+                  type='button'
+                  id='dropdownKebabRight9'
+                  data-toggle='dropdown'
+                  aria-haspopup='true'
+                  aria-expanded='true'>
+            <span class='fa fa-ellipsis-v'></span>
+          </button>
+          <ul class='dropdown-menu dropdown-menu-right'
+              aria-labelledby='dropdownKebabRight9'>
+            <li>
+              <a href='#'>Action</a>
+            </li>
+            <li>
+              <a href='#'>Another action</a>
+            </li>
+            <li>
+              <a href='#'>Something else here</a>
+            </li>
+            <li role='separator'
+                class='divider'></li>
+            <li>
+              <a href='#'>Separated link</a>
+            </li>
+          </ul>
+        </div>
       
-      <!-- Integration Card -->
-      
-      <div class='col-xs-12 col-sm-3 col-md-2 card'
-           *ngFor="let integration of integrations | integrationFilter: listFilter">
-        <div class='card-pf card-pf-view card-pf-view-xs'>
-          <div class='card-pf-body'>
-            
-            <!-- Card Dropdown -->
-            <div class="card-pf-heading"><!--card-pf-heading-kebab-->
-              <!--
-              <div class="dropdown pull-right dropdown-kebab-pf card-pf-time-frame-filter">
-                <button type="button"
-                        class="btn btn-link dropdown-toggle"
-                        data-toggle="dropdown">
-                  <span class="fa fa-ellipsis-v"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right"
-                    role="menu">
-                  <li>
-                    <a [routerLink]="['detail', integration.id]">View</a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['edit', integration.id]">Edit</a>
-                  </li>
-                  <li>
-                    <a (click)="duplicateIntegration(integration, $event)">Duplicate</a>
-                  </li>
-                  <li>
-                    <a (click)="deleteIntegration(integration, $event)">Delete</a>
-                  </li>
-                </ul>
-              </div>
-              
-              <!-- Card Title & Icon -->
-            
-            <h2 class='card-pf-title'>
-              <span class='fa {{ integration.icon }}'></span>
-            </h2>
-            <div (click)='gotoDetail(integration, $event)'
-                 class='card-title'>{{ integration.name }}
+      </div>
+      <div class='list-view-pf-main-info'>
+        <div class='list-view-pf-left'>
+          <span class='fa fa-plane list-view-pf-icon-sm'></span>
+        </div>
+        <div class='list-view-pf-body'>
+          <div class='list-view-pf-description'>
+            <div class='list-group-item-heading'>
+              {{ integration.name }}
+            </div>
+            <div class='list-group-item-text'>
+              Cum sociis natoque penatibus et magnis dis parturient montes, <a href='#'>nascetur ridiculus mus</a>.
             </div>
           </div>
-          
-          <!-- Card Description --
-        
-          <p (click)="gotoDetail(integration, $event)">
-            {{ integration.description | truncate:limit:trail }} </p>
+          <div class='list-view-pf-additional-info'>
+            <!--
+            <div class='list-view-pf-additional-info-item'>
+              <span class='pficon pficon-screen'></span>
+              <strong>8</strong> Hosts
+            </div>
+            <div class='list-view-pf-additional-info-item'>
+              <span class='pficon pficon-cluster'></span>
+              <strong>6</strong> Clusters
+            </div>
+            <div class='list-view-pf-additional-info-item'>
+              <span class='pficon pficon-container-node'></span>
+              <strong>10</strong> Nodes
+            </div>
             -->
-          <p>Description goes here.</p>
+            <div class='list-view-pf-additional-info-item'>
+              <a class='btn btn-primary'>Active</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
     <div class='error'
          *ngIf='errorMessage'>{{errorMessage}}
     </div>
   </div>
-</div>
-
-<script>
-  (function($) {
+  <script>
     $(document).ready(function() {
-      // Upon clicking the find button, show the find dropdown content
-      $(".btn-find").click(function() {
-        $(".find-pf-dropdown-container").toggle();
+      // Row Checkbox Selection
+      $("input[type='checkbox']").change(function(e) {
+        if ($(this).is(":checked")) {
+          $(this).closest('.list-group-item').addClass("active");
+        } else {
+          $(this).closest('.list-group-item').removeClass("active");
+        }
       });
-      // Upon clicking the find close button, hide the find dropdown content
-      $(".btn-find-close").click(function() {
-        $(".find-pf-dropdown-container").hide();
+      // toggle dropdown menu
+      $('.list-view-pf-actions').on('show.bs.dropdown', function() {
+        var $this = $(this);
+        var $dropdown = $this.find('.dropdown');
+        var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+        $dropdown.toggleClass('dropup', space < 10);
       });
-
     });
-  })(jQuery);
-</script>
+  </script>
 </div>
