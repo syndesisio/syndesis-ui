@@ -1,10 +1,12 @@
 import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { Integrations } from './integration.component';
+import { Dashboard } from './dashboard.component';
+import { TemplateService } from './+templates/template.service';
 
-describe('Integrations', () => {
+describe('Dashboard', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
@@ -19,15 +21,16 @@ describe('Integrations', () => {
           }
         }
       },
-      Integrations
+      Dashboard,
+      TemplateService
     ]
   }));
 
-  it('should log ngOnInit', inject([ Integrations ], (integrations) => {
+  it('should log ngOnInit', inject([ Dashboard ], (dashboard) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 
-    integrations.ngOnInit();
+    dashboard.ngOnInit();
     expect(console.log).toHaveBeenCalled();
   }));
 
