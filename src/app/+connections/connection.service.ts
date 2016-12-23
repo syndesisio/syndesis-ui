@@ -37,7 +37,7 @@ export class ConnectionService implements IConnectionService {
     connection.configuredProperties = (!connection.configuredProperties) ? {} : connection.configuredProperties;
     connection.icon = (!connection.icon) ? 'fa-rocket' : connection.icon;
     connection.description = (!connection.description) ? '' : connection.description;
-    connection.position = (connection.position) ? '' : connection.position;
+    connection.position = (!connection.position) ? '' : connection.position;
     connection.name = (!connection.name) ? '' : connection.name;
 
     /*
