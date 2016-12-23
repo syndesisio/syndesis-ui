@@ -81,7 +81,7 @@
                   <input type='text'
                          name='nameInput'
                          data-id='nameInput'
-                         placeholder='{{ name || existingConnection }}'
+                         placeholder='{{ name }}'
                          [(ngModel)]='name'
                          class='form-control'>
                 </div>
@@ -145,13 +145,13 @@
               </div>
               <div class='col-md-8'>
                 <div class='row'>
-                  <div class='col-md-10'>
+                  <div class='col-md-10' *ngIf='enabledFields'>
                     <h4>Set up connection form defaults
                       <span class='badge badge-default'>{{enabledFields.length}}</span>
                     </h4>
                   </div>
                   <div class='col-md-2'>
-                    <button class='btn btn-primary'
+                    <button class='btn btn-primary validate'
                             [disabled]='!enabledFields.length'
                             (click)='validateInputs()'>Validate
                     </button>
@@ -311,7 +311,7 @@
       </div>
       
       <div class="row row-cards-pf noComponents"
-           *ngIf="!components.length">
+           *ngIf="!components">
           <p>There are no Components available to create a Connection.</p>
       </div>
       

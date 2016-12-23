@@ -56,7 +56,7 @@ export class Library implements OnInit {
 
   duplicateConnection(connection: IConnection, $event: any): void {
     // Remove ID from Connection instance
-    connection.id = null;
+    //connection.id = undefined;
 
     this._connectionService.create(connection);
   }

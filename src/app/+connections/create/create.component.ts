@@ -71,6 +71,11 @@ export class Create implements OnInit, OnDestroy {
   ngOnInit(): void {
     log.debug('hello `Connections: Create` component');
 
+    // Get all components
+    this._componentService.getAll()
+      .subscribe(components => this.components = components,
+        error => this.error = <any>error);
+
     /*
     this.clearState();
 
@@ -89,12 +94,6 @@ export class Create implements OnInit, OnDestroy {
     }
     */
 
-    // Get all components
-    this._componentService.getAll()
-      .subscribe(components => this.components = components,
-        error => this.error = <any>error);
-
-    log.debug('this._route.params: ' + JSON.stringify(this._route.params['_value'].id));
   }
 
   ngOnDestroy() {}

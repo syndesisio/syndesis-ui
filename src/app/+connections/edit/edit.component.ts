@@ -16,7 +16,6 @@ let log = Logger.get('+connections/edit');
 
 const STATE_KEY = 'connection-edit-state';
 
-
 @Component({
   selector: 'connections-edit',
   styleUrls: [ 'edit.scss' ],
@@ -34,9 +33,9 @@ export class Edit implements OnInit, OnDestroy {
 
   // Connections
   connections: IConnection[];
-  //connection: IConnection;
-  @Input() connection: IConnection;
-  @Output() close = new EventEmitter();
+  connection: IConnection;
+  //@Input() connection: IConnection;
+  //@Output() connectionChanged = new EventEmitter<IConnection>();
 
   name: string;
   description: string;
@@ -68,17 +67,17 @@ export class Edit implements OnInit, OnDestroy {
               private _connectionService: ConnectionService,
               private _route: ActivatedRoute,
               private _router: Router,
-              private _state: AppState) {}
+              private _state: AppState) {
+    this.error = '';
+  }
 
   ngOnInit(): void {
     log.debug('hello `Connections: Edit` component');
 
     // Check if there are existing params. If so, do a lookup.
+    /*
     if(this._route.params['_value'].id) {
-      // Get all components
-      this._componentService.getAll()
-        .subscribe(components => this.components = components,
-          error => this.error = <any>error);
+      log.debug('this._route.params: ' + JSON.stringify(this._route.params['_value'].id));
 
       this.sub = this._route.params.subscribe(
         params => {
@@ -88,23 +87,22 @@ export class Edit implements OnInit, OnDestroy {
             function(connection) {
               log.debug('Connection: ' + JSON.stringify(connection));
               log.debug('connection.name: ' + connection.name);
-
               // Map to Angular models as if new Connection
-              this.connection = connection;
-              this.name = connection.name;
-              this.description = connection.description;
-              this.tags = connection.tags;
-
-              console.log('this.name: ' + this.name);
+              log.debug('this.name: ' + this.name);
+              log.debug('this.connection: ' + JSON.stringify(this.connection));
             },
             error => this.error = <any>error);
         });
     }
+    */
+
+    // Get all components
+    this._componentService.getAll()
+      .subscribe(components => this.components = components,
+        error => this.error = <any>error);
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   // View helpers
   fieldAvailable(field) {

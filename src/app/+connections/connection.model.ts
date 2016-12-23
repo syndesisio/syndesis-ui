@@ -9,7 +9,6 @@ export class IConnection {
   modifiedOn: Date;
   name: string;
   position: string;
-  tags: any;
   type: string;
 
   constructor() {
@@ -23,7 +22,6 @@ export class IConnection {
     this.modifiedOn = new Date();
     this.name = '';
     this.position = '';
-    this.tags = [];
     this.type = '';
   }
 }
