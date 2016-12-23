@@ -31,12 +31,22 @@ export class ConnectionService implements IConnectionService {
    * @return {Observable<Connection>} - Returns an Observable.
    */
   create(connection: IConnection): Observable<IConnection> {
+    log.debug('Connection: ' + JSON.stringify(connection));
+
     // Check for required properties
     connection.configuredProperties = (!connection.configuredProperties) ? {} : connection.configuredProperties;
     connection.icon = (!connection.icon) ? 'fa-rocket' : connection.icon;
-    connection.description = (!connection.description) ? 'Math.random().toString(36).substring(7);' : connection.description;
-    connection.position = (!connection.position) ? Math.random().toString(36).substring(7) : connection.position;
+    connection.description = (!connection.description) ? '' : connection.description;
+    connection.position = (connection.position) ? '' : connection.position;
+    connection.name = (!connection.name) ? '' : connection.name;
+
+    /*
+    connection.description = (!connection.description) ? Math.random().toString(36).substring(7) : connection.description;
+    connection.position = (connection.position) ? Math.random().toString(36).substring(7) : connection.position;
     connection.name = (!connection.name) ? this.randomCharacter() : connection.name;
+    */
+
+    log.debug('Connection: ' + JSON.stringify(connection));
 
     // Prepare request
     let body = JSON.stringify(connection);
