@@ -21,8 +21,7 @@ export class Detail implements OnInit, OnDestroy {
   @Input() connection: IConnection;
   @Output() close = new EventEmitter();
 
-  error: any;
-
+  private error: any;
   private sub: Subscription;
 
   /**

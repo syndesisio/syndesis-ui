@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {inject, TestBed} from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import {Templates} from './templates.component';
+import {Templates} from './template.component';
 
 describe('Templates', () => {
     // provide our implementations or mocks to the dependency injector

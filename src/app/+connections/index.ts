@@ -17,21 +17,22 @@ import { Library } from './library/library.component';
 import { Truncate } from '../common/pipes/truncate';
 import { ComponentFilter } from './component.pipe';
 import { ConnectionFilter } from './connection.pipe';
-import { FieldFilter } from './field.pipe';
+import { FieldFilter } from '../common/pipes/field.pipe';
 import { OrderBy } from '../common/pipes/orderBy';
 
 Logger.get('+Connections').debug('`Connections` bundle loaded asynchronously');
 
-// async components must be named routes for WebpackAsyncRoute
+// Async components must be named routes for WebpackAsyncRoute
 const routes = [
   {
     path: '',
     component: Connections,
     children: [
-      {path: '', component: Library},
-      {path: 'create', component: Create},
-      {path: 'edit/:id', component: Edit},
-      {path: 'detail/:id', component: Detail}
+      { path: '', component: Library },
+      { path: 'create', component: Create },
+      { path: 'create/:id', component: Create },
+      { path: 'edit/:id', component: Edit },
+      { path: 'detail/:id', component: Detail }
     ]
   }
 ];

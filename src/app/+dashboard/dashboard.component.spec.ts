@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { Connections } from './connection.component';
+import { Dashboard } from './dashboard.component';
+import { TemplateService } from './+templates/template.service';
 
-describe('Connections', () => {
+describe('Dashboard', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
@@ -20,15 +21,16 @@ describe('Connections', () => {
           }
         }
       },
-      Connections
+      Dashboard,
+      TemplateService
     ]
   }));
 
-  it('should log ngOnInit', inject([ Connections ], (connections) => {
+  it('should log ngOnInit', inject([ Dashboard ], (dashboard) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 
-    connections.ngOnInit();
+    dashboard.ngOnInit();
     expect(console.log).toHaveBeenCalled();
   }));
 

@@ -25,13 +25,30 @@ export class ConnectionService implements IConnectionService {
     this.baseUrl = _appState.state.apiEndpoint;
   }
 
-
   /**
    * Creates a Connection using data provided by the user.
    * @param connection - Connection
    * @return {Observable<Connection>} - Returns an Observable.
    */
   create(connection: IConnection): Observable<IConnection> {
+    log.debug('Connection: ' + JSON.stringify(connection));
+
+    // Check for required properties
+    connection.configuredProperties = (!connection.configuredProperties) ? {} : connection.configuredProperties;
+    connection.icon = (!connection.icon) ? 'fa-rocket' : connection.icon;
+    connection.description = (!connection.description) ? '' : connection.description;
+    connection.position = (!connection.position) ? '' : connection.position;
+    connection.name = (!connection.name) ? '' : connection.name;
+
+    /*
+    connection.description = (!connection.description) ? Math.random().toString(36).substring(7) : connection.description;
+    connection.position = (connection.position) ? Math.random().toString(36).substring(7) : connection.position;
+    connection.name = (!connection.name) ? this.randomCharacter() : connection.name;
+    */
+
+    log.debug('Connection: ' + JSON.stringify(connection));
+
+    // Prepare request
     let body = JSON.stringify(connection);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -47,7 +64,7 @@ export class ConnectionService implements IConnectionService {
    */
   del(id: number): Observable<void> {
     return this._http.delete(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]>response.json())
+      .map((response: Response) => <IConnection>response.json())
       .do(data => log.debug('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };
@@ -61,7 +78,7 @@ export class ConnectionService implements IConnectionService {
   get(id: number): Observable<IConnection> {
     return this._http.get(this.baseUrl + '/connections/' + id)
       .map((response: Response) => <IConnection> response.json())
-      .do(function(data) {
+      .do(function (data) {
         log.debug('Response: ' + JSON.stringify(data));
 
         if (data.configuredProperties) {
@@ -79,7 +96,10 @@ export class ConnectionService implements IConnectionService {
   getAll(): Observable<IConnection[]> {
     return this._http.get(this.baseUrl + '/connections')
       .map((response: Response) => <IConnection[]>response.json())
-      .do(data => log.debug('All: ' + JSON.stringify(data)))
+      //.do(data => log.debug('All: ' + JSON.stringify(data)))
+      .do(function (data) {
+        //log.debug('All: ' + JSON.stringify(data));
+      })
       .catch(this.handleError);
   }
 
@@ -105,7 +125,7 @@ export class ConnectionService implements IConnectionService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.put(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.put(this.baseUrl + '/connections/' + connection.id, body, options).map(this.extractData).catch(this.handleError);
   };
 
 
@@ -126,6 +146,11 @@ export class ConnectionService implements IConnectionService {
     console.error(errMsg); // log to console instead
 
     return Observable.throw(errMsg);
+  };
+
+  private randomCharacter() {
+    let chars = 'abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
+    return chars.substr( Math.floor(Math.random() * 62), 1);
   };
 
 }

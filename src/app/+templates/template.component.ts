@@ -2,15 +2,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Logger } from '../common/service/log';
 
-let log = Logger.get('+connections');
+let log = Logger.get('+templates');
 
 @Component({
-  selector: 'connections',
+  selector: 'templates',
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `<router-outlet></router-outlet>`
 })
-export class Connections implements OnInit {
+export class Templates implements OnInit {
 
   /**
    * Constructor.
@@ -19,7 +19,7 @@ export class Connections implements OnInit {
   }
 
   ngOnInit() {
-    log.debug('hello `Connections` component');
+    log.debug('hello `Templates` component');
   }
 
 }

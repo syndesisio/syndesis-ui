@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router'
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../app.service';
+import { Subscription } from 'rxjs/Subscription';
 
 // Components
 import { IComponent } from '../component.model';
@@ -23,44 +23,62 @@ const STATE_KEY = 'connection-create-state';
   providers: [ ComponentService, ConnectionService ]
 })
 export class Create implements OnInit, OnDestroy {
+
   limit = 60;
   trail = '..';
 
   currentStep = 1;
   listFilter: string;
   fieldListFilter: string;
-  errorMessage: string;
+
+  // Connections
+  connections: IConnection[];
+  connection: IConnection;
 
   name: string;
   description: string;
   tags: string;
   defaults = {};
 
-  connections: IConnection[];
-  connection: IConnection;
-
+  // Components
   components: IComponent[];
   selectedComponent: IComponent;
+
   availableFields = [];
   enabledFields = [];
   showForm = false;
   showValidationMessage = false;
 
+  submitted: boolean;
+
+  private error: string;
+  private sub: Subscription;
+
   /**
    * Constructor.
    * @param _componentService - ComponentService
    * @param _connectionService - ConnectionService
+   * @param _route - ActivatedRoute,
    * @param _router - Router
    * @param _state - AppState
    */
   constructor(private _componentService: ComponentService,
               private _connectionService: ConnectionService,
+              private _route: ActivatedRoute,
               private _router: Router,
               private _state: AppState) {
+    this.error = '';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     log.debug('hello `Connections: Create` component');
+
+    // Get all components
+    this._componentService.getAll()
+      .subscribe(components => this.components = components,
+        error => this.error = <any>error);
+
+    this.submitted = false;
 
     /*
     this.clearState();
@@ -80,25 +98,10 @@ export class Create implements OnInit, OnDestroy {
     }
     */
 
-    this._componentService.getAll()
-      .subscribe(components => this.components = components,
-        error => this.errorMessage = <any>error);
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
-  // Components
-  getComponents() {
-    this._componentService.getAll();
-    //console.log('Components: ' + JSON.stringify(this.components));
-  }
-
-  // Connections
-  getConnections() {
-    this._connectionService.getAll();
-    //console.log('Connections: ' + JSON.stringify(this.connection));
-  }
 
   // View helpers
   fieldAvailable(field) {
@@ -174,16 +177,21 @@ export class Create implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  // Field Actions
+
+  addField(field) {
+    this.enabledFields.push(field);
+    this.toggleForm();
+  }
+
   removeField(field) {
     _.remove(this.enabledFields, (f) => f.id == field.id);
 
     this.toggleForm();
   }
 
-  addField(field) {
-    this.enabledFields.push(field);
-    this.toggleForm();
-  }
+
+  // Move Fields
 
   move(from, to) {
     this.enabledFields.splice(to, 0, this.enabledFields.splice(from, 1)[ 0 ]);
@@ -202,6 +210,9 @@ export class Create implements OnInit, OnDestroy {
     this.move(index, index + 1);
     this.toggleForm();
   }
+
+
+  // Select Component
 
   selectComponent(component) {
     this.selectedComponent = component;
@@ -249,16 +260,22 @@ export class Create implements OnInit, OnDestroy {
       icon: this.selectedComponent.icon,
       configuredProperties: JSON.stringify(this.enabledFields)
     };
-    
+
     // TODO need a 'deploying' page state while this executes
     this._connectionService.create(connection).subscribe((resp) => {
       //this.clearState();
+      log.debug('Response: ' + JSON.stringify(resp));
 
       // Add Toast notification here
+      this.submitted = true;
 
-      this._router.navigate([ '/connections' ]);
+      setTimeout(() => {
+        this.submitted = false;
+
+        this._router.navigate([ '/connections' ]);
+      }, 10000000);
     }, (error) => {
-      console.log('Failed to create connection: ', error);
+      log.debug('Failed to create connection: ', error);
     });
   }
 

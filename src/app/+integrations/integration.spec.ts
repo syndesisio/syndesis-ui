@@ -1,11 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { Connections } from './connection.component';
+import { Integrations } from './integration.component';
 
-describe('Connections', () => {
+describe('Integrations', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
@@ -20,15 +19,15 @@ describe('Connections', () => {
           }
         }
       },
-      Connections
+      Integrations
     ]
   }));
 
-  it('should log ngOnInit', inject([ Connections ], (connections) => {
+  it('should log ngOnInit', inject([ Integrations ], (integrations) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 
-    connections.ngOnInit();
+    integrations.ngOnInit();
     expect(console.log).toHaveBeenCalled();
   }));
 

@@ -1,4 +1,4 @@
-<div class="connections library">
+<div class="templates list">
   
   <!-- Toolbar -->
   
@@ -54,8 +54,7 @@
         </div>
         <div class="toolbar-pf-action-right">
           <button type="button"
-                  class="btn btn-primary dropdown-toggle"
-                  [routerLink]="['create']">Create
+                  class="btn btn-primary dropdown-toggle">Create
           </button>
         </div>
       </div>
@@ -66,10 +65,10 @@
   <div class="container-cards-pf">
     <div class="row row-cards-pf">
       
-      <!-- Connection Card -->
+      <!-- Template Card -->
       
       <div class="col-xs-12 col-sm-3 col-md-2 card"
-           *ngFor="let connection of connections | connectionFilter: listFilter | orderBy : ['name', 'type']">
+           *ngFor="let template of templates | templateFilter: listFilter">
         <div class="card-pf card-pf-view card-pf-view-xs">
           <div class="card-pf-body">
             
@@ -85,16 +84,16 @@
                 <ul class="dropdown-menu dropdown-menu-right"
                     role="menu">
                   <li>
-                    <a [routerLink]="['detail', connection.id]">View</a>
+                    <a>View</a>
                   </li>
                   <li>
-                    <a [routerLink]="['edit', connection.id]">Edit</a>
+                    <a>Edit</a>
                   </li>
                   <li>
-                    <a (click)="duplicateConnection(connection.id, $event)">Duplicate</a>
+                    <a>Duplicate</a>
                   </li>
                   <li>
-                    <a (click)="deleteConnection(connection.id, $event)">Delete</a>
+                    <a>Delete</a>
                   </li>
                 </ul>
               </div>
@@ -102,17 +101,15 @@
               <!-- Card Title & Icon -->
               
               <h2 class="card-pf-title">
-                <span class="fa {{ connection.icon }}"></span>
+                <span class="fa {{ template.icon }}"></span>
               </h2>
-              <div (click)="gotoDetail(connection, $event)"
-                   class="card-title">{{ connection.name | truncate:'12':'' }}
+              <div class="card-title">{{ template.name }}
               </div>
             </div>
             
             <!-- Card Description -->
             
-            <p (click)="gotoDetail(connection, $event)">
-              {{ connection.description | truncate:limit:trail }} </p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
           </div>
         </div>
       </div>

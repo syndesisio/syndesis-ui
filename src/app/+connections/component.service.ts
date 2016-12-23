@@ -74,7 +74,10 @@ export class ComponentService {
   getAll(): Observable<IComponent[]> {
     return this._http.get(this.baseUrl + '/components')
       .map((response: Response) => <IComponent[]> response.json())
-      .do(data => console.log('All: ' +  JSON.stringify(data)))
+      //.do(data => console.log('All: ' +  JSON.stringify(data)))
+      .do(function(data) {
+        //log.debug('All: ' + JSON.stringify(data));
+      })
       .catch(this.handleError);
   }
 
@@ -100,7 +103,7 @@ export class ComponentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.put(this.baseUrl, body, options).map(this.extractData).catch(this.handleError);
+    return this._http.put(this.baseUrl + '/components/' + component.id, body, options).map(this.extractData).catch(this.handleError);
   };
 
 

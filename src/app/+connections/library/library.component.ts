@@ -48,13 +48,15 @@ export class Library implements OnInit {
         error => this.errorMessage = <any>error);
   }
 
-  deleteConnection(connection: IConnection, $event: any): void {
-    this._connectionService.del(connection.id);
+  deleteConnection(id: number, $event: any): void {
+    log.debug('Deleting: ' + JSON.stringify(id));
+
+    this._connectionService.del(id);
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {
     // Remove ID from Connection instance
-    connection.id = null;
+    //connection.id = undefined;
 
     this._connectionService.create(connection);
   }
@@ -62,9 +64,11 @@ export class Library implements OnInit {
   editConnection(connection: IConnection, $event: any): void {
     //log.debug('Connection: ', connection);
 
-    let link = [ 'connections', 'edit', connection.name.toLowerCase() ];
+    if(connection && connection.name) {
+      let link = [ 'connections', 'edit', connection.id ];
 
-    this._router.navigate(link);
+      this._router.navigate(link);
+    }
   }
 
   goBack(): void {
@@ -84,7 +88,6 @@ export class Library implements OnInit {
 
     log.debug('Connection: ', connection);
 
-    //let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
     let link = [ 'connections', 'detail', connection.id ];
 
     this._router.navigate(link);
