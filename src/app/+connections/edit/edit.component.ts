@@ -93,6 +93,7 @@ export class Edit implements OnInit, OnDestroy {
               this.connection = connection;
               this.name = connection.name;
               this.description = connection.description;
+              this.tags = connection.tags;
 
               console.log('this.name: ' + this.name);
             },

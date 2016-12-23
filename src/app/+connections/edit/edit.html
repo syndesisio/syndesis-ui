@@ -73,8 +73,7 @@
             <form class='form-horizontal'>
               <!-- replacing id with data-id to pass build errors -->
               <div class='form-group required'>
-                <label class='col-sm-4 control-label'
-                       for='nameInput'>Connection Name&nbsp;
+                <label class='col-sm-4 control-label'>Connection Name&nbsp;
                   <span style='color: red'>*
                             </span>
                 </label>
@@ -82,14 +81,13 @@
                   <input type='text'
                          name='nameInput'
                          data-id='nameInput'
-                         placeholder='{{ name || existingConnection }}'
+                         placeholder='{{ name }}'
                          [(ngModel)]='name'
                          class='form-control'>
                 </div>
               </div>
               <div class='form-group'>
-                <label class='col-sm-4 control-label'
-                       for='descriptionInput'>Description&nbsp;
+                <label class='col-sm-4 control-label'>Description&nbsp;
                   <span style='color: red'>*</span>
                 </label>
                 <div class='col-sm-8'>
@@ -101,8 +99,7 @@
                 </div>
               </div>
               <div class='form-group required'>
-                <label class='col-sm-4 control-label'
-                       for='tagsInput'>Tag(s)</label>
+                <label class='col-sm-4 control-label'>Tag(s)</label>
                 <div class='col-sm-8'>
                   <input type='text'
                          name='tagsInput'
@@ -260,7 +257,6 @@
                      for='filter'>Select Connection Type&nbsp;</label>
               <input type='text'
                      class='form-control'
-                     id='filter'
                      [(ngModel)]='listFilter'
                      name='name'
                      placeholder='Filter By Name...'>
