@@ -64,7 +64,7 @@ export class ConnectionService implements IConnectionService {
    */
   del(id: number): Observable<void> {
     return this._http.delete(this.baseUrl + '/connections/' + id)
-      .map((response: Response) => <IConnection[]>response.json())
+      //.map((response: Response) => <IConnection>response.json())
       .do(data => log.debug('Response: ' + JSON.stringify(data)))
       .catch(this.handleError);
   };

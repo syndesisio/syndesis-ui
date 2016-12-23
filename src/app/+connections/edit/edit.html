@@ -359,6 +359,7 @@
     <button type='button'
             *ngIf='currentStep !== 3'
             class='btn btn-primary wizard-pf-next'
+            [disabled]='!selectedComponent'
             (click)='nextStep(currentStep, $event)'>
       Next
       <span class='i fa fa-angle-right'></span>

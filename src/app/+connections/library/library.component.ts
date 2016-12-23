@@ -48,8 +48,10 @@ export class Library implements OnInit {
         error => this.errorMessage = <any>error);
   }
 
-  deleteConnection(connection: IConnection, $event: any): void {
-    this._connectionService.del(connection.id);
+  deleteConnection(id: number, $event: any): void {
+    log.debug('Deleting: ' + JSON.stringify(id));
+
+    this._connectionService.del(id);
   }
 
   duplicateConnection(connection: IConnection, $event: any): void {

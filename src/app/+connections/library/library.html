@@ -91,10 +91,10 @@
                     <a [routerLink]="['edit', connection.id]">Edit</a>
                   </li>
                   <li>
-                    <a (click)="duplicateConnection(connection, $event)">Duplicate</a>
+                    <a (click)="duplicateConnection(connection.id, $event)">Duplicate</a>
                   </li>
                   <li>
-                    <a (click)="deleteConnection(connection, $event)">Delete</a>
+                    <a (click)="deleteConnection(connection.id, $event)">Delete</a>
                   </li>
                 </ul>
               </div>
