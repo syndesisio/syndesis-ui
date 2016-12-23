@@ -25,13 +25,20 @@ export class ConnectionService implements IConnectionService {
     this.baseUrl = _appState.state.apiEndpoint;
   }
 
-
   /**
    * Creates a Connection using data provided by the user.
    * @param connection - Connection
    * @return {Observable<Connection>} - Returns an Observable.
    */
   create(connection: IConnection): Observable<IConnection> {
+    // Check for required properties
+    connection.configuredProperties = (!connection.configuredProperties) ? {} : connection.configuredProperties;
+    connection.icon = (!connection.icon) ? 'fa-rocket' : connection.icon;
+    connection.description = (!connection.description) ? 'Math.random().toString(36).substring(7);' : connection.description;
+    connection.position = (!connection.position) ? Math.random().toString(36).substring(7) : connection.position;
+    connection.name = (!connection.name) ? this.randomCharacter() : connection.name;
+
+    // Prepare request
     let body = JSON.stringify(connection);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -129,6 +136,11 @@ export class ConnectionService implements IConnectionService {
     console.error(errMsg); // log to console instead
 
     return Observable.throw(errMsg);
+  };
+
+  private randomCharacter() {
+    let chars = 'abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
+    return chars.substr( Math.floor(Math.random() * 62), 1);
   };
 
 }
