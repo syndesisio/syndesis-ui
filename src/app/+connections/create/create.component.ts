@@ -273,7 +273,7 @@ export class Create implements OnInit, OnDestroy {
         this.submitted = false;
 
         this._router.navigate([ '/connections' ]);
-      }, 1000);
+      }, 10000000);
     }, (error) => {
       log.debug('Failed to create connection: ', error);
     });

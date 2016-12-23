@@ -51,7 +51,7 @@ div.connections.create {
     }
 
     .wizard-pf-main {
-      padding-bottom: 100px;
+      padding-bottom: 35px;
     }
   }
 
@@ -71,6 +71,10 @@ div.connections.create {
     bottom: 0;
     right: 0;
     left: 200px;
+  }
+
+  .alert.alert-success.alert-dismissable {
+    margin-top: 20px;
   }
 
   .validate {

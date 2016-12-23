@@ -145,7 +145,8 @@
               </div>
               <div class='col-md-8'>
                 <div class='row'>
-                  <div class='col-md-10' *ngIf='enabledFields'>
+                  <div class='col-md-10'
+                       *ngIf='enabledFields'>
                     <h4>Set up connection form defaults
                       <span class='badge badge-default'>{{enabledFields.length}}</span>
                     </h4>
@@ -228,24 +229,39 @@
               
               </div>
               <div class='col-md-9'>
-                <h3>Connection Fields</h3>
-                <form #f='ngForm'>
-                  <div class='row'
-                       *ngFor='let field of enabledFields'>
-                    <form-property-field [form]='f.form'
-                                         [field]='field'
-                                         [entity]='defaults'></form-property-field>
+                <div class='card'>
+                  <div class='card-pf card-pf-view card-pf-view-xs'>
+                    <div class='card-pf-body'>
+                      <div class='card-pf-heading'>
+                        <h3>Connection Fields</h3>
+                      </div>
+                      <
+                      <form #f='ngForm'>
+                        <div class='row'
+                             *ngFor='let field of enabledFields'>
+                          <form-property-field [form]='f.form'
+                                               [field]='field'
+                                               [entity]='defaults'></form-property-field>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </form>
-  
-                <div class="alert alert-success alert-dismissable"
+                </div>
+                
+                <div class='alert alert-success alert-dismissable'
                      *ngIf='submitted === true'>
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    <span class="pficon pficon-close"></span>
+                  <button type='button'
+                          class='close'
+                          data-dismiss='alert'
+                          aria-hidden='true'>
+                    <span class='pficon pficon-close'></span>
                   </button>
-                  <span class="pficon pficon-ok"></span>
-                  <strong>Success!</strong> Your connection has been <a [routerLink]="['/connections']"
-                                                                        class="alert-link">created</a>.
+                  <span class='pficon pficon-ok'></span>
+                  <strong>Success!</strong> Your connection has been
+                  <a [routerLink]="['/connections']"
+                     class='alert-link'>created
+                  </a>
+                  .
                 </div>
               </div>
             </div>
@@ -320,9 +336,9 @@
         </div>
       </div>
       
-      <div class="row row-cards-pf noComponents"
-           *ngIf="!components">
-          <p>There are no Components available to create a Connection.</p>
+      <div class='row row-cards-pf noComponents'
+           *ngIf='!components'>
+        <p>There are no Components available to create a Connection.</p>
       </div>
       
       <div class='error'
