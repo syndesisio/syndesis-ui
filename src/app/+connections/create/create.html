@@ -237,6 +237,16 @@
                                          [entity]='defaults'></form-property-field>
                   </div>
                 </form>
+  
+                <div class="alert alert-success alert-dismissable"
+                     *ngIf='submitted === true'>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    <span class="pficon pficon-close"></span>
+                  </button>
+                  <span class="pficon pficon-ok"></span>
+                  <strong>Success!</strong> Your connection has been <a [routerLink]="['/connections']"
+                                                                        class="alert-link">created</a>.
+                </div>
               </div>
             </div>
           </div>

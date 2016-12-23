@@ -49,6 +49,8 @@ export class Create implements OnInit, OnDestroy {
   showForm = false;
   showValidationMessage = false;
 
+  submitted: boolean;
+
   private error: string;
   private sub: Subscription;
 
@@ -75,6 +77,8 @@ export class Create implements OnInit, OnDestroy {
     this._componentService.getAll()
       .subscribe(components => this.components = components,
         error => this.error = <any>error);
+
+    this.submitted = false;
 
     /*
     this.clearState();
@@ -263,8 +267,13 @@ export class Create implements OnInit, OnDestroy {
       log.debug('Response: ' + JSON.stringify(resp));
 
       // Add Toast notification here
+      this.submitted = true;
 
-      this._router.navigate([ '/connections' ]);
+      setTimeout(() => {
+        this.submitted = false;
+
+        this._router.navigate([ '/connections' ]);
+      }, 1000);
     }, (error) => {
       log.debug('Failed to create connection: ', error);
     });

@@ -5,29 +5,33 @@ import { RouterModule } from '@angular/router';
 
 import { Logger } from '../common/service/log';
 
-import { Dashboard } from './dashboard.component.ts';
+import { Dashboard } from './dashboard.component';
+import { TemplateFilter } from '../+templates/template.pipe';
 
 Logger.get('+Dashboard').debug('`Dashboard` bundle loaded asynchronously');
 
 // async components must be named routes for WebpackAsyncRoute
 const routes = [
-    {
-        path: '',
-        component: Dashboard
-    }
+  {
+    path: '',
+    component: Dashboard
+  }
 ];
 
 @NgModule({
-    declarations: [
-        Dashboard
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [
+    Dashboard,
+
+    // Pipes
+    TemplateFilter,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export default class DashboardModule {
-    static routes = routes;
+  static routes = routes;
 }
 
