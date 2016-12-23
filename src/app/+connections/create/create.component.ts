@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../app.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -24,8 +24,6 @@ const STATE_KEY = 'connection-create-state';
 })
 export class Create implements OnInit, OnDestroy {
 
-  //@Input() connection: IConnection;
-
   limit = 60;
   trail = '..';
 
@@ -33,16 +31,19 @@ export class Create implements OnInit, OnDestroy {
   listFilter: string;
   fieldListFilter: string;
 
+  // Connections
+  connections: IConnection[];
+  connection: IConnection;
+
   name: string;
   description: string;
   tags: string;
   defaults = {};
 
-  connections: IConnection[];
-  connection: IConnection;
-
+  // Components
   components: IComponent[];
   selectedComponent: IComponent;
+
   availableFields = [];
   enabledFields = [];
   showForm = false;
@@ -88,44 +89,12 @@ export class Create implements OnInit, OnDestroy {
     }
     */
 
-    // Check if there are existing params. If so, do a lookup.
-    if(this._route.params !== null) {
-      // Get all components
-      /*
-      this._componentService.getAll()
-        .subscribe(components => this.components = components,
-          error => this.error = <any>error);
-
-      this.sub = this._route.params.subscribe(
-        params => {
-          let id = +params['id'];
-          //this.getConnection(id);
-
-          this._connectionService.get(id).subscribe(
-            //connection => this.connection = connection,
-            function(connection) {
-              log.debug('Connection: ' + JSON.stringify(connection));
-              log.debug('connection.name: ' + connection.name);
-
-              // Map to Angular models as if new Connection
-              this.connection = connection;
-              this.name = connection.name;
-              this.description = connection.description;
-            },
-            error => this.error = <any>error);
-        });
-        */
-    } else {
-      // Get all components
-      this._componentService.getAll()
-        .subscribe(components => this.components = components,
-          error => this.error = <any>error);
-    }
-
     // Get all components
     this._componentService.getAll()
       .subscribe(components => this.components = components,
         error => this.error = <any>error);
+
+    log.debug('this._route.params: ' + JSON.stringify(this._route.params['_value'].id));
   }
 
   ngOnDestroy() {}
@@ -205,16 +174,21 @@ export class Create implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  // Field Actions
+
+  addField(field) {
+    this.enabledFields.push(field);
+    this.toggleForm();
+  }
+
   removeField(field) {
     _.remove(this.enabledFields, (f) => f.id == field.id);
 
     this.toggleForm();
   }
 
-  addField(field) {
-    this.enabledFields.push(field);
-    this.toggleForm();
-  }
+
+  // Move Fields
 
   move(from, to) {
     this.enabledFields.splice(to, 0, this.enabledFields.splice(from, 1)[ 0 ]);
@@ -233,6 +207,9 @@ export class Create implements OnInit, OnDestroy {
     this.move(index, index + 1);
     this.toggleForm();
   }
+
+
+  // Select Component
 
   selectComponent(component) {
     this.selectedComponent = component;

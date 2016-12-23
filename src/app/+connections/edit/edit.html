@@ -17,80 +17,98 @@
         </ol>
       </div>
     </div>
-  
-  
   </div>
   
   <div class='wizard-pf'>
     
-    <div class='wizard-pf'>
-      <div class='wizard-pf-body clearfix'>
-        
-        <!-- Wizard Progress Bar-->
-        <div class='wizard-pf-steps'><!-- hidden -->
-          <ul class='wizard-pf-steps-indicator'>
-            <li class='wizard-pf-step active'
-                data-tabgroup='1'>
-              <a>
-                <span class='wizard-pf-step-number'>1</span>
-                <span
-                    class='wizard-pf-step-title'>First Step</span>
-              </a>
-            </li>
-            <li class='wizard-pf-step'
-                data-tabgroup='2'>
-              <a>
-                <span class='wizard-pf-step-number'>2</span>
-                <span
-                    class='wizard-pf-step-title'>Second Step</span>
-              </a>
-            </li>
-            <li class='wizard-pf-step'
-                data-tabgroup='3'>
-              <a>
-                <span class='wizard-pf-step-number'>3</span>
-                <span
-                    class='wizard-pf-step-title'>Review</span>
-              </a>
-            </li>
-          </ul>
+    <div class='wizard-pf-body clearfix'>
+      
+      <!-- Wizard Progress Bar-->
+      <div class='wizard-pf-steps'><!-- hidden -->
+        <ul class='wizard-pf-steps-indicator'>
+          <li class='wizard-pf-step'
+              [class.active]='currentStep === 1'
+              data-tabgroup='1'>
+            <a>
+              <span class='wizard-pf-step-number'>1</span>
+              <span class='wizard-pf-step-title'>Define Connection Basics</span>
+            </a>
+          </li>
+          <li class='wizard-pf-step'
+              [class.active]='currentStep === 2'
+              data-tabgroup='2'>
+            <a>
+              <span class='wizard-pf-step-number'>2</span>
+              <span class='wizard-pf-step-title'>Select and Configure Fields</span>
+            </a>
+          </li>
+          <li class='wizard-pf-step'
+              [class.active]='currentStep === 3'
+              data-tabgroup='3'>
+            <a>
+              <span class='wizard-pf-step-number'>3</span>
+              <span class='wizard-pf-step-title'>Review</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Wizard Content -->
+      
+      <div class='wizard-pf-main row'>
+        <!-- Loading--
+        <div class="wizard-pf-loading blank-slate-pf">
+            <div class="spinner spinner-lg blank-slate-pf-icon"></div>
+            <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
+            <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
+                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
         </div>
+        -->
         
-        <!-- Wizard Content -->
         
-        <div class='wizard-pf-main'>
-          <!-- Loading--
-          <div class="wizard-pf-loading blank-slate-pf">
-              <div class="spinner spinner-lg blank-slate-pf-icon"></div>
-              <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
-              <p class="blank-slate-pf-secondary-action">Lorem ipsum dolor sit amet, porta at
-                  suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
-          </div>
-          -->
-          
-          
-          <!-- Step 1 -->
-          <div class='wizard-pf-contents'
-               [style.visibility]="currentStep === 1 ? '' : 'hidden'">
+        <!-- Step 1 -->
+        <div class='row'>
+          <div class='wizard-pf-contents col-xs-6'
+               *ngIf='currentStep === 1'>
             <form class='form-horizontal'>
               <!-- replacing id with data-id to pass build errors -->
               <div class='form-group required'>
-                <label class='col-sm-2 control-label'>Name</label>
-                <div class='col-sm-10'>
+                <label class='col-sm-4 control-label'
+                       for='nameInput'>Connection Name&nbsp;
+                  <span style='color: red'>*
+                            </span>
+                </label>
+                <div class='col-sm-8'>
                   <input type='text'
-                         [(ngModel)]='connection.name'
-                         data-id='textInput-markup'
+                         name='nameInput'
+                         data-id='nameInput'
+                         placeholder='{{ name || existingConnection }}'
+                         [(ngModel)]='name'
                          class='form-control'>
                 </div>
               </div>
               <div class='form-group'>
-                <label class='col-sm-2 control-label'>Description
-                  (Optional)</label>
-                <div class='col-sm-10'>
-                  <textarea data-id='descriptionInput-markup'
+                <label class='col-sm-4 control-label'
+                       for='descriptionInput'>Description&nbsp;
+                  <span style='color: red'>*</span>
+                </label>
+                <div class='col-sm-8'>
+                  <textarea data-id='descriptionInput'
+                            name='descriptionInput'
                             class='form-control'
-                            [(ngModel)]='connection.description'
+                            [(ngModel)]='description'
                             rows='2'></textarea>
+                </div>
+              </div>
+              <div class='form-group required'>
+                <label class='col-sm-4 control-label'
+                       for='tagsInput'>Tag(s)</label>
+                <div class='col-sm-8'>
+                  <input type='text'
+                         name='tagsInput'
+                         data-id='tagsInput'
+                         [(ngModel)]='tags'
+                         class='form-control'>
                 </div>
               </div>
             </form>
@@ -98,50 +116,132 @@
           
           <!-- Step 2 -->
           <div class='wizard-pf-contents'
-               [style.visibility]="currentStep === 2 ? '' : 'hidden'"><!-- hidden -->
-            <form class='form-horizontal'>
-              <div class='form-group required'>
-                <label class='col-sm-2 control-label'
-                       for='consectetur'>Consectetur</label>
-                <div class='col-sm-10'>
-                  <input type='text'
-                         id='consectetur'
-                         class='form-control'>
+               *ngIf='currentStep === 2'>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class='row'>
+                  <div class='col-md-7'>
+                    <h4>Select {{selectedComponent.name}} Fields</h4>
+                  </div>
+                  <div class='col-md-5'>
+                    <input type='text'
+                           class='form-control'
+                           id='filter'
+                           placeholder='Find by name...'
+                           [(ngModel)]='fieldListFilter'>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <ul class='list-group'>
+                      <li class='list-group-item'
+                          *ngFor='let field of availableFields | fieldFilter : fieldListFilter'
+                          (click)='addField(field)'>
+                        {{field.title}}
+                        <span *ngIf='fieldAvailable(field)'
+                              class='action-element pull-right'>
+                          <i class='fa fa-plus-circle fa-lg'></i>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div class='form-group'>
-                <label class='col-sm-2 control-label'
-                       for='adipiscing'>Adipiscing</label>
-                <div class='col-sm-10'>
-                  <textarea id='adipiscing'
-                            class='form-control'
-                            rows='2'></textarea>
+              <div class='col-md-8'>
+                <div class='row'>
+                  <div class='col-md-10'>
+                    <h4>Set up connection form defaults
+                      <span class='badge badge-default'>{{enabledFields.length}}</span>
+                    </h4>
+                  </div>
+                  <div class='col-md-2'>
+                    <button class='btn btn-primary'
+                            [disabled]='!enabledFields.length'
+                            (click)='validateInputs()'>Validate
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf='showValidationMessage'>
+                  <div class='alert alert-success'>
+                    <button type='button'
+                            class='close'
+                            (click)='showValidationMessage = false'>
+                      <span class='pficon pficon-close'></span>
+                    </button>
+                    <span class='pficon pficon-ok'></span>
+                    <strong>Success!</strong> The provided inputs validate successfully.
+                  </div>
+                </div>
+                <div *ngIf='!enabledFields.length'
+                     class='blank-slate-pf'>
+                  <div class='blank-slate-pf-icon'>
+                    <span class='fa fa-reply'></span>
+                  </div>
+                  <p>Add fields from the left that users will fill out when using this connection</p>
+                </div>
+                <div *ngIf='enableForm()'>
+                  <form #f='ngForm'>
+                    <div class='row'
+                         *ngFor='let field of enabledFields; let i = index'
+                         [attr.data-index]='i'>
+                      <div class='col-md-10'>
+                        <form-property-field [form]='f.form'
+                                             [field]='field'
+                                             [entity]='defaults'></form-property-field>
+                      </div>
+                      <div class='col-md-2'
+                           style='whitespace: nowrap'>
+                        <i [style.visible]='i !== 0'
+                           class='action-element fa fa-arrow-up fa-lg'
+                           (click)='moveUp(field)'></i> <i *ngIf='i !== enabledFields.length - 1'
+                                                           class='action-element fa fa-arrow-down fa-lg'
+                                                           (click)='moveDown(field)'></i>
+                        <i class='action-element fa fa-trash fa-lg'
+                           (click)='removeField(field)'></i>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
           
           <!-- Step 3 -->
-          <div class='wizard-pf-contents hidden'
-               [style.visibility]="currentStep === 3 ? '' : 'hidden'"><!-- hidden -->
-            <div class='wizard-pf-process blank-slate-pf'>
-              <div class='spinner spinner-lg blank-slate-pf-icon'></div>
-              <h3 class='blank-slate-pf-main-action'>Deployment in progress</h3>
-              <p class='blank-slate-pf-secondary-action'>Lorem ipsum dolor sit amet, porta at
-                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
-            </div>
-            <div class='wizard-pf-complete blank-slate-pf hidden'>
-              <div class='wizard-pf-success-icon'><span
-                  class='glyphicon glyphicon-ok-circle'></span>
+          <div class='row row-cards-pf'
+               *ngIf='currentStep === 3'>
+            <div class='row'>
+              <div class='col-md-3'>
+                <div class='card'>
+                  <div class='card-pf card-pf-view card-pf-view-xs'>
+                    <div class='card-pf-body'>
+                      <div class='card-pf-heading'>
+                        <h2 class='card-pf-title'>
+                          <span class='fa {{selectedComponent.icon}}'></span>
+                        </h2>
+                        <div class='card-title'>{{name}}</div>
+                      </div>
+                      <p>{{description}}</p>
+                      <p>
+                        <span *ngFor='let tag of getTags()'>
+                          <span class='label label-primary'>{{tag}}</span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              
               </div>
-              <h3 class='blank-slate-pf-main-action'>Deployment was successful</h3>
-              <p class='blank-slate-pf-secondary-action'>Lorem ipsum dolor sit amet, porta at
-                suspendisse ac, ut wisi vivamus, lorem sociosqu eget nunc amet. </p>
-              <button type='button'
-                      class='btn btn-lg btn-primary'>
-                View Deployment
-              </button>
-            
+              <div class='col-md-9'>
+                <h3>Connection Fields</h3>
+                <form #f='ngForm'>
+                  <div class='row'
+                       *ngFor='let field of enabledFields'>
+                    <form-property-field [form]='f.form'
+                                         [field]='field'
+                                         [entity]='defaults'></form-property-field>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -150,7 +250,8 @@
     
     
     <!-- Toolbar: Select Connection Type -->
-    <div class='row toolbar-pf type'>
+    <div class='row toolbar-pf type'
+         *ngIf='currentStep === 1'>
       <div class='col-xs-12'>
         <form class='toolbar-pf-actions'>
           <div class='form-group toolbar-pf-filter'>
@@ -193,23 +294,32 @@
     </div>
   </div>
   
-  <!-- List of Connections -->
-  <div>
-    <div class='row row-cards-pf'>
+  <!-- List of Components -->
+  <div *ngIf='currentStep === 1'>
+    <div class='row row-cards-pf components'>
       <div class='col-xs-12 col-sm-3 col-md-2 card'
-           *ngFor='let connection of connections | connectionFilter: listFilter'>
-        <div class='card-pf card-pf-view card-pf-view-xs'>
+           *ngFor='let component of components | componentFilter: listFilter'>
+        <div class='card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select'
+             [class.active]='component === selectedComponent'
+             (click)='selectComponent(component)'>
           <div class='card-pf-body'>
             <div class='card-pf-heading'>
               <h2 class='card-pf-title'>
-                <span class='fa {{ connection.icon }}'></span>
+                <span class='fa {{ component.icon }}'></span>
               </h2>
-              <div class='card-title'>{{ connection.name }}</div>
+              <div class='card-title'>{{ component.name | truncate:'14':'..' }}</div>
             </div>
-            <p>{{ connection.description | truncate:limit:trail }}</p>
+            <p>{{ component.description | truncate:limit:trail }}</p>
           </div>
         </div>
       </div>
+      
+      <!-- Cannot access components outside of ngFor
+      <div class="row row-cards-pf noComponents"
+           *ngIf="components.length <= 0">
+          <p>There are no Components available to edit a Connection.</p>
+      </div>
+      -->
       
       <div class='error'
            *ngIf='errorMessage'>{{errorMessage}}
@@ -237,7 +347,7 @@
   <!-- Wizard Footer -->
   <div class='wizard-pf-footer'>
     <button type='button'
-            (click)='cancelCreate(currentStep, $event)'
+            (click)='cancelEdit(currentStep, $event)'
             class='btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss'>Cancel
     </button>
     <button type='button'
@@ -255,11 +365,10 @@
     </button>
     <button type='button'
             *ngIf='currentStep === 3'
-            (click)='createConnection()'
+            (click)='editConnection()'
             class='btn btn-primary wizard-pf-finish'>
-      Create
+      Save
     </button>
   </div>
-
 
 </div>

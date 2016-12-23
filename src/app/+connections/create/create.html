@@ -82,7 +82,7 @@
                   <input type='text'
                          name='nameInput'
                          data-id='nameInput'
-                         placeholder='{{ name }}'
+                         placeholder='{{ name || existingConnection }}'
                          [(ngModel)]='name'
                          class='form-control'>
                 </div>
