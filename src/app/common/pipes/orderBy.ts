@@ -13,8 +13,10 @@ export class OrderBy implements PipeTransform {
 
     if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
       //Isn't a number so lowercase the string to properly compare
-      if (a.toLowerCase() < b.toLowerCase()) return -1;
-      if (a.toLowerCase() > b.toLowerCase()) return 1;
+      if (a && b) {
+        if (a.toLowerCase() < b.toLowerCase()) return -1;
+        if (a.toLowerCase() > b.toLowerCase()) return 1;
+      }
     }
     else {
       //Parse strings as numbers to compare properly
@@ -30,15 +32,15 @@ export class OrderBy implements PipeTransform {
     if (!Array.isArray(input)) return input;
 
     if (!Array.isArray(config) || (Array.isArray(config) && config.length == 1)) {
-      var propertyToCheck: string = !Array.isArray(config) ? config : config[ 0 ];
-      var desc = propertyToCheck.substr(0, 1) == '-';
+      let propertyToCheck: string = !Array.isArray(config) ? config : config[ 0 ];
+      let desc = propertyToCheck.substr(0, 1) == '-';
 
       //Basic array
       if (!propertyToCheck || propertyToCheck == '-' || propertyToCheck == '+') {
         return !desc ? input.sort() : input.sort().reverse();
       }
       else {
-        var property: string = propertyToCheck.substr(0, 1) == '+' || propertyToCheck.substr(0, 1) == '-'
+        let property: string = propertyToCheck.substr(0, 1) == '+' || propertyToCheck.substr(0, 1) == '-'
           ? propertyToCheck.substr(1)
           : propertyToCheck;
 

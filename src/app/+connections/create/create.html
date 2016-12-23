@@ -310,12 +310,10 @@
         </div>
       </div>
       
-      <!-- Cannot access components outside of ngFor
       <div class="row row-cards-pf noComponents"
-           *ngIf="components.length <= 0">
+           *ngIf="!components.length">
           <p>There are no Components available to create a Connection.</p>
       </div>
-      -->
       
       <div class='error'
            *ngIf='errorMessage'>{{errorMessage}}
