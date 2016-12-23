@@ -62,9 +62,11 @@ export class Library implements OnInit {
   editConnection(connection: IConnection, $event: any): void {
     //log.debug('Connection: ', connection);
 
-    let link = [ 'connections', 'edit', connection.name.toLowerCase() ];
+    if(connection && connection.name) {
+      let link = [ 'connections', 'edit', connection.id ];
 
-    this._router.navigate(link);
+      this._router.navigate(link);
+    }
   }
 
   goBack(): void {
@@ -84,7 +86,6 @@ export class Library implements OnInit {
 
     log.debug('Connection: ', connection);
 
-    //let link = [ 'connections', 'detail', connection.name.toLowerCase() ];
     let link = [ 'connections', 'detail', connection.id ];
 
     this._router.navigate(link);
