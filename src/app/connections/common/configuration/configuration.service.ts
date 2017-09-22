@@ -12,7 +12,6 @@ export class ConnectionConfigurationService {
     switch (id) {
       case 'salesforce':
       case 'twitter':
-      case 'sql-stored-connector':
         return true;
     }
     return false;
