@@ -80,9 +80,8 @@ $ yarn start:minishift
 Open the Syndesis UI in your browser from the command line by running:
 
 ```bash
-# To connect with Syndesis backend you don't have to use http://localhost:4200 url.
+# To connect with Syndesis backend you don't have to use https://0.0.0.0:4200 url.
 # The url has a structure similar to http://syndesis-ui-default.192.168.42.205.nip.io
-
 # You can try to obtain it directly from Minishift configuration with one of the following commands.
 
 # on macOS
@@ -102,6 +101,7 @@ If you are having issues with Minishift, you can also use `https://0.0.0.0:4200/
 In a separate tab, you might want to run unit tests and lint checks as you code. See below for more information on how to do that.
 
 ### Day-to-Day Workflow
+Everyone's workflow is different on a day-to-day basis, so these are mostly to give you an idea of what a normal workflow might look like:
 
 ```bash
 # Start up Minishift
@@ -120,6 +120,8 @@ $ eval $(minishift docker-env)
 $ yarn start:minishift
 ```
 
+Some developers may choose to keep Minishift running on their desktops, so in that case you'd likely skip the first step and instead do `minishift status` to check to see if it's still running before proceeding to the next step.
+
 Follow the instructions above for opening the Syndesis UI in your browser.
 
 At the end of the day you might want to stop Minishift:
@@ -131,14 +133,13 @@ At the end of the day you might want to stop Minishift:
 Included in this stack are the following technologies:
 
 * Language: [TypeScript](http://www.typescriptlang.org) (JavaScript with @Types)
-* Framework: [Angular 2](https://angular.io/)
+* Framework: [Angular](https://angular.io/)
 * Module Bundler: [Angular CLI](https://cli.angular.io)
 * Design Patterns: [PatternFly](https://www.patternfly.org/)
 * Testing: [Cucumber.js](https://cucumber.io/) (BDD Unit Test Framework), [Karma](https://karma-runner.github.io/1.0/index.html) (Unit Test Runner), [Istanbul](https://github.com/gotwarlost/istanbul) (Code Coverage)
 * Linting: [TsLint](https://github.com/palantir/tslint) (Linting for TypeScript)
 * Logging: [typescript-logging](https://github.com/mreuvers/typescript-logging) (TypeScript Logging)
 * Code Analysis: [Codelyzer](https://github.com/mgechev/codelyzer) (TsLint rules for static code analysis of Angular 2 TypeScript projects)
-* Charts: [ng2-charts](https://github.com/valor-software/ng2-charts) (Data Visualization)
 
 ### File Structure
 
