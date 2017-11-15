@@ -55,10 +55,9 @@ Profile:    minishift
 OpenShift:  Running (openshift v3.6.0+c4dd4cf)
 DiskUsage:  11% of 17.9G
 
-# Log into OpenShift
-# Username: developer
+# Log into OpenShift with developer account
 # Password: whatever you like
-$ oc login
+$ oc login -u developer
 
 # Set environment variables to point to Minishift resources:
 $ eval $(minishift oc-env)
