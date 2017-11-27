@@ -1,3 +1,10 @@
+---------
+# Repos moved
+
+**This repository is not longer active and has been moved to https://github.com/syndesisio/syndesis (code & issues)**
+
+----------
+
 # Syndesis UI
 
 [![CircleCI](https://circleci.com/gh/syndesisio/syndesis-ui.svg?style=svg)](https://circleci.com/gh/syndesisio/syndesis-ui) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
